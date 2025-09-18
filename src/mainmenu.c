@@ -1,17 +1,16 @@
 #include "cprocessing.h"
 #include "game.h"
-#include "utils.h"
 #include <stdio.h>
 
 CP_Font mainmenu_TEXT;
 int textSize;
-float width = 100;
-float height = 100;
+
 float mouseX, mouseY;
 float playButtonX, playButtonY; 
 float exitButtonX, exitButtonY; 
 float buttonWidth, buttonHeight;
-char debug_text[100];
+float TextWidth, TextHeight;
+
 
 void Main_Menu_Init(void)
 {
@@ -19,19 +18,21 @@ void Main_Menu_Init(void)
 	textSize = 80;
 	buttonWidth = 300.0f;
 	buttonHeight = 150.0f;
+	TextWidth = 100, TextHeight = 100;
+
 	CP_Settings_TextSize(textSize);
 	 
 }
 
 void Main_Menu_Update(void)
 {
-	playButtonX = (float)(CP_System_GetWindowWidth() / 2 - 40);
-	playButtonY = (float)(CP_System_GetWindowHeight() / 2 - 210);
-	exitButtonX = (float)(CP_System_GetWindowWidth() / 2 - 40);
-	exitButtonY = (float)(CP_System_GetWindowHeight() / 2 + 190);
-	float mouseX = (float)CP_Input_GetMouseX();
-	float mouseY = (float)CP_Input_GetMouseY();
-	sprintf_s(debug_text, 100, "Mouse: %.1f, %.1f", mouseX, mouseY);
+	playButtonX = (float)(CP_System_GetWindowWidth() / 2);
+	playButtonY = (float)(CP_System_GetWindowHeight() / 2-200);
+	exitButtonX = (float)(CP_System_GetWindowWidth() / 2);
+	exitButtonY = (float)(CP_System_GetWindowHeight() / 2+200);
+	mouseX = (float)CP_Input_GetMouseX();
+	mouseY = (float)CP_Input_GetMouseY();
+
 	CP_Font_Set(mainmenu_TEXT);
 	CP_Graphics_ClearBackground(CP_Color_Create(85, 85, 85, 255));
 
@@ -44,17 +45,31 @@ void Main_Menu_Update(void)
 	CP_Graphics_DrawRect(exitButtonX, exitButtonY, buttonWidth, buttonHeight);
 
 	CP_Settings_Fill(CP_Color_Create(0,0,0, 255));
-	CP_Font_DrawText("Play", (float)CP_System_GetWindowWidth()/2 -100, (float)CP_System_GetWindowHeight()/2 -200);
-	CP_Font_DrawText("Exit", (float)CP_System_GetWindowWidth()/2-100, (float)CP_System_GetWindowHeight()/2 +200);	
+	CP_Font_DrawText("Play", playButtonX-60, playButtonY/2+145);
+	CP_Font_DrawText("Exit", exitButtonX-60, exitButtonY/2+345);
 	
+	/*//Hitbox of mouse click play  
+	CP_Settings_Fill(CP_Color_Create(255, 0, 0, 100)); // Red, 100/255 alpha
+	CP_Graphics_DrawRect(playButtonX, playButtonY, buttonWidth, buttonHeight);
+
+	//Hitbox of mouse click exit  
+	CP_Settings_Fill(CP_Color_Create(255, 0, 0, 100)); // Red, 100/255 alpha
+	CP_Graphics_DrawRect(exitButtonX, exitButtonY, buttonWidth, buttonHeight);*/
+
+
 	if (CP_Input_MouseClicked()) {
-		
-		if (mouseX >= playButtonX && mouseX <= playButtonX + buttonWidth && mouseY
-			>= playButtonY && mouseY <= playButtonY + buttonHeight) {
+						
+		if (mouseX >= playButtonX - buttonWidth / 2.0f && mouseX <= playButtonX + buttonWidth / 2.0f 
+			&& mouseY >= playButtonY - buttonHeight / 2.0f && mouseY <= playButtonY + buttonHeight / 2.0f) {
 			CP_Engine_SetNextGameState(Game_Init, Game_Update, Game_Exit);
+			//CP_Graphics_ClearBackground(CP_Color_Create(255, 0, 0, 100));
+			
 		}
-		else if (mouseX >= exitButtonX && mouseX <= exitButtonX + buttonWidth &&
-			mouseY >= exitButtonY && mouseY <= exitButtonY + buttonHeight) {
+		else if (mouseX >= exitButtonX - buttonWidth / 2.0f &&
+				mouseX <= exitButtonX + buttonWidth / 2.0f &&
+				mouseY >= exitButtonY - buttonHeight / 2.0f &&
+				mouseY <= exitButtonY + buttonHeight / 2.0f) {
+			//CP_Graphics_ClearBackground(CP_Color_Create(0, 0, 0, 255));
 			CP_Engine_Terminate();
 		}
 	}
