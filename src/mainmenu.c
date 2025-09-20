@@ -1,6 +1,5 @@
 #include "cprocessing.h"
 #include "game.h"
-#include <stdio.h>
 
 CP_Font mainmenu_TEXT;
 int textSize;
