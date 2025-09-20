@@ -1,5 +1,6 @@
 #include "cprocessing.h"
 #include "game.h"
+#include "utils.h"
 
 CP_Font mainmenu_TEXT;
 int textSize;
@@ -55,23 +56,19 @@ void Main_Menu_Update(void)
 	CP_Settings_Fill(CP_Color_Create(255, 0, 0, 100)); // Red, 100/255 alpha
 	CP_Graphics_DrawRect(exitButtonX, exitButtonY, buttonWidth, buttonHeight);*/
 
-
 	if (CP_Input_MouseClicked()) {
-						
-		if (mouseX >= playButtonX - buttonWidth / 2.0f && mouseX <= playButtonX + buttonWidth / 2.0f 
-			&& mouseY >= playButtonY - buttonHeight / 2.0f && mouseY <= playButtonY + buttonHeight / 2.0f) {
-			CP_Engine_SetNextGameState(Game_Init, Game_Update, Game_Exit);
-			//CP_Graphics_ClearBackground(CP_Color_Create(255, 0, 0, 100));
+
+		if (IsAreaClicked(playButtonX, playButtonY, buttonWidth, buttonHeight, mouseX, mouseY)) {
 			
+			CP_Engine_SetNextGameState(Game_Init, Game_Update, Game_Exit);
 		}
-		else if (mouseX >= exitButtonX - buttonWidth / 2.0f &&
-				mouseX <= exitButtonX + buttonWidth / 2.0f &&
-				mouseY >= exitButtonY - buttonHeight / 2.0f &&
-				mouseY <= exitButtonY + buttonHeight / 2.0f) {
-			//CP_Graphics_ClearBackground(CP_Color_Create(0, 0, 0, 255));
+
+		if (IsAreaClicked(exitButtonX, exitButtonY, buttonWidth, buttonHeight, mouseX, mouseY)) {
+			
 			CP_Engine_Terminate();
 		}
 	}
+	 
 }
 
 void Main_Menu_Exit(void)
