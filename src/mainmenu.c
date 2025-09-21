@@ -59,12 +59,9 @@ void Main_Menu_Update(void)
 	if (CP_Input_MouseClicked()) {
 
 		if (IsAreaClicked(playButtonX, playButtonY, buttonWidth, buttonHeight, mouseX, mouseY)) {
-			
 			CP_Engine_SetNextGameState(Game_Init, Game_Update, Game_Exit);
 		}
-
 		if (IsAreaClicked(exitButtonX, exitButtonY, buttonWidth, buttonHeight, mouseX, mouseY)) {
-			
 			CP_Engine_Terminate();
 		}
 	}

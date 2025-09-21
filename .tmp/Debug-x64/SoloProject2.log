@@ -1,8 +1,6 @@
-﻿  mainmenu.c
-C:\Users\jlksh\source\repos\SoloProject2\src\mainmenu.c(23,23): warning C4244: 'function': conversion from 'int' to 'float', possible loss of data
-  utils.c
-  Generating Code...
-C:\Users\jlksh\source\repos\SoloProject2\src\utils.c(21,1): warning C4716: 'IsCircleClicked': must return a value
+﻿  game.c
+C:\Users\jlksh\source\repos\SoloProject2\src\game.c(33,12): warning C4553: '==': result of expression not used; did you intend '='?
+C:\Users\jlksh\source\repos\SoloProject2\src\game.c(34,12): warning C4553: '==': result of expression not used; did you intend '='?
   SoloProject2.vcxproj -> C:\Users\jlksh\source\repos\SoloProject2\bin\Debug-x64\SoloProject2.exe
   1 File(s) copied
   1 File(s) copied
