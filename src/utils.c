@@ -26,14 +26,25 @@ int IsCircleClicked(float circle_center_x, float circle_center_y, float diameter
      
 
     int is_clicked = (distance_x * distance_x + distance_y * distance_y) <= (radius * radius);
-        printf("Checking circle at (%f, %f), click at (%f, %f), radius = %f\n",
-        circle_center_x, circle_center_y, click_x, click_y, radius);
-    if (is_clicked) {
-        printf("Click registered on circle at (%f, %f)\n", circle_center_x, circle_center_y);
-    }
+        
     return is_clicked;
+}
+
+int IsCircleColliding(float circle1_center_x, float circle1_center_y, float circle2_center_x, float circle2_center_y, float diameter) {
+    
+    float collided = diameter*2 + 10;
+    float distance_x = abs(circle1_center_x - circle2_center_x);
+    float distance_y = abs(circle1_center_y - circle2_center_y);
+    if (distance_x <= collided && distance_y <= collided) {
+        
+        return 1;
+    }
+    else {
+        return 0;
+    }
     
 }
+
 
 
 
