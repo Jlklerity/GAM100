@@ -1,68 +1,7 @@
-﻿  game.c
-C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\game.c(45,30): warning C4244: 'function': conversion from 'int' to 'float', possible loss of data
-C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\game.c(45,44): warning C4244: 'function': conversion from 'int' to 'float', possible loss of data
-C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\game.c(45,51): warning C4244: 'function': conversion from 'int' to 'float', possible loss of data
-C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\game.c(48,30): warning C4244: 'function': conversion from 'int' to 'float', possible loss of data
-C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\game.c(48,44): warning C4244: 'function': conversion from 'int' to 'float', possible loss of data
-C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\game.c(48,51): warning C4244: 'function': conversion from 'int' to 'float', possible loss of data
-C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\game.c(97,33): warning C4244: 'function': conversion from 'int' to 'float', possible loss of data
-C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\game.c(97,47): warning C4244: 'function': conversion from 'int' to 'float', possible loss of data
-C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\game.c(97,54): warning C4244: 'function': conversion from 'int' to 'float', possible loss of data
-C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\game.c(99,49): warning C4244: 'function': conversion from 'int' to 'float', possible loss of data
-C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\game.c(99,68): warning C4244: 'function': conversion from 'double' to 'float', possible loss of data
-C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\game.c(100,17): warning C4244: 'function': conversion from 'int' to 'float', possible loss of data
-C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\game.c(100,30): warning C4244: 'function': conversion from 'int' to 'float', possible loss of data
-C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\game.c(101,17): warning C4244: 'function': conversion from 'int' to 'float', possible loss of data
-C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\game.c(101,36): warning C4244: 'function': conversion from 'int' to 'float', possible loss of data
-C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\game.c(101,42): warning C4244: 'function': conversion from 'int' to 'float', possible loss of data
-C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\game.c(104,33): warning C4244: 'function': conversion from 'int' to 'float', possible loss of data
-C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\game.c(104,47): warning C4244: 'function': conversion from 'int' to 'float', possible loss of data
-C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\game.c(104,54): warning C4244: 'function': conversion from 'int' to 'float', possible loss of data
-C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\game.c(106,49): warning C4244: 'function': conversion from 'int' to 'float', possible loss of data
-C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\game.c(106,68): warning C4244: 'function': conversion from 'int' to 'float', possible loss of data
-C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\game.c(107,17): warning C4244: 'function': conversion from 'int' to 'float', possible loss of data
-C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\game.c(107,30): warning C4244: 'function': conversion from 'int' to 'float', possible loss of data
-C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\game.c(108,17): warning C4244: 'function': conversion from 'int' to 'float', possible loss of data
-C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\game.c(108,36): warning C4244: 'function': conversion from 'int' to 'float', possible loss of data
-C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\game.c(108,42): warning C4244: 'function': conversion from 'int' to 'float', possible loss of data
-C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\game.c(112,33): warning C4244: 'function': conversion from 'int' to 'float', possible loss of data
-C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\game.c(112,47): warning C4244: 'function': conversion from 'int' to 'float', possible loss of data
-C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\game.c(112,54): warning C4244: 'function': conversion from 'int' to 'float', possible loss of data
-C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\game.c(114,49): warning C4244: 'function': conversion from 'int' to 'float', possible loss of data
-C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\game.c(114,68): warning C4244: 'function': conversion from 'int' to 'float', possible loss of data
-C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\game.c(115,17): warning C4244: 'function': conversion from 'int' to 'float', possible loss of data
-C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\game.c(115,30): warning C4244: 'function': conversion from 'int' to 'float', possible loss of data
-C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\game.c(116,17): warning C4244: 'function': conversion from 'int' to 'float', possible loss of data
-C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\game.c(116,36): warning C4244: 'function': conversion from 'int' to 'float', possible loss of data
-C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\game.c(116,42): warning C4244: 'function': conversion from 'int' to 'float', possible loss of data
-C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\game.c(120,33): warning C4244: 'function': conversion from 'int' to 'float', possible loss of data
-C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\game.c(120,47): warning C4244: 'function': conversion from 'int' to 'float', possible loss of data
-C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\game.c(120,54): warning C4244: 'function': conversion from 'int' to 'float', possible loss of data
-C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\game.c(122,49): warning C4244: 'function': conversion from 'int' to 'float', possible loss of data
-C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\game.c(122,68): warning C4244: 'function': conversion from 'int' to 'float', possible loss of data
-C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\game.c(123,17): warning C4244: 'function': conversion from 'int' to 'float', possible loss of data
-C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\game.c(123,30): warning C4244: 'function': conversion from 'int' to 'float', possible loss of data
-C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\game.c(124,17): warning C4244: 'function': conversion from 'int' to 'float', possible loss of data
-C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\game.c(124,36): warning C4244: 'function': conversion from 'int' to 'float', possible loss of data
-C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\game.c(124,42): warning C4244: 'function': conversion from 'int' to 'float', possible loss of data
-C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\game.c(191,32): warning C4244: 'function': conversion from 'int' to 'float', possible loss of data
-C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\game.c(191,46): warning C4244: 'function': conversion from 'int' to 'float', possible loss of data
-C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\game.c(191,60): warning C4244: 'function': conversion from 'int' to 'float', possible loss of data
-C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\game.c(191,74): warning C4244: 'function': conversion from 'int' to 'float', possible loss of data
-C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\game.c(191,81): warning C4244: 'function': conversion from 'int' to 'float', possible loss of data
-C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\game.c(215,52): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\game.c(224,53): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\game.c(232,52): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\game.c(240,53): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-  main.c
+﻿  main.c
   mainmenu.c
-C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\mainmenu.c(23,23): warning C4244: 'function': conversion from 'int' to 'float', possible loss of data
-  utils.c
-C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\utils.c(36,45): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
-C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\utils.c(37,45): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
-C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\utils.c(36,24): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\utils.c(37,24): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
   Generating Code...
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\mainmenu.c(23,23): warning C4244: 'function': conversion from 'int' to 'float', possible loss of data
   TeleScape.vcxproj -> C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\bin\Debug-x64\TeleScape.exe
   1 File(s) copied
   1 File(s) copied

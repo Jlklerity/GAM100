@@ -48,13 +48,6 @@ void Main_Menu_Update(void)
 	CP_Font_DrawText("Play", playButtonX-60, playButtonY/2+145);
 	CP_Font_DrawText("Exit", exitButtonX-60, exitButtonY/2+345);
 	
-	/*//Hitbox of mouse click play  
-	CP_Settings_Fill(CP_Color_Create(255, 0, 0, 100)); // Red, 100/255 alpha
-	CP_Graphics_DrawRect(playButtonX, playButtonY, buttonWidth, buttonHeight);
-
-	//Hitbox of mouse click exit  
-	CP_Settings_Fill(CP_Color_Create(255, 0, 0, 100)); // Red, 100/255 alpha
-	CP_Graphics_DrawRect(exitButtonX, exitButtonY, buttonWidth, buttonHeight);*/
 
 	if (CP_Input_MouseClicked()) {
 
