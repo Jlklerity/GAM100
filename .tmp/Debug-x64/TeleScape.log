@@ -1,9 +1,11 @@
 ﻿  startscreen.c
-C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\startscreen.c(25,49): warning C4244: 'function': conversion from 'double' to 'float', possible loss of data
-C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\startscreen.c(25,84): warning C4244: 'function': conversion from 'double' to 'float', possible loss of data
-C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\startscreen.c(25,115): warning C4244: 'function': conversion from 'double' to 'float', possible loss of data
-C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\startscreen.c(25,147): warning C4244: 'function': conversion from 'double' to 'float', possible loss of data
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\startscreen.c(14,16): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\startscreen.c(15,17): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\startscreen.c(26,16): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\startscreen.c(27,17): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\startscreen.c(28,22): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\startscreen.c(29,23): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
   TeleScape.vcxproj -> C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\bin\Debug-x64\TeleScape.exe
-  44 File(s) copied
+  45 File(s) copied
   1 File(s) copied
   1 File(s) copied
