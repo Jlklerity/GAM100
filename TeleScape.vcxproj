@@ -99,10 +99,19 @@ xcopy "$(SolutionDir)Extern\CProcessing\lib\x64\fmod.dll" "$(OutDir)"
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\fullscreen.c" />
     <ClCompile Include="src\game.c" />
     <ClCompile Include="src\main.c" />
     <ClCompile Include="src\mainmenu.c" />
+    <ClCompile Include="src\startscreen.c" />
     <ClCompile Include="src\utils.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Extern\Headers\fullscreen.h" />
+    <ClInclude Include="Extern\Headers\game.h" />
+    <ClInclude Include="Extern\Headers\mainmenu.h" />
+    <ClInclude Include="Extern\Headers\startscreen.h" />
+    <ClInclude Include="Extern\Headers\utils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

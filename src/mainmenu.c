@@ -26,10 +26,17 @@ void Main_Menu_Init(void)
 
 void Main_Menu_Update(void)
 {
+	
+	if ((CP_Input_KeyDown(KEY_LEFT_ALT)) || (CP_Input_KeyDown(KEY_RIGHT_ALT)) && (CP_Input_KeyDown(KEY_ENTER)))
+	{
+		fullscreen();
+		static int fullscreen_state = 0;
+	}
+	
 	playButtonX = (float)(CP_System_GetWindowWidth() / 2);
-	playButtonY = (float)(CP_System_GetWindowHeight() / 2-200);
+	playButtonY = (float)(CP_System_GetWindowHeight() / 2 - 200);
 	exitButtonX = (float)(CP_System_GetWindowWidth() / 2);
-	exitButtonY = (float)(CP_System_GetWindowHeight() / 2+200);
+	exitButtonY = (float)(CP_System_GetWindowHeight() / 2 + 200);
 	mouseX = (float)CP_Input_GetMouseX();
 	mouseY = (float)CP_Input_GetMouseY();
 
@@ -45,8 +52,8 @@ void Main_Menu_Update(void)
 	CP_Graphics_DrawRect(exitButtonX, exitButtonY, buttonWidth, buttonHeight);
 
 	CP_Settings_Fill(CP_Color_Create(0,0,0, 255));
-	CP_Font_DrawText("Play", playButtonX-60, playButtonY/2+145);
-	CP_Font_DrawText("Exit", exitButtonX-60, exitButtonY/2+345);
+	CP_Font_DrawText("Play", playButtonX - 60, playButtonY + 25);
+	CP_Font_DrawText("Exit", exitButtonX - 60, exitButtonY + 25);
 	
 
 	if (CP_Input_MouseClicked()) {
