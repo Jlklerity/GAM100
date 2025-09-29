@@ -1,10 +1,23 @@
-﻿  startscreen.c
+﻿  fullscreen.c
+  game.c
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\fullscreen.c(10,3): warning C4013: 'CP_System_FullscreenAdvanced' undefined; assuming extern returning int
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\fullscreen.c(16,3): warning C4013: 'CP_System_SetWindowSize' undefined; assuming extern returning int
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\game.c(12,56): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\game.c(13,56): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\game.c(14,57): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\game.c(15,57): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\game.c(16,55): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\game.c(17,55): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\game.c(18,58): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\game.c(19,58): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+  startscreen.c
 C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\startscreen.c(14,16): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
 C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\startscreen.c(15,17): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
 C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\startscreen.c(26,16): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
 C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\startscreen.c(27,17): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
 C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\startscreen.c(28,22): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
 C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\startscreen.c(29,23): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+  Generating Code...
   TeleScape.vcxproj -> C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\bin\Debug-x64\TeleScape.exe
   45 File(s) copied
   1 File(s) copied

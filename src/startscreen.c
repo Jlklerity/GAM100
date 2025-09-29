@@ -15,7 +15,7 @@ void start_screen_init(void)
 	float height = CP_System_GetWindowHeight();
 
 	CP_System_SetWindowSize(1600, 900);
-	//CP_System_Fullscreen();
+	//CP_System_FullscreenAdvanced(1600, 900);
 	logo = CP_Image_Load("./Assets/DigiPen_Singapore_allrightsreserved.png");
 	CP_Settings_ImageMode(CP_POSITION_CENTER);
 	 
@@ -37,6 +37,7 @@ void displayStartScreen(void)
 }
 void start_screen_update(void)
 {
+	//Changes the alpha of CP_Image_Draw logo to fade in and out based on the current elapsed time
 	float currentElapsedTime = CP_System_GetSeconds();
 	if (currentElapsedTime < 2.0f) {  
 		transition_alpha = (int)(currentElapsedTime / 2.0f * 255);

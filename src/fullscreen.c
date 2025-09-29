@@ -7,7 +7,7 @@ void fullscreen(void)
 	//fullscreen function
 	if (fullscreen_state == 0)
 	{
-		CP_System_Fullscreen(1600, 900);
+		CP_System_FullscreenAdvanced(1600, 900);
 		fullscreen_state = 1;
 	}
 	//end fullscreen
