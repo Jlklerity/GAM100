@@ -62,7 +62,7 @@ void start_screen_update(void)
 	}
 	
 	//setting buttons needed to press for game to enable fullscreen. Comment by Teo Zijie. Completed by Teo Zijie.
-	if ((CP_Input_KeyDown(KEY_LEFT_ALT)) || (CP_Input_KeyDown(KEY_RIGHT_ALT)) && (CP_Input_KeyDown(KEY_ENTER)))
+	if (((CP_Input_KeyDown(KEY_LEFT_ALT)) || (CP_Input_KeyDown(KEY_RIGHT_ALT))) && (CP_Input_KeyDown(KEY_ENTER)))
 	{
 		fullscreen();
 	}

@@ -27,7 +27,7 @@ void Main_Menu_Init(void)
 void Main_Menu_Update(void)
 {
 	
-	if ((CP_Input_KeyDown(KEY_LEFT_ALT)) || (CP_Input_KeyDown(KEY_RIGHT_ALT)) && (CP_Input_KeyDown(KEY_ENTER)))
+	if (((CP_Input_KeyDown(KEY_LEFT_ALT)) || (CP_Input_KeyDown(KEY_RIGHT_ALT))) && (CP_Input_KeyDown(KEY_ENTER)))
 	{
 		fullscreen();
 		static int fullscreen_state = 0;
