@@ -6,26 +6,32 @@
 
 
 
- 
+static float Stage_Wall[8];
+
+
 void Game_Init(void)
 {
-	int wallLeftPosX = (int)(CP_System_GetWindowWidth() / 2);
-	int wallLeftPosY = (int)(CP_System_GetWindowWidth() / 2);
-	int wallRightPosX = (int)(CP_System_GetWindowWidth() / 2);
-	int wallRightPosY = (int)(CP_System_GetWindowWidth() / 2);
-	int wallTopPosX = (int)(CP_System_GetWindowWidth() / 2);
-	int wallTopPosY = (int)(CP_System_GetWindowWidth() / 2);
-	int wallBottomPosX = (int)(CP_System_GetWindowWidth() / 2);
-	int wallBottomPosY = (int)(CP_System_GetWindowWidth() / 2);
-	int wallwidth = 100, wallHeight = 100;
-}
+	float stage_coords[8] = {
+		0.0f, 0.0f,
+		100.0f, 0.0f,
+		100.0f, 100.0f,
+		0.0f, 100.0f
+};
 
+	for (int i = 0; i < 8; ++i) {
+		Stage_Wall[i] = stage_coords[i];
+	}
+}
 void Game_Update(void)
 {
 
 	CP_Graphics_ClearBackground(CP_Color_Create(85, 85, 85, 255));
 
 	//Draw Level boundaries
+	CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
+	CP_Graphics_DrawQuad(Stage_Wall[0], Stage_Wall[1], Stage_Wall[2], Stage_Wall[3],
+						Stage_Wall[4], Stage_Wall[5], Stage_Wall[6], Stage_Wall[7]);
+
 
 
 

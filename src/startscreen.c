@@ -50,7 +50,7 @@ void start_screen_update(void)
 	}
 	
 	if (GameIsRunning == 0) {
-		if (currentElapsedTime < 5.0f)
+		if (currentElapsedTime < 5.0f && !(CP_Input_KeyDown(KEY_SPACE))) 
 			{
 				displayStartScreen();
 			}
