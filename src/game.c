@@ -28,7 +28,6 @@ void Game_Update(void)
 							stage_wall[i].stage_wall_coords[4], stage_wall[i].stage_wall_coords[5],
 							stage_wall[i].stage_wall_coords[6], stage_wall[i].stage_wall_coords[7]);
 
-		printf("jeremy commited");
 	}
 	if (((CP_Input_KeyDown(KEY_LEFT_ALT)) || (CP_Input_KeyDown(KEY_RIGHT_ALT))) && (CP_Input_KeyDown(KEY_ENTER)))
 	{
