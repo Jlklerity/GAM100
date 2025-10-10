@@ -7,10 +7,9 @@
 #include "stage_wall.h"
 #include "player.h"
  
-static struct Player *player;
+static struct Player player;
 static struct Stage_wall stage_wall[4];
 static int stage_wall_count = 0; 
-
 
 void Game_Init(void)
 {
@@ -38,8 +37,7 @@ void Game_Update(void)
 		player.player_coords[2], player.player_coords[3],
 		player.player_coords[4], player.player_coords[5],
 		player.player_coords[6], player.player_coords[7]);*/
-	CP_Graphics_DrawRectAdvanced(player->player_posX, player->player_posY, player->player_width, player->player_height, 
-																							player->degree, 0);
+	CP_Graphics_DrawRectAdvanced(player.player_posX, player.player_posY, player.player_width, player.player_height, player.degree, 0);
 
 	if (((CP_Input_KeyDown(KEY_LEFT_ALT)) || (CP_Input_KeyDown(KEY_RIGHT_ALT))) && (CP_Input_KeyDown(KEY_ENTER)))
 	{
