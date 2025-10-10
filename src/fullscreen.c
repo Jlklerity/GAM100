@@ -1,6 +1,5 @@
 #include "fullscreen.h"
 
-static int fullscreen_state = 0;
 
 void fullscreen(void)
 {

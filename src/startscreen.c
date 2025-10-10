@@ -15,7 +15,6 @@ void start_screen_init(void)
 	float height = CP_System_GetWindowHeight();
 
 	CP_System_SetWindowSize(1600, 900);
-	//CP_System_FullscreenAdvanced(1600, 900);
 	logo = CP_Image_Load("./Assets/DigiPen_Singapore_allrightsreserved.png");
 	CP_Settings_ImageMode(CP_POSITION_CENTER);
 	 
@@ -64,7 +63,14 @@ void start_screen_update(void)
 	//setting buttons needed to press for game to enable fullscreen. Comment by Teo Zijie. Completed by Teo Zijie.
 	if (((CP_Input_KeyDown(KEY_LEFT_ALT)) || (CP_Input_KeyDown(KEY_RIGHT_ALT))) && (CP_Input_KeyDown(KEY_ENTER)))
 	{
-		fullscreen();
+		if (fullscreen_state == 0) {
+			fullscreen();
+			fullscreen_state = 1;
+		}
+		else {
+			CP_System_FullscreenAdvanced(1600, 900);
+			fullscreen_state = 0;
+		}
 	}
 }
 

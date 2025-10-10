@@ -10,6 +10,7 @@
 static struct Stage_wall stage_wall[4];
 static int stage_wall_count = 0;
 
+
 void Game_Init(void)
 {
 	Stage_wall_Init(stage_wall, &stage_wall_count);
@@ -26,6 +27,17 @@ void Game_Update(void)
 							stage_wall[i].stage_wall_coords[2], stage_wall[i].stage_wall_coords[3],
 							stage_wall[i].stage_wall_coords[4], stage_wall[i].stage_wall_coords[5],
 							stage_wall[i].stage_wall_coords[6], stage_wall[i].stage_wall_coords[7]);
+	}
+	if (((CP_Input_KeyDown(KEY_LEFT_ALT)) || (CP_Input_KeyDown(KEY_RIGHT_ALT))) && (CP_Input_KeyDown(KEY_ENTER)))
+	{
+		if (fullscreen_state == 0) {
+			fullscreen();
+			fullscreen_state = 1;
+		}
+		else {
+			CP_System_FullscreenAdvanced(1600, 900);
+			fullscreen_state = 0;
+		}
 	}
 
 	if (CP_Input_KeyDown(KEY_Q)) {

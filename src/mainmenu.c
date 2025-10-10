@@ -1,6 +1,7 @@
 #include "cprocessing.h"
 #include "game.h"
 #include "utils.h"
+#include "fullscreen.h"
 
 CP_Font mainmenu_TEXT;
 int textSize;
@@ -29,8 +30,14 @@ void Main_Menu_Update(void)
 	
 	if (((CP_Input_KeyDown(KEY_LEFT_ALT)) || (CP_Input_KeyDown(KEY_RIGHT_ALT))) && (CP_Input_KeyDown(KEY_ENTER)))
 	{
-		fullscreen();
-		static int fullscreen_state = 0;
+		if (fullscreen_state == 0) {
+			fullscreen();
+			fullscreen_state = 1;
+		}
+		else {
+			CP_System_FullscreenAdvanced(1600, 900);
+			fullscreen_state = 0;
+		}
 	}
 	
 	playButtonX = (float)(CP_System_GetWindowWidth() / 2);
