@@ -6,8 +6,8 @@ enum weapon_type {
 	teleport_orb, destroy_orb
 };
 
-enum player_direction {
-	PLAYER_UP,PLAYER_DOWN,PLAYER_LEFT,PLAYER_RIGHT
+enum player_facingdirection {
+	PLAYER_RIGHT,PLAYER_LEFT,PLAYER_UP,PLAYER_DOWN
 };
 struct Player {
 	float player_posX, player_posY;
@@ -15,7 +15,11 @@ struct Player {
 	CP_Color player_color;
 	float gravity;
 	int degree;
+	enum player_facingdirection direction;
+	enum player_facingdirection last_direction;
 };
 
 void Player_Init(struct Player *player);
+
+
 

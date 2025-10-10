@@ -32,12 +32,62 @@ void Game_Update(void)
 	}
 
 	//Draw player 
-	/*CP_Settings_Fill(player.player_color);
-	CP_Graphics_DrawQuad(player.player_coords[0], player.player_coords[1],
-		player.player_coords[2], player.player_coords[3],
-		player.player_coords[4], player.player_coords[5],
-		player.player_coords[6], player.player_coords[7]);*/
 	CP_Graphics_DrawRectAdvanced(player.player_posX, player.player_posY, player.player_width, player.player_height, player.degree, 0);
+
+	//Player movement
+
+	if (CP_Input_KeyDown(KEY_D)) {
+		player.player_posX += 5;
+		player.direction = PLAYER_RIGHT; 
+	}
+	if (CP_Input_KeyDown(KEY_A)) {
+		player.player_posX -= 5;
+		player.direction = PLAYER_LEFT;
+	}
+	if (CP_Input_KeyDown(KEY_W)) {
+		if (player.direction == PLAYER_LEFT || player.direction == PLAYER_RIGHT) {
+			player.last_direction = player.direction;
+		}
+		player.direction = PLAYER_UP;
+	}
+	if (CP_Input_KeyReleased(KEY_W)) {
+		player.direction = player.last_direction;
+	
+	}
+	if (CP_Input_KeyDown(KEY_S)) {
+		if (player.direction == PLAYER_LEFT || player.direction == PLAYER_RIGHT) {
+			player.last_direction = player.direction;
+		}
+		player.direction = PLAYER_DOWN;
+	}
+	if (CP_Input_KeyReleased(KEY_S)) {
+		player.direction = player.last_direction;
+	}
+
+	switch (player.direction) {
+		case PLAYER_RIGHT:
+			player.degree = 0;
+			break;
+
+		case PLAYER_LEFT:
+			player.degree = 180;
+			break;
+
+		case PLAYER_UP:
+			if (CP_Input_KeyDown(KEY_W)) {
+				printf("Looking Up");
+				player.degree += 10;
+			}
+			break;
+
+		case PLAYER_DOWN:
+			if (CP_Input_KeyDown(KEY_S)) {
+				printf("Looking down");
+				player.degree -= 10;
+			}
+			break;
+	}
+	
 
 	if (((CP_Input_KeyDown(KEY_LEFT_ALT)) || (CP_Input_KeyDown(KEY_RIGHT_ALT))) && (CP_Input_KeyDown(KEY_ENTER)))
 	{
