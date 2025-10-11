@@ -34,7 +34,7 @@ void Game_Update(void)
 	//Draw player 
 	CP_Graphics_DrawRectAdvanced(player.player_posX, player.player_posY, player.player_width, player.player_height, player.degree, 0);
 
-	//Player movement
+	//Player movement, direction and sprite loops.
 
 	if (CP_Input_KeyDown(KEY_D)) {
 		player.player_posX += 5;
@@ -63,7 +63,7 @@ void Game_Update(void)
 	if (CP_Input_KeyReleased(KEY_S)) {
 		player.direction = player.last_direction;
 	}
-
+	// For future projectiles if statements.
 	switch (player.direction) {
 		case PLAYER_RIGHT:
 			player.degree = 0;
@@ -88,7 +88,7 @@ void Game_Update(void)
 			break;
 	}
 	
-
+	// Fullscreen and exit fullscreen
 	if (((CP_Input_KeyDown(KEY_LEFT_ALT)) || (CP_Input_KeyDown(KEY_RIGHT_ALT))) && (CP_Input_KeyDown(KEY_ENTER)))
 	{
 		if (fullscreen_state == 0) {
@@ -100,7 +100,7 @@ void Game_Update(void)
 			fullscreen_state = 0;
 		}
 	}
-
+	// To get to Main Menu
 	if (CP_Input_KeyDown(KEY_Q)) {
 		CP_Engine_SetNextGameState(Main_Menu_Init, Main_Menu_Update, Main_Menu_Exit);
 	}
