@@ -3,7 +3,7 @@
 
 
 
-void Player_Init(struct Player *player) {
+void Player_Init(Player *player) {
 	const float screen_width = (float)CP_System_GetWindowWidth();
 	const float screen_height = (float)CP_System_GetWindowHeight();
 	const int player_width = 64;

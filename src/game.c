@@ -7,8 +7,8 @@
 #include "stage_wall.h"
 #include "player.h"
  
-static struct Player player;
-static struct Stage_wall stage_wall[4];
+static Player player;
+static Stage_wall stage_wall[4];
 static int stage_wall_count = 0; 
  
 
