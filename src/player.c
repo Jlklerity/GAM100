@@ -12,6 +12,8 @@ void Player_Init(struct Player *player) {
 	const float posX = 100, posY = 800;
 	const int degree = 0; //player facing right
 
+	player->player_speed = 200;
+	player->gravity = 9;
 	player->direction = PLAYER_RIGHT;
 	player->last_direction = PLAYER_RIGHT;
 	player->player_posX = posX;

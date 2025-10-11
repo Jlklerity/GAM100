@@ -10,6 +10,7 @@
 static struct Player player;
 static struct Stage_wall stage_wall[4];
 static int stage_wall_count = 0; 
+ 
 
 void Game_Init(void)
 {
@@ -18,7 +19,7 @@ void Game_Init(void)
 }
 void Game_Update(void)
 {
-
+	float deltaTime = CP_System_GetDt();
 	CP_Graphics_ClearBackground(CP_Color_Create(85, 85, 85, 255));
 
 	//Draw stage walls
@@ -37,11 +38,11 @@ void Game_Update(void)
 	//Player movement
 
 	if (CP_Input_KeyDown(KEY_D)) {
-		player.player_posX += 5;
+		player.player_posX += player.player_speed * deltaTime;
 		player.direction = PLAYER_RIGHT; 
 	}
 	if (CP_Input_KeyDown(KEY_A)) {
-		player.player_posX -= 5;
+		player.player_posX -= player.player_speed * deltaTime;
 		player.direction = PLAYER_LEFT;
 	}
 	if (CP_Input_KeyDown(KEY_W)) {
@@ -64,6 +65,7 @@ void Game_Update(void)
 		player.direction = player.last_direction;
 	}
 
+	//player facing direction
 	switch (player.direction) {
 		case PLAYER_RIGHT:
 			player.degree = 0;

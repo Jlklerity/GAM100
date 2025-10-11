@@ -13,8 +13,9 @@ struct Player {
 	float player_posX, player_posY;
 	int player_width, player_height;
 	CP_Color player_color;
-	float gravity;
+	int gravity;
 	int degree;
+	int player_speed;
 	enum player_facingdirection direction;
 	enum player_facingdirection last_direction;
 };
