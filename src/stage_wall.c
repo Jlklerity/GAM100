@@ -1,7 +1,7 @@
 #include "stage_wall.h"
 #include <string.h>
 
-void Stage_wall_Init(struct Stage_wall stage_wall[4], int* stage_wall_count) {
+void Stage_wall_Init(Stage_wall stage_wall[4], int* stage_wall_count) {
 	
 	*stage_wall_count = 0;
 
