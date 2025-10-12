@@ -11,7 +11,7 @@ enum player_facingdirection {
 };
 typedef struct {
 	float player_posX, player_posY;
-	int player_width, player_height;
+	float player_width, player_height;
 	CP_Color player_color;
 	float gravity;
 	int degree;
