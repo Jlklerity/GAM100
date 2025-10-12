@@ -9,18 +9,15 @@ enum weapon_type {
 enum player_facingdirection {
 	PLAYER_RIGHT,PLAYER_LEFT,PLAYER_UP,PLAYER_DOWN
 };
-
-typedef struct Player {
-
+typedef struct {
 	float player_posX, player_posY;
-	float player_width, player_height;
+	int player_width, player_height;
 	CP_Color player_color;
 	float gravity;
 	int degree;
 	float player_speed;
 	enum player_facingdirection direction;
 	enum player_facingdirection last_direction;
-
 } Player;
 
 void Player_Init(struct Player *player);
