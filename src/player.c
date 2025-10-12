@@ -6,14 +6,14 @@
 void Player_Init(Player *player) {
 	const float screen_width = (float)CP_System_GetWindowWidth();
 	const float screen_height = (float)CP_System_GetWindowHeight();
-	const int player_width = 64;
-	const int player_height = 64;
+	const float player_width = 64.0f;
+	const float player_height = 64.0f;
 	const float player_highlight = 255.0f;
 	const float posX = 100, posY = 800;
 	const int degree = 0; //player facing right
 
-	player->player_speed = 200;
-	player->gravity = 9;
+	player->player_speed = 200.0f;
+	player->gravity = 9.0f;
 	player->direction = PLAYER_RIGHT;
 	player->last_direction = PLAYER_RIGHT;
 	player->player_posX = posX;

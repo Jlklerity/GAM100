@@ -6,11 +6,12 @@
 #include "fullscreen.h"
 #include "stage_wall.h"
 #include "player.h"
+#include "collisionHandling.h"
  
 static Player player;
 static Stage_wall stage_wall[4];
 static int stage_wall_count = 0; 
- 
+
 
 void Game_Init(void)
 {
@@ -25,18 +26,26 @@ void Game_Update(void)
 	//Draw stage walls
 	for (int i = 0; i < stage_wall_count; i++) {
 		CP_Settings_Fill(stage_wall[i].stage_wall_color);
-		CP_Graphics_DrawQuad(stage_wall[i].stage_wall_coords[0], stage_wall[i].stage_wall_coords[1],
-							stage_wall[i].stage_wall_coords[2], stage_wall[i].stage_wall_coords[3],
-							stage_wall[i].stage_wall_coords[4], stage_wall[i].stage_wall_coords[5],
-							stage_wall[i].stage_wall_coords[6], stage_wall[i].stage_wall_coords[7]);
-
+		CP_Graphics_DrawRect(stage_wall[i].stage_wallX, stage_wall[i].stage_wallY, stage_wall[i].stage_wallwidth, stage_wall[i].stage_wallheight);
 	}
 
 	//Draw player 
 	CP_Graphics_DrawRectAdvanced(player.player_posX, player.player_posY, player.player_width, player.player_height, player.degree, 0);
+	
+	AABB playerHitBox = {
+		player.player_posX,
+		player.player_posY,
+		player.player_width,
+		player.player_height
+	};
 
-	//Player movement, direction and sprite loops.
-
+	/*AABB stage_wallHitBox = {
+		stage_wall[i].x, 
+		stage_wall[i].y, 
+		stage_wall[i].width, 
+		stage_wall[i].height };
+	};*/
+	
 	if (CP_Input_KeyDown(KEY_D)) {
 		player.player_posX += player.player_speed * deltaTime;
 		player.direction = PLAYER_RIGHT; 

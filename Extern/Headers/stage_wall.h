@@ -3,7 +3,8 @@
 #include "cprocessing.h"
 
 typedef struct Stage_wall {
-	float stage_wall_coords[8];
+	float stage_wallX, stage_wallY;
+	float stage_wallwidth, stage_wallheight;
 	CP_Color stage_wall_color;
 } Stage_wall;
 
