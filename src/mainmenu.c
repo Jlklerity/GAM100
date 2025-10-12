@@ -30,14 +30,7 @@ void Main_Menu_Update(void)
 	
 	if (((CP_Input_KeyDown(KEY_LEFT_ALT)) || (CP_Input_KeyDown(KEY_RIGHT_ALT))) && (CP_Input_KeyDown(KEY_ENTER)))
 	{
-		if (fullscreen_state == 0) {
-			fullscreen();
-			fullscreen_state = 1;
-		}
-		else {
-			CP_System_FullscreenAdvanced(1600, 900);
-			fullscreen_state = 0;
-		}
+		fullscreen();
 	}
 	
 	playButtonX = (float)(CP_System_GetWindowWidth() / 2);
