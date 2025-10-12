@@ -32,19 +32,30 @@ void Game_Update(void)
 	//Draw player 
 	CP_Graphics_DrawRectAdvanced(player.player_posX, player.player_posY, player.player_width, player.player_height, player.degree, 0);
 	
+	float playerTopLeftX = player.player_posX - (player.player_width / 2.0f);
+	float playerTopLeftY = player.player_posY - (player.player_height / 2.0f);
+
 	AABB playerHitBox = {
-		player.player_posX,
-		player.player_posY,
+		playerTopLeftX,
+		playerTopLeftY,
 		player.player_width,
 		player.player_height
 	};
 
-	/*AABB stage_wallHitBox = {
-		stage_wall[i].x, 
-		stage_wall[i].y, 
-		stage_wall[i].width, 
-		stage_wall[i].height };
-	};*/
+	for (int i = 0; i < stage_wall_count; i++) {
+		float stage_TopLeftwallX = stage_wall[i].stage_wallX - (stage_wall[i].stage_wallwidth / 2.0f);
+		float stage_TopLeftwallY = stage_wall[i].stage_wallY - (stage_wall[i].stage_wallheight / 2.0f);
+
+		AABB stagewallHitBox = {
+			stage_TopLeftwallX,
+			stage_TopLeftwallY,
+			stage_wall[i].stage_wallwidth,
+			stage_wall[i].stage_wallheight
+		};
+		if (checkAABBCollision(playerHitBox, stagewallHitBox)) {
+			printf("Contact!");
+		}
+	}
 	
 	if (CP_Input_KeyDown(KEY_D)) {
 		player.player_posX += player.player_speed * deltaTime;
@@ -118,5 +129,5 @@ void Game_Update(void)
 
 void Game_Exit(void)
 {
-	
+
 }
