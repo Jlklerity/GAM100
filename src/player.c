@@ -12,7 +12,7 @@ void Player_Init(Player *player) {
 	const float posX = 100, posY = 800;
 	const int degree = 0; //player facing right
 
-	player->player_speed = 200.0f;
+	player->player_speed = 1000.0f;
 	player->gravity = 9.0f;
 	player->direction = PLAYER_RIGHT;
 	player->last_direction = PLAYER_RIGHT;
