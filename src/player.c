@@ -15,8 +15,9 @@ void Player_Init(Player *player) {
 	const float posX = 100, posY = screen_height - player_height/2 - stage_wall[1].stage_wallheight;
 	const int degree = 0; //player facing right
 
-	player->player_speed = 700.0f;
-	player->gravity = 9.0f;
+	player->player_velocityX = 700.0f;
+	player->player_velocityY = 300.0f;
+	player->isGrounded = 0;
 	player->direction = PLAYER_RIGHT;
 	player->last_direction = PLAYER_RIGHT;
 	player->player_posX = posX;

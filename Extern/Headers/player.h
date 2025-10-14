@@ -13,9 +13,10 @@ typedef struct {
 	float player_posX, player_posY;
 	float player_width, player_height;
 	CP_Color player_color;
-	float gravity;
 	int degree;
-	float player_speed;
+	float player_velocityX;
+	float player_velocityY;
+	int isGrounded;
 	enum player_facingdirection direction;
 	enum player_facingdirection last_direction;
 } Player;

@@ -36,6 +36,12 @@
     <ClCompile Include="src\stage_wall.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\collisionHandling.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\player.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Extern\Headers\startscreen.h">
@@ -54,6 +60,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Extern\Headers\stage_wall.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Extern\Headers\collisionHandling.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Extern\Headers\player.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
