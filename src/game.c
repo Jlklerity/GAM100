@@ -81,15 +81,12 @@ void Game_Update(void)
 	
 	float playerTopLeftX = player.player_posX - (player.player_width / 2.0f);
 	float playerTopLeftY = player.player_posY - (player.player_height / 2.0f);
-
 	AABB playerHitBox = {
 		playerTopLeftX,
 		playerTopLeftY,
 		player.player_width,
 		player.player_height
 	};
-
-	
 	for (int i = 0; i < stage_wall_count; i++) {
 		float stage_TopLeftwallX = stage_wall[i].stage_wallX - (stage_wall[i].stage_wallwidth / 2.0f);
 		float stage_TopLeftwallY = stage_wall[i].stage_wallY - (stage_wall[i].stage_wallheight / 2.0f);
