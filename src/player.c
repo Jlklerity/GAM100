@@ -1,8 +1,8 @@
 #include "player.h"
 #include "stage_wall.h"
 
-static Stage_wall stage_wall[4];
-static int stage_wall_count = 0;
+float newX = 0;
+float newY = 0;
 
 void Player_Init(Player *player) {
 	Stage_wall_Init(stage_wall, &stage_wall_count);

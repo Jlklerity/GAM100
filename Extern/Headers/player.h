@@ -20,6 +20,9 @@ typedef struct {
 	enum player_facingdirection last_direction;
 } Player;
 
+extern float newX;
+extern float newY;
+
 void Player_Init(struct Player *player);
 
 

@@ -9,13 +9,17 @@
 #include "collisionHandling.h"
  
 static Player player;
-static Stage_wall stage_wall[4];
-static int stage_wall_count = 0; 
 
 void Game_Init(void)
 {
 	Stage_wall_Init(stage_wall, &stage_wall_count);
 	Player_Init(&player);
+	if (newX != 0) {
+		player.player_posX = newX;
+	}
+	if (newY != 0) {
+		player.player_posY = newY;
+	}
 }
 void Game_Update(void)
 {
@@ -128,7 +132,14 @@ void Game_Update(void)
 	// Fullscreen and exit fullscreen
 	if (((CP_Input_KeyDown(KEY_LEFT_ALT)) || (CP_Input_KeyDown(KEY_RIGHT_ALT))) && (CP_Input_KeyDown(KEY_ENTER)))
 	{
+		if (newX == 0 && newY == 0) {
+			newX = player.player_posX;
+			newY = player.player_posY;
+		}
 		fullscreen();
+		Game_Init();
+		newX = 0;
+		newY = 0;
 	}
 	// To get to Main Menu
 	if (CP_Input_KeyDown(KEY_Q)) {
