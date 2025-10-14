@@ -18,6 +18,10 @@ void Game_Init(void)
 void Game_Update(void)
 {
 	float deltaTime = CP_System_GetDt();
+	const float max_deltaTime = 0.02f; // Max time step is 1/10th of a second
+	if (deltaTime > max_deltaTime) {
+		deltaTime = max_deltaTime;
+	}
 	CP_Graphics_ClearBackground(CP_Color_Create(85, 85, 85, 255));
 	
 	
@@ -80,7 +84,7 @@ void Game_Update(void)
 			break;
 	}
 	//jumping
-	printf("%d",player.isGrounded);
+	printf("%0.3f, %0.3f\n",player.player_posX, player.player_posY);
 	if (CP_Input_KeyTriggered(KEY_SPACE) && player.isGrounded) {
 		printf("jumpped!");
 		player.player_velocityY = -jump_strength;
