@@ -99,9 +99,14 @@ xcopy "$(SolutionDir)Extern\CProcessing\lib\x64\fmod.dll" "$(OutDir)"
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\levelfive.c" />
+    <ClCompile Include="src\levelfour.c" />
+    <ClCompile Include="src\levelthree.c" />
+    <ClCompile Include="src\leveltwo.c" />
     <ClCompile Include="src\collisionHandling.c" />
     <ClCompile Include="src\fullscreen.c" />
     <ClCompile Include="src\game.c" />
+    <ClCompile Include="src\levelone.c" />
     <ClCompile Include="src\main.c" />
     <ClCompile Include="src\mainmenu.c" />
     <ClCompile Include="src\player.c" />
@@ -113,6 +118,11 @@ xcopy "$(SolutionDir)Extern\CProcessing\lib\x64\fmod.dll" "$(OutDir)"
     <ClInclude Include="Extern\Headers\collisionHandling.h" />
     <ClInclude Include="Extern\Headers\fullscreen.h" />
     <ClInclude Include="Extern\Headers\game.h" />
+    <ClInclude Include="Extern\Headers\levelfive.h" />
+    <ClInclude Include="Extern\Headers\levelfour.h" />
+    <ClInclude Include="Extern\Headers\levelone.h" />
+    <ClInclude Include="Extern\Headers\levelthree.h" />
+    <ClInclude Include="Extern\Headers\leveltwo.h" />
     <ClInclude Include="Extern\Headers\mainmenu.h" />
     <ClInclude Include="Extern\Headers\player.h" />
     <ClInclude Include="Extern\Headers\stage_wall.h" />
