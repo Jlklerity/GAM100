@@ -18,7 +18,7 @@ void Game_Init(void)
 void Game_Update(void)
 {
 	float deltaTime = CP_System_GetDt();
-	const float max_deltaTime = 0.02f; // Max time step is 1/10th of a second
+	const float max_deltaTime = 0.02f; // cap deltaTime to be lower than 0.02f prevents collision tunneling
 	if (deltaTime > max_deltaTime) {
 		deltaTime = max_deltaTime;
 	}
@@ -26,8 +26,8 @@ void Game_Update(void)
 	
 	
 	float player_moveX = 0.0f;
-	const float gravity = 1600.0f;
-	const float jump_strength = 900.0f;
+	const float gravity = 2200.0f;
+	const float jump_strength = 1200.0f;
 
 
 	if (CP_Input_KeyDown(KEY_D)) {
