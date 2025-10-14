@@ -7,6 +7,10 @@
 #include "stage_wall.h"
 #include "player.h"
 #include "levelone.h"
+#include "leveltwo.h"
+#include "levelthree.h"
+#include "levelfour.h"
+#include "levelfive.h"
 #include "game.h"
  
 Level_Button button[5];
@@ -52,10 +56,25 @@ void Game_Update(void)
 	CP_Font_DrawText("4", button[3].button_x, button[3].button_y);
 	CP_Font_DrawText("5", button[4].button_x, button[4].button_y);
 
-	if (CP_Input_KeyDown(KEY_SPACE)) {
-		CP_Engine_SetNextGameState(LevelOne_Init, LevelOne_Update, LevelOne_Exit);
+	if (CP_Input_MouseClicked()) {
+
+		if (IsAreaClicked(button[0].button_x, button[0].button_y, button[0].button_width, button[0].button_height, mouseX, mouseY)) {
+			CP_Engine_SetNextGameState(LevelOne_Init, LevelOne_Update, LevelOne_Exit);
+		}
+		if (IsAreaClicked(button[1].button_x, button[1].button_y, button[1].button_width, button[1].button_height, mouseX, mouseY)) {
+			CP_Engine_SetNextGameState(LevelTwo_Init, LevelTwo_Update, LevelTwo_Exit);
+		}
+		if (IsAreaClicked(button[2].button_x, button[2].button_y, button[2].button_width, button[2].button_height, mouseX, mouseY)) {
+			CP_Engine_SetNextGameState(LevelThree_Init, LevelThree_Update, LevelThree_Exit);
+		}
+		if (IsAreaClicked(button[3].button_x, button[3].button_y, button[3].button_width, button[3].button_height, mouseX, mouseY)) {
+			CP_Engine_SetNextGameState(LevelFour_Init, LevelFour_Update, LevelFour_Exit);
+		}
+		if (IsAreaClicked(button[4].button_x, button[4].button_y, button[4].button_width, button[4].button_height, mouseX, mouseY)) {
+			CP_Engine_SetNextGameState(LevelFive_Init, LevelFive_Update, LevelFive_Exit);
+		}
 	}
-	
+
 	// Fullscreen and exit fullscreen
 	if (((CP_Input_KeyDown(KEY_LEFT_ALT)) || (CP_Input_KeyDown(KEY_RIGHT_ALT))) && (CP_Input_KeyDown(KEY_ENTER)))
 	{
