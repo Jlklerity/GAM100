@@ -103,19 +103,19 @@ void Game_Update(void)
 		};
 		if (checkAABBCollision(playerHitBox, stagewallHitBox)) {
 			printf("Contact!");
-			player.player_posX -= player_moveX;
+			//player.player_posX -= player_moveX;
+			const float breathing_space = 0.1f;
 			 
 			if (player_moveX > 0) {
 				float wall_left_edge = stage_wall[i].stage_wallX - (stage_wall[i].stage_wallwidth / 2.0f);
-				player.player_posX = wall_left_edge - (player.player_width / 2.0f);
+				player.player_posX = wall_left_edge - (player.player_width / 2.0f) - breathing_space;
+			 
 			}
 			else if (player_moveX < 0) {
 				float wall_right_edge = stage_wall[i].stage_wallX + (stage_wall[i].stage_wallwidth / 2.0f);
-				player.player_posX = wall_right_edge + (player.player_width / 2.0f);
+				player.player_posX = wall_right_edge + (player.player_width / 2.0f) + breathing_space;
+				 
 			}
-			const float breathing_space = 0.01f;
-			if (player_moveX > 0) player.player_posX -= breathing_space;
-			if (player_moveX < 0) player.player_posX += breathing_space;
 			break;
 		}
 	}
