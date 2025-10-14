@@ -99,18 +99,22 @@ xcopy "$(SolutionDir)Extern\CProcessing\lib\x64\fmod.dll" "$(OutDir)"
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\collisionHandling.c" />
     <ClCompile Include="src\fullscreen.c" />
     <ClCompile Include="src\game.c" />
     <ClCompile Include="src\main.c" />
     <ClCompile Include="src\mainmenu.c" />
+    <ClCompile Include="src\player.c" />
     <ClCompile Include="src\stage_wall.c" />
     <ClCompile Include="src\startscreen.c" />
     <ClCompile Include="src\utils.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Extern\Headers\collisionHandling.h" />
     <ClInclude Include="Extern\Headers\fullscreen.h" />
     <ClInclude Include="Extern\Headers\game.h" />
     <ClInclude Include="Extern\Headers\mainmenu.h" />
+    <ClInclude Include="Extern\Headers\player.h" />
     <ClInclude Include="Extern\Headers\stage_wall.h" />
     <ClInclude Include="Extern\Headers\startscreen.h" />
     <ClInclude Include="Extern\Headers\utils.h" />
