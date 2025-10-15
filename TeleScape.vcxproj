@@ -99,6 +99,7 @@ xcopy "$(SolutionDir)Extern\CProcessing\lib\x64\fmod.dll" "$(OutDir)"
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\hazards.c" />
     <ClCompile Include="src\levelfive.c" />
     <ClCompile Include="src\levelfour.c" />
     <ClCompile Include="src\levelthree.c" />
@@ -118,6 +119,7 @@ xcopy "$(SolutionDir)Extern\CProcessing\lib\x64\fmod.dll" "$(OutDir)"
     <ClInclude Include="Extern\Headers\collisionHandling.h" />
     <ClInclude Include="Extern\Headers\fullscreen.h" />
     <ClInclude Include="Extern\Headers\game.h" />
+    <ClInclude Include="Extern\Headers\hazards.h" />
     <ClInclude Include="Extern\Headers\levelfive.h" />
     <ClInclude Include="Extern\Headers\levelfour.h" />
     <ClInclude Include="Extern\Headers\levelone.h" />
