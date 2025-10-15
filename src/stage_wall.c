@@ -3,6 +3,7 @@
 
 Stage_wall stage_wall[4];
 LevelPlatform level_platform;
+ExitDoor exit_door;
 int stage_wall_count = 0;
 
 void Stage_wall_Init(Stage_wall stage_wall[4], int* stage_wall_count) {
@@ -28,7 +29,9 @@ void Stage_wall_Init(Stage_wall stage_wall[4], int* stage_wall_count) {
 
     *stage_wall_count = 4;
 
-    level_platform = (LevelPlatform){ screen_width / 2.0f, screen_height - 80.0f, 100.0f, 20.0f, CP_Color_Create(255, 255, 255, 255) }; 
+    level_platform = (LevelPlatform){ screen_width / 2.0f, screen_height - 80.0f, 100.0f, 20.0f, color };
+
+    exit_door = (ExitDoor){ screen_width - stage_wall_thickness, screen_height - stage_wall_thickness, 100.0f, 150.0f, color};
 }
 
 
