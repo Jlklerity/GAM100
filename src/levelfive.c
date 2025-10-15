@@ -21,7 +21,7 @@ void LevelFive_Update(void) {
     }
     CP_Graphics_ClearBackground(CP_Color_Create(85, 85, 85, 255));
 
-    if (CP_Input_KeyDown(KEY_S)) {
+    if (CP_Input_KeyTriggered(KEY_Q)) {
         CP_Engine_SetNextGameState(Game_Init, Game_Update, Game_Exit);
     }
 }
