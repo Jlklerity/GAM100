@@ -21,6 +21,8 @@ void LevelOne_Update(void) {
     if (deltaTime > max_deltaTime) {
         deltaTime = max_deltaTime;
     }
+	const float screen_width = (float)CP_System_GetWindowWidth();
+	const float screen_height = (float)CP_System_GetWindowHeight();
     CP_Graphics_ClearBackground(CP_Color_Create(85, 85, 85, 255));
 
     float player_moveX = 0.0f;
@@ -159,18 +161,35 @@ void LevelOne_Update(void) {
 			break;
 		}
 	}
-	if (CP_Input_KeyDown(KEY_S)) {
-		CP_Engine_SetNextGameState(Game_Init, Game_Update, Game_Exit);
+	AABB platform = {
+		screen_width / 2,screen_height - 80.0f,100.0f, 20.0f
+	};
+	if (checkAABBCollision(playerHitBoxX, platform)) {
+		const float breathing_space = 0.1f;
+			if (player.player_velocityY > 0) {
+				player.player_posY = platform.y - (player.player_height / 2.0f) - breathing_space;
+				player.player_velocityY = 0.0f;
+				player.isGrounded = 1;
+			}
+			else if (player.player_velocityY < 0) {
+				player.player_posY = platform.y + platform.height + (player.player_height / 2.0f) + breathing_space;
+				player.player_velocityY = 0.0f;
+			}
 	}
-
 	//Draw stage walls
 	for (int i = 0; i < stage_wall_count; i++) {
 		CP_Settings_Fill(stage_wall[i].stage_wall_color);
 		CP_Graphics_DrawRect(stage_wall[i].stage_wallX, stage_wall[i].stage_wallY, stage_wall[i].stage_wallwidth, stage_wall[i].stage_wallheight);
 	}
+	//Draw stage platforms
+	CP_Graphics_DrawRectAdvanced(screen_width/2,screen_height-80.0f, 100.0f, 20.0f, 0.0f, 0.0f);
+
 	//Draw player 
 	CP_Graphics_DrawRectAdvanced(player.player_posX, player.player_posY, player.player_width, player.player_height, player.degree, 0);
 
+	if (CP_Input_KeyTriggered(KEY_Q)) {
+		CP_Engine_SetNextGameState(Game_Init, Game_Update, Game_Exit);
+	}
 }
 
 void LevelOne_Exit(void) {
