@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿  game.c
   levelfive.c
   levelfour.c
@@ -14,6 +15,12 @@ C:\Users\narut\source\repos\csd1401f25_team_duriancats\src\levelthree.c(13,17): 
 C:\Users\narut\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(13,17): warning C4133: 'function': incompatible types - from 'Player *' to 'Player *'
   Generating Code...
   TeleScape.vcxproj -> C:\Users\narut\source\repos\csd1401f25_team_duriancats\bin\Debug-x64\TeleScape.exe
+=======
+﻿  levelone.c
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(17,17): warning C4133: 'function': incompatible types - from 'Player *' to 'Player *'
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(218,120): warning C4244: 'function': conversion from 'int' to 'float', possible loss of data
+  TeleScape.vcxproj -> C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\bin\Debug-x64\TeleScape.exe
+>>>>>>> 053384bf6a7cced57f0cd211fb6c6ff8e54c7114
   1266 File(s) copied
   1 File(s) copied
   1 File(s) copied
