@@ -107,10 +107,11 @@ void LevelTwo_Update(void) {
     };
 
     AABB platformHitBoxY = {
-        level_platform.x - (level_platform.width / 2.0f),
-        level_platform.y - (level_platform.height / 2.0f),
-        level_platform.width,
-        level_platform.height
+        
+        level2_platform[0].x - (level2_platform[0].width / 2.0f),
+        level2_platform[0].y - (level2_platform[0].height / 2.0f),
+        level2_platform[0].width,
+        level2_platform[0].height
     };
 
     AABB ExitDoorHitBox = {
@@ -119,6 +120,7 @@ void LevelTwo_Update(void) {
         exit_door.width,
         exit_door.height
     };
+
     
     //check if player has opened the door
     if (checkAABBCollision(playerHitBoxY, ExitDoorHitBox) && CP_Input_KeyTriggered(KEY_W)) {
@@ -167,13 +169,13 @@ void LevelTwo_Update(void) {
     // ========== HORIZONTAL COLLISION DETECTION ==========
    
     player.player_posX += player_moveX;
-
     AABB playerHitBoxX = {
         player.player_posX - (player.player_width / 2.0f),
         player.player_posY - (player.player_height / 2.0f),
         player.player_width,
         player.player_height
     };
+
 
     // Check stage wall collisions (horizontal)
     for (int i = 0; i < stage_wall_count; i++) {
@@ -226,7 +228,10 @@ void LevelTwo_Update(void) {
             stage_wall[i].stage_wallwidth, stage_wall[i].stage_wallheight);
     }
     // Draw stage platforms
-    CP_Graphics_DrawRectAdvanced(screen_width / 2, screen_height - 80.0f, 100.0f, 20.0f, 0.0f, 0.0f);
+    for (int i = 0; i < 3; i++) {
+        CP_Graphics_DrawRectAdvanced(level2_platform[i].x, level2_platform[i].y, level2_platform[i].width, level2_platform[i].height, 0.0f, 0.0f);
+
+    }
 
     // Draw player
     CP_Graphics_DrawRectAdvanced(player.player_posX, player.player_posY,

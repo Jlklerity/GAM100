@@ -2,7 +2,9 @@
 #include "stage_wall.h"
 
 Stage_wall stage_wall[4];
-LevelPlatform level_platform;
+LevelPlatform level2_platform[3];
+PressurePlate pressure_plate;
+Door door;
 ExitDoor exit_door;
 int stage_wall_count = 0;
 
@@ -29,9 +31,18 @@ void Stage_wall_Init(Stage_wall stage_wall[4], int* stage_wall_count) {
 
     *stage_wall_count = 4;
 
-    level_platform = (LevelPlatform){ screen_width / 2.0f, screen_height - 80.0f, 100.0f, 20.0f, color };
+    //lowest platform
+    level2_platform[0] = (LevelPlatform){screen_width / 2.0f, screen_height - 300.0f, 100.0f, 20.0f, color};
+    //Lower Door platform
+    level2_platform[1] = (LevelPlatform){ screen_width - stage_wall_thickness - 100.0f, screen_height / 2, 200.0f, 20.0f, color };
+    //Upper Door platform
+    level2_platform[2] = (LevelPlatform){screen_width - stage_wall_thickness - 100.0f, screen_height / 2 - 200.0f, 200.0f, 20.0f, color};
+    
 
-    exit_door = (ExitDoor){ screen_width - stage_wall_thickness, screen_height - stage_wall_thickness, 100.0f, 150.0f, color};
+    pressure_plate = (PressurePlate){ screen_width - stage_wall_thickness, screen_height - stage_wall_thickness, 100.0f, 10.0f, color };
+    door = (Door){ screen_width - stage_wall_thickness, screen_height / 3, 50.0f, 300.0f, color };
+
+    exit_door = (ExitDoor){ screen_width - stage_wall_thickness - 100.0f, screen_height/2.0f - 85.0f, 100.0f, 150.0f, color};
 }
 
 

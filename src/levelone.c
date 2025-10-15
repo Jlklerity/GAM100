@@ -101,8 +101,8 @@ void LevelOne_Update(void) {
 		player.player_height
 	};
 
-	float platformTopLeftX = level_platform.x - (level_platform.width / 2.0f) ;
-	float platformTopLeftY = level_platform.y - (level_platform.height / 2.0f) ;
+	float platformTopLeftX = level2_platform[0].x - (level2_platform[0].width / 2.0f);
+	float platformTopLeftY = level2_platform[0].y - (level2_platform[0].height / 2.0f);
 	//printf("%0.2f %0.2f\n", platformTopLeftX, platformTopLeftY);
 	AABB platform = {
 		platformTopLeftX, platformTopLeftY,100.0f, 20.0f
