@@ -61,14 +61,6 @@ void Main_Menu_Update(void)
 				CP_Settings_Fill(CP_Color_Create(0, 0, 0, 150));
 				CP_Font_DrawText("Play", playButtonX, playButtonY);
 			}
-		}
-		if (CP_Input_MouseReleased(MOUSE_BUTTON_LEFT)) {
-			if (IsAreaClicked(playButtonX, playButtonY, buttonWidth, buttonHeight, mouseX, mouseY)) {
-				CP_Engine_SetNextGameState(Game_Init, Game_Update, Game_Exit);
-			}
-		}
-	
-		if (CP_Input_MouseDown(MOUSE_BUTTON_LEFT)) {
 			if (IsAreaClicked(exitButtonX, exitButtonY, buttonWidth, buttonHeight, mouseX, mouseY)) {
 				CP_Image_Draw(mainmenu_ButtonWhenPressed, exitButtonX, exitButtonY, buttonWidth, buttonHeight, 255);
 				CP_Settings_Fill(CP_Color_Create(0, 0, 0, 150));
@@ -76,6 +68,9 @@ void Main_Menu_Update(void)
 			}
 		}
 		if (CP_Input_MouseReleased(MOUSE_BUTTON_LEFT)) {
+			if (IsAreaClicked(playButtonX, playButtonY, buttonWidth, buttonHeight, mouseX, mouseY)) {
+				CP_Engine_SetNextGameState(Game_Init, Game_Update, Game_Exit);
+			}
 			if (IsAreaClicked(exitButtonX, exitButtonY, buttonWidth, buttonHeight, mouseX, mouseY)) {
 				CP_Engine_Terminate();
 			}
