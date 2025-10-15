@@ -17,6 +17,33 @@ typedef struct {
 	float x, y;
 	float width, height;
 	CP_Color color;
+	int stateIsOpen;//0 is closed, 1 is open
+} Door;
+
+typedef struct {
+	float x, y;
+	float width, height;
+	CP_Color color;
+	int IsSteppedOn;//0 is not stepped on, 1 is stepped on
+} PressurePlate;
+
+enum TypeofWall {
+	NORMAL, BLUE_TELEPORT, RED_DESTROY
+};
+
+typedef struct {
+	float x, y;
+	float width, height;
+	CP_Color color;
+	enum TypeofWall; //if  0, normal wall - blocks character movement destroys all orb.
+	// If 1, Color = blue, only teleport orb can hit, will destroy teleport orb, destroy orb will go past this  and player can walk pass this
+	// If 2, Color = red, only destroy orb can hit, will destroy destroy orb, teleport orb will go past this and player cannot walk pass this
+} InteratableWall;
+
+typedef struct {
+	float x, y;
+	float width, height;
+	CP_Color color;
 } ExitDoor;
 
 extern Stage_wall stage_wall[4];
