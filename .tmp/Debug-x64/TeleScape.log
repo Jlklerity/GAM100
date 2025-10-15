@@ -1,6 +1,21 @@
+<<<<<<< HEAD
 ﻿  collisionHandling.c
   game.c
   levelfive.c
+=======
+<<<<<<< HEAD
+﻿hazards.obj : warning LNK4099: PDB 'vc143.pdb' was not found with 'hazards.obj' or at 'C:\Users\narut\source\repos\csd1401f25_team_duriancats\bin\Debug-x64\vc143.pdb'; linking object as if no debug info
+levelfive.obj : warning LNK4099: PDB 'vc143.pdb' was not found with 'levelfive.obj' or at 'C:\Users\narut\source\repos\csd1401f25_team_duriancats\bin\Debug-x64\vc143.pdb'; linking object as if no debug info
+levelfour.obj : warning LNK4099: PDB 'vc143.pdb' was not found with 'levelfour.obj' or at 'C:\Users\narut\source\repos\csd1401f25_team_duriancats\bin\Debug-x64\vc143.pdb'; linking object as if no debug info
+levelthree.obj : warning LNK4099: PDB 'vc143.pdb' was not found with 'levelthree.obj' or at 'C:\Users\narut\source\repos\csd1401f25_team_duriancats\bin\Debug-x64\vc143.pdb'; linking object as if no debug info
+leveltwo.obj : warning LNK4099: PDB 'vc143.pdb' was not found with 'leveltwo.obj' or at 'C:\Users\narut\source\repos\csd1401f25_team_duriancats\bin\Debug-x64\vc143.pdb'; linking object as if no debug info
+levelone.obj : warning LNK4099: PDB 'vc143.pdb' was not found with 'levelone.obj' or at 'C:\Users\narut\source\repos\csd1401f25_team_duriancats\bin\Debug-x64\vc143.pdb'; linking object as if no debug info
+levelone.obj : error LNK2001: unresolved external symbol level_platform
+C:\Users\narut\source\repos\csd1401f25_team_duriancats\bin\Debug-x64\TeleScape.exe : fatal error LNK1120: 1 unresolved externals
+=======
+﻿  levelfive.c
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelfive.c(13,17): warning C4133: 'function': incompatible types - from 'Player *' to 'Player *'
+>>>>>>> 4b1d1781c652b5267f62c814c7ca3626c1be3ce7
   levelfour.c
   levelone.c
 C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\game.c(30,13): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
@@ -23,3 +38,4 @@ C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\player.c(28,52): warn
   1266 File(s) copied
   1 File(s) copied
   1 File(s) copied
+>>>>>>> e68f0eb05b687dba4b2146c26ed1844d415cb719
