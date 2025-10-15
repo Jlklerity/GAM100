@@ -2,6 +2,7 @@
 #include "stage_wall.h"
 
 Stage_wall stage_wall[4];
+LevelPlatform level_platform;
 int stage_wall_count = 0;
 
 void Stage_wall_Init(Stage_wall stage_wall[4], int* stage_wall_count) {
@@ -26,6 +27,9 @@ void Stage_wall_Init(Stage_wall stage_wall[4], int* stage_wall_count) {
     stage_wall[3] = (Stage_wall){ screen_width - (stage_wall_thickness / 2.0f), screen_height / 2.0f, stage_wall_thickness, screen_height, color };
 
     *stage_wall_count = 4;
+
+    level_platform = (LevelPlatform){ screen_width / 2.0f, screen_height - 80.0f, 100.0f, 20.0f, CP_Color_Create(255, 255, 255, 255) }; 
 }
+
 
 
