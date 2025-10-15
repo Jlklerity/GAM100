@@ -3,9 +3,6 @@
 #include "utils.h"
 #include "fullscreen.h"
 
-CP_Font mainmenu_TEXT;
-CP_Image mainmenu_ButtonBackground;
-CP_Image mainmenu_ButtonWhenPressed;
 int textSize;
 float mouseX, mouseY;
 float playButtonX, playButtonY; 
