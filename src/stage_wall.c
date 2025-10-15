@@ -1,3 +1,4 @@
+#include "cprocessing.h"
 #include "stage_wall.h"
 
 Stage_wall stage_wall[4];
@@ -26,3 +27,5 @@ void Stage_wall_Init(Stage_wall stage_wall[4], int* stage_wall_count) {
 
     *stage_wall_count = 4;
 }
+
+
