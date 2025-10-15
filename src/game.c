@@ -81,7 +81,7 @@ void Game_Update(void)
 		fullscreen();
 	}
 	// To get to Main Menu
-	if (CP_Input_KeyDown(KEY_Q)) {
+	if (CP_Input_KeyTriggered(KEY_Q)) {
 		CP_Engine_SetNextGameState(Main_Menu_Init, Main_Menu_Update, Main_Menu_Exit);
 	}
 }
