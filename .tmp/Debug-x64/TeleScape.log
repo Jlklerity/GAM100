@@ -1,2 +1,8 @@
-﻿levelone.obj : error LNK2001: unresolved external symbol level_platform
+﻿hazards.obj : warning LNK4099: PDB 'vc143.pdb' was not found with 'hazards.obj' or at 'C:\Users\narut\source\repos\csd1401f25_team_duriancats\bin\Debug-x64\vc143.pdb'; linking object as if no debug info
+levelfive.obj : warning LNK4099: PDB 'vc143.pdb' was not found with 'levelfive.obj' or at 'C:\Users\narut\source\repos\csd1401f25_team_duriancats\bin\Debug-x64\vc143.pdb'; linking object as if no debug info
+levelfour.obj : warning LNK4099: PDB 'vc143.pdb' was not found with 'levelfour.obj' or at 'C:\Users\narut\source\repos\csd1401f25_team_duriancats\bin\Debug-x64\vc143.pdb'; linking object as if no debug info
+levelthree.obj : warning LNK4099: PDB 'vc143.pdb' was not found with 'levelthree.obj' or at 'C:\Users\narut\source\repos\csd1401f25_team_duriancats\bin\Debug-x64\vc143.pdb'; linking object as if no debug info
+leveltwo.obj : warning LNK4099: PDB 'vc143.pdb' was not found with 'leveltwo.obj' or at 'C:\Users\narut\source\repos\csd1401f25_team_duriancats\bin\Debug-x64\vc143.pdb'; linking object as if no debug info
+levelone.obj : warning LNK4099: PDB 'vc143.pdb' was not found with 'levelone.obj' or at 'C:\Users\narut\source\repos\csd1401f25_team_duriancats\bin\Debug-x64\vc143.pdb'; linking object as if no debug info
+levelone.obj : error LNK2001: unresolved external symbol level_platform
 C:\Users\narut\source\repos\csd1401f25_team_duriancats\bin\Debug-x64\TeleScape.exe : fatal error LNK1120: 1 unresolved externals
