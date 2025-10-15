@@ -5,6 +5,7 @@
 #include "player.h"
 #include "collisionHandling.h"
 #include "game.h"
+#include "levelthree.h"
 
 static Player player;
 
@@ -14,12 +15,222 @@ void LevelTwo_Init(void) {
 }
 
 void LevelTwo_Update(void) {
+    // ========== INITIALIZATION ==========
     float deltaTime = CP_System_GetDt();
-    const float max_deltaTime = 0.02f; // cap deltaTime to be lower than 0.02f prevents collision tunneling
+    const float max_deltaTime = 0.02f;
     if (deltaTime > max_deltaTime) {
         deltaTime = max_deltaTime;
     }
+
+    const float screen_width = (float)CP_System_GetWindowWidth();
+    const float screen_height = (float)CP_System_GetWindowHeight();
+    const float gravity = 2200.0f;
+    const float jump_strength = 1200.0f;
+    const float breathing_space = 0.1f;
+    
     CP_Graphics_ClearBackground(CP_Color_Create(85, 85, 85, 255));
+
+    // ========== INPUT HANDLING ==========
+    // Horizontal movement
+    float player_moveX = 0.0f;
+    if (CP_Input_KeyDown(KEY_D)) {
+        player_moveX += player.player_velocityX * deltaTime;
+        player.direction = PLAYER_RIGHT;
+    }
+    if (CP_Input_KeyDown(KEY_A)) {
+        player_moveX -= player.player_velocityX * deltaTime;
+        player.direction = PLAYER_LEFT;
+    }
+
+    // Vertical aiming
+    if (CP_Input_KeyDown(KEY_W)) {
+        if (player.direction == PLAYER_LEFT || player.direction == PLAYER_RIGHT) {
+            player.last_direction = player.direction;
+        }
+        player.direction = PLAYER_UP;
+    }
+    if (CP_Input_KeyReleased(KEY_W)) {
+        player.direction = player.last_direction;
+    }
+
+    if (CP_Input_KeyDown(KEY_S)) {
+        if (player.direction == PLAYER_LEFT || player.direction == PLAYER_RIGHT) {
+            player.last_direction = player.direction;
+        }
+        player.direction = PLAYER_DOWN;
+    }
+    if (CP_Input_KeyReleased(KEY_S)) {
+        player.direction = player.last_direction;
+    }
+
+    // Update player degree for projectiles
+    switch (player.direction) {
+    case PLAYER_RIGHT:
+        player.degree = 0;
+        break;
+    case PLAYER_LEFT:
+        player.degree = 180;
+        break;
+    case PLAYER_UP:
+        if (CP_Input_KeyDown(KEY_W)) {
+            printf("Looking Up");
+            player.degree += 10;
+        }
+        break;
+    case PLAYER_DOWN:
+        if (CP_Input_KeyDown(KEY_S)) {
+            printf("Looking down");
+            player.degree -= 10;
+        }
+        break;
+    }
+
+    // Jumping
+    if (CP_Input_KeyTriggered(KEY_SPACE) && player.isGrounded) {
+        printf("jumpped!");
+        player.player_velocityY = -jump_strength;
+        player.isGrounded = 0;
+    }
+
+   
+    // Apply gravity
+    player.player_velocityY += gravity * deltaTime;
+    player.player_posY += player.player_velocityY * deltaTime;
+    player.isGrounded = 0;
+
+    // ========== VERTICAL COLLISION DETECTION ==========
+    AABB playerHitBoxY = {
+        player.player_posX - (player.player_width / 2.0f),
+        player.player_posY - (player.player_height / 2.0f),
+        player.player_width,
+        player.player_height
+    };
+
+    AABB platformHitBoxY = {
+        level_platform.x - (level_platform.width / 2.0f),
+        level_platform.y - (level_platform.height / 2.0f),
+        level_platform.width,
+        level_platform.height
+    };
+
+    AABB ExitDoorHitBox = {
+        exit_door.x - (exit_door.width / 2.0f),
+        exit_door.y - (exit_door.height / 2.0f),
+        exit_door.width,
+        exit_door.height
+    };
+    
+    //check if player has opened the door
+    if (checkAABBCollision(playerHitBoxY, ExitDoorHitBox) && CP_Input_KeyTriggered(KEY_W)) {
+        CP_Engine_SetNextGameState(LevelThree_Init, LevelThree_Update, LevelThree_Exit);
+    }
+    // Check stage wall collisions (vertical)
+    for (int i = 0; i < stage_wall_count; i++) {
+        AABB stagewallHitBox = {
+            stage_wall[i].stage_wallX - (stage_wall[i].stage_wallwidth / 2.0f),
+            stage_wall[i].stage_wallY - (stage_wall[i].stage_wallheight / 2.0f),
+            stage_wall[i].stage_wallwidth,
+            stage_wall[i].stage_wallheight
+        };
+
+        if (checkAABBCollision(playerHitBoxY, stagewallHitBox)) {
+            if (player.player_velocityY > 0) {
+                // Landing on top
+                player.player_posY = stagewallHitBox.y - (player.player_height / 2.0f) - breathing_space;
+                player.player_velocityY = 0.0f;
+                player.isGrounded = 1;
+            }
+            else if (player.player_velocityY < 0) {
+                // Hitting bottom
+                player.player_posY = stagewallHitBox.y + stagewallHitBox.height + (player.player_height / 2.0f) + breathing_space;
+                player.player_velocityY = 0.0f;
+            }
+            break;
+        }
+    }
+
+    // Check platform collision (vertical)
+    if (checkAABBCollision(playerHitBoxY, platformHitBoxY)) {
+        if (player.player_velocityY > 0) {
+            // Landing on top
+            player.player_posY = platformHitBoxY.y - (player.player_height / 2.0f) - breathing_space;
+            player.player_velocityY = 0.0f;
+            player.isGrounded = 1;
+        }
+        else if (player.player_velocityY < 0) {
+            // Hitting bottom
+            player.player_posY = platformHitBoxY.y + platformHitBoxY.height + (player.player_height / 2.0f) + breathing_space;
+            player.player_velocityY = 0.0f;
+        }
+    }
+
+    // ========== HORIZONTAL COLLISION DETECTION ==========
+   
+    player.player_posX += player_moveX;
+
+    AABB playerHitBoxX = {
+        player.player_posX - (player.player_width / 2.0f),
+        player.player_posY - (player.player_height / 2.0f),
+        player.player_width,
+        player.player_height
+    };
+
+    // Check stage wall collisions (horizontal)
+    for (int i = 0; i < stage_wall_count; i++) {
+        AABB stagewallHitBox = {
+            stage_wall[i].stage_wallX - (stage_wall[i].stage_wallwidth / 2.0f),
+            stage_wall[i].stage_wallY - (stage_wall[i].stage_wallheight / 2.0f),
+            stage_wall[i].stage_wallwidth,
+            stage_wall[i].stage_wallheight
+        };
+
+        if (checkAABBCollision(playerHitBoxX, stagewallHitBox)) {
+            printf("Contact!");
+
+            if (player_moveX > 0) {
+                // Hit left side of wall
+                float wall_left_edge = stage_wall[i].stage_wallX - (stage_wall[i].stage_wallwidth / 2.0f);
+                player.player_posX = wall_left_edge - (player.player_width / 2.0f) - breathing_space;
+            }
+            else if (player_moveX < 0) {
+                // Hit right side of wall
+                float wall_right_edge = stage_wall[i].stage_wallX + (stage_wall[i].stage_wallwidth / 2.0f);
+                player.player_posX = wall_right_edge + (player.player_width / 2.0f) + breathing_space;
+            }
+            break;
+        }
+    }
+
+    // Check platform collision (horizontal)
+    if (checkAABBCollision(playerHitBoxX, platformHitBoxY)) {
+        if (player_moveX > 0) {
+            // Hit left side of platform
+            player.player_posX = platformHitBoxY.x - (player.player_width / 2.0f) - breathing_space;
+        }
+        else if (player_moveX < 0) {
+            // Hit right side of platform
+            printf("contact with platform!");
+            float platform_right_edge = platformHitBoxY.x + platformHitBoxY.width;
+            printf("%0.2f\n", platform_right_edge);
+            player.player_posX = platform_right_edge + (player.player_width / 2.0f) + breathing_space;
+        }
+    }
+
+    // Draw exit door
+    CP_Graphics_DrawRect(exit_door.x, exit_door.y, exit_door.width, exit_door.height);
+  
+    // Draw stage walls
+    for (int i = 0; i < stage_wall_count; i++) {
+        CP_Settings_Fill(stage_wall[i].stage_wall_color);
+        CP_Graphics_DrawRect(stage_wall[i].stage_wallX, stage_wall[i].stage_wallY,
+            stage_wall[i].stage_wallwidth, stage_wall[i].stage_wallheight);
+    }
+    // Draw stage platforms
+    CP_Graphics_DrawRectAdvanced(screen_width / 2, screen_height - 80.0f, 100.0f, 20.0f, 0.0f, 0.0f);
+
+    // Draw player
+    CP_Graphics_DrawRectAdvanced(player.player_posX, player.player_posY,
+        player.player_width, player.player_height, player.degree, 0);
 
     if (CP_Input_KeyTriggered(KEY_Q)) {
         CP_Engine_SetNextGameState(Game_Init, Game_Update, Game_Exit);

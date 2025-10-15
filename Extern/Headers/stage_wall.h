@@ -13,8 +13,15 @@ typedef struct {
 	CP_Color color;
 } LevelPlatform;
 
+typedef struct {
+	float x, y;
+	float width, height;
+	CP_Color color;
+} ExitDoor;
+
 extern Stage_wall stage_wall[4];
 extern LevelPlatform level_platform;
+extern ExitDoor exit_door;
 extern int stage_wall_count;
 
 void Stage_wall_Init(Stage_wall stage_wall[4], int *stage_wall_count);
