@@ -7,7 +7,8 @@ typedef struct {
 } Level_Button;
 
 CP_Font mainmenu_TEXT;
-float text_width, text_height;
+CP_Image mainmenu_ButtonBackground;
+CP_Image mainmenu_ButtonWhenPressed;
 float mouseX, mouseY;
 int textSize;
 

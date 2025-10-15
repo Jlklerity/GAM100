@@ -19,14 +19,15 @@ void Game_Init(void)
 {
 	const float screen_width = (float)CP_System_GetWindowWidth();
 	const float screen_height = (float)CP_System_GetWindowHeight();
-	mainmenu_TEXT = CP_Font_Load("Assets/Exo2-Regular.ttf");
-
+	mainmenu_TEXT = CP_Font_Load("Assets/kenney_ui-pack-space-expansion/Font/Kenney Future Narrow.ttf");
+	mainmenu_ButtonBackground = CP_Image_Load("Assets/kenney_ui-pack-space-expansion/PNG/Extra/Double/button_rectangle_depth.png");
+	mainmenu_ButtonWhenPressed = CP_Image_Load("Assets/kenney_ui-pack-space-expansion/PNG/Extra/Double/panel_rectangle_screws.png");
 	button[0] = (Level_Button){ screen_width/4.0f, 200.0f, 150.0f, 100.0f};
 	button[1] = (Level_Button){ screen_width/2.0f, 200.0f, 150.0f, 100.0f};
 	button[2] = (Level_Button){ screen_width/1.4f, 200.0f, 150.0f, 100.0f};
 	button[3] = (Level_Button){ screen_width/3.0f, 700.0f, 150.0f, 100.0f};
 	button[4] = (Level_Button){ screen_width/1.5f, 700.0f, 150.0f, 100.0f};
-	text_width = 70.0f, text_height = 70.0f, textSize = 60.0f;
+	textSize = 60.0f;
 	CP_Settings_TextSize(textSize);
 }
 void Game_Update(void)
