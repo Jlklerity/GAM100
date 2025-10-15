@@ -1,6 +1,20 @@
-﻿  levelone.c
+﻿  game.c
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\game.c(29,54): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\game.c(30,23): warning C4244: 'function': conversion from 'int' to 'float', possible loss of data
+  levelfive.c
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelfive.c(13,17): warning C4133: 'function': incompatible types - from 'Player *' to 'Player *'
+  levelfour.c
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelfour.c(13,17): warning C4133: 'function': incompatible types - from 'Player *' to 'Player *'
+  levelone.c
 C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(15,17): warning C4133: 'function': incompatible types - from 'Player *' to 'Player *'
 C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(188,120): warning C4244: 'function': conversion from 'int' to 'float', possible loss of data
+  levelthree.c
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelthree.c(13,17): warning C4133: 'function': incompatible types - from 'Player *' to 'Player *'
+  leveltwo.c
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(13,17): warning C4133: 'function': incompatible types - from 'Player *' to 'Player *'
+  mainmenu.c
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\mainmenu.c(24,23): warning C4244: 'function': conversion from 'int' to 'float', possible loss of data
+  Generating Code...
   TeleScape.vcxproj -> C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\bin\Debug-x64\TeleScape.exe
   1266 File(s) copied
   1 File(s) copied
