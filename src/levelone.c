@@ -181,9 +181,6 @@ void LevelOne_Update(void) {
 		player.player_velocityY = -jump_strength;
 		player.isGrounded = 0;
 	}
-	player.player_velocityY += gravity * deltaTime;  //constant gravity
-	player.player_posY += player.player_velocityY * deltaTime;
-	player.isGrounded = 0;
 
     // Apply gravity
     player.player_velocityY += gravity * deltaTime;
