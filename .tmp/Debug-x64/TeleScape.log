@@ -1,11 +1,284 @@
-﻿  levelone.c
+﻿  hazards.c
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\Extern\Headers\collisionHandling.h(12,28): error C2143: syntax error: missing ')' before '*'
+  (compiling source file 'src/hazards.c')
+  
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\Extern\Headers\collisionHandling.h(12,28): error C2143: syntax error: missing '{' before '*'
+  (compiling source file 'src/hazards.c')
+  
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\Extern\Headers\collisionHandling.h(12,36): error C2059: syntax error: ')'
+  (compiling source file 'src/hazards.c')
+  
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\Extern\Headers\player.h(34,15): error C2040: 'player': 'Player' differs in levels of indirection from 'int *'
+  (compiling source file 'src/hazards.c')
+  
+  levelfive.c
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\Extern\Headers\collisionHandling.h(12,28): error C2143: syntax error: missing ')' before '*'
+  (compiling source file 'src/levelfive.c')
+  
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\Extern\Headers\collisionHandling.h(12,28): error C2143: syntax error: missing '{' before '*'
+  (compiling source file 'src/levelfive.c')
+  
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\Extern\Headers\collisionHandling.h(12,36): error C2059: syntax error: ')'
+  (compiling source file 'src/levelfive.c')
+  
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\Extern\Headers\player.h(34,15): error C2040: 'player': 'Player' differs in levels of indirection from 'int *'
+  (compiling source file 'src/levelfive.c')
+  
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelfive.c(9,15): error C2040: 'player': 'Player' differs in levels of indirection from 'int *'
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelfive.c(14,5): warning C4013: 'Player_Init' undefined; assuming extern returning int
+  levelfour.c
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\Extern\Headers\collisionHandling.h(12,28): error C2143: syntax error: missing ')' before '*'
+  (compiling source file 'src/levelfour.c')
+  
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\Extern\Headers\collisionHandling.h(12,28): error C2143: syntax error: missing '{' before '*'
+  (compiling source file 'src/levelfour.c')
+  
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\Extern\Headers\collisionHandling.h(12,36): error C2059: syntax error: ')'
+  (compiling source file 'src/levelfour.c')
+  
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\Extern\Headers\player.h(34,15): error C2040: 'player': 'Player' differs in levels of indirection from 'int *'
+  (compiling source file 'src/levelfour.c')
+  
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelfour.c(9,15): error C2040: 'player': 'Player' differs in levels of indirection from 'int *'
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelfour.c(14,5): warning C4013: 'Player_Init' undefined; assuming extern returning int
+  levelthree.c
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\Extern\Headers\collisionHandling.h(12,28): error C2143: syntax error: missing ')' before '*'
+  (compiling source file 'src/levelthree.c')
+  
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\Extern\Headers\collisionHandling.h(12,28): error C2143: syntax error: missing '{' before '*'
+  (compiling source file 'src/levelthree.c')
+  
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\Extern\Headers\collisionHandling.h(12,36): error C2059: syntax error: ')'
+  (compiling source file 'src/levelthree.c')
+  
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\Extern\Headers\player.h(34,15): error C2040: 'player': 'Player' differs in levels of indirection from 'int *'
+  (compiling source file 'src/levelthree.c')
+  
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelthree.c(9,15): error C2040: 'player': 'Player' differs in levels of indirection from 'int *'
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelthree.c(14,5): warning C4013: 'Player_Init' undefined; assuming extern returning int
+  leveltwo.c
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\Extern\Headers\collisionHandling.h(12,28): error C2143: syntax error: missing ')' before '*'
+  (compiling source file 'src/leveltwo.c')
+  
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\Extern\Headers\collisionHandling.h(12,28): error C2143: syntax error: missing '{' before '*'
+  (compiling source file 'src/leveltwo.c')
+  
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\Extern\Headers\collisionHandling.h(12,36): error C2059: syntax error: ')'
+  (compiling source file 'src/leveltwo.c')
+  
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\Extern\Headers\player.h(34,15): error C2040: 'player': 'Player' differs in levels of indirection from 'int *'
+  (compiling source file 'src/leveltwo.c')
+  
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(12,15): error C2040: 'player': 'Player' differs in levels of indirection from 'int *'
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(17,5): warning C4013: 'Player_Init' undefined; assuming extern returning int
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(52,32): error C2224: left of '.player_velocityX' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(53,16): error C2224: left of '.direction' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(56,32): error C2224: left of '.player_velocityX' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(57,16): error C2224: left of '.direction' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(62,20): error C2224: left of '.direction' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(62,55): error C2224: left of '.direction' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(63,20): error C2224: left of '.last_direction' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(63,44): error C2224: left of '.direction' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(65,16): error C2224: left of '.direction' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(68,16): error C2224: left of '.direction' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(68,35): error C2224: left of '.last_direction' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(72,20): error C2224: left of '.direction' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(72,55): error C2224: left of '.direction' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(73,20): error C2224: left of '.last_direction' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(73,44): error C2224: left of '.direction' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(75,16): error C2224: left of '.direction' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(78,16): error C2224: left of '.direction' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(78,35): error C2224: left of '.last_direction' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(82,52): error C2224: left of '.isGrounded' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(84,16): error C2224: left of '.player_velocityY' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(85,16): error C2224: left of '.isGrounded' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(90,12): error C2224: left of '.player_velocityY' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(91,12): error C2224: left of '.player_posY' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(91,34): error C2224: left of '.player_velocityY' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(92,12): error C2224: left of '.isGrounded' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(95,16): error C2224: left of '.orb_type' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(98,16): error C2224: left of '.orb_type' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(104,28): error C2224: left of '.player_posX' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(105,28): error C2224: left of '.player_posY' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(106,36): error C2224: left of '.direction' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(113,20): error C2224: left of '.degree' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(116,24): error C2224: left of '.player_posX' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(116,53): error C2224: left of '.player_width' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(117,24): error C2224: left of '.player_posY' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(122,20): error C2224: left of '.degree' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(125,24): error C2224: left of '.player_posX' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(125,53): error C2224: left of '.player_width' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(126,24): error C2224: left of '.player_posY' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(133,24): error C2224: left of '.player_posX' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(134,24): error C2224: left of '.player_posY' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(134,53): error C2224: left of '.player_height' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(141,24): error C2224: left of '.player_posX' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(142,24): error C2224: left of '.player_posY' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(142,53): error C2224: left of '.player_height' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(148,20): error C2224: left of '.orb_type' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(169,25): warning C4013: 'GetPlayerHitBox' undefined; assuming extern returning int
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(193,12): error C2224: left of '.player_posX' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(209,24): error C2224: left of '.player_velocityY' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(211,24): error C2224: left of '.player_posY' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(211,66): error C2224: left of '.player_height' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(212,24): error C2224: left of '.player_velocityY' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(213,24): error C2224: left of '.isGrounded' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(215,29): error C2224: left of '.player_velocityY' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(217,24): error C2224: left of '.player_posY' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(217,91): error C2224: left of '.player_height' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(218,24): error C2224: left of '.player_velocityY' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(226,20): error C2224: left of '.player_velocityY' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(228,20): error C2224: left of '.player_posY' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(228,61): error C2224: left of '.player_height' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(229,20): error C2224: left of '.player_velocityY' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(230,20): error C2224: left of '.isGrounded' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(232,25): error C2224: left of '.player_velocityY' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(234,20): error C2224: left of '.player_posY' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(234,85): error C2224: left of '.player_height' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(235,20): error C2224: left of '.player_velocityY' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(248,29): error C2224: left of '.player_posX' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(248,51): error C2224: left of '.player_width' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(265,24): error C2224: left of '.player_posX' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(265,63): error C2224: left of '.player_width' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(270,24): error C2224: left of '.player_posX' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(270,64): error C2224: left of '.player_width' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(280,20): error C2224: left of '.player_posX' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(280,61): error C2224: left of '.player_width' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(287,20): error C2224: left of '.player_posX' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(287,64): error C2224: left of '.player_width' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(325,41): error C2224: left of '.player_posX' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(325,61): error C2224: left of '.player_posY' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(326,16): error C2224: left of '.player_width' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(326,37): error C2224: left of '.player_height' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(326,59): error C2224: left of '.degree' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(325,5): error C2198: 'void CP_Graphics_DrawRectAdvanced(float,float,float,float,float,float)': too few arguments for call
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(169,10): error C2440: 'initializing': cannot convert from 'int' to 'AABB'
+  collisionHandling.c
+  game.c
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\Extern\Headers\collisionHandling.h(12,28): error C2143: syntax error: missing ')' before '*'
+  (compiling source file 'src/game.c')
+  
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\Extern\Headers\collisionHandling.h(12,28): error C2143: syntax error: missing '{' before '*'
+  (compiling source file 'src/game.c')
+  
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\Extern\Headers\collisionHandling.h(12,36): error C2059: syntax error: ')'
+  (compiling source file 'src/game.c')
+  
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\Extern\Headers\player.h(34,15): error C2040: 'player': 'Player' differs in levels of indirection from 'int *'
+  (compiling source file 'src/game.c')
+  
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\game.c(30,13): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\game.c(31,23): warning C4244: 'function': conversion from 'int' to 'float', possible loss of data
+  levelone.c
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\Extern\Headers\collisionHandling.h(12,28): error C2143: syntax error: missing ')' before '*'
+  (compiling source file 'src/levelone.c')
+  
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\Extern\Headers\collisionHandling.h(12,28): error C2143: syntax error: missing '{' before '*'
+  (compiling source file 'src/levelone.c')
+  
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\Extern\Headers\collisionHandling.h(12,36): error C2059: syntax error: ')'
+  (compiling source file 'src/levelone.c')
+  
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\Extern\Headers\player.h(34,15): error C2040: 'player': 'Player' differs in levels of indirection from 'int *'
+  (compiling source file 'src/levelone.c')
+  
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(10,15): error C2040: 'player': 'Player' differs in levels of indirection from 'int *'
 C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(16,5): warning C4013: 'Player_Init' undefined; assuming extern returning int
-C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(330,58): warning C4244: 'function': conversion from 'int' to 'float', possible loss of data
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(46,32): error C2224: left of '.player_velocityX' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(47,16): error C2224: left of '.direction' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(50,32): error C2224: left of '.player_velocityX' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(51,16): error C2224: left of '.direction' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(56,20): error C2224: left of '.direction' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(56,55): error C2224: left of '.direction' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(57,20): error C2224: left of '.last_direction' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(57,44): error C2224: left of '.direction' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(59,16): error C2224: left of '.direction' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(62,16): error C2224: left of '.direction' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(62,35): error C2224: left of '.last_direction' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(66,17): error C2224: left of '.direction' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(68,10): error C2224: left of '.degree' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(72,20): error C2224: left of '.direction' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(72,55): error C2224: left of '.direction' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(73,20): error C2224: left of '.last_direction' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(73,44): error C2224: left of '.direction' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(75,16): error C2224: left of '.direction' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(78,16): error C2224: left of '.direction' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(78,35): error C2224: left of '.last_direction' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(82,20): error C2224: left of '.direction' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(84,16): error C2224: left of '.degree' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(87,16): error C2224: left of '.degree' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(92,20): error C2224: left of '.degree' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(98,20): error C2224: left of '.degree' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(104,52): error C2224: left of '.isGrounded' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(106,16): error C2224: left of '.player_velocityY' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(107,16): error C2224: left of '.isGrounded' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(112,11): error C2224: left of '.degree' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(119,11): error C2224: left of '.degree' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(179,49): error C2224: left of '.isGrounded' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(181,10): error C2224: left of '.player_velocityY' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(182,10): error C2224: left of '.isGrounded' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(186,12): error C2224: left of '.player_velocityY' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(187,12): error C2224: left of '.player_posY' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(187,34): error C2224: left of '.player_velocityY' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(188,12): error C2224: left of '.isGrounded' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(192,16): error C2224: left of '.player_posX' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(192,38): error C2224: left of '.player_width' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(193,16): error C2224: left of '.player_posY' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(193,38): error C2224: left of '.player_height' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(194,16): error C2224: left of '.player_width' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(195,16): error C2224: left of '.player_height' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(228,24): error C2224: left of '.player_velocityY' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(230,24): error C2224: left of '.player_posY' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(230,66): error C2224: left of '.player_height' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(231,24): error C2224: left of '.player_velocityY' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(232,24): error C2224: left of '.isGrounded' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(234,29): error C2224: left of '.player_velocityY' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(236,24): error C2224: left of '.player_posY' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(236,91): error C2224: left of '.player_height' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(237,24): error C2224: left of '.player_velocityY' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(245,20): error C2224: left of '.player_velocityY' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(247,20): error C2224: left of '.player_posY' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(247,62): error C2224: left of '.player_height' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(248,20): error C2224: left of '.player_velocityY' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(249,20): error C2224: left of '.isGrounded' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(251,25): error C2224: left of '.player_velocityY' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(253,20): error C2224: left of '.player_posY' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(253,87): error C2224: left of '.player_height' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(254,20): error C2224: left of '.player_velocityY' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(260,12): error C2224: left of '.player_posX' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(262,16): error C2224: left of '.player_posX' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(262,38): error C2224: left of '.player_width' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(263,16): error C2224: left of '.player_posY' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(263,38): error C2224: left of '.player_height' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(264,16): error C2224: left of '.player_width' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(265,16): error C2224: left of '.player_height' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(284,24): error C2224: left of '.player_posX' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(284,63): error C2224: left of '.player_width' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(289,24): error C2224: left of '.player_posX' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(289,64): error C2224: left of '.player_width' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(299,20): error C2224: left of '.player_posX' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(299,62): error C2224: left of '.player_width' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(306,20): error C2224: left of '.player_posX' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(306,64): error C2224: left of '.player_width' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(326,41): error C2224: left of '.player_posX' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(326,61): error C2224: left of '.player_posY' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(327,16): error C2224: left of '.player_width' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(327,37): error C2224: left of '.player_height' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(327,59): error C2224: left of '.degree' must have struct/union type
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(326,5): error C2198: 'void CP_Graphics_DrawRectAdvanced(float,float,float,float,float,float)': too few arguments for call
   player.c
-C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\player.c(32,52): warning C4244: 'function': conversion from 'const float' to 'int', possible loss of data
-  stage_wall.c
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\Extern\Headers\collisionHandling.h(12,28): error C2143: syntax error: missing ')' before '*'
+  (compiling source file 'src/player.c')
+  
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\Extern\Headers\collisionHandling.h(12,28): error C2143: syntax error: missing '{' before '*'
+  (compiling source file 'src/player.c')
+  
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\Extern\Headers\collisionHandling.h(12,36): error C2059: syntax error: ')'
+  (compiling source file 'src/player.c')
+  
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\Extern\Headers\player.h(34,15): error C2040: 'player': 'Player' differs in levels of indirection from 'int *'
+  (compiling source file 'src/player.c')
+  
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\player.c(5,8): error C2040: 'player': 'Player' differs in levels of indirection from 'int *'
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\player.c(31,52): warning C4244: 'function': conversion from 'const float' to 'int', possible loss of data
   Generating Code...
-  TeleScape.vcxproj -> C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\bin\Debug-x64\TeleScape.exe
-  1266 File(s) copied
-  1 File(s) copied
-  1 File(s) copied

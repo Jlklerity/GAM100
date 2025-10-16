@@ -1,6 +1,6 @@
 #pragma once
 #include "cprocessing.h"
-
+#include "collisionHandling.h"
 
 enum Orb_Type {
 	TELEPORT_ORB, DESTROY_ORB
@@ -31,6 +31,7 @@ typedef struct {
 	enum Orb_Type orb_type;
 } Orb;
 
+extern Player player;
 //extern int orbCount;
 //extern int maxOrb;
 

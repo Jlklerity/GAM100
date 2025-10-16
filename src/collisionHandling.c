@@ -1,4 +1,7 @@
 #include "collisionHandling.h"
+#include "player.h"
+
+
 
 bool checkAABBCollision(AABB objectA, AABB objectB) {
 	
@@ -8,6 +11,20 @@ bool checkAABBCollision(AABB objectA, AABB objectB) {
 
 	return bothOverlap_X && bothOverlap_Y;
 }
+
+AABB GetPlayerHitBox(Player* player) {
+	AABB box;
+	box.x = player->player_posX - player->player_width / 2.0f;
+	box.y = player->player_posY - player->player_height / 2.0f;
+	box.width = player->player_width;
+	box.height = player->player_height;
+
+	return box;
+}
+
+
+
+
 
 //float player_moveX = 0.0f; //solve this variable thingie
 //void platformCollider(AABB platformCheck, AABB playerCheck, LevelPlatform plat, Player player) {

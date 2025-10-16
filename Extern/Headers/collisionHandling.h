@@ -3,10 +3,13 @@
 #include "stage_wall.h"
 #include "player.h"
 
+
 typedef struct {
 	float x, y;
 	float width, height;
 } AABB;
+
+AABB GetPlayerHitBox(Player* player);
 
 bool checkAABBCollision(AABB objectA, AABB objectB);
 //void platformCollider(AABB platformCheck, AABB playerCheck, LevelPlatform plat, Player player);

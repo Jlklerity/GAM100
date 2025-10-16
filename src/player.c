@@ -2,8 +2,7 @@
 #include "stage_wall.h"
 #include "collisionHandling.h"
 
-float newX = 0;
-float newY = 0;
+Player player;
 
 void Player_Init(Player *player, Orb *orb) {
 	Stage_wall_Init(stage_wall, &stage_wall_count);
