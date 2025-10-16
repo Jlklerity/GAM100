@@ -9,12 +9,18 @@
  
 
 static Player player;
-
+Orb orbs[3];
 
 void LevelOne_Init(void) {
 	
     Stage_wall_Init(stage_wall, &stage_wall_count);
     Player_Init(&player);
+	Orb_Init(&orbs);
+	orbCount = 0;
+	MaxOrb = 5;
+	for (int i = 0; i < 3; i++) {
+		orbs[i].active = 0;
+	}
 }
 
 void LevelOne_Update(void) {
@@ -59,7 +65,7 @@ void LevelOne_Update(void) {
 		player.direction = player.last_direction;
 	}
 
-	// For future projectiles if statements.
+	//orb direction
 	switch (player.direction) {
 	case PLAYER_RIGHT:
 		player.degree = 0;
@@ -72,17 +78,71 @@ void LevelOne_Update(void) {
 	case PLAYER_UP:
 		if (CP_Input_KeyDown(KEY_W)) {
 			printf("Looking Up");
-			player.degree += 10;
+			player.degree = 270;
 		}
 		break;
 
 	case PLAYER_DOWN:
 		if (CP_Input_KeyDown(KEY_S)) {
 			printf("Looking down");
-			player.degree -= 10;
+			player.degree = 90;
 		}
 		break;
 	}
+	//shoot orb
+	if (CP_Input_KeyTriggered(KEY_O)) {
+		if (orbCount < MaxOrb) {
+			if (player.degree == 0) {
+				orbs[orbCount].x = player.player_posX;
+				orbs[orbCount].y = player.player_posY;
+				orbs[orbCount].vx = 20.0f;
+				orbs[orbCount].vy = 0.0f;
+				orbs[orbCount].active = 1;
+				orbCount++;
+				printf("shoot right");
+			}
+			if (player.degree == 180) {
+				orbs[orbCount].x = player.player_posX;
+				orbs[orbCount].y = player.player_posY;
+				orbs[orbCount].vx = -20.0f;
+				orbs[orbCount].vy = 0.0f;
+				orbs[orbCount].active = 1;
+				orbCount++;
+				printf("shoot left");
+			}
+			if (player.degree == 270) {
+				orbs[orbCount].x = player.player_posX;
+				orbs[orbCount].y = player.player_posY;
+				orbs[orbCount].vx = 0.0f;
+				orbs[orbCount].vy = -20.0f;
+				orbs[orbCount].active = 1;
+				orbCount++;
+				printf("shoot up");
+			}
+		}
+	}
+	for (int i = 0; i < MaxOrb; i++) {
+		if (orbs[i].active) {
+
+			orbs[i].x += orbs[i].vx;
+			orbs[i].y += orbs[i].vy;
+		}
+	}
+
+	//teleport to orb
+	if (CP_Input_KeyTriggered(KEY_P)) {
+		for (int i = MaxOrb - 1, j = 0; i >= 0; i--) {
+			if (orbs[i].active) {
+				player.player_posX = orbs[i].x;
+				player.player_posY = orbs[i].y - 20;
+				orbs[i].active = 0;
+				break;
+			}
+		}
+
+	}
+
+
 	//jumping
 	//printf("%0.3f, %0.3f\n", player.player_posX, player.player_posY);
 	if (CP_Input_KeyTriggered(KEY_SPACE) && player.isGrounded) {
@@ -216,6 +276,14 @@ void LevelOne_Update(void) {
 
 	//Draw player 
 	CP_Graphics_DrawRectAdvanced(player.player_posX, player.player_posY, player.player_width, player.player_height, player.degree, 0);
+
+	//Draw Orb
+	CP_Settings_Fill(CP_Color_Create(0, 200, 255, 255));
+	for (int i = 0; i < MaxOrb; i++) {
+		if (orbs[i].active) {
+			CP_Graphics_DrawCircle(orbs[i].x, orbs[i].y, 10.0f);
+		}
+	}
 
 	if (CP_Input_KeyTriggered(KEY_Q)) {
 		CP_Engine_SetNextGameState(Game_Init, Game_Update, Game_Exit);

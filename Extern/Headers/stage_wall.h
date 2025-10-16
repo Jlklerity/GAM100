@@ -35,7 +35,7 @@ typedef struct {
 	float x, y;
 	float width, height;
 	CP_Color color;
-	enum TypeofWall; //if  0, normal wall - blocks character movement destroys all orb.
+	//enum TypeofWall; //if  0, normal wall - blocks character movement destroys all orb.
 	// If 1, Color = blue, only teleport orb can hit, will destroy teleport orb, destroy orb will go past this  and player can walk pass this
 	// If 2, Color = red, only destroy orb can hit, will destroy destroy orb, teleport orb will go past this and player cannot walk pass this
 } InteratableWall;
