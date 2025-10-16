@@ -27,3 +27,11 @@ void Player_Init(Player *player) {
 	player->player_height = player_height;
 	player->player_color = CP_Color_Create(255, 0, 0, player_highlight);
 }
+
+orbCount = 0;
+MaxOrb = 5;
+void Orb_Init(Orb* orbs) {
+
+	orbs->size = 10.0f;
+	
+}

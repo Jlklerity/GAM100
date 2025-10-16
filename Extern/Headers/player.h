@@ -27,4 +27,16 @@ extern float newY;
 void Player_Init(struct Player *player);
 
 
+extern int orbCount;
+extern int MaxOrb;
+
+typedef struct {
+	float x, y;
+	float vx, vy;
+	float size;
+	int active;
+	CP_Color orb_color;
+} Orb;
+
+void Orb_Init(Orb* orbs);
 
