@@ -40,6 +40,8 @@ typedef struct {
 	// If 2, Color = red, only destroy orb can hit, will destroy destroy orb, teleport orb will go past this and player cannot walk pass this
 } InteractableWall;
 
+ 
+
 typedef struct {
 	float x, y;
 	float width, height;
@@ -48,9 +50,14 @@ typedef struct {
 
 extern Stage_wall stage_wall[4];
 extern LevelPlatform level2_platform[3];
-extern PressurePlate pressure_plate;
-extern Door door;
-extern ExitDoor exit_door;
+extern LevelPlatform level1_platform[3];
+extern PressurePlate level1_pressure_plate;
+extern PressurePlate level2_pressure_plate;
+extern Door level2_door;
+extern Door level1_door;
+extern ExitDoor level2_exit_door;
+extern ExitDoor level1_exit_door;
 extern int stage_wall_count;
+extern InteractableWall level2_teleport_wall;
 
 void Stage_wall_Init(Stage_wall stage_wall[4], int *stage_wall_count);

@@ -7,10 +7,11 @@
 #include "game.h"
 
 static Player player;
+static Orb orb;
 
 void LevelThree_Init(void) {
     Stage_wall_Init(stage_wall, &stage_wall_count);
-    Player_Init(&player);
+    Player_Init(&player, &orb);
 }
 
 void LevelThree_Update(void) {

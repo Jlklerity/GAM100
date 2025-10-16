@@ -2,8 +2,8 @@
 #include "cprocessing.h"
 
 
-enum weapon_type {
-	teleport_orb, destroy_orb
+enum Orb_Type {
+	TELEPORT_ORB, DESTROY_ORB
 };
 
 enum player_facingdirection {
@@ -17,14 +17,24 @@ typedef struct {
 	float player_velocityX;
 	float player_velocityY;
 	int isGrounded;
+	enum Orb_Type orb_type;
 	enum player_facingdirection direction;
 	enum player_facingdirection last_direction;
 } Player;
 
-extern float newX;
-extern float newY;
+typedef struct {
+	float x, y;
+	float diameter;
+	float orb_velocity_x, orb_velocity_Y;
+	int direction;
+	int isActive;
+	enum Orb_Type orb_type;
+} Orb;
 
-void Player_Init(struct Player *player);
+//extern int orbCount;
+//extern int maxOrb;
+
+void Player_Init(Player *player, Orb *orb);
 
 
 
