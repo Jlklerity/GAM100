@@ -1,17 +1,9 @@
-﻿  hazards.c
-  levelfive.c
-  levelfour.c
-  levelthree.c
-  leveltwo.c
-C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(324,58): warning C4244: 'function': conversion from 'int' to 'float', possible loss of data
-  collisionHandling.c
-  game.c
-C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\game.c(30,13): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\game.c(31,23): warning C4244: 'function': conversion from 'int' to 'float', possible loss of data
-  levelone.c
-C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(239,58): warning C4244: 'function': conversion from 'int' to 'float', possible loss of data
+﻿  levelone.c
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(16,5): warning C4013: 'Player_Init' undefined; assuming extern returning int
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(330,58): warning C4244: 'function': conversion from 'int' to 'float', possible loss of data
   player.c
 C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\player.c(32,52): warning C4244: 'function': conversion from 'const float' to 'int', possible loss of data
+  stage_wall.c
   Generating Code...
   TeleScape.vcxproj -> C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\bin\Debug-x64\TeleScape.exe
   1266 File(s) copied

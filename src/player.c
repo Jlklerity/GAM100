@@ -38,10 +38,20 @@ void Player_Init(Player *player, Orb *orb) {
 	orb->y = player->player_posY;
 	orb->diameter = 20.0f;
 
-	AABB playerHitBoxY = {
+	/*AABB playerHitBoxY = {
 		player->player_posX - (player->player_width / 2.0f),
 		player->player_posY - (player->player_height / 2.0f),
 		player->player_width,
 		player->player_height
-	};
+	};*/
+
 }
+
+//orbCount = 0;
+//MaxOrb = 5;
+//void Orb_Init(Orb* orbs) {
+//
+//	orbs->size = 10.0f;
+//	
+// 
+//}
