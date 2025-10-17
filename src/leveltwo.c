@@ -117,6 +117,7 @@ void LevelTwo_Update(void) {
                 player.player_posX = orb.x - player.player_width / 2;
                 player.player_posY = orb.y;
                 orb.isActive = 0;
+                player.player_velocityY = 0.0f;
             }
             break;
         case PLAYER_LEFT:
@@ -126,6 +127,7 @@ void LevelTwo_Update(void) {
                 player.player_posX = orb.x + player.player_width / 2;
                 player.player_posY = orb.y;
                 orb.isActive = 0;
+                player.player_velocityY = 0.0f;
             }
             break;
         case PLAYER_UP:
@@ -134,6 +136,7 @@ void LevelTwo_Update(void) {
                 player.player_posX = orb.x;
                 player.player_posY = orb.y + player.player_height / 2;
                 orb.isActive = 0;
+                player.player_velocityY = 0.0f;
             }
             break;
         case PLAYER_DOWN:
@@ -142,6 +145,7 @@ void LevelTwo_Update(void) {
                 player.player_posX = orb.x;
                 player.player_posY = orb.y - player.player_height / 2;
                 orb.isActive = 0;
+                player.player_velocityY = 0.0f;
             }
             break;
         }
@@ -221,7 +225,6 @@ void LevelTwo_Update(void) {
     // Check stage wall collisions (horizontal)
     for (int i = 0; i < stage_wall_count; i++) {
         AABB stagewallHitBox = Get_Stage_Wall_HitBox(&stage_wall[i]);
-
         if (checkAABBCollision(playerHitBoxX, stagewallHitBox)) {
             printf("Contact!");
 
