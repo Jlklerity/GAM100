@@ -34,7 +34,45 @@ void Player_Init(Player *player, Orb *orb) {
 	orb->x = player->player_posX;
 	orb->y = player->player_posY;
 	orb->diameter = 20.0f;
+}
 
+float Player_Update(Player* player, Orb* orb, float deltaTime, float player_moveX, float jump_strength) {
+	if (CP_Input_KeyDown(KEY_D)) {
+		player_moveX += player->player_velocityX * deltaTime;
+		player->direction = PLAYER_RIGHT;
+	}
+	if (CP_Input_KeyDown(KEY_A)) {
+		player_moveX -= player->player_velocityX * deltaTime;
+		player->direction = PLAYER_LEFT;
+	}
 
+	// Vertical aiming
+	if (CP_Input_KeyDown(KEY_W)) {
+		if (player->direction == PLAYER_LEFT || player->direction == PLAYER_RIGHT) {
+			player->last_direction = player->direction;
+		}
+		player->direction = PLAYER_UP;
+	}
+	if (CP_Input_KeyReleased(KEY_W)) {
+		player->direction = player->last_direction;
+	}
+
+	if (CP_Input_KeyDown(KEY_S)) {
+		if (player->direction == PLAYER_LEFT || player->direction == PLAYER_RIGHT) {
+			player->last_direction = player->direction;
+		}
+		player->direction = PLAYER_DOWN;
+	}
+	if (CP_Input_KeyReleased(KEY_S)) {
+		player->direction = player->last_direction;
+	}
+
+	// Jumping
+	if (CP_Input_KeyTriggered(KEY_SPACE) && player->isGrounded) {
+		printf("jumpped!");
+		player->player_velocityY = -jump_strength;
+		player->isGrounded = 0;
+	}
+	return player_moveX;
 }
 

@@ -34,6 +34,7 @@ typedef struct {
 //extern int maxOrb;
 
 void Player_Init(Player *player, Orb *orb);
+float Player_Update(Player* player, Orb* orb, float deltaTime, float player_moveX, float jump_strength);
 
 extern Player player;
 //

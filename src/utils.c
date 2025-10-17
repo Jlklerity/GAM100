@@ -55,6 +55,7 @@ int RGBChange(float StaticValue) {
     int x = (int)greenValue;
     if (x < 0) x = 0;
     if (x > 255) x = 255;
+    return x;
 }
 
 

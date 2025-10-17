@@ -17,6 +17,7 @@ void LevelTwo_Init(void) {
     Stage_wall_Init(stage_wall, &stage_wall_count);
     Player_Init(&player, &orb);
     greenStartTime = 0;
+
 }
 
 void LevelTwo_Update(void) {
@@ -34,9 +35,6 @@ void LevelTwo_Update(void) {
     const float breathing_space = 0.1f;
     
     //get color to change for cp color create for green value
-    int x = RGBChange(greenStartTime);
-    if (x < 0) x = 0;
-    if (x > 255) x = 255;
 
     CP_Graphics_ClearBackground(CP_Color_Create(85, 85, 85, 255));
 
@@ -46,44 +44,9 @@ void LevelTwo_Update(void) {
     float player_moveX = 0.0f;
     float orb_moveX = 0.0f;
     float orb_moveY = 0.0f;
-    if (CP_Input_KeyDown(KEY_D)) {
-        player_moveX += player.player_velocityX * deltaTime;
-        player.direction = PLAYER_RIGHT;
-    }
-    if (CP_Input_KeyDown(KEY_A)) {
-        player_moveX -= player.player_velocityX * deltaTime;
-        player.direction = PLAYER_LEFT;
-    }
 
-    // Vertical aiming
-    if (CP_Input_KeyDown(KEY_W)) {
-        if (player.direction == PLAYER_LEFT || player.direction == PLAYER_RIGHT) {
-            player.last_direction = player.direction;
-        }
-        player.direction = PLAYER_UP;
-    }
-    if (CP_Input_KeyReleased(KEY_W)) {
-        player.direction = player.last_direction;
-    }
+    player_moveX = Player_Update(&player, &orb, deltaTime, player_moveX, jump_strength);
 
-    if (CP_Input_KeyDown(KEY_S)) {
-        if (player.direction == PLAYER_LEFT || player.direction == PLAYER_RIGHT) {
-            player.last_direction = player.direction;
-        }
-        player.direction = PLAYER_DOWN;
-    }
-    if (CP_Input_KeyReleased(KEY_S)) {
-        player.direction = player.last_direction;
-    }
-
-    // Jumping
-    if (CP_Input_KeyTriggered(KEY_SPACE) && player.isGrounded) {
-        printf("jumpped!");
-        player.player_velocityY = -jump_strength;
-        player.isGrounded = 0;
-    }
-
-   
     // Apply gravity
     player.player_velocityY += gravity * deltaTime;
     player.player_posY += player.player_velocityY * deltaTime;
@@ -223,7 +186,7 @@ void LevelTwo_Update(void) {
     }
 
     //Draw Teleport Wall   
-    CP_Settings_Fill(CP_Color_Create(0, x, 255, 255));
+    CP_Settings_Fill(CP_Color_Create(0, RGBChange(greenStartTime), 255, 255));
     CP_Graphics_DrawRectAdvanced(level2_teleport_wall.x, level2_teleport_wall.y, level2_teleport_wall.width, level2_teleport_wall.height, 0.0f, 0.0f);
     
     // Draw player
