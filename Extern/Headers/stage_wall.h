@@ -1,22 +1,38 @@
 #pragma once
 #include "cprocessing.h"
 
+enum TypeofWall {
+	BLUE_TELEPORT, RED_DESTROY, STAGEWALL, PLATFORM, DOOR, PRESSURE_PLATE, EXIT_DOOR, NORMAL
+};
+
+typedef struct {
+	float x, y;
+	float width, height;
+	CP_Color color;
+	int isOpen;
+	int isActivated;
+	enum TypeofWall type;
+}Wall;
+
 typedef struct {
 	float stage_wallX, stage_wallY;
 	float stage_wallwidth, stage_wallheight;
 	CP_Color stage_wall_color;
+	enum TypeofWall type;
 } Stage_wall;
 
 typedef struct {
 	float x, y;
 	float width, height;
 	CP_Color color;
+	enum TypeofWall type;
 } LevelPlatform;
 
 typedef struct {
 	float x, y;
 	float width, height;
 	CP_Color color;
+	enum TypeofWall type;
 	int IsOpen;//0 is closed, 1 is open
 } Door;
 
@@ -27,9 +43,6 @@ typedef struct {
 	int IsActivated;//0 is not stepped on, 1 is stepped on
 } PressurePlate;
 
-enum TypeofWall {
-	NORMAL, BLUE_TELEPORT, RED_DESTROY
-};
 
 typedef struct {
 	float x, y;

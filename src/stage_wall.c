@@ -1,6 +1,7 @@
 #include "cprocessing.h"
 #include "stage_wall.h"
 
+Wall stage[4];
 Stage_wall stage_wall[4];
 LevelPlatform level2_platform[3];
 LevelPlatform level1_platform[3];
@@ -24,42 +25,43 @@ void Stage_wall_Init(Stage_wall stage_wall[4], int* stage_wall_count) {
 	CP_Color color = CP_Color_Create(255, 255, 255, 255);
 
     //top wall
-    stage_wall[0] = (Stage_wall){ screen_width/2.0f, stage_wall_thickness / 2.0f, screen_width, stage_wall_thickness, color };
+    stage[0] = (Wall){screen_width / 2.0f, stage_wall_thickness / 2.0f, screen_width, stage_wall_thickness, color, 0, 0, STAGEWALL}; //example
+    stage_wall[0] = (Stage_wall){ screen_width / 2.0f, stage_wall_thickness / 2.0f, screen_width, stage_wall_thickness, color, NORMAL };
 
     //bottom wall
-    stage_wall[1] = (Stage_wall){ screen_width/2.0f, screen_height - (stage_wall_thickness / 2.0f), screen_width, stage_wall_thickness, color };
+    stage_wall[1] = (Stage_wall){ screen_width / 2.0f, screen_height - (stage_wall_thickness / 2.0f), screen_width, stage_wall_thickness, color, NORMAL };
 
     //left wall
-    stage_wall[2] = (Stage_wall){ stage_wall_thickness / 2.0f, screen_height/2.0f, stage_wall_thickness, screen_height, color };
+    stage_wall[2] = (Stage_wall){ stage_wall_thickness / 2.0f, screen_height / 2.0f, stage_wall_thickness, screen_height, color, NORMAL };
 
     //right wall
-    stage_wall[3] = (Stage_wall){ screen_width - (stage_wall_thickness / 2.0f), screen_height / 2.0f, stage_wall_thickness, screen_height, color };
+    stage_wall[3] = (Stage_wall){ screen_width - (stage_wall_thickness / 2.0f), screen_height / 2.0f, stage_wall_thickness, screen_height, color, NORMAL };
 
     *stage_wall_count = 4;
 
-    level1_platform[0] = (LevelPlatform){ screen_width / 2.0f, screen_height - 300.0f, 100.0f, 20.0f, color };
+    level1_platform[0] = (LevelPlatform){ screen_width / 2.0f, screen_height - 300.0f, 100.0f, 20.0f, color, NORMAL };
     //Lower Door platform
-    level1_platform[1] = (LevelPlatform){ screen_width - stage_wall_thickness - 100.0f, screen_height / 2, 200.0f, 20.0f, color };
+    level1_platform[1] = (LevelPlatform){ screen_width - stage_wall_thickness - 100.0f, screen_height / 2, 200.0f, 20.0f, color, NORMAL };
     //Upper Door platform
-    level1_platform[2] = (LevelPlatform){ screen_width - stage_wall_thickness - 100.0f, screen_height / 2 - 200.0f, 200.0f, 20.0f, color };
+    level1_platform[2] = (LevelPlatform){ screen_width - stage_wall_thickness - 100.0f, screen_height / 2 - 200.0f, 200.0f, 20.0f, color, NORMAL };
 
 
     //lowest platform
-    level2_platform[0] = (LevelPlatform){screen_width / 2.0f, screen_height - 300.0f, 100.0f, 20.0f, color};
+    level2_platform[0] = (LevelPlatform){screen_width / 2.0f, screen_height - 300.0f, 100.0f, 20.0f, color, NORMAL };
     //Lower Door platform
-    level2_platform[1] = (LevelPlatform){ screen_width - stage_wall_thickness - 100.0f, screen_height / 2, 200.0f, 20.0f, color };
+    level2_platform[1] = (LevelPlatform){ screen_width - stage_wall_thickness - 100.0f, screen_height / 2, 200.0f, 20.0f, color, NORMAL };
     //Upper Door platform
-    level2_platform[2] = (LevelPlatform){screen_width - stage_wall_thickness - 100.0f, screen_height / 2 - 200.0f, 200.0f, 20.0f, color};
+    level2_platform[2] = (LevelPlatform){screen_width - stage_wall_thickness - 100.0f, screen_height / 2 - 200.0f, 200.0f, 20.0f, color, NORMAL };
 
-    level2_pressure_plate = (PressurePlate){ screen_width - stage_wall_thickness, screen_height - stage_wall_thickness, 100.0f, 10.0f, color };
+    level2_pressure_plate = (PressurePlate){ screen_width - stage_wall_thickness, screen_height - stage_wall_thickness, 100.0f, 10.0f, color, NORMAL };
     
-    level1_door = (Door){ screen_width - stage_wall_thickness, screen_height / 3, 50.0f, 300.0f, color };
-    level2_door = (Door){ screen_width - stage_wall_thickness, screen_height / 3, 50.0f, 300.0f, color };
+    level1_door = (Door){ screen_width - stage_wall_thickness, screen_height / 3, 50.0f, 300.0f, color, NORMAL, 0 };
+    level2_door = (Door){ screen_width - stage_wall_thickness, screen_height / 3, 50.0f, 300.0f, color, NORMAL, 0 };
 
     level1_exit_door = (ExitDoor){ screen_width - stage_wall_thickness - 100.0f, screen_height / 2.0f - 85.0f, 100.0f, 150.0f, color };
     level2_exit_door = (ExitDoor){ screen_width - stage_wall_thickness - 100.0f, screen_height/2.0f - 85.0f, 100.0f, 150.0f, color};
 
-    level2_teleport_wall = (InteractableWall){ screen_width - stage_wall_thickness - 5.0f,screen_height / 2.0f - 100.0f,10.0f,180.0f,color,0 };
+    level2_teleport_wall = (InteractableWall){ screen_width - stage_wall_thickness - 5.0f,screen_height / 2.0f - 100.0f,10.0f,180.0f,color,BLUE_TELEPORT };
 }
 
 

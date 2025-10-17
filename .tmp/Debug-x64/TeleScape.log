@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿  collisionHandling.c
   game.c
   hazards.c
@@ -23,6 +24,10 @@ main.obj : warning LNK4020: a type record in 'c:\users\jlksh\source\repos\csd140
 startscreen.obj : warning LNK4020: a type record in 'c:\users\jlksh\source\repos\csd1401f25_team_duriancats\.tmp\debug-x64\vc143.pdb' is corrupted; some symbols and types may not be accessible from the debugger
 stage_wall.obj : warning LNK4020: a type record in 'c:\users\jlksh\source\repos\csd1401f25_team_duriancats\.tmp\debug-x64\vc143.pdb' is corrupted; some symbols and types may not be accessible from the debugger
   TeleScape.vcxproj -> C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\bin\Debug-x64\TeleScape.exe
+=======
+﻿  stage_wall.c
+  TeleScape.vcxproj -> C:\Users\narut\source\repos\csd1401f25_team_duriancats\bin\Debug-x64\TeleScape.exe
+>>>>>>> 6f70c5c1965eeddcc039632489079a0526fee81e
   1266 File(s) copied
   1 File(s) copied
   1 File(s) copied

@@ -1,5 +1,6 @@
 #include "collisionHandling.h"
 #include "player.h"
+#include <stdio.h>
 
  
 bool checkAABBCollision(AABB objectA, AABB objectB) {
@@ -86,6 +87,7 @@ AABB Get_Exit_Door_HitBox(ExitDoor* level2_exit_door) {
 
 void Resolve_Collision_Wall_Player_Y(AABB playerHitBox, AABB WallHitBox, Player* player, float breathing_space) {
 	// can use for stage wall, platform, door, interactable wall, for interactable wall, please check type of wall before implementing collision.
+	//cannot use for orb
 	if (checkAABBCollision(playerHitBox, WallHitBox)) {
 		if (player->player_velocityY > 0) {
 			player->player_posY = WallHitBox.y - (player->player_height / 2.0f) - breathing_space;
@@ -99,8 +101,27 @@ void Resolve_Collision_Wall_Player_Y(AABB playerHitBox, AABB WallHitBox, Player*
 	}
 }
 
+void Resolve_Collision_Wall_Orb_Y(AABB orbHitBox, AABB WallHitBox, Orb* orb, Player* player, float breathing_space, float orb_moveY) {
+	if (checkAABBCollision(orbHitBox, WallHitBox)) {
+		if (orb_moveY > 0) {
+			player->player_posY = WallHitBox.y - (player->player_height / 2.0f) - breathing_space;
+			player->player_posX = orb->x;
+			orb->isActive = 0;
+		}
+		else if (orb_moveY < 0) {
+			printf("Teleporting...");
+			float Wall_Bottom = WallHitBox.y + WallHitBox.height;
+			player->player_posY = Wall_Bottom + (player->player_height / 2.0f) + breathing_space;
+			player->player_posX = orb->x;
+			player->player_velocityY = 0.0f;
+			orb->isActive = 0;
+		}
+	}
+}
+
 void Resolve_Collision_Wall_Player_X(AABB playerHitBox, AABB WallHitBox, Player* player, float breathing_space, float player_moveX) {
 	// can use for stage wall, platform, door, interactable wall, for interactable wall, please check type of wall before implementing collision.
+	// cannot use for orb
 	if (checkAABBCollision(playerHitBox, WallHitBox)) {
 		if (player_moveX > 0) {
 			player->player_posX = WallHitBox.x - (player->player_width / 2.0f) - breathing_space;
@@ -112,3 +133,23 @@ void Resolve_Collision_Wall_Player_X(AABB playerHitBox, AABB WallHitBox, Player*
 	}
 }
 
+<<<<<<< HEAD
+=======
+void Resolve_Collision_Wall_Orb_X(AABB orbHitBox, AABB WallHitBox, Orb* orb, Player* player, float breathing_space, float orb_moveX) {
+	// can use for stage wall, platform, door, interactable wall, for interactable wall, please check type of wall before implementing collision.
+	// can only use for orb
+	if (checkAABBCollision(orbHitBox, WallHitBox)) {
+		if (orb_moveX > 0) {
+			player->player_posX = WallHitBox.x - (player->player_width / 2.0f) - breathing_space;
+			player->player_posY = orb->y;
+			orb->isActive = 0;
+		}
+		else if (orb_moveX < 0) {
+			float Wall_Right_Edge = WallHitBox.x + WallHitBox.width;
+			player->player_posX = Wall_Right_Edge + (player->player_width / 2.0f) + breathing_space;
+			player->player_posY = orb->y;
+			orb->isActive = 0;
+		}
+	}
+}
+>>>>>>> 6f70c5c1965eeddcc039632489079a0526fee81e
