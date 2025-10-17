@@ -162,7 +162,7 @@ void LevelTwo_Update(void) {
 
     // ========== VERTICAL COLLISION DETECTION ==========
     
-    AABB playerHitBox = Get_Player_HitBox(&player);
+    AABB playerHitBoxY = Get_Player_HitBox(&player);
     AABB platformHitBox = Get_Level2_Platform_HitBox(&level2_platform);
     AABB ExitDoorHitBox = Get_Exit_Door_HitBox(&level2_exit_door);
     AABB orbHitbox = Get_Orb_HitBox(&orb);
@@ -170,14 +170,14 @@ void LevelTwo_Update(void) {
     player.player_posX += player_moveX;
     
     //check if player has opened the door
-    if (checkAABBCollision(playerHitBox, ExitDoorHitBox) && CP_Input_KeyTriggered(KEY_W)) {
+    if (checkAABBCollision(playerHitBoxY, ExitDoorHitBox) && CP_Input_KeyTriggered(KEY_W)) {
         CP_Engine_SetNextGameState(LevelThree_Init, LevelThree_Update, LevelThree_Exit);
     }
     // Check stage wall collisions (vertical)
     for (int i = 0; i < stage_wall_count; i++) {
         AABB stagewallHitBox = Get_Stage_Wall_HitBox(&stage_wall[i]);
 
-        if (checkAABBCollision(playerHitBox, stagewallHitBox)) {
+        if (checkAABBCollision(playerHitBoxY, stagewallHitBox)) {
             if (player.player_velocityY > 0) {
                 // Landing on top
                 player.player_posY = stagewallHitBox.y - (player.player_height / 2.0f) - breathing_space;
@@ -195,7 +195,7 @@ void LevelTwo_Update(void) {
 
     // Check platform collision (vertical)
 
-    if (checkAABBCollision(playerHitBox, platformHitBox)) {
+    if (checkAABBCollision(playerHitBoxY, platformHitBox)) {
 
         if (player.player_velocityY > 0) {
             // Landing on top
@@ -216,7 +216,7 @@ void LevelTwo_Update(void) {
   
     AABB playerHitBoxX = Get_Player_HitBox(&player);
 
-    playerHitBox.x = player.player_posX - (player.player_width / 2.0f);
+    playerHitBoxY.x = player.player_posX - (player.player_width / 2.0f);
 
     // Check stage wall collisions (horizontal)
     for (int i = 0; i < stage_wall_count; i++) {
