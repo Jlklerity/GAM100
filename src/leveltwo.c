@@ -49,6 +49,8 @@ void LevelTwo_Update(void) {
     
     // Horizontal movement
     float player_moveX = 0.0f;
+    float orb_moveX = 0.0f;
+    float orb_moveY = 0.0f;
     if (CP_Input_KeyDown(KEY_D)) {
         player_moveX += player.player_velocityX * deltaTime;
         player.direction = PLAYER_RIGHT;
@@ -152,7 +154,7 @@ void LevelTwo_Update(void) {
     //Change orb type
     switch (player.orb_type) {
         case TELEPORT_ORB:
-            CP_Settings_Fill(CP_Color_Create(0, 190, 255, 255));            
+            CP_Settings_Fill(CP_Color_Create(0, 190, 255, 255));
             break;
         case DESTROY_ORB:
             CP_Settings_Fill(CP_Color_Create(255, 0, 0, 255));          
