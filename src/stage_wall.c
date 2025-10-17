@@ -1,6 +1,7 @@
 #include "cprocessing.h"
 #include "stage_wall.h"
 
+Wall stage[4];
 Stage_wall stage_wall[4];
 LevelPlatform level2_platform[3];
 LevelPlatform level1_platform[3];
@@ -24,6 +25,7 @@ void Stage_wall_Init(Stage_wall stage_wall[4], int* stage_wall_count) {
 	CP_Color color = CP_Color_Create(255, 255, 255, 255);
 
     //top wall
+    stage[0] = (Wall){screen_width / 2.0f, stage_wall_thickness / 2.0f, screen_width, stage_wall_thickness, color, 0, 0, STAGEWALL}; //example
     stage_wall[0] = (Stage_wall){ screen_width / 2.0f, stage_wall_thickness / 2.0f, screen_width, stage_wall_thickness, color, NORMAL };
 
     //bottom wall

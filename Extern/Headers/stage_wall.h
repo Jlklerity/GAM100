@@ -2,8 +2,17 @@
 #include "cprocessing.h"
 
 enum TypeofWall {
-	NORMAL, BLUE_TELEPORT, RED_DESTROY
+	BLUE_TELEPORT, RED_DESTROY, STAGEWALL, PLATFORM, DOOR, PRESSURE_PLATE, EXIT_DOOR, NORMAL
 };
+
+typedef struct {
+	float x, y;
+	float width, height;
+	CP_Color color;
+	int isOpen;
+	int isActivated;
+	enum TypeofWall type;
+}Wall;
 
 typedef struct {
 	float stage_wallX, stage_wallY;
