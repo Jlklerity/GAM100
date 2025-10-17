@@ -83,3 +83,31 @@ AABB Get_Exit_Door_HitBox(ExitDoor* level2_exit_door) {
 	box.height = level2_exit_door->height;
 	return box;
 }
+
+void Resolve_Collision_Wall_Player_Y(AABB playerHitBox, AABB WallHitBox, Player* player, float breathing_space) {
+	// can use for stage wall, platform, door, interactable wall, for interactable wall, please check type of wall before implementing collision.
+	if (checkAABBCollision(playerHitBox, WallHitBox)) {
+		if (player->player_velocityY > 0) {
+			player->player_posY = WallHitBox.y - (player->player_height / 2.0f) - breathing_space;
+			player->player_velocityY = 0.0f;
+			player->isGrounded = 1;
+		}
+		else if (player->player_velocityY < 0) {
+			player->player_posY = WallHitBox.y + WallHitBox.height + (player->player_height / 2.0f) + breathing_space;
+			player->player_velocityY = 0.0f;
+		}
+	}
+}
+
+void Resolve_Collision_Wall_Player_X(AABB playerHitBox, AABB WallHitBox, Player* player, float breathing_space, float player_moveX) {
+	// can use for stage wall, platform, door, interactable wall, for interactable wall, please check type of wall before implementing collision.
+	if (checkAABBCollision(playerHitBox, WallHitBox)) {
+		if (player_moveX > 0) {
+			player->player_posX = WallHitBox.x - (player->player_width / 2.0f) - breathing_space;
+		}
+		else if (player_moveX < 0) {
+			float Wall_Right_Edge = WallHitBox.x + WallHitBox.width;
+			player->player_posX = Wall_Right_Edge + (player->player_width / 2.0f) + breathing_space;
+		}
+	}
+}

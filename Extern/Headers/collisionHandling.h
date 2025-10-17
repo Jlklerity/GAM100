@@ -20,3 +20,5 @@ AABB Get_Door_HitBox(Door* door);
 AABB Get_Pressure_Plate_Hitbox(PressurePlate* pressure_plate);
 AABB Get_Interactable_Wall_HitBox(InteractableWall* interactable_wall);
 AABB Get_Exit_Door_HitBox(ExitDoor* exit_door);
+void Resolve_Collision_Wall_Player_Y(AABB playerHitBox, AABB WallHitBox, Player* player, float breathing_space);
+void Resolve_Collision_Wall_Player_X(AABB playerHitBox, AABB WallHitBox, Player* player, float breathing_space, float player_moveX);

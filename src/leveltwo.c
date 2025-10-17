@@ -180,39 +180,12 @@ void LevelTwo_Update(void) {
     // Check stage wall collisions (vertical)
     for (int i = 0; i < stage_wall_count; i++) {
         AABB stagewallHitBox = Get_Stage_Wall_HitBox(&stage_wall[i]);
-
-        if (checkAABBCollision(playerHitBoxY, stagewallHitBox)) {
-            if (player.player_velocityY > 0) {
-                // Landing on top
-                player.player_posY = stagewallHitBox.y - (player.player_height / 2.0f) - breathing_space;
-                player.player_velocityY = 0.0f;
-                player.isGrounded = 1;
-            }
-            else if (player.player_velocityY < 0) {
-                // Hitting bottom
-                player.player_posY = stagewallHitBox.y + stagewallHitBox.height + (player.player_height / 2.0f) + breathing_space;
-                player.player_velocityY = 0.0f;
-            }
-            break;
-        }
+        Resolve_Collision_Wall_Player_Y(playerHitBoxY, stagewallHitBox, &player, breathing_space);
     }
 
     // Check platform collision (vertical)
 
-    if (checkAABBCollision(playerHitBoxY, platformHitBox)) {
-
-        if (player.player_velocityY > 0) {
-            // Landing on top
-            player.player_posY = platformHitBox.y - (player.player_height / 2.0f) - breathing_space;
-            player.player_velocityY = 0.0f;
-            player.isGrounded = 1;
-        }
-        else if (player.player_velocityY < 0) {
-            // Hitting bottom
-            player.player_posY = platformHitBox.y + platformHitBox.height + (player.player_height / 2.0f) + breathing_space;
-            player.player_velocityY = 0.0f;
-        }
-    }
+    Resolve_Collision_Wall_Player_Y(playerHitBoxY, platformHitBox, &player, breathing_space);
 
     // ========== HORIZONTAL COLLISION DETECTION ==========
    
@@ -225,38 +198,12 @@ void LevelTwo_Update(void) {
     // Check stage wall collisions (horizontal)
     for (int i = 0; i < stage_wall_count; i++) {
         AABB stagewallHitBox = Get_Stage_Wall_HitBox(&stage_wall[i]);
-        if (checkAABBCollision(playerHitBoxX, stagewallHitBox)) {
-            printf("Contact!");
-
-            if (player_moveX > 0) {
-                // Hit left side of wall
-                float wall_left_edge = stage_wall[i].stage_wallX - (stage_wall[i].stage_wallwidth / 2.0f);
-                player.player_posX = wall_left_edge - (player.player_width / 2.0f) - breathing_space;
-            }
-            else if (player_moveX < 0) {
-                // Hit right side of wall
-                float wall_right_edge = stage_wall[i].stage_wallX + (stage_wall[i].stage_wallwidth / 2.0f);
-                player.player_posX = wall_right_edge + (player.player_width / 2.0f) + breathing_space;
-            }
-            break;
-        }
+        Resolve_Collision_Wall_Player_X(playerHitBoxX, stagewallHitBox, &player, breathing_space, player_moveX);
     }
 
     // Check platform collision (horizontal)
 
-    if (checkAABBCollision(playerHitBoxX, platformHitBox)) {
-        if (player_moveX > 0) {
-            // Hit left side of platform
-            player.player_posX = platformHitBox.x - (player.player_width / 2.0f) - breathing_space;
-        }
-        else if (player_moveX < 0) {
-            // Hit right side of platform
-            printf("contact with platform!");
-            float platform_right_edge = platformHitBox.x + platformHitBox.width;
-            printf("%0.2f\n", platform_right_edge);
-            player.player_posX = platform_right_edge + (player.player_width / 2.0f) + breathing_space;
-        }
-    }
+    Resolve_Collision_Wall_Player_X(playerHitBoxX,platformHitBox,&player,breathing_space,player_moveX);
 
     // Draw exit door
     CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
