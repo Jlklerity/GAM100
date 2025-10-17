@@ -3,3 +3,4 @@
 int IsAreaClicked(float area_center_x, float area_center_y, float area_width, float area_height, float click_x, float click_y);
 int IsCircleClicked(float circle_center_x, float circle_center_y, float diameter, float click_x, float click_y);
 int IsCircleColliding(float circle1_center_x, float circle1_center_y, float circle2_center_x, float circle2_center_y, float diameter);
+int RGBChange(float StaticValue);

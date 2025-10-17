@@ -45,6 +45,17 @@ int IsCircleColliding(float circle1_center_x, float circle1_center_y, float circ
     
 }
 
+int RGBChange(float StaticValue) {
+    float currentTime = CP_System_GetSeconds();
+    float elapsed = currentTime - StaticValue;
+    float pulseSpeed = 1.5f; // adjust for speed of pulsing
+    float t = (currentTime - StaticValue) * pulseSpeed;
+    float greenValue = 115.0f + 75.0f * sinf(t);
+    // 115 is midpoint, 75 is amplitude (115±75 = 40 to 190)
+    int x = (int)greenValue;
+    if (x < 0) x = 0;
+    if (x > 255) x = 255;
+}
 
 
 

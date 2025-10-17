@@ -7,6 +7,7 @@
 #include "collisionHandling.h"
 #include "game.h"
 #include "levelthree.h"
+#include "utils.h"
 
 static float greenStartTime;
 Player player;
@@ -33,13 +34,7 @@ void LevelTwo_Update(void) {
     const float breathing_space = 0.1f;
     
     //get color to change for cp color create for green value
-    float currentTime = CP_System_GetSeconds();
-    float elapsed = currentTime - greenStartTime;
-    float pulseSpeed = 1.5f; // adjust for speed of pulsing
-    float t = (currentTime - greenStartTime) * pulseSpeed;
-    float greenValue = 115.0f + 75.0f * sinf(t);
-    // 115 is midpoint, 75 is amplitude (115±75 = 40 to 190)
-    int x = (int)greenValue;
+    int x = RGBChange(greenStartTime);
     if (x < 0) x = 0;
     if (x > 255) x = 255;
 

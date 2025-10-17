@@ -56,17 +56,23 @@ void Resolve_Collision_Wall_Player_Y(AABB playerHitBox, AABB WallHitBox, Player*
 
 void Resolve_Collision_Wall_Orb_Y(AABB orbHitBox, AABB WallHitBox, Orb* orb, Player* player, float breathing_space, float orb_moveY) {
 	if (checkAABBCollision(orbHitBox, WallHitBox)) {
-		if (orb_moveY > 0) {
-			player->player_posY = WallHitBox.y - (player->player_height / 2.0f) - breathing_space;
-			player->player_posX = orb->x;
-			orb->isActive = 0;
+		if (orb->orb_type == TELEPORT_ORB && WallHitBox.type == BLUE_TELEPORT) {
+			if (orb_moveY > 0) {
+				player->player_posY = WallHitBox.y - (player->player_height / 2.0f) - breathing_space;
+				player->player_posX = orb->x;
+				player->player_velocityY = 0.0f;
+				orb->isActive = 0;
+			}
+			else if (orb_moveY < 0) {
+				printf("Teleporting...");
+				float Wall_Bottom = WallHitBox.y + WallHitBox.height;
+				player->player_posY = Wall_Bottom + (player->player_height / 2.0f) + breathing_space;
+				player->player_posX = orb->x;
+				player->player_velocityY = 0.0f;
+				orb->isActive = 0;
+			}
 		}
-		else if (orb_moveY < 0) {
-			printf("Teleporting...");
-			float Wall_Bottom = WallHitBox.y + WallHitBox.height;
-			player->player_posY = Wall_Bottom + (player->player_height / 2.0f) + breathing_space;
-			player->player_posX = orb->x;
-			player->player_velocityY = 0.0f;
+		else {
 			orb->isActive = 0;
 		}
 	}
@@ -90,15 +96,23 @@ void Resolve_Collision_Wall_Orb_X(AABB orbHitBox, AABB WallHitBox, Orb* orb, Pla
 	// can use for stage wall, platform, door, interactable wall, for interactable wall, please check type of wall before implementing collision.
 	// can only use for orb
 	if (checkAABBCollision(orbHitBox, WallHitBox)) {
-		if (orb_moveX > 0) {
-			player->player_posX = WallHitBox.x - (player->player_width / 2.0f) - breathing_space;
-			player->player_posY = orb->y;
-			orb->isActive = 0;
+		if (orb->orb_type == TELEPORT_ORB && WallHitBox.type == BLUE_TELEPORT) {
+			if (orb_moveX > 0) {
+				player->player_posX = WallHitBox.x - (player->player_width / 2.0f) - breathing_space;
+				player->player_posY = orb->y;
+				player->player_velocityY = 0.0f;
+				orb->isActive = 0;
+			}
+			else if (orb_moveX < 0) {
+				float Wall_Right_Edge = WallHitBox.x + WallHitBox.width;
+				player->player_posX = Wall_Right_Edge + (player->player_width / 2.0f) + breathing_space;
+				player->player_posY = orb->y;
+				player->player_velocityY = 0.0f;
+				orb->isActive = 0;
+			}
 		}
-		else if (orb_moveX < 0) {
-			float Wall_Right_Edge = WallHitBox.x + WallHitBox.width;
-			player->player_posX = Wall_Right_Edge + (player->player_width / 2.0f) + breathing_space;
-			player->player_posY = orb->y;
+		else {
+			//play orb shatter anim
 			orb->isActive = 0;
 		}
 	}
