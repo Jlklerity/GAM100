@@ -1,7 +1,7 @@
 #include "collisionHandling.h"
+#include "player.h"
 
-
-
+AABB box;
 bool checkAABBCollision(AABB objectA, AABB objectB) {
 	
 	bool bothOverlap_X = (objectA.x < objectB.x + objectB.width) && (objectA.x + objectA.width > objectB.x);
@@ -12,7 +12,6 @@ bool checkAABBCollision(AABB objectA, AABB objectB) {
 }
 
 AABB Get_Player_HitBox(Player* player) {
-	AABB box;
 	box.x = player->player_posX - player->player_width / 2;
 	box.y = player->player_posY - player->player_height / 2;
 	box.width = player->player_width;
@@ -20,53 +19,59 @@ AABB Get_Player_HitBox(Player* player) {
 	return box;
 }
 
-//float player_moveX = 0.0f; //solve this variable thingie
-//void platformCollider(AABB platformCheck, AABB playerCheck, LevelPlatform plat, Player player) {
-//	float platformTopLeftX = level_platform.x - (level_platform.width / 2.0f);
-//	float platformTopLeftY = level_platform.y - (level_platform.height / 2.0f);
-//	float platformwidth = plat.width;
-//	float platformheight = plat.height;
-//
-//	platformCheck.x = platformTopLeftX;
-//	platformCheck.y = platformTopLeftY;
-//	platformCheck.width = platformwidth;
-//	platformCheck.height = platformheight;
-//
-//	float PlayerTopLeftX = player.player_posX - (player.player_width / 2.0f);
-//	float PlayerTopLeftY = player.player_posY - (player.player_height / 2.0f);
-//	float PlayerWidth = player.player_width;
-//	float PlayerHeight = player.player_height;
-//
-//	playerCheck.x = PlayerTopLeftX;
-//	playerCheck.y = PlayerTopLeftY;
-//	playerCheck.width = PlayerWidth;
-//	playerCheck.height = PlayerHeight;
-//
-//	if (checkAABBCollision(playerCheck, platformCheck)) {
-//		const float breathing_space = 0.1f;
-//		if (player.player_velocityY > 0) {
-//			float platform_top_edge = platformCheck.y;
-//			player.player_posY = platform_top_edge - (player.player_height / 2.0f) - breathing_space;
-//			player.player_velocityY = 0.0f;
-//			player.isGrounded = 1;
-//		}
-//		else if (player.player_velocityY < 0) {
-//			float platform_bottom_edge = platformCheck.y;
-//			player.player_posY = platform_bottom_edge + (player.player_height / 2.0f) + breathing_space;
-//			player.player_velocityY = 0.0f;
-//		}
-//	}
-//	if (checkAABBCollision(playerCheck, platformCheck)) {
-//		const float breathing_space = 0.1f;
-//		if (player_moveX > 0) { //idk how to solve this part
-//			float platform_left_edge = platformCheck.x;
-//			player.player_posX = platform_left_edge - (player.player_width / 2.0f) - breathing_space;
-//		}
-//		else if (player_moveX < 0) { //idk how to solve this part
-//			printf("contact with platform!");
-//			float platform_right_edge = platformCheck.x + (platformCheck.width);
-//			// if you want to i guess printf("%0.2f\n", platform_right_edge);
-//			player.player_posX = platform_right_edge + (player.player_width / 2.0f) + breathing_space;
-//		}
-//
-//	}
+AABB Get_Orb_HitBox(Orb* orb) {
+	box.x = orb->x - orb->diameter / 2;
+	box.y = orb->y - orb->diameter / 2;
+	box.width = orb->diameter;
+	box.height = orb->diameter;
+	return box;
+}
+
+AABB Get_Stage_Wall_HitBox(Stage_wall* stagewall) {
+	box.x = stagewall->stage_wallX - stagewall->stage_wallwidth / 2;
+	box.y = stagewall->stage_wallY - stagewall->stage_wallheight / 2;
+	box.width = stagewall->stage_wallwidth;
+	box.height = stagewall->stage_wallheight;
+	return box;
+}
+
+AABB Get_Level2_Platform_HitBox(LevelPlatform* levelplatform) {
+	box.x = levelplatform->x - levelplatform->width / 2;
+	box.y = levelplatform->y - levelplatform->height / 2;
+	box.width = levelplatform->width;
+	box.height = levelplatform->height;
+	return box;
+}
+
+AABB Get_Door_HitBox(Door* door) {
+	box.x = door->x - door->width / 2;
+	box.y = door->y - door->height / 2;
+	box.width = door->width;
+	box.height = door->height;
+	return box;
+}
+
+AABB Get_Pressure_Plate_Hitbox(PressurePlate* pressure_plate) {
+	box.x = pressure_plate->x - pressure_plate->width / 2;
+	box.y = pressure_plate->y - pressure_plate->height / 2;
+	box.width = pressure_plate->width;
+	box.height = pressure_plate->height;
+	return box;
+}
+
+AABB Get_Interactable_Wall_HitBox(InteractableWall* interactable_wall) {
+	box.x = interactable_wall->x - interactable_wall->width / 2;
+	box.y = interactable_wall->y - interactable_wall->height / 2;
+	box.width = interactable_wall->width;
+	box.height = interactable_wall->height;
+	return box;
+}
+
+AABB Get_Exit_Door_HitBox(ExitDoor* level2_exit_door) {
+	box;
+	box.x = level2_exit_door->x - level2_exit_door->width / 2;
+	box.y = level2_exit_door->y - level2_exit_door->height / 2;
+	box.width = level2_exit_door->width;
+	box.height = level2_exit_door->height;
+	return box;
+}

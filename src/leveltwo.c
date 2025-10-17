@@ -9,7 +9,7 @@
 #include "levelthree.h"
 
 static float greenStartTime;
-static Player player;
+Player player;
 Orb orb;
 
 void LevelTwo_Init(void) {
@@ -46,6 +46,7 @@ void LevelTwo_Update(void) {
     CP_Graphics_ClearBackground(CP_Color_Create(85, 85, 85, 255));
 
     // ========== INPUT HANDLING ==========
+    
     // Horizontal movement
     float player_moveX = 0.0f;
     if (CP_Input_KeyDown(KEY_D)) {
@@ -160,30 +161,10 @@ void LevelTwo_Update(void) {
 }
 
     // ========== VERTICAL COLLISION DETECTION ==========
-<<<<<<< HEAD
-    /*AABB playerHitBox = {
-        player.player_posX - (player.player_width / 2.0f),
-        player.player_posY - (player.player_height / 2.0f),
-        player.player_width,
-        player.player_height
-    };*/
-    AABB playerHitBox = GetPlayerHitBox(&player);
-
-    AABB platformHitBox = {
-        
-        level2_platform[0].x - (level2_platform[0].width / 2.0f),
-        level2_platform[0].y - (level2_platform[0].height / 2.0f),
-        level2_platform[0].width,
-        level2_platform[0].height
-    };
-=======
-    AABB playerHitBoxY = Get_Player_HitBox(&player);
-
-    AABB platformHitBox = Get_Level_Platform_HitBox(&level2_platform);
->>>>>>> c150351431402575be202fd0cb9f6bd668d069cf
-
+    
+    AABB playerHitBox = Get_Player_HitBox(&player);
+    AABB platformHitBox = Get_Level2_Platform_HitBox(&level2_platform);
     AABB ExitDoorHitBox = Get_Exit_Door_HitBox(&level2_exit_door);
-
     AABB orbHitbox = Get_Orb_HitBox(&orb);
     
     player.player_posX += player_moveX;
@@ -213,11 +194,9 @@ void LevelTwo_Update(void) {
     }
 
     // Check platform collision (vertical)
-<<<<<<< HEAD
+
     if (checkAABBCollision(playerHitBox, platformHitBox)) {
-=======
-    if (checkAABBCollision(playerHitBoxY, platformHitBox)) {
->>>>>>> c150351431402575be202fd0cb9f6bd668d069cf
+
         if (player.player_velocityY > 0) {
             // Landing on top
             player.player_posY = platformHitBox.y - (player.player_height / 2.0f) - breathing_space;
@@ -233,17 +212,9 @@ void LevelTwo_Update(void) {
 
     // ========== HORIZONTAL COLLISION DETECTION ==========
    
-<<<<<<< HEAD
-    /*AABB playerHitBox = {
-        player.player_posX - (player.player_width / 2.0f),
-        player.player_posY - (player.player_height / 2.0f),
-        player.player_width,
-        player.player_height
-    };*/
-=======
-    player.player_posX += player_moveX;
+
+  
     AABB playerHitBoxX = Get_Player_HitBox(&player);
->>>>>>> c150351431402575be202fd0cb9f6bd668d069cf
 
     playerHitBox.x = player.player_posX - (player.player_width / 2.0f);
 
@@ -251,7 +222,7 @@ void LevelTwo_Update(void) {
     for (int i = 0; i < stage_wall_count; i++) {
         AABB stagewallHitBox = Get_Stage_Wall_HitBox(&stage_wall[i]);
 
-        if (checkAABBCollision(playerHitBox, stagewallHitBox)) {
+        if (checkAABBCollision(playerHitBoxX, stagewallHitBox)) {
             printf("Contact!");
 
             if (player_moveX > 0) {
@@ -269,11 +240,8 @@ void LevelTwo_Update(void) {
     }
 
     // Check platform collision (horizontal)
-<<<<<<< HEAD
-    if (checkAABBCollision(playerHitBox, platformHitBox)) {
-=======
+
     if (checkAABBCollision(playerHitBoxX, platformHitBox)) {
->>>>>>> c150351431402575be202fd0cb9f6bd668d069cf
         if (player_moveX > 0) {
             // Hit left side of platform
             player.player_posX = platformHitBox.x - (player.player_width / 2.0f) - breathing_space;
@@ -302,18 +270,6 @@ void LevelTwo_Update(void) {
         CP_Graphics_DrawRectAdvanced(level2_platform[i].x, level2_platform[i].y, level2_platform[i].width, level2_platform[i].height, 0.0f, 0.0f);
 
     }
-    
-     
-    ////default orb position
-    //if (!(CP_Input_MouseReleased(MOUSE_BUTTON_LEFT))) {
-    //    orb.x = player.player_posX ;
-    //    orb.y = player.player_posY ;
-    //}
-    //else if (CP_Input_MouseReleased(MOUSE_BUTTON_LEFT)) {
-    //     
-    //    orb.x += player.player_velocityX * deltaTime;
-    //    /*orb.y = player.player_posY - player.player_height;*/
-    //}
 
     //Draw Teleport Wall   
     CP_Settings_Fill(CP_Color_Create(0, x, 255, 255));

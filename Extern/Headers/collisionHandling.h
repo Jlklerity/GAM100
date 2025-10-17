@@ -9,15 +9,14 @@ typedef struct {
 	float width, height;
 } AABB;
 
-AABB GetPlayerHitBox(Player* player);
 
 bool checkAABBCollision(AABB objectA, AABB objectB);
-//void platformCollider(AABB platformCheck, AABB playerCheck, LevelPlatform plat, Player player);
+
 AABB Get_Player_HitBox(Player* player);
 AABB Get_Orb_HitBox(Orb* orb);
 AABB Get_Stage_Wall_HitBox(Stage_wall* stagewall);
-AABB Get_Level_Platform_HitBox(LevelPlatform* levelplatform);
+AABB Get_Level2_Platform_HitBox(LevelPlatform* level2_platform);
 AABB Get_Door_HitBox(Door* door);
-AABB Get_Pressure_Plate_Hitbox(PressurePlate* PressurePlate);
-AABB Get_Interactable_Wall_HitBox(InteractableWall* InteractableWall);
-AABB Get_Exit_Door_HitBox(ExitDoor* ExitDoor);
+AABB Get_Pressure_Plate_Hitbox(PressurePlate* pressure_plate);
+AABB Get_Interactable_Wall_HitBox(InteractableWall* interactable_wall);
+AABB Get_Exit_Door_HitBox(ExitDoor* exit_door);

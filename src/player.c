@@ -2,8 +2,6 @@
 #include "stage_wall.h"
 #include "collisionHandling.h"
 
-Player player;
-
 void Player_Init(Player *player, Orb *orb) {
 	Stage_wall_Init(stage_wall, &stage_wall_count);
 
@@ -37,7 +35,7 @@ void Player_Init(Player *player, Orb *orb) {
 	orb->y = player->player_posY;
 	orb->diameter = 20.0f;
 
-	/*AABB playerHitBoxY = {
+	/*AABB playerHitBox = {
 		player->player_posX - (player->player_width / 2.0f),
 		player->player_posY - (player->player_height / 2.0f),
 		player->player_width,
