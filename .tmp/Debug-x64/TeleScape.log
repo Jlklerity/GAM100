@@ -1,8 +1,10 @@
-﻿  leveltwo.c
+﻿  collisionHandling.c
+  leveltwo.c
 C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(170,54): warning C4047: 'function': 'LevelPlatform *' differs in levels of indirection from 'LevelPlatform (*)[3]'
 C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(170,54): warning C4024: 'Get_Level2_Platform_HitBox': different types for formal and actual parameter 1
 C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(284,58): warning C4244: 'function': conversion from 'int' to 'float', possible loss of data
 C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(172,10): warning C4101: 'orbHitbox': unreferenced local variable
+  Generating Code...
   TeleScape.vcxproj -> C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\bin\Debug-x64\TeleScape.exe
   1266 File(s) copied
   1 File(s) copied
