@@ -114,7 +114,7 @@ void LevelTwo_Update(void) {
         switch (orb.direction) {
         case PLAYER_RIGHT:
             player.degree = 0; //for sprite looking direction
-            orb.x += orb.orb_velocity_x * deltaTime;
+            orb_moveX += orb.orb_velocity_x * deltaTime;
             if (CP_Input_KeyTriggered(KEY_K)) {
                 player.player_posX = orb.x - player.player_width / 2;
                 player.player_posY = orb.y;
@@ -124,7 +124,7 @@ void LevelTwo_Update(void) {
             break;
         case PLAYER_LEFT:
             player.degree = 180;
-            orb.x -= orb.orb_velocity_x * deltaTime;
+            orb_moveX -= orb.orb_velocity_x * deltaTime;
             if (CP_Input_KeyTriggered(KEY_K)) {
                 player.player_posX = orb.x + player.player_width / 2;
                 player.player_posY = orb.y;
@@ -133,7 +133,7 @@ void LevelTwo_Update(void) {
             }
             break;
         case PLAYER_UP:
-            orb.y -= orb.orb_velocity_Y * deltaTime;
+            orb_moveY -= orb.orb_velocity_Y * deltaTime;
             if (CP_Input_KeyTriggered(KEY_K)) {
                 player.player_posX = orb.x;
                 player.player_posY = orb.y + player.player_height / 2;
@@ -142,7 +142,7 @@ void LevelTwo_Update(void) {
             }
             break;
         case PLAYER_DOWN:
-            orb.y += orb.orb_velocity_Y * deltaTime;
+            orb_moveY += orb.orb_velocity_Y * deltaTime;
             if (CP_Input_KeyTriggered(KEY_K)) {
                 player.player_posX = orb.x;
                 player.player_posY = orb.y - player.player_height / 2;
@@ -174,6 +174,8 @@ void LevelTwo_Update(void) {
     AABB orbHitbox = Get_Orb_HitBox(&orb);
     
     player.player_posX += player_moveX;
+    orb.x += orb_moveX;
+    orb.y += orb_moveY;
     
     //check if player has opened the door
     if (checkAABBCollision(playerHitBoxY, ExitDoorHitBox) && CP_Input_KeyTriggered(KEY_W)) {
@@ -183,29 +185,34 @@ void LevelTwo_Update(void) {
     for (int i = 0; i < stage_wall_count; i++) {
         AABB stagewallHitBox = Get_Stage_Wall_HitBox(&stage_wall[i]);
         Resolve_Collision_Wall_Player_Y(playerHitBoxY, stagewallHitBox, &player, breathing_space);
+        Resolve_Collision_Wall_Orb_Y(orbHitbox, stagewallHitBox, &orb, &player, breathing_space, orb_moveY);
     }
 
     // Check platform collision (vertical)
 
     Resolve_Collision_Wall_Player_Y(playerHitBoxY, platformHitBox, &player, breathing_space);
+    Resolve_Collision_Wall_Orb_Y(orbHitbox, platformHitBox, &orb, &player, breathing_space, orb_moveY);
 
     // ========== HORIZONTAL COLLISION DETECTION ==========
    
 
   
     AABB playerHitBoxX = Get_Player_HitBox(&player);
-
     playerHitBoxY.x = player.player_posX - (player.player_width / 2.0f);
+    AABB orbHitBoxX = Get_Orb_HitBox(&orb);
+    orbHitbox.x = orb.x - (orb.diameter / 2.0f);
 
     // Check stage wall collisions (horizontal)
     for (int i = 0; i < stage_wall_count; i++) {
         AABB stagewallHitBox = Get_Stage_Wall_HitBox(&stage_wall[i]);
         Resolve_Collision_Wall_Player_X(playerHitBoxX, stagewallHitBox, &player, breathing_space, player_moveX);
+        Resolve_Collision_Wall_Orb_X(orbHitbox, stagewallHitBox, &orb, &player, breathing_space, orb_moveX);
     }
 
     // Check platform collision (horizontal)
 
     Resolve_Collision_Wall_Player_X(playerHitBoxX,platformHitBox,&player,breathing_space,player_moveX);
+    Resolve_Collision_Wall_Orb_X(orbHitbox, platformHitBox, &orb, &player, breathing_space, orb_moveX);
 
     // Draw exit door
     CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));

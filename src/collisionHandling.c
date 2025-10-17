@@ -1,5 +1,6 @@
 #include "collisionHandling.h"
 #include "player.h"
+#include <stdio.h>
 
  
 bool checkAABBCollision(AABB objectA, AABB objectB) {
@@ -104,11 +105,15 @@ void Resolve_Collision_Wall_Orb_Y(AABB orbHitBox, AABB WallHitBox, Orb* orb, Pla
 	if (checkAABBCollision(orbHitBox, WallHitBox)) {
 		if (orb_moveY > 0) {
 			player->player_posY = WallHitBox.y - (player->player_height / 2.0f) - breathing_space;
+			player->player_posX = orb->x;
 			orb->isActive = 0;
 		}
 		else if (orb_moveY < 0) {
+			printf("Teleporting...");
 			float Wall_Bottom = WallHitBox.y + WallHitBox.height;
 			player->player_posY = Wall_Bottom + (player->player_height / 2.0f) + breathing_space;
+			player->player_posX = orb->x;
+			player->player_velocityY = 0.0f;
 			orb->isActive = 0;
 		}
 	}
@@ -134,10 +139,13 @@ void Resolve_Collision_Wall_Orb_X(AABB orbHitBox, AABB WallHitBox, Orb* orb, Pla
 	if (checkAABBCollision(orbHitBox, WallHitBox)) {
 		if (orb_moveX > 0) {
 			player->player_posX = WallHitBox.x - (player->player_width / 2.0f) - breathing_space;
+			player->player_posY = orb->y;
+			orb->isActive = 0;
 		}
 		else if (orb_moveX < 0) {
 			float Wall_Right_Edge = WallHitBox.x + WallHitBox.width;
 			player->player_posX = Wall_Right_Edge + (player->player_width / 2.0f) + breathing_space;
+			player->player_posY = orb->y;
 			orb->isActive = 0;
 		}
 	}
