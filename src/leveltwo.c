@@ -169,8 +169,8 @@ void LevelTwo_Update(void) {
     // ========== VERTICAL COLLISION DETECTION ==========
     
     AABB playerHitBoxY = Get_Player_HitBox(&player);
-    AABB platformHitBox = Get_Level2_Platform_HitBox(&level2_platform);
-    AABB ExitDoorHitBox = Get_Exit_Door_HitBox(&level2_exit_door);
+    AABB platformHitBox = Get_Wall_HitBox(&level2_platform);
+    AABB ExitDoorHitBox = Get_Wall_HitBox(&level2_exit_door);
     AABB orbHitbox = Get_Orb_HitBox(&orb);
     
     player.player_posX += player_moveX;
@@ -183,7 +183,7 @@ void LevelTwo_Update(void) {
     }
     // Check stage wall collisions (vertical)
     for (int i = 0; i < stage_wall_count; i++) {
-        AABB stagewallHitBox = Get_Stage_Wall_HitBox(&stage_wall[i]);
+        AABB stagewallHitBox = Get_Wall_HitBox(&stage_wall[i]);
         Resolve_Collision_Wall_Player_Y(playerHitBoxY, stagewallHitBox, &player, breathing_space);
         Resolve_Collision_Wall_Orb_Y(orbHitbox, stagewallHitBox, &orb, &player, breathing_space, orb_moveY);
     }
@@ -201,7 +201,7 @@ void LevelTwo_Update(void) {
 
     // Check stage wall collisions (horizontal)
     for (int i = 0; i < stage_wall_count; i++) {
-        AABB stagewallHitBox = Get_Stage_Wall_HitBox(&stage_wall[i]);
+        AABB stagewallHitBox = Get_Wall_HitBox(&stage_wall[i]);
         Resolve_Collision_Wall_Player_X(playerHitBoxX, stagewallHitBox, &player, breathing_space, player_moveX);
         Resolve_Collision_Wall_Orb_X(orbHitbox, stagewallHitBox, &orb, &player, breathing_space, orb_moveX);
     }
@@ -217,9 +217,9 @@ void LevelTwo_Update(void) {
   
     // Draw stage walls
     for (int i = 0; i < stage_wall_count; i++) {
-        CP_Settings_Fill(stage_wall[i].stage_wall_color);
-        CP_Graphics_DrawRect(stage_wall[i].stage_wallX, stage_wall[i].stage_wallY,
-            stage_wall[i].stage_wallwidth, stage_wall[i].stage_wallheight);
+        CP_Settings_Fill(stage_wall[i].color);
+        CP_Graphics_DrawRect(stage_wall[i].x, stage_wall[i].y,
+            stage_wall[i].width, stage_wall[i].height);
     }
     // Draw stage platforms
     for (int i = 0; i < 3; i++) {

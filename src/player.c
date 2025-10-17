@@ -10,7 +10,7 @@ void Player_Init(Player *player, Orb *orb) {
 	const float player_width = 64.0f;
 	const float player_height = 64.0f;
 	const float player_highlight = 255.0f;
-	const float posX = 100, posY = screen_height - player_height/2 - stage_wall[1].stage_wallheight;
+	const float posX = 100, posY = screen_height - player_height/2 - stage_wall[1].height;
 	const int degree = 0; //player facing right
 	/*orbCount = 0;
 	maxOrb = 5;*/
@@ -35,20 +35,6 @@ void Player_Init(Player *player, Orb *orb) {
 	orb->y = player->player_posY;
 	orb->diameter = 20.0f;
 
-	/*AABB playerHitBox = {
-		player->player_posX - (player->player_width / 2.0f),
-		player->player_posY - (player->player_height / 2.0f),
-		player->player_width,
-		player->player_height
-	};*/
 
 }
 
-//orbCount = 0;
-//MaxOrb = 5;
-//void Orb_Init(Orb* orbs) {
-//
-//	orbs->size = 10.0f;
-//	
-// 
-//}

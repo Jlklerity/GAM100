@@ -15,12 +15,7 @@ bool checkAABBCollision(AABB objectA, AABB objectB);
 
 AABB Get_Player_HitBox(Player* player);
 AABB Get_Orb_HitBox(Orb* orb);
-AABB Get_Stage_Wall_HitBox(Stage_wall* stagewall);
-AABB Get_Level2_Platform_HitBox(LevelPlatform* level2_platform);
-AABB Get_Door_HitBox(Door* door);
-AABB Get_Pressure_Plate_Hitbox(PressurePlate* pressure_plate);
-AABB Get_Interactable_Wall_HitBox(InteractableWall* interactable_wall);
-AABB Get_Exit_Door_HitBox(ExitDoor* exit_door);
+AABB Get_Wall_HitBox(Wall* wall);
 void Resolve_Collision_Wall_Player_Y(AABB playerHitBox, AABB WallHitBox, Player* player, float breathing_space);
 void Resolve_Collision_Wall_Orb_Y(AABB orbHitBox, AABB WallHitBox, Orb* orb, Player* player, float breathing_space, float orb_moveY);
 void Resolve_Collision_Wall_Player_X(AABB playerHitBox, AABB WallHitBox, Player* player, float breathing_space, float player_moveX);

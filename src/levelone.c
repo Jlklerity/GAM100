@@ -218,10 +218,10 @@ void LevelOne_Update(void) {
     // Check stage wall collisions (vertical)
     for (int i = 0; i < stage_wall_count; i++) {
         AABB stagewallHitBox = {
-            stage_wall[i].stage_wallX - (stage_wall[i].stage_wallwidth / 2.0f),
-            stage_wall[i].stage_wallY - (stage_wall[i].stage_wallheight / 2.0f),
-            stage_wall[i].stage_wallwidth,
-            stage_wall[i].stage_wallheight
+            stage_wall[i].x - (stage_wall[i].width / 2.0f),
+            stage_wall[i].y - (stage_wall[i].height / 2.0f),
+            stage_wall[i].width,
+            stage_wall[i].height
         };
 
         if (checkAABBCollision(playerHitBoxY, stagewallHitBox)) {
@@ -269,10 +269,10 @@ void LevelOne_Update(void) {
     // Check stage wall collisions (horizontal)
     for (int i = 0; i < stage_wall_count; i++) {
         AABB stagewallHitBox = {
-            stage_wall[i].stage_wallX - (stage_wall[i].stage_wallwidth / 2.0f),
-            stage_wall[i].stage_wallY - (stage_wall[i].stage_wallheight / 2.0f),
-            stage_wall[i].stage_wallwidth,
-            stage_wall[i].stage_wallheight
+            stage_wall[i].x - (stage_wall[i].width / 2.0f),
+            stage_wall[i].y - (stage_wall[i].height / 2.0f),
+            stage_wall[i].width,
+            stage_wall[i].height
         };
 
         if (checkAABBCollision(playerHitBoxX, stagewallHitBox)) {
@@ -280,12 +280,12 @@ void LevelOne_Update(void) {
 
             if (player_moveX > 0) {
                 // Hit left side of wall
-                float wall_left_edge = stage_wall[i].stage_wallX - (stage_wall[i].stage_wallwidth / 2.0f);
+                float wall_left_edge = stage_wall[i].x - (stage_wall[i].width / 2.0f);
                 player.player_posX = wall_left_edge - (player.player_width / 2.0f) - breathing_space;
             }
             else if (player_moveX < 0) {
                 // Hit right side of wall
-                float wall_right_edge = stage_wall[i].stage_wallX + (stage_wall[i].stage_wallwidth / 2.0f);
+                float wall_right_edge = stage_wall[i].x + (stage_wall[i].width / 2.0f);
                 player.player_posX = wall_right_edge + (player.player_width / 2.0f) + breathing_space;
             }
             break;
@@ -312,9 +312,9 @@ void LevelOne_Update(void) {
 
     // Draw stage walls
     for (int i = 0; i < stage_wall_count; i++) {
-        CP_Settings_Fill(stage_wall[i].stage_wall_color);
-        CP_Graphics_DrawRect(stage_wall[i].stage_wallX, stage_wall[i].stage_wallY,
-            stage_wall[i].stage_wallwidth, stage_wall[i].stage_wallheight);
+        CP_Settings_Fill(stage_wall[i].color);
+        CP_Graphics_DrawRect(stage_wall[i].x, stage_wall[i].y,
+            stage_wall[i].width, stage_wall[i].height);
     }
     // Draw stage platforms
     for (int i = 0; i < 3; i++) {
