@@ -52,7 +52,6 @@ void Stage_wall_Init(Wall stage_wall[4], int* stage_wall_count) {
     level2_platform[2] = (Wall){screen_width - stage_wall_thickness - 100.0f, screen_height / 2 - 200.0f, 200.0f, 20.0f, color, 0, 0, PLATFORM };
 
 
-
     level2_pressure_plate = (Wall){ screen_width - stage_wall_thickness, screen_height - stage_wall_thickness, 100.0f, 10.0f, color, 0, 0, PRESSURE_PLATE };
     
     level1_door = (Wall){ screen_width - stage_wall_thickness, screen_height / 3, 50.0f, 300.0f, color, 0,0 , DOOR };

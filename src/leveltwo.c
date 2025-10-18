@@ -18,7 +18,6 @@ void LevelTwo_Init(void) {
     Stage_wall_Init(stage_wall, &stage_wall_count);
     Player_Init(&player, &orb);
     greenStartTime = 0;
-
 }
 
 void LevelTwo_Update(void) {
@@ -129,9 +128,10 @@ void LevelTwo_Update(void) {
         // ========== VERTICAL COLLISION DETECTION ==========
 
         AABB playerHitBoxY = Get_Player_HitBox(&player);
-        AABB platformHitBox = Get_Wall_HitBox(&level2_platform);
         AABB ExitDoorHitBox = Get_Wall_HitBox(&level2_exit_door);
+        AABB TeleportWallHitBox = Get_Wall_HitBox(&level2_teleport_wall);
         AABB orbHitbox = Get_Orb_HitBox(&orb);
+        // still need to initialize hitboxfor door and pressure plate, and need to write the function for both as well.
 
         player.player_posX += player_moveX;
         orb.x += orb_moveX;
@@ -147,10 +147,14 @@ void LevelTwo_Update(void) {
             Resolve_Collision_Wall_Player_Y(playerHitBoxY, stagewallHitBox, &player, breathing_space);
             Resolve_Collision_Wall_Orb_Y(orbHitbox, stagewallHitBox, &orb, &player, breathing_space, orb_moveY);
         }
+        for (int i = 0; i < 3; i++) {
+            AABB platformHitBox = Get_Wall_HitBox(&level2_platform[i]);
+            Resolve_Collision_Wall_Player_Y(playerHitBoxY, platformHitBox, &player, breathing_space);
+            Resolve_Collision_Wall_Orb_Y(orbHitbox, platformHitBox, &orb, &player, breathing_space, orb_moveY);
+        }
 
         // Check platform collision (vertical)
-        Resolve_Collision_Wall_Player_Y(playerHitBoxY, platformHitBox, &player, breathing_space);
-        Resolve_Collision_Wall_Orb_Y(orbHitbox, platformHitBox, &orb, &player, breathing_space, orb_moveY);
+        Resolve_Collision_Wall_Orb_Y(orbHitbox, TeleportWallHitBox, &orb, &player, breathing_space, orb_moveY);
 
         // ========== HORIZONTAL COLLISION DETECTION ==========
 
@@ -166,10 +170,14 @@ void LevelTwo_Update(void) {
             Resolve_Collision_Wall_Orb_X(orbHitbox, stagewallHitBox, &orb, &player, breathing_space, orb_moveX);
         }
 
-        // Check platform collision (horizontal)
+        for (int i = 0; i < 3; i++) {
+            AABB platformHitBox = Get_Wall_HitBox(&level2_platform[i]);
+            Resolve_Collision_Wall_Player_X(playerHitBoxX, platformHitBox, &player, breathing_space, player_moveX);
+            Resolve_Collision_Wall_Orb_X(orbHitbox, platformHitBox, &orb, &player, breathing_space, orb_moveX);
+        }
 
-        Resolve_Collision_Wall_Player_X(playerHitBoxX, platformHitBox, &player, breathing_space, player_moveX);
-        Resolve_Collision_Wall_Orb_X(orbHitbox, platformHitBox, &orb, &player, breathing_space, orb_moveX);
+        // Check platform collision (horizontal)
+        Resolve_Collision_Wall_Orb_X(orbHitbox, TeleportWallHitBox, &orb, &player, breathing_space, orb_moveX);
 
         // Draw exit door
         CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));

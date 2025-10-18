@@ -18,6 +18,7 @@ AABB Get_Wall_HitBox(Wall *wall) {
 	box.y = wall->y - wall->height / 2;
 	box.width = wall->width;
 	box.height = wall->height;
+	box.type = wall->type;
 	return box;
 }
 AABB Get_Player_HitBox(Player* player) {
