@@ -79,6 +79,7 @@ void LevelTwo_Update(void) {
                     player.player_posY = orb.y;
                     orb.isActive = 0;
                     player.player_velocityY = 0.0f;
+                    player_moveX = 0.0f;
                 }
                 break;
             case PLAYER_LEFT:
@@ -89,6 +90,7 @@ void LevelTwo_Update(void) {
                     player.player_posY = orb.y;
                     orb.isActive = 0;
                     player.player_velocityY = 0.0f;
+                    player_moveX = 0.0f;
                 }
                 break;
             case PLAYER_UP:
@@ -98,6 +100,7 @@ void LevelTwo_Update(void) {
                     player.player_posY = orb.y + player.player_height / 2;
                     orb.isActive = 0;
                     player.player_velocityY = 0.0f;
+                    player_moveX = 0.0f;
                 }
                 break;
             case PLAYER_DOWN:
@@ -107,6 +110,7 @@ void LevelTwo_Update(void) {
                     player.player_posY = orb.y - player.player_height / 2;
                     orb.isActive = 0;
                     player.player_velocityY = 0.0f;
+                    player_moveX = 0.0f;
                 }
                 break;
             }

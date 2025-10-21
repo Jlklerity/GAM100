@@ -1,6 +1,7 @@
 #include "collisionHandling.h"
 #include "player.h"
 #include <stdio.h>
+#define EdgeMargin 32.0f // half the player height and width, used to calculate the clamped value so player doesn't teleport over unintedned platform.
 
  
 bool checkAABBCollision(AABB objectA, AABB objectB) {
@@ -56,11 +57,22 @@ void Resolve_Collision_Wall_Player_Y(AABB playerHitBox, AABB WallHitBox, Player*
 }
 
 void Resolve_Collision_Wall_Orb_Y(AABB orbHitBox, AABB WallHitBox, Orb* orb, Player* player, float breathing_space, float orb_moveY) {
+	// add clamp so player will not glitch out of wall.
+	float WallLeft = WallHitBox.x;
+	float WallRight = WallHitBox.x + WallHitBox.width;
+
+	float SafeLeft = WallLeft + EdgeMargin;
+	float SafeRight = WallRight - EdgeMargin;
+
+	float clampedX = orb->x;
+	if (clampedX < SafeLeft) clampedX = SafeLeft;
+	if (clampedX > SafeRight) clampedX = SafeRight;
+
 	if (checkAABBCollision(orbHitBox, WallHitBox)) {
 		if (orb->orb_type == TELEPORT_ORB && WallHitBox.type == BLUE_TELEPORT) {
 			if (orb_moveY > 0) {
 				player->player_posY = WallHitBox.y - (player->player_height / 2.0f) - breathing_space;
-				player->player_posX = orb->x;
+				player->player_posX = clampedX;
 				player->player_velocityY = 0.0f;
 				orb->isActive = 0;
 			}
@@ -68,7 +80,7 @@ void Resolve_Collision_Wall_Orb_Y(AABB orbHitBox, AABB WallHitBox, Orb* orb, Pla
 				printf("Teleporting...");
 				float Wall_Bottom = WallHitBox.y + WallHitBox.height;
 				player->player_posY = Wall_Bottom + (player->player_height / 2.0f) + breathing_space;
-				player->player_posX = orb->x;
+				player->player_posX = clampedX;
 				player->player_velocityY = 0.0f;
 				orb->isActive = 0;
 			}
@@ -96,18 +108,29 @@ void Resolve_Collision_Wall_Player_X(AABB playerHitBox, AABB WallHitBox, Player*
 void Resolve_Collision_Wall_Orb_X(AABB orbHitBox, AABB WallHitBox, Orb* orb, Player* player, float breathing_space, float orb_moveX) {
 	// can use for stage wall, platform, door, interactable wall, for interactable wall, please check type of wall before implementing collision.
 	// can only use for orb
+	// add clamp so player will not glitch out of wall.
+	float WallTop = WallHitBox.y;
+	float WallBottom = WallHitBox.y + WallHitBox.height;
+
+	float SafeTop = WallTop + EdgeMargin;
+	float SafeBottom = WallBottom - EdgeMargin;
+
+	float clampedY = orb->y;
+	if (clampedY < SafeTop) clampedY = SafeTop;
+	if (clampedY > SafeBottom) clampedY = SafeBottom;
+
 	if (checkAABBCollision(orbHitBox, WallHitBox)) {
 		if (orb->orb_type == TELEPORT_ORB && WallHitBox.type == BLUE_TELEPORT) {
 			if (orb_moveX > 0) {
 				player->player_posX = WallHitBox.x - (player->player_width / 2.0f) - breathing_space;
-				player->player_posY = orb->y;
+				player->player_posY = clampedY;
 				player->player_velocityY = 0.0f;
 				orb->isActive = 0;
 			}
 			else if (orb_moveX < 0) {
 				float Wall_Right_Edge = WallHitBox.x + WallHitBox.width;
 				player->player_posX = Wall_Right_Edge + (player->player_width / 2.0f) + breathing_space;
-				player->player_posY = orb->y;
+				player->player_posY = clampedY;
 				player->player_velocityY = 0.0f;
 				orb->isActive = 0;
 			}
