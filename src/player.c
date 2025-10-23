@@ -1,3 +1,4 @@
+#include "cprocessing.h"
 #include "player.h"
 #include "stage_wall.h"
 #include "collisionHandling.h"
@@ -76,3 +77,4 @@ float Player_Update(Player* player, Orb* orb, float deltaTime, float player_move
 	return player_moveX;
 }
 
+ 

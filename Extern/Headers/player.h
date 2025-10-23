@@ -36,7 +36,7 @@ typedef struct {
 void Player_Init(Player *player, Orb *orb);
 float Player_Update(Player* player, Orb* orb, float deltaTime, float player_moveX, float jump_strength);
 
-extern Player player;
+//extern Player player;
 //
 //
 //extern int orbCount;

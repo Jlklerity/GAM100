@@ -6,6 +6,7 @@ typedef struct {
 	
 } Level_Button;
 
+CP_Font debug_TEXT;
 CP_Font mainmenu_TEXT;
 CP_Image mainmenu_ButtonBackground;
 CP_Image mainmenu_ButtonWhenPressed;

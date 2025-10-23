@@ -1,8 +1,10 @@
 #include <math.h>
+#include <stdlib.h>
 #include "cprocessing.h"
 #include "game.h"
+#include "player.h"
 
- 
+Player player;
 
 int IsAreaClicked(float area_center_x, float area_center_y, float area_width, float area_height, float click_x, float click_y)
 {
@@ -58,5 +60,21 @@ int RGBChange(float StaticValue) {
     return x;
 }
 
+void FPSCount() {
+    debug_TEXT = CP_Font_Load("Assets/Exo2 - Regular.ttf");
+    float textSize = 20.0f;
+    char buffer[50] = { 0 };
+    CP_Settings_TextSize(textSize);
+    sprintf_s(buffer, 50, "frame count: %i", CP_System_GetFrameCount());
+    CP_Font_DrawText(buffer, 150, 30);
+}
+void Player_Coords(Player* player) {
+    debug_TEXT = CP_Font_Load("Assets/Exo2 - Regular.ttf");
+    float textSize = 20.0f;
+    char buffer[50] = { 0 };
+    CP_Settings_TextSize(textSize);
+    sprintf_s(buffer, 50, "player <X:%0.2f Y:%0.2f> ", player->player_posX, player->player_posY);
+    CP_Font_DrawText(buffer, 200, 50);
+}
 
 

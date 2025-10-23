@@ -13,6 +13,7 @@ static float greenStartTime;
 Player player;
 Orb orb;
 static int GameState = 1; //for pause state i guess...
+static int DebugState = 0; //enable FPS and player coords
 
 void LevelOne_Init(void) {
     Stage_wall_Init();
@@ -22,7 +23,7 @@ void LevelOne_Init(void) {
 
 void LevelOne_Update(void) {
     // ========== INITIALIZATION ==========
-    if (GameState == 1) {
+    
         float deltaTime = CP_System_GetDt();
         const float max_deltaTime = 0.02f;
         if (deltaTime > max_deltaTime) {
@@ -206,24 +207,32 @@ void LevelOne_Update(void) {
         // Draw player
         CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
         CP_Graphics_DrawRectAdvanced(player.player_posX, player.player_posY,
-            player.player_width, player.player_height, player.degree, 0);
+            player.player_width, player.player_height, (float)player.degree, 0);
 
         if (CP_Input_KeyTriggered(KEY_Q)) {
             CP_Engine_SetNextGameState(Game_Init, Game_Update, Game_Exit);
         }
-        if (CP_Input_KeyTriggered(KEY_P)) {
-            GameState = 0;
+
+        //FPS Counter & Player coordinates
+        if (CP_Input_KeyTriggered(KEY_LEFT_ALT)) {
+            DebugState = 1 - DebugState;
         }
-    }
-    else {
+        if (DebugState == 1) {
+            FPSCount();
+            Player_Coords(&player);
+        }
+   
         //Pause screen
-        CP_Graphics_ClearBackground(CP_Color_Create(0, 0, 0, 100));
-        CP_Settings_Fill(CP_Color_Create(0, 0, 0, 20));
-        CP_Graphics_DrawRect(CP_System_GetWindowWidth() / 2.0f, CP_System_GetWindowHeight() / 2.0f, CP_System_GetWindowWidth(), CP_System_GetWindowHeight());
         if (CP_Input_KeyTriggered(KEY_P)) {
-            GameState = 1;
+            GameState = 1 - GameState;
         }
-    }
+        if (GameState == 0) {
+            CP_Graphics_ClearBackground(CP_Color_Create(0, 0, 0, 100));
+            CP_Settings_Fill(CP_Color_Create(0, 0, 0, 20));
+            CP_Graphics_DrawRect((float)CP_System_GetWindowWidth() / 2.0f, (float)CP_System_GetWindowHeight() / 2.0f, (float)CP_System_GetWindowWidth(), (float)CP_System_GetWindowHeight());
+        }
+        
+ 
 }
 
 void LevelOne_Exit(void) {
