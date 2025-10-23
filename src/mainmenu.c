@@ -3,7 +3,6 @@
 #include "utils.h"
 #include "fullscreen.h"
 
-int textSize;
 float mouseX, mouseY;
 float playButtonX, playButtonY; 
 float exitButtonX, exitButtonY; 
@@ -15,7 +14,7 @@ void Main_Menu_Init(void)
 	mainmenu_TEXT = CP_Font_Load("Assets/kenney_ui-pack-space-expansion/Font/Kenney Future Narrow.ttf");
 	mainmenu_ButtonBackground = CP_Image_Load("Assets/kenney_ui-pack-space-expansion/PNG/Extra/Double/button_rectangle_depth.png");
 	mainmenu_ButtonWhenPressed = CP_Image_Load("Assets/kenney_ui-pack-space-expansion/PNG/Extra/Double/panel_rectangle_screws.png");
-	textSize = 72;
+	float textSize = 72.0f;
 	buttonWidth = 300.0f;
 	buttonHeight = 150.0f;
 	CP_Settings_TextSize(textSize);

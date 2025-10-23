@@ -10,7 +10,7 @@ static Player player;
 static Orb orb;
 
 void LevelThree_Init(void) {
-    Stage_wall_Init(stage_wall, &stage_wall_count);
+    Stage_wall_Init();
     Player_Init(&player, &orb);
 }
 

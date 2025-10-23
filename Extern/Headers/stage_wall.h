@@ -24,7 +24,8 @@ extern Wall level2_door;
 extern Wall level1_door;
 extern Wall level2_exit_door;
 extern Wall level1_exit_door;
+extern Wall level1_teleport_wall;
 extern Wall level2_teleport_wall;
 extern int stage_wall_count;
 
-void Stage_wall_Init(Wall stage_wall[4], int *stage_wall_count);
+void Stage_wall_Init(void);

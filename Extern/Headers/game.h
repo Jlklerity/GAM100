@@ -10,7 +10,7 @@ CP_Font mainmenu_TEXT;
 CP_Image mainmenu_ButtonBackground;
 CP_Image mainmenu_ButtonWhenPressed;
 float mouseX, mouseY;
-int textSize;
+float textSize;
 
 void Game_Init(void);
 

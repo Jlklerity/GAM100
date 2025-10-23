@@ -12,10 +12,10 @@
 static float greenStartTime;
 Player player;
 Orb orb;
-int GameState = 1; //for pause state i guess...
+static int GameState = 1; //for pause state i guess...
 
 void LevelTwo_Init(void) {
-    Stage_wall_Init(stage_wall, &stage_wall_count);
+    Stage_wall_Init();
     Player_Init(&player, &orb);
     greenStartTime = 0;
 }
@@ -216,7 +216,7 @@ void LevelTwo_Update(void) {
         }
     }
     else {
-        //pause screen i guess...
+        //Pause screen
         CP_Graphics_ClearBackground(CP_Color_Create(0, 0, 0, 100));
         CP_Settings_Fill(CP_Color_Create(0, 0, 0, 20));
         CP_Graphics_DrawRect(CP_System_GetWindowWidth() / 2.0f, CP_System_GetWindowHeight() / 2.0f, CP_System_GetWindowWidth(), CP_System_GetWindowHeight());

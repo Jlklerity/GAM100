@@ -3,13 +3,13 @@
 #include "collisionHandling.h"
 
 void Player_Init(Player *player, Orb *orb) {
-	Stage_wall_Init(stage_wall, &stage_wall_count);
+	Stage_wall_Init();
 
 	const float screen_width = (float)CP_System_GetWindowWidth();
 	const float screen_height = (float)CP_System_GetWindowHeight();
 	const float player_width = 64.0f;
 	const float player_height = 64.0f;
-	const float player_highlight = 255.0f;
+	const int player_highlight = 255;
 	const float posX = 100, posY = screen_height - player_height/2 - stage_wall[1].height;
 	const int degree = 0; //player facing right
 	/*orbCount = 0;
@@ -69,7 +69,7 @@ float Player_Update(Player* player, Orb* orb, float deltaTime, float player_move
 
 	// Jumping
 	if (CP_Input_KeyTriggered(KEY_SPACE) && player->isGrounded) {
-		printf("jumpped!");
+		
 		player->player_velocityY = -jump_strength;
 		player->isGrounded = 0;
 	}

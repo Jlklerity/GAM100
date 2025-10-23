@@ -56,6 +56,20 @@ void Resolve_Collision_Wall_Player_Y(AABB playerHitBox, AABB WallHitBox, Player*
 	}
 }
 
+void Resolve_Collision_Wall_Player_X(AABB playerHitBox, AABB WallHitBox, Player* player, float breathing_space, float player_moveX) {
+	// can use for stage wall, platform, door, interactable wall, for interactable wall, please check type of wall before implementing collision.
+	// cannot use for orb
+	if (checkAABBCollision(playerHitBox, WallHitBox)) {
+		if (player_moveX > 0) {
+			player->player_posX = WallHitBox.x - (player->player_width / 2.0f) - breathing_space;
+		}
+		else if (player_moveX < 0) {
+			float Wall_Right_Edge = WallHitBox.x + WallHitBox.width;
+			player->player_posX = Wall_Right_Edge + (player->player_width / 2.0f) + breathing_space;
+		}
+	}
+}
+
 void Resolve_Collision_Wall_Orb_Y(AABB orbHitBox, AABB WallHitBox, Orb* orb, Player* player, float breathing_space, float orb_moveY) {
 	// add clamp so player will not glitch out of wall.
 	float WallLeft = WallHitBox.x;
@@ -87,20 +101,6 @@ void Resolve_Collision_Wall_Orb_Y(AABB orbHitBox, AABB WallHitBox, Orb* orb, Pla
 		}
 		else {
 			orb->isActive = 0;
-		}
-	}
-}
-
-void Resolve_Collision_Wall_Player_X(AABB playerHitBox, AABB WallHitBox, Player* player, float breathing_space, float player_moveX) {
-	// can use for stage wall, platform, door, interactable wall, for interactable wall, please check type of wall before implementing collision.
-	// cannot use for orb
-	if (checkAABBCollision(playerHitBox, WallHitBox)) {
-		if (player_moveX > 0) {
-			player->player_posX = WallHitBox.x - (player->player_width / 2.0f) - breathing_space;
-		}
-		else if (player_moveX < 0) {
-			float Wall_Right_Edge = WallHitBox.x + WallHitBox.width;
-			player->player_posX = Wall_Right_Edge + (player->player_width / 2.0f) + breathing_space;
 		}
 	}
 }

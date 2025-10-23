@@ -1,347 +1,229 @@
 #include <stdio.h>
 #include <string.h>
+#include <math.h>
 #include "cprocessing.h"
 #include "stage_wall.h"
 #include "player.h"
 #include "collisionHandling.h"
 #include "game.h"
-#include "levelthree.h"
+#include "leveltwo.h"
+#include "utils.h"
 
-static Player player;
-static Orb orb;
-//Orb orbs[3];
+static float greenStartTime;
+Player player;
+Orb orb;
+static int GameState = 1; //for pause state i guess...
 
 void LevelOne_Init(void) {
-    Stage_wall_Init(stage_wall, &stage_wall_count);
+    Stage_wall_Init();
     Player_Init(&player, &orb);
- //   Player_Init(&player);
-	//Orb_Init(&orbs);
-	//orbCount = 0;
-	//MaxOrb = 5;
-	//for (int i = 0; i < 3; i++) {
-	//	orbs[i].active = 0;
-	//}
+    greenStartTime = 0;
 }
 
 void LevelOne_Update(void) {
     // ========== INITIALIZATION ==========
-    float deltaTime = CP_System_GetDt();
-    const float max_deltaTime = 0.02f;
-    if (deltaTime > max_deltaTime) {
-        deltaTime = max_deltaTime;
-    }
-
-    const float screen_width = (float)CP_System_GetWindowWidth();
-    const float screen_height = (float)CP_System_GetWindowHeight();
-    const float gravity = 2200.0f;
-    const float jump_strength = 1200.0f;
-    const float breathing_space = 0.1f;
-
-    CP_Graphics_ClearBackground(CP_Color_Create(85, 85, 85, 255));
-
-    // ========== INPUT HANDLING ==========
-    // Horizontal movement
-    float player_moveX = 0.0f;
-    if (CP_Input_KeyDown(KEY_D)) {
-        player_moveX += player.player_velocityX * deltaTime;
-        player.direction = PLAYER_RIGHT;
-    }
-    if (CP_Input_KeyDown(KEY_A)) {
-        player_moveX -= player.player_velocityX * deltaTime;
-        player.direction = PLAYER_LEFT;
-    }
-
-    // Vertical aiming
-    if (CP_Input_KeyDown(KEY_W)) {
-        if (player.direction == PLAYER_LEFT || player.direction == PLAYER_RIGHT) {
-            player.last_direction = player.direction;
+    if (GameState == 1) {
+        float deltaTime = CP_System_GetDt();
+        const float max_deltaTime = 0.02f;
+        if (deltaTime > max_deltaTime) {
+            deltaTime = max_deltaTime;
         }
-        player.direction = PLAYER_UP;
-    }
-    if (CP_Input_KeyReleased(KEY_W)) {
-        player.direction = player.last_direction;
-    }
 
-	//orb direction
-	switch (player.direction) {
-	case PLAYER_RIGHT:
-		player.degree = 0;
-		break;
+        const float screen_width = (float)CP_System_GetWindowWidth();
+        const float screen_height = (float)CP_System_GetWindowHeight();
+        const float gravity = 2200.0f;
+        const float jump_strength = 1200.0f;
+        const float breathing_space = 0.1f;
 
-    if (CP_Input_KeyDown(KEY_S)) {
-        if (player.direction == PLAYER_LEFT || player.direction == PLAYER_RIGHT) {
-            player.last_direction = player.direction;
-        }
-        player.direction = PLAYER_DOWN;
-    }
-    if (CP_Input_KeyReleased(KEY_S)) {
-        player.direction = player.last_direction;
-    }
+        //get color to change for cp color create for green value
 
-    // Update player degree for projectiles
-    switch (player.direction) {
-    case PLAYER_RIGHT:
-        player.degree = 0;
-        break;
-    case PLAYER_LEFT:
-        player.degree = 180;
-        break;
-    case PLAYER_UP:
-        if (CP_Input_KeyDown(KEY_W)) {
-            printf("Looking Up");
-            player.degree += 10;
-        }
-        break;
-    case PLAYER_DOWN:
-        if (CP_Input_KeyDown(KEY_S)) {
-            printf("Looking down");
-            player.degree -= 10;
-        }
-        break;
-    }
+        CP_Graphics_ClearBackground(CP_Color_Create(85, 85, 85, 255));
 
-    // Jumping
-    if (CP_Input_KeyTriggered(KEY_SPACE) && player.isGrounded) {
-        printf("jumpped!");
-        player.player_velocityY = -jump_strength;
+        // ========== INPUT HANDLING ==========
+
+        // Horizontal movement
+        float player_moveX = 0.0f;
+        float orb_moveX = 0.0f;
+        float orb_moveY = 0.0f;
+
+        player_moveX = Player_Update(&player, &orb, deltaTime, player_moveX, jump_strength);
+
+        // Apply gravity
+        player.player_velocityY += gravity * deltaTime;
+        player.player_posY += player.player_velocityY * deltaTime;
         player.isGrounded = 0;
-    }
-	case PLAYER_UP:
-		if (CP_Input_KeyDown(KEY_W)) {
-			printf("Looking Up");
-			player.degree = 270;
-		}
-		break;
 
-	case PLAYER_DOWN:
-		if (CP_Input_KeyDown(KEY_S)) {
-			printf("Looking down");
-			player.degree = 90;
-		}
-		break;
-	}
-	////shoot orb
-	//if (CP_Input_KeyTriggered(KEY_O)) {
-	//	if (orbCount < MaxOrb) {
-	//		if (player.degree == 0) {
-	//			orbs[orbCount].x = player.player_posX;
-	//			orbs[orbCount].y = player.player_posY;
-	//			orbs[orbCount].vx = 20.0f;
-	//			orbs[orbCount].vy = 0.0f;
-	//			orbs[orbCount].active = 1;
-	//			orbCount++;
-	//			printf("shoot right");
-	//		}
-	//		if (player.degree == 180) {
-	//			orbs[orbCount].x = player.player_posX;
-	//			orbs[orbCount].y = player.player_posY;
-	//			orbs[orbCount].vx = -20.0f;
-	//			orbs[orbCount].vy = 0.0f;
-	//			orbs[orbCount].active = 1;
-	//			orbCount++;
-	//			printf("shoot left");
-	//		}
-	//		if (player.degree == 270) {
-	//			orbs[orbCount].x = player.player_posX;
-	//			orbs[orbCount].y = player.player_posY;
-	//			orbs[orbCount].vx = 0.0f;
-	//			orbs[orbCount].vy = -20.0f;
-	//			orbs[orbCount].active = 1;
-	//			orbCount++;
-	//			printf("shoot up");
-	//		}
-	//	}
-	//}
-	//for (int i = 0; i < MaxOrb; i++) {
-	//	if (orbs[i].active) {
-
-	//		orbs[i].x += orbs[i].vx;
-	//		orbs[i].y += orbs[i].vy;
-	//	}
-	//}
-
-	////teleport to orb
-	//if (CP_Input_KeyTriggered(KEY_P)) {
-	//	for (int i = MaxOrb - 1, j = 0; i >= 0; i--) {
-	//		if (orbs[i].active) {
-	//			player.player_posX = orbs[i].x;
-	//			player.player_posY = orbs[i].y - 20;
-	//			orbs[i].active = 0;
-	//			break;
-	//		}
-	//	}
-
-	//}
-
-
-	//jumping
-	//printf("%0.3f, %0.3f\n", player.player_posX, player.player_posY);
-	if (CP_Input_KeyTriggered(KEY_SPACE) && player.isGrounded) {
-		printf("jumpped!");
-		player.player_velocityY = -jump_strength;
-		player.isGrounded = 0;
-	}
-
-    // Apply gravity
-    player.player_velocityY += gravity * deltaTime;
-    player.player_posY += player.player_velocityY * deltaTime;
-    player.isGrounded = 0;
-
-    // ========== VERTICAL COLLISION DETECTION ==========
-    AABB playerHitBoxY = {
-        player.player_posX - (player.player_width / 2.0f),
-        player.player_posY - (player.player_height / 2.0f),
-        player.player_width,
-        player.player_height
-    };
-
-    AABB platformHitBoxY = {
-
-        level1_platform[0].x - (level1_platform[0].width / 2.0f),
-        level1_platform[0].y - (level1_platform[0].height / 2.0f),
-        level1_platform[0].width,
-        level1_platform[0].height
-    };
-
-    AABB ExitDoorHitBox = {
-        level1_exit_door.x - (level1_exit_door.width / 2.0f),
-        level1_exit_door.y - (level1_exit_door.height / 2.0f),
-        level1_exit_door.width,
-        level1_exit_door.height
-    };
-
-
-    //check if player has opened the door
-    if (checkAABBCollision(playerHitBoxY, ExitDoorHitBox) && CP_Input_KeyTriggered(KEY_W)) {
-        CP_Engine_SetNextGameState(LevelThree_Init, LevelThree_Update, LevelThree_Exit);
-    }
-    // Check stage wall collisions (vertical)
-    for (int i = 0; i < stage_wall_count; i++) {
-        AABB stagewallHitBox = {
-            stage_wall[i].x - (stage_wall[i].width / 2.0f),
-            stage_wall[i].y - (stage_wall[i].height / 2.0f),
-            stage_wall[i].width,
-            stage_wall[i].height
-        };
-
-        if (checkAABBCollision(playerHitBoxY, stagewallHitBox)) {
-            if (player.player_velocityY > 0) {
-                // Landing on top
-                player.player_posY = stagewallHitBox.y - (player.player_height / 2.0f) - breathing_space;
-                player.player_velocityY = 0.0f;
-                player.isGrounded = 1;
+        if (CP_Input_KeyTriggered(KEY_1)) {
+            player.orb_type = TELEPORT_ORB;
+        }
+        if (CP_Input_KeyTriggered(KEY_2)) {
+            player.orb_type = DESTROY_ORB;
+        }
+        //Checking if orb is active in the air
+        if (orb.isActive == 0) {
+            if (CP_Input_KeyTriggered(KEY_J)) {
+                orb.isActive = 1;
+                orb.x = player.player_posX;
+                orb.y = player.player_posY;
+                orb.direction = player.direction;
             }
-            else if (player.player_velocityY < 0) {
-                // Hitting bottom
-                player.player_posY = stagewallHitBox.y + stagewallHitBox.height + (player.player_height / 2.0f) + breathing_space;
-                player.player_velocityY = 0.0f;
+        }
+
+        if (orb.isActive == 1) {
+            switch (orb.direction) {
+            case PLAYER_RIGHT:
+                player.degree = 0; //for sprite looking direction
+                orb_moveX += orb.orb_velocity_x * deltaTime;
+                if (CP_Input_KeyTriggered(KEY_K)) {
+                    player.player_posX = orb.x - player.player_width / 2;
+                    player.player_posY = orb.y;
+                    orb.isActive = 0;
+                    player.player_velocityY = 0.0f;
+                    player_moveX = 0.0f;
+                }
+                break;
+            case PLAYER_LEFT:
+                player.degree = 180;
+                orb_moveX -= orb.orb_velocity_x * deltaTime;
+                if (CP_Input_KeyTriggered(KEY_K)) {
+                    player.player_posX = orb.x + player.player_width / 2;
+                    player.player_posY = orb.y;
+                    orb.isActive = 0;
+                    player.player_velocityY = 0.0f;
+                    player_moveX = 0.0f;
+                }
+                break;
+            case PLAYER_UP:
+                orb_moveY -= orb.orb_velocity_Y * deltaTime;
+                if (CP_Input_KeyTriggered(KEY_K)) {
+                    player.player_posX = orb.x;
+                    player.player_posY = orb.y + player.player_height / 2;
+                    orb.isActive = 0;
+                    player.player_velocityY = 0.0f;
+                    player_moveX = 0.0f;
+                }
+                break;
+            case PLAYER_DOWN:
+                orb_moveY += orb.orb_velocity_Y * deltaTime;
+                if (CP_Input_KeyTriggered(KEY_K)) {
+                    player.player_posX = orb.x;
+                    player.player_posY = orb.y - player.player_height / 2;
+                    orb.isActive = 0;
+                    player.player_velocityY = 0.0f;
+                    player_moveX = 0.0f;
+                }
+                break;
             }
-            break;
-        }
-    }
-
-    // Check platform collision (vertical)
-    if (checkAABBCollision(playerHitBoxY, platformHitBoxY)) {
-        if (player.player_velocityY > 0) {
-            // Landing on top
-            player.player_posY = platformHitBoxY.y - (player.player_height / 2.0f) - breathing_space;
-            player.player_velocityY = 0.0f;
-            player.isGrounded = 1;
-        }
-        else if (player.player_velocityY < 0) {
-            // Hitting bottom
-            player.player_posY = platformHitBoxY.y + platformHitBoxY.height + (player.player_height / 2.0f) + breathing_space;
-            player.player_velocityY = 0.0f;
-        }
-    }
-
-    // ========== HORIZONTAL COLLISION DETECTION ==========
-
-    player.player_posX += player_moveX;
-    AABB playerHitBoxX = {
-        player.player_posX - (player.player_width / 2.0f),
-        player.player_posY - (player.player_height / 2.0f),
-        player.player_width,
-        player.player_height
-    };
-
-
-    // Check stage wall collisions (horizontal)
-    for (int i = 0; i < stage_wall_count; i++) {
-        AABB stagewallHitBox = {
-            stage_wall[i].x - (stage_wall[i].width / 2.0f),
-            stage_wall[i].y - (stage_wall[i].height / 2.0f),
-            stage_wall[i].width,
-            stage_wall[i].height
-        };
-
-        if (checkAABBCollision(playerHitBoxX, stagewallHitBox)) {
-            printf("Contact!");
-
-            if (player_moveX > 0) {
-                // Hit left side of wall
-                float wall_left_edge = stage_wall[i].x - (stage_wall[i].width / 2.0f);
-                player.player_posX = wall_left_edge - (player.player_width / 2.0f) - breathing_space;
+            //Change orb type
+            switch (player.orb_type) {
+            case TELEPORT_ORB:
+                CP_Settings_Fill(CP_Color_Create(0, 190, 255, 255));
+                break;
+            case DESTROY_ORB:
+                CP_Settings_Fill(CP_Color_Create(255, 0, 0, 255));
+                break;
+            default:
+                CP_Settings_Fill(CP_Color_Create(0, 0, 255, 255));
+                break;
             }
-            else if (player_moveX < 0) {
-                // Hit right side of wall
-                float wall_right_edge = stage_wall[i].x + (stage_wall[i].width / 2.0f);
-                player.player_posX = wall_right_edge + (player.player_width / 2.0f) + breathing_space;
-            }
-            break;
+            CP_Graphics_DrawCircle(orb.x, orb.y, orb.diameter);
+        }
+
+        // ========== VERTICAL COLLISION DETECTION ==========
+
+        AABB playerHitBoxY = Get_Player_HitBox(&player);
+        AABB ExitDoorHitBox = Get_Wall_HitBox(&level1_exit_door);
+        AABB TeleportWallHitBox = Get_Wall_HitBox(&level1_teleport_wall);
+        AABB orbHitbox = Get_Orb_HitBox(&orb);
+        // still need to initialize hitboxfor door and pressure plate, and need to write the function for both as well.
+
+        player.player_posX += player_moveX;
+        orb.x += orb_moveX;
+        orb.y += orb_moveY;
+
+        //check if player has opened the door
+        if (checkAABBCollision(playerHitBoxY, ExitDoorHitBox) && CP_Input_KeyTriggered(KEY_W)) {
+            CP_Engine_SetNextGameState(LevelTwo_Init, LevelTwo_Update, LevelTwo_Exit);
+        }
+        // Check stage wall collisions (vertical)
+        for (int i = 0; i < stage_wall_count; i++) {
+            AABB stagewallHitBox = Get_Wall_HitBox(&stage_wall[i]);
+            Resolve_Collision_Wall_Player_Y(playerHitBoxY, stagewallHitBox, &player, breathing_space);
+            Resolve_Collision_Wall_Orb_Y(orbHitbox, stagewallHitBox, &orb, &player, breathing_space, orb_moveY);
+        }
+        for (int i = 0; i < 3; i++) {
+            AABB platformHitBox = Get_Wall_HitBox(&level1_platform[i]);
+            Resolve_Collision_Wall_Player_Y(playerHitBoxY, platformHitBox, &player, breathing_space);
+            Resolve_Collision_Wall_Orb_Y(orbHitbox, platformHitBox, &orb, &player, breathing_space, orb_moveY);
+        }
+
+        // Check platform collision (vertical)
+        Resolve_Collision_Wall_Orb_Y(orbHitbox, TeleportWallHitBox, &orb, &player, breathing_space, orb_moveY);
+
+        // ========== HORIZONTAL COLLISION DETECTION ==========
+
+        AABB playerHitBoxX = Get_Player_HitBox(&player);
+        playerHitBoxY.x = player.player_posX - (player.player_width / 2.0f);
+        AABB orbHitBoxX = Get_Orb_HitBox(&orb);
+        orbHitbox.x = orb.x - (orb.diameter / 2.0f);
+
+        // Check stage wall collisions (horizontal)
+        for (int i = 0; i < stage_wall_count; i++) {
+            AABB stagewallHitBox = Get_Wall_HitBox(&stage_wall[i]);
+            Resolve_Collision_Wall_Player_X(playerHitBoxX, stagewallHitBox, &player, breathing_space, player_moveX);
+            Resolve_Collision_Wall_Orb_X(orbHitbox, stagewallHitBox, &orb, &player, breathing_space, orb_moveX);
+        }
+
+        for (int i = 0; i < 3; i++) {
+            AABB platformHitBox = Get_Wall_HitBox(&level1_platform[i]);
+            Resolve_Collision_Wall_Player_X(playerHitBoxX, platformHitBox, &player, breathing_space, player_moveX);
+            Resolve_Collision_Wall_Orb_X(orbHitbox, platformHitBox, &orb, &player, breathing_space, orb_moveX);
+        }
+
+        // Check platform collision (horizontal)
+        Resolve_Collision_Wall_Orb_X(orbHitbox, TeleportWallHitBox, &orb, &player, breathing_space, orb_moveX);
+
+        // Draw exit door
+        CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
+        CP_Graphics_DrawRect(level1_exit_door.x, level1_exit_door.y, level1_exit_door.width, level1_exit_door.height);
+
+        // Draw stage walls
+        for (int i = 0; i < stage_wall_count; i++) {
+            CP_Settings_Fill(stage_wall[i].color);
+            CP_Graphics_DrawRect(stage_wall[i].x, stage_wall[i].y,
+                stage_wall[i].width, stage_wall[i].height);
+        }
+        // Draw stage platforms
+        for (int i = 0; i < 3; i++) {
+            CP_Graphics_DrawRectAdvanced(level1_platform[i].x, level1_platform[i].y, level1_platform[i].width, level1_platform[i].height, 0.0f, 0.0f);
+
+        }
+
+        //Draw Teleport Wall   
+        CP_Settings_Fill(CP_Color_Create(0, RGBChange(greenStartTime), 255, 255));
+        CP_Graphics_DrawRectAdvanced(level1_teleport_wall.x, level1_teleport_wall.y, level1_teleport_wall.width, level1_teleport_wall.height, 0.0f, 0.0f);
+
+        // Draw player
+        CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
+        CP_Graphics_DrawRectAdvanced(player.player_posX, player.player_posY,
+            player.player_width, player.player_height, player.degree, 0);
+
+        if (CP_Input_KeyTriggered(KEY_Q)) {
+            CP_Engine_SetNextGameState(Game_Init, Game_Update, Game_Exit);
+        }
+        if (CP_Input_KeyTriggered(KEY_P)) {
+            GameState = 0;
         }
     }
-
-    // Check platform collision (horizontal)
-    if (checkAABBCollision(playerHitBoxX, platformHitBoxY)) {
-        if (player_moveX > 0) {
-            // Hit left side of platform
-            player.player_posX = platformHitBoxY.x - (player.player_width / 2.0f) - breathing_space;
-        }
-        else if (player_moveX < 0) {
-            // Hit right side of platform
-            printf("contact with platform!");
-            float platform_right_edge = platformHitBoxY.x + platformHitBoxY.width;
-            printf("%0.2f\n", platform_right_edge);
-            player.player_posX = platform_right_edge + (player.player_width / 2.0f) + breathing_space;
+    else {
+        //Pause screen
+        CP_Graphics_ClearBackground(CP_Color_Create(0, 0, 0, 100));
+        CP_Settings_Fill(CP_Color_Create(0, 0, 0, 20));
+        CP_Graphics_DrawRect(CP_System_GetWindowWidth() / 2.0f, CP_System_GetWindowHeight() / 2.0f, CP_System_GetWindowWidth(), CP_System_GetWindowHeight());
+        if (CP_Input_KeyTriggered(KEY_P)) {
+            GameState = 1;
         }
     }
-
-    // Draw exit door
-    CP_Graphics_DrawRect(level1_exit_door.x, level1_exit_door.y, level1_exit_door.width, level1_exit_door.height);
-
-    // Draw stage walls
-    for (int i = 0; i < stage_wall_count; i++) {
-        CP_Settings_Fill(stage_wall[i].color);
-        CP_Graphics_DrawRect(stage_wall[i].x, stage_wall[i].y,
-            stage_wall[i].width, stage_wall[i].height);
-    }
-    // Draw stage platforms
-    for (int i = 0; i < 3; i++) {
-        CP_Graphics_DrawRectAdvanced(level1_platform[i].x, level1_platform[i].y, level1_platform[i].width, level1_platform[i].height, 0.0f, 0.0f);
-
-    }
-
-    // Draw player
-    CP_Graphics_DrawRectAdvanced(player.player_posX, player.player_posY,
-        player.player_width, player.player_height, player.degree, 0);
-
-    if (CP_Input_KeyTriggered(KEY_Q)) {
-        CP_Engine_SetNextGameState(Game_Init, Game_Update, Game_Exit);
-    }
-
-	////Draw Orb
-	//CP_Settings_Fill(CP_Color_Create(0, 200, 255, 255));
-	//for (int i = 0; i < MaxOrb; i++) {
-	//	if (orbs[i].active) {
-	//		CP_Graphics_DrawCircle(orbs[i].x, orbs[i].y, 10.0f);
-	//	}
-	//}
-
-	if (CP_Input_KeyTriggered(KEY_Q)) {
-		CP_Engine_SetNextGameState(Game_Init, Game_Update, Game_Exit);
-	}
-
 }
 
 void LevelOne_Exit(void) {
