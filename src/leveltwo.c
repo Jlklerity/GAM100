@@ -6,7 +6,7 @@
 #include "player.h"
 #include "collisionHandling.h"
 #include "game.h"
-#include "leveltwo.h"
+#include "levelthree.h"
 #include "utils.h"
 
 static float greenStartTime;
@@ -144,7 +144,7 @@ void LevelTwo_Update(void) {
 
     //check if player has opened the door
     if (checkAABBCollision(playerHitBoxY, ExitDoorHitBox) && CP_Input_KeyTriggered(KEY_W)) {
-        CP_Engine_SetNextGameState(LevelTwo_Init, LevelTwo_Update, LevelTwo_Exit);
+        CP_Engine_SetNextGameState(LevelThree_Init, LevelThree_Update, LevelThree_Exit);
     }
     // Check stage wall collisions (vertical)
     for (int i = 0; i < stage_wall_count; i++) {
