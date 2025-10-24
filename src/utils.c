@@ -76,5 +76,15 @@ void Player_Coords(Player* player) {
     sprintf_s(buffer, 50, "player <X:%0.2f Y:%0.2f> ", player->player_posX, player->player_posY);
     CP_Font_DrawText(buffer, 200, 50);
 }
+void MousePos() {
+    mouseX = (float)CP_Input_GetMouseX();
+    mouseY = (float)CP_Input_GetMouseY();
+    debug_TEXT = CP_Font_Load("Assets/Exo2 - Regular.ttf");
+    float textSize = 20.0f;
+    char buffer[50] = { 0 };
+    CP_Settings_TextSize(textSize);
+    sprintf_s(buffer, 50, "mouse <X:%0.2f Y:%0.2f> ", mouseX, mouseY);
+    CP_Font_DrawText(buffer, 200, 75);
+}
 
 

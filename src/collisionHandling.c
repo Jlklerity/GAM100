@@ -1,4 +1,5 @@
 #include "collisionHandling.h"
+#include "stage_wall.h"
 #include "player.h"
 #include <stdio.h>
 #define EdgeMargin 32.0f // half the player height and width, used to calculate the clamped value so player doesn't teleport over unintedned platform.
@@ -52,6 +53,31 @@ void Resolve_Collision_Wall_Player_Y(AABB playerHitBox, AABB WallHitBox, Player*
 		else if (player->player_velocityY < 0) {
 			player->player_posY = WallHitBox.y + WallHitBox.height + (player->player_height / 2.0f) + breathing_space;
 			player->player_velocityY = 0.0f;
+		}
+	}
+}
+
+static float time_pressure_sensorLastPressed = -10.0f;
+void Resolve_Collision_FloorSensor_Player(AABB playerHitBox, AABB pressure_sensorHitBox, Player* player) {
+
+	// Get the actual current time, once per frame.
+	float currentTime = CP_System_GetSeconds();
+
+	if (checkAABBCollision(playerHitBox, pressure_sensorHitBox)) {
+		level1_pressure_plate.color = CP_Color_Create(255, 0, 0, 255);
+		// 2. Open the door
+		level1_door.isActivated = 1;
+		time_pressure_sensorLastPressed = currentTime;
+	}
+	else {
+		float timeSinceLastPress = currentTime - time_pressure_sensorLastPressed;
+		if (timeSinceLastPress >= 5.0f) {
+			level1_door.isActivated = 0;
+			level1_pressure_plate.color = CP_Color_Create(113, 121, 126, 255);
+		}
+		else {
+			level1_door.isActivated = 1;
+			level1_pressure_plate.color = CP_Color_Create(255, 0, 0, 255);
 		}
 	}
 }

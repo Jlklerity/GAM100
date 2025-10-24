@@ -6,3 +6,4 @@ int IsCircleColliding(float circle1_center_x, float circle1_center_y, float circ
 int RGBChange(float StaticValue);
 void FPSCount();
 void Player_Coords(player);
+void MousePos();
