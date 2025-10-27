@@ -19,6 +19,7 @@ void LevelTwo_Init(void) {
     Stage_wall_Init();
     Player_Init(&player, &orb);
     greenStartTime = 0;
+    level2_door.isActivated = 0; // Start with the door closed
 }
 
 void LevelTwo_Update(void) {
@@ -134,6 +135,8 @@ void LevelTwo_Update(void) {
 
     AABB playerHitBoxY = Get_Player_HitBox(&player);
     AABB ExitDoorHitBox = Get_Wall_HitBox(&level2_exit_door);
+    AABB Pressure_sense_DoorHitBox = Get_Wall_HitBox(&level2_door);
+    AABB floor_sensor_DoorHitBox = Get_Wall_HitBox(&level2_pressure_plate);
     AABB TeleportWallHitBox = Get_Wall_HitBox(&level2_teleport_wall);
     AABB orbHitbox = Get_Orb_HitBox(&orb);
     // still need to initialize hitboxfor door and pressure plate, and need to write the function for both as well.
@@ -146,6 +149,7 @@ void LevelTwo_Update(void) {
     if (checkAABBCollision(playerHitBoxY, ExitDoorHitBox) && CP_Input_KeyTriggered(KEY_W)) {
         CP_Engine_SetNextGameState(LevelThree_Init, LevelThree_Update, LevelThree_Exit);
     }
+
     // Check stage wall collisions (vertical)
     for (int i = 0; i < stage_wall_count; i++) {
         AABB stagewallHitBox = Get_Wall_HitBox(&stage_wall[i]);
@@ -160,12 +164,18 @@ void LevelTwo_Update(void) {
 
     // Check platform collision (vertical)
     Resolve_Collision_Wall_Orb_Y(orbHitbox, TeleportWallHitBox, &orb, &player, breathing_space, orb_moveY);
+    // Check pressure door collision (vertical)
+    if (level2_door.isActivated == 0) {
+        Resolve_Collision_Wall_Player_Y(playerHitBoxY, Pressure_sense_DoorHitBox, &player, breathing_space);
+        Resolve_Collision_Wall_Orb_Y(orbHitbox, Pressure_sense_DoorHitBox, &orb, &player, breathing_space, orb_moveY);
+    }
+    Resolve_Collision_FloorSensor_Player(playerHitBoxY, floor_sensor_DoorHitBox, &player, &level2_door, &level2_pressure_plate);
 
     // ========== HORIZONTAL COLLISION DETECTION ==========
 
     AABB playerHitBoxX = Get_Player_HitBox(&player);
     playerHitBoxY.x = player.player_posX - (player.player_width / 2.0f);
-    AABB orbHitBoxX = Get_Orb_HitBox(&orb);
+    //AABB orbHitBoxX = Get_Orb_HitBox(&orb);
     orbHitbox.x = orb.x - (orb.diameter / 2.0f);
 
     // Check stage wall collisions (horizontal)
@@ -183,7 +193,11 @@ void LevelTwo_Update(void) {
 
     // Check platform collision (horizontal)
     Resolve_Collision_Wall_Orb_X(orbHitbox, TeleportWallHitBox, &orb, &player, breathing_space, orb_moveX);
-
+    // Check pressure door collision (horizontal)
+    if (level2_door.isActivated == 0) {
+        Resolve_Collision_Wall_Player_X(playerHitBoxX, Pressure_sense_DoorHitBox, &player, breathing_space, player_moveX);
+        Resolve_Collision_Wall_Orb_X(orbHitbox, Pressure_sense_DoorHitBox, &orb, &player, breathing_space, orb_moveX);
+    }
     // Draw exit door
     CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
     CP_Graphics_DrawRect(level2_exit_door.x, level2_exit_door.y, level2_exit_door.width, level2_exit_door.height);
@@ -199,6 +213,16 @@ void LevelTwo_Update(void) {
         CP_Graphics_DrawRectAdvanced(level2_platform[i].x, level2_platform[i].y, level2_platform[i].width, level2_platform[i].height, 0.0f, 0.0f);
 
     }
+    //Draw pressure sensitive wall
+    if (level2_door.isActivated == 0) {
+        CP_Settings_Fill(CP_Color_Create(113, 121, 126, 255));
+        CP_Graphics_DrawRectAdvanced(level2_door.x, level2_door.y, level2_door.width, level2_door.height, 0.0f, 0.0f);
+    }
+
+    //Draw floor sensor
+    CP_Settings_Fill(level2_pressure_plate.color);
+    CP_Graphics_DrawRectAdvanced(level2_pressure_plate.x, level2_pressure_plate.y, level2_pressure_plate.width, level2_pressure_plate.height, 0.0f, 0.0f);
+
 
     //Draw Teleport Wall   
     CP_Settings_Fill(CP_Color_Create(0, RGBChange(greenStartTime), 255, 255));
@@ -213,13 +237,15 @@ void LevelTwo_Update(void) {
         CP_Engine_SetNextGameState(Game_Init, Game_Update, Game_Exit);
     }
 
-    //FPS Counter & Player coordinates
+    //FPS Counter & Player coordinates & Mouse coordinates & player pov
     if (CP_Input_KeyTriggered(KEY_LEFT_ALT)) {
         DebugState = 1 - DebugState;
     }
     if (DebugState == 1) {
         FPSCount();
         Player_Coords(&player);
+        MousePos();
+        PlayerPov(&player);
     }
 
     //Pause screen
@@ -231,7 +257,10 @@ void LevelTwo_Update(void) {
         CP_Settings_Fill(CP_Color_Create(0, 0, 0, 20));
         CP_Graphics_DrawRect((float)CP_System_GetWindowWidth() / 2.0f, (float)CP_System_GetWindowHeight() / 2.0f, (float)CP_System_GetWindowWidth(), (float)CP_System_GetWindowHeight());
     }
+
+
 }
 
 void LevelTwo_Exit(void) {
+
 }
