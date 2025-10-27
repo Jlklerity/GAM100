@@ -5,6 +5,7 @@
 #define EdgeMargin 32.0f // half the player height and width, used to calculate the clamped value so player doesn't teleport over unintedned platform.
 
  
+
 bool checkAABBCollision(AABB objectA, AABB objectB) {
 	
 	bool bothOverlap_X = (objectA.x < objectB.x + objectB.width) && (objectA.x + objectA.width > objectB.x);
@@ -12,8 +13,8 @@ bool checkAABBCollision(AABB objectA, AABB objectB) {
 	bool bothOverlap_Y = (objectA.y < objectB.y + objectB.height) && (objectA.y + objectA.height > objectB.y);
 
 	return bothOverlap_X && bothOverlap_Y;
+	printf("hi");
 }
-
 AABB Get_Wall_HitBox(Wall *wall) {
 	AABB box;
 	box.x = wall->x - wall->width / 2;
