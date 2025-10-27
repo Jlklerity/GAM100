@@ -26,7 +26,7 @@ C:\Users\narut\source\repos\csd1401f25_team_duriancats\src\utils.c(38,45): warni
 C:\Users\narut\source\repos\csd1401f25_team_duriancats\src\utils.c(39,45): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
 C:\Users\narut\source\repos\csd1401f25_team_duriancats\src\utils.c(38,24): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
 C:\Users\narut\source\repos\csd1401f25_team_duriancats\src\utils.c(39,24): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Users\narut\source\repos\csd1401f25_team_duriancats\src\utils.c(68,5): warning C4013: 'sprintf_s' undefined; assuming extern returning int
+C:\Users\narut\source\repos\csd1401f25_team_duriancats\src\utils.c(69,5): warning C4013: 'sprintf_s' undefined; assuming extern returning int
   Generating Code...
   TeleScape.vcxproj -> C:\Users\narut\source\repos\csd1401f25_team_duriancats\bin\Debug-x64\TeleScape.exe
   1266 File(s) copied
