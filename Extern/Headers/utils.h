@@ -7,3 +7,4 @@ int RGBChange(float StaticValue);
 void FPSCount();
 void Player_Coords(player);
 void MousePos();
+void PlayerPov(player);

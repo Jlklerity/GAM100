@@ -237,7 +237,7 @@ void LevelOne_Update(void) {
             CP_Engine_SetNextGameState(Game_Init, Game_Update, Game_Exit);
         }
 
-        //FPS Counter & Player coordinates & Mouse coordinates
+        //FPS Counter & Player coordinates & Mouse coordinates & player pov
         if (CP_Input_KeyTriggered(KEY_LEFT_ALT)) {
             DebugState = 1 - DebugState;
         }
@@ -245,6 +245,7 @@ void LevelOne_Update(void) {
             FPSCount();
             Player_Coords(&player);
             MousePos();
+            PlayerPov(&player);
         }
         
         //Pause screen

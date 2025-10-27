@@ -87,4 +87,24 @@ void MousePos() {
     CP_Font_DrawText(buffer, 200, 75);
 }
 
+void PlayerPov(Player* player) {
+    CP_Settings_Stroke(CP_Color_Create(0, 160, 255, 255));
+    switch (player->direction) {
+        case (PLAYER_RIGHT):
+            CP_Graphics_DrawLine(player->player_posX, player->player_posY, player->player_posX + 50.0f, player->player_posY);
+            break;
+        case (PLAYER_LEFT):
+            CP_Graphics_DrawLine(player->player_posX, player->player_posY, player->player_posX - 50.0f, player->player_posY);
+            break;
+        case (PLAYER_UP):
+            CP_Graphics_DrawLine(player->player_posX, player->player_posY, player->player_posX, player->player_posY - 50.0f);
+            break;
+        case (PLAYER_DOWN):
+            CP_Graphics_DrawLine(player->player_posX, player->player_posY, player->player_posX, player->player_posY + 50.0f);
+            break;
+        }
+    CP_Settings_Stroke(CP_Color_Create(0, 0, 0, 255));
+}
+    
+    
 
