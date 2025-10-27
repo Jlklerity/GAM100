@@ -1,14 +1,34 @@
-﻿  collisionHandling.c
+﻿  hazards.c
+  levelfive.c
+  levelfour.c
+  levelthree.c
+  leveltwo.c
+  collisionHandling.c
+  fullscreen.c
+  game.c
+C:\Users\narut\source\repos\csd1401f25_team_duriancats\src\fullscreen.c(9,3): warning C4013: 'CP_System_FullscreenAdvanced' undefined; assuming extern returning int
+C:\Users\narut\source\repos\csd1401f25_team_duriancats\src\fullscreen.c(15,3): warning C4013: 'CP_System_SetWindowSize' undefined; assuming extern returning int
   levelone.c
-C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(180,14): warning C4101: 'orbHitBoxX': unreferenced local variable
+C:\Users\narut\source\repos\csd1401f25_team_duriancats\src\levelone.c(180,14): warning C4101: 'orbHitBoxX': unreferenced local variable
+  main.c
+  mainmenu.c
+  player.c
+  stage_wall.c
+  startscreen.c
+C:\Users\narut\source\repos\csd1401f25_team_duriancats\src\startscreen.c(14,16): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\narut\source\repos\csd1401f25_team_duriancats\src\startscreen.c(15,17): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\narut\source\repos\csd1401f25_team_duriancats\src\startscreen.c(25,16): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\narut\source\repos\csd1401f25_team_duriancats\src\startscreen.c(26,17): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\narut\source\repos\csd1401f25_team_duriancats\src\startscreen.c(27,22): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\narut\source\repos\csd1401f25_team_duriancats\src\startscreen.c(28,23): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+  utils.c
+C:\Users\narut\source\repos\csd1401f25_team_duriancats\src\utils.c(38,45): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+C:\Users\narut\source\repos\csd1401f25_team_duriancats\src\utils.c(39,45): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+C:\Users\narut\source\repos\csd1401f25_team_duriancats\src\utils.c(38,24): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\narut\source\repos\csd1401f25_team_duriancats\src\utils.c(39,24): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\narut\source\repos\csd1401f25_team_duriancats\src\utils.c(68,5): warning C4013: 'sprintf_s' undefined; assuming extern returning int
   Generating Code...
-  LINK : C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\bin\Debug-x64\TeleScape.exe not found or not built by the last incremental link; performing full link
-fullscreen.obj : warning LNK4099: PDB 'vc143.pdb' was not found with 'fullscreen.obj' or at 'C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\bin\Debug-x64\vc143.pdb'; linking object as if no debug info
-main.obj : warning LNK4099: PDB 'vc143.pdb' was not found with 'main.obj' or at 'C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\bin\Debug-x64\vc143.pdb'; linking object as if no debug info
-mainmenu.obj : warning LNK4099: PDB 'vc143.pdb' was not found with 'mainmenu.obj' or at 'C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\bin\Debug-x64\vc143.pdb'; linking object as if no debug info
-startscreen.obj : warning LNK4099: PDB 'vc143.pdb' was not found with 'startscreen.obj' or at 'C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\bin\Debug-x64\vc143.pdb'; linking object as if no debug info
-utils.obj : warning LNK4099: PDB 'vc143.pdb' was not found with 'utils.obj' or at 'C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\bin\Debug-x64\vc143.pdb'; linking object as if no debug info
-  TeleScape.vcxproj -> C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\bin\Debug-x64\TeleScape.exe
+  TeleScape.vcxproj -> C:\Users\narut\source\repos\csd1401f25_team_duriancats\bin\Debug-x64\TeleScape.exe
   1266 File(s) copied
   1 File(s) copied
   1 File(s) copied
