@@ -50,6 +50,7 @@ void LevelTwo_Update(void) {
     float orb_moveX = 0.0f;
     float orb_moveY = 0.0f;
 
+    //Player movement, direction. x and y velocity, jumping
     Player_Update(&player, &orb, deltaTime, &player_moveX, jump_strength);
 
     // Apply gravity
@@ -167,7 +168,7 @@ void LevelTwo_Update(void) {
     }
 
     //Level Timer 15s 
-    LevelTimer(&leveltime, deltaTime);
+    LevelTimer(&leveltime);
 
     //FPS Counter & Player coordinates & Mouse coordinates & player pov
     if (CP_Input_KeyTriggered(KEY_LEFT_ALT)) {
@@ -194,5 +195,5 @@ void LevelTwo_Update(void) {
 }
 
 void LevelTwo_Exit(void) {
-
+    
 }

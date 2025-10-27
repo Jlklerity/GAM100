@@ -50,6 +50,7 @@ void LevelOne_Update(void) {
         float orb_moveX = 0.0f;
         float orb_moveY = 0.0f;
 
+        //Player movement, direction. x and y velocity, jumping
         Player_Update(&player, &orb, deltaTime, &player_moveX, jump_strength);
 
         // Apply gravity
@@ -151,8 +152,7 @@ void LevelOne_Update(void) {
         //Draw floor sensor
         CP_Settings_Fill(level1_pressure_plate.color);
         CP_Graphics_DrawRectAdvanced(level1_pressure_plate.x, level1_pressure_plate.y, level1_pressure_plate.width, level1_pressure_plate.height, 0.0f, 0.0f);
-        
-
+   
         //Draw Teleport Wall   
         CP_Settings_Fill(CP_Color_Create(0, RGBChange(greenStartTime), 255, 255));
         CP_Graphics_DrawRectAdvanced(level1_teleport_wall.x, level1_teleport_wall.y, level1_teleport_wall.width, level1_teleport_wall.height, 0.0f, 0.0f);
@@ -167,7 +167,7 @@ void LevelOne_Update(void) {
         }
 
         //Level Timer 15s 
-        LevelTimer(&leveltime, deltaTime);
+        LevelTimer(&leveltime);
 
         //FPS Counter & Player coordinates & Mouse coordinates & player pov
         if (CP_Input_KeyTriggered(KEY_LEFT_ALT)) {
@@ -194,5 +194,5 @@ void LevelOne_Update(void) {
 }
 
 void LevelOne_Exit(void) {
-
+    
 }

@@ -111,7 +111,7 @@ void PlayerPov(Player* player) {
     CP_Settings_Stroke(CP_Color_Create(0, 0, 0, 255));
 }
     
-void LevelTimer(float* leveltime, float deltaTime) {
+void LevelTimer(float* leveltime) {
     int minutes = (int)(*leveltime / 60);
     int seconds = (int)(*leveltime) % 60;
     debug_TEXT = CP_Font_Load("Assets/Exo2 - Regular.ttf");

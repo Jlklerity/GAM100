@@ -76,10 +76,7 @@ void Resolve_Collision_FloorSensor_Player(AABB playerHitBox, AABB pressure_senso
 			door->isActivated = 0;
 			pressure_plate->color = CP_Color_Create(113, 121, 126, 255);
 		}
-		else {
-			door->isActivated = 1;
-			pressure_plate->color = CP_Color_Create(255, 0, 0, 255);
-		}
+		
 	}
 }
 
