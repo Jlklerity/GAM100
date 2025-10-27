@@ -1,9 +1,13 @@
 ﻿  collisionHandling.c
-  game.c
-  hazards.c
-  levelfive.c
+  levelone.c
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(180,14): warning C4101: 'orbHitBoxX': unreferenced local variable
   Generating Code...
   LINK : C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\bin\Debug-x64\TeleScape.exe not found or not built by the last incremental link; performing full link
+fullscreen.obj : warning LNK4099: PDB 'vc143.pdb' was not found with 'fullscreen.obj' or at 'C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\bin\Debug-x64\vc143.pdb'; linking object as if no debug info
+main.obj : warning LNK4099: PDB 'vc143.pdb' was not found with 'main.obj' or at 'C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\bin\Debug-x64\vc143.pdb'; linking object as if no debug info
+mainmenu.obj : warning LNK4099: PDB 'vc143.pdb' was not found with 'mainmenu.obj' or at 'C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\bin\Debug-x64\vc143.pdb'; linking object as if no debug info
+startscreen.obj : warning LNK4099: PDB 'vc143.pdb' was not found with 'startscreen.obj' or at 'C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\bin\Debug-x64\vc143.pdb'; linking object as if no debug info
+utils.obj : warning LNK4099: PDB 'vc143.pdb' was not found with 'utils.obj' or at 'C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\bin\Debug-x64\vc143.pdb'; linking object as if no debug info
   TeleScape.vcxproj -> C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\bin\Debug-x64\TeleScape.exe
   1266 File(s) copied
   1 File(s) copied
