@@ -53,7 +53,6 @@ void level1_Object_Walls_Init(void) {
     const float screen_width = (float)CP_System_GetWindowWidth();
     const float screen_height = (float)CP_System_GetWindowHeight();
     const float stage_wall_thickness = 20.0f;
-    stage_wall_count = 4;
     const float orb_diameter = 50.0f;
     CP_Color color = CP_Color_Create(255, 255, 255, 255);
 
