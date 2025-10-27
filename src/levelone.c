@@ -14,12 +14,14 @@ Player player;
 Orb orb;
 static int GameState = 1; //for pause state i guess...
 static int DebugState = 0; //enable FPS and player coords
+static float leveltime;
 
 void LevelOne_Init(void) {
     Stage_wall_Init();
     Player_Init(&player, &orb);
     greenStartTime = 0;
     level1_door.isActivated = 0; // Start with the door closed
+    leveltime = 15.0f;
 }
 
 void LevelOne_Update(void) {
@@ -235,6 +237,28 @@ void LevelOne_Update(void) {
 
         if (CP_Input_KeyTriggered(KEY_Q)) {
             CP_Engine_SetNextGameState(Game_Init, Game_Update, Game_Exit);
+        }
+
+        //Level Timer
+        int minutes = (int)(leveltime / 60);
+        int seconds = (int)(leveltime) % 60;
+        debug_TEXT = CP_Font_Load("Assets/Exo2 - Regular.ttf");
+        CP_Settings_TextSize(64.0);
+        char time[50] = { 0 };
+        sprintf_s(time, 50, "%02d:%02d", minutes, seconds);
+
+        if (leveltime > 0.0f) {
+            CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
+            CP_Font_DrawText(time, 200, 200);
+            leveltime -= CP_System_GetDt();
+            if (leveltime <= 10.0f) {
+                CP_Settings_Fill(CP_Color_Create(255, 0, 0, 255));
+                CP_Font_DrawText(time, 200, 200);
+            }
+            if (leveltime < 0.0f) {
+                leveltime = 0.0f;
+                CP_Engine_SetNextGameState(Game_Init, Game_Update, Game_Exit);
+            }
         }
 
         //FPS Counter & Player coordinates & Mouse coordinates & player pov
