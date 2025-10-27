@@ -1,5 +1,10 @@
-﻿  leveltwo.c
+﻿  game.c
+  levelone.c
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(107,14): warning C4101: 'orbHitBoxX': unreferenced local variable
+  leveltwo.c
 C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(107,10): warning C4101: 'orbHitBoxX': unreferenced local variable
+  mainmenu.c
+  Generating Code...
   TeleScape.vcxproj -> C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\bin\Debug-x64\TeleScape.exe
   1266 File(s) copied
   1 File(s) copied
