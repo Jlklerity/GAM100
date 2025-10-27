@@ -61,14 +61,16 @@ int RGBChange(float StaticValue) {
 }
 
 void FPSCount() {
+    CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
     debug_TEXT = CP_Font_Load("Assets/Exo2 - Regular.ttf");
     float textSize = 20.0f;
     char buffer[50] = { 0 };
     CP_Settings_TextSize(textSize);
     sprintf_s(buffer, 50, "frame count: %i", CP_System_GetFrameCount());
-    CP_Font_DrawText(buffer, 150, 30);
+    CP_Font_DrawText(buffer, 200, 30);
 }
 void Player_Coords(Player* player) {
+    CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
     debug_TEXT = CP_Font_Load("Assets/Exo2 - Regular.ttf");
     float textSize = 20.0f;
     char buffer[50] = { 0 };
@@ -77,6 +79,7 @@ void Player_Coords(Player* player) {
     CP_Font_DrawText(buffer, 200, 50);
 }
 void MousePos() {
+    CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
     mouseX = (float)CP_Input_GetMouseX();
     mouseY = (float)CP_Input_GetMouseY();
     debug_TEXT = CP_Font_Load("Assets/Exo2 - Regular.ttf");
