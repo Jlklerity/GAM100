@@ -3,6 +3,8 @@
 #include "cprocessing.h"
 #include "game.h"
 #include "player.h"
+#include <stdio.h>
+#include "levelone.h"
 
 Player player;
 
@@ -109,5 +111,27 @@ void PlayerPov(Player* player) {
     CP_Settings_Stroke(CP_Color_Create(0, 0, 0, 255));
 }
     
-    
+void LevelTimer(float* leveltime, float deltaTime) {
+    int minutes = (int)(*leveltime / 60);
+    int seconds = (int)(*leveltime) % 60;
+    debug_TEXT = CP_Font_Load("Assets/Exo2 - Regular.ttf");
+    CP_Settings_TextSize(64.0);
+    char time[50] = { 0 };
+    sprintf_s(time, 50, "%02d:%02d", minutes, seconds);
 
+    if (*leveltime > 0.0f) {
+        CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
+        CP_Font_DrawText(time, 200, 200);
+        *leveltime -= CP_System_GetDt();
+        if (*leveltime <= 10.0f) {
+            CP_Settings_Fill(CP_Color_Create(255, 0, 0, 255));
+            CP_Font_DrawText(time, 200, 200);
+        }
+        if (*leveltime < 0.0f) {
+            *leveltime = 0.0f;
+            CP_Engine_SetNextGameState(Game_Init, Game_Update, Game_Exit);
+        }
+    }
+}
+
+  

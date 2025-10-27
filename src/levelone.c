@@ -50,89 +50,16 @@ void LevelOne_Update(void) {
         float orb_moveX = 0.0f;
         float orb_moveY = 0.0f;
 
-        player_moveX = Player_Update(&player, &orb, deltaTime, player_moveX, jump_strength);
+        Player_Update(&player, &orb, deltaTime, &player_moveX, jump_strength);
 
         // Apply gravity
         player.player_velocityY += gravity * deltaTime;
         player.player_posY += player.player_velocityY * deltaTime;
         player.isGrounded = 0;
 
-        if (CP_Input_KeyTriggered(KEY_1)) {
-            player.orb_type = TELEPORT_ORB;
-        }
-        if (CP_Input_KeyTriggered(KEY_2)) {
-            player.orb_type = DESTROY_ORB;
-        }
-        //Checking if orb is active in the air
-        if (orb.isActive == 0) {
-            if (CP_Input_KeyTriggered(KEY_J)) {
-                orb.isActive = 1;
-                orb.x = player.player_posX;
-                orb.y = player.player_posY;
-                orb.direction = player.direction;
-            }
-        }
-
-        if (orb.isActive == 1) {
-            switch (orb.direction) {
-            case PLAYER_RIGHT:
-                player.degree = 0; //for sprite looking direction
-                orb_moveX += orb.orb_velocity_x * deltaTime;
-                if (CP_Input_KeyTriggered(KEY_K)) {
-                    player.player_posX = orb.x - player.player_width / 2;
-                    player.player_posY = orb.y;
-                    orb.isActive = 0;
-                    player.player_velocityY = 0.0f;
-                    player_moveX = 0.0f;
-                }
-                break;
-            case PLAYER_LEFT:
-                player.degree = 180;
-                orb_moveX -= orb.orb_velocity_x * deltaTime;
-                if (CP_Input_KeyTriggered(KEY_K)) {
-                    player.player_posX = orb.x + player.player_width / 2;
-                    player.player_posY = orb.y;
-                    orb.isActive = 0;
-                    player.player_velocityY = 0.0f;
-                    player_moveX = 0.0f;
-                }
-                break;
-            case PLAYER_UP:
-                orb_moveY -= orb.orb_velocity_Y * deltaTime;
-                if (CP_Input_KeyTriggered(KEY_K)) {
-                    player.player_posX = orb.x;
-                    player.player_posY = orb.y + player.player_height / 2;
-                    orb.isActive = 0;
-                    player.player_velocityY = 0.0f;
-                    player_moveX = 0.0f;
-                }
-                break;
-            case PLAYER_DOWN:
-                orb_moveY += orb.orb_velocity_Y * deltaTime;
-                if (CP_Input_KeyTriggered(KEY_K)) {
-                    player.player_posX = orb.x;
-                    player.player_posY = orb.y - player.player_height / 2;
-                    orb.isActive = 0;
-                    player.player_velocityY = 0.0f;
-                    player_moveX = 0.0f;
-                }
-                break;
-            }
-            //Change orb type
-            switch (player.orb_type) {
-            case TELEPORT_ORB:
-                CP_Settings_Fill(CP_Color_Create(0, 190, 255, 255));
-                break;
-            case DESTROY_ORB:
-                CP_Settings_Fill(CP_Color_Create(255, 0, 0, 255));
-                break;
-            default:
-                CP_Settings_Fill(CP_Color_Create(0, 0, 255, 255));
-                break;
-            }
-            CP_Graphics_DrawCircle(orb.x, orb.y, orb.diameter);
-        }
-
+        //Orb movement, direction, change orb type
+        Orb_Update(&player, &orb, &player_moveX, &orb_moveX, &orb_moveY, deltaTime);
+        
         // ========== VERTICAL COLLISION DETECTION ==========
 
         AABB playerHitBoxY = Get_Player_HitBox(&player);
@@ -239,27 +166,8 @@ void LevelOne_Update(void) {
             CP_Engine_SetNextGameState(Game_Init, Game_Update, Game_Exit);
         }
 
-        //Level Timer
-        int minutes = (int)(leveltime / 60);
-        int seconds = (int)(leveltime) % 60;
-        debug_TEXT = CP_Font_Load("Assets/Exo2 - Regular.ttf");
-        CP_Settings_TextSize(64.0);
-        char time[50] = { 0 };
-        sprintf_s(time, 50, "%02d:%02d", minutes, seconds);
-
-        if (leveltime > 0.0f) {
-            CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
-            CP_Font_DrawText(time, 200, 200);
-            leveltime -= CP_System_GetDt();
-            if (leveltime <= 10.0f) {
-                CP_Settings_Fill(CP_Color_Create(255, 0, 0, 255));
-                CP_Font_DrawText(time, 200, 200);
-            }
-            if (leveltime < 0.0f) {
-                leveltime = 0.0f;
-                CP_Engine_SetNextGameState(Game_Init, Game_Update, Game_Exit);
-            }
-        }
+        //Level Timer 15s 
+        LevelTimer(&leveltime, deltaTime);
 
         //FPS Counter & Player coordinates & Mouse coordinates & player pov
         if (CP_Input_KeyTriggered(KEY_LEFT_ALT)) {

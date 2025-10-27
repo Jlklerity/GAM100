@@ -14,12 +14,14 @@ Player player;
 Orb orb;
 static int GameState = 1; //for pause state i guess...
 static int DebugState = 0; //enable FPS and player coords
+static float leveltime;
 
 void LevelTwo_Init(void) {
     Stage_wall_Init();
     Player_Init(&player, &orb);
     greenStartTime = 0;
     level2_door.isActivated = 0; // Start with the door closed
+    leveltime = 15.0f;
 }
 
 void LevelTwo_Update(void) {
@@ -48,88 +50,15 @@ void LevelTwo_Update(void) {
     float orb_moveX = 0.0f;
     float orb_moveY = 0.0f;
 
-    player_moveX = Player_Update(&player, &orb, deltaTime, player_moveX, jump_strength);
+    Player_Update(&player, &orb, deltaTime, &player_moveX, jump_strength);
 
     // Apply gravity
     player.player_velocityY += gravity * deltaTime;
     player.player_posY += player.player_velocityY * deltaTime;
     player.isGrounded = 0;
 
-    if (CP_Input_KeyTriggered(KEY_1)) {
-        player.orb_type = TELEPORT_ORB;
-    }
-    if (CP_Input_KeyTriggered(KEY_2)) {
-        player.orb_type = DESTROY_ORB;
-    }
-    //Checking if orb is active in the air
-    if (orb.isActive == 0) {
-        if (CP_Input_KeyTriggered(KEY_J)) {
-            orb.isActive = 1;
-            orb.x = player.player_posX;
-            orb.y = player.player_posY;
-            orb.direction = player.direction;
-        }
-    }
-
-    if (orb.isActive == 1) {
-        switch (orb.direction) {
-        case PLAYER_RIGHT:
-            player.degree = 0; //for sprite looking direction
-            orb_moveX += orb.orb_velocity_x * deltaTime;
-            if (CP_Input_KeyTriggered(KEY_K)) {
-                player.player_posX = orb.x - player.player_width / 2;
-                player.player_posY = orb.y;
-                orb.isActive = 0;
-                player.player_velocityY = 0.0f;
-                player_moveX = 0.0f;
-            }
-            break;
-        case PLAYER_LEFT:
-            player.degree = 180;
-            orb_moveX -= orb.orb_velocity_x * deltaTime;
-            if (CP_Input_KeyTriggered(KEY_K)) {
-                player.player_posX = orb.x + player.player_width / 2;
-                player.player_posY = orb.y;
-                orb.isActive = 0;
-                player.player_velocityY = 0.0f;
-                player_moveX = 0.0f;
-            }
-            break;
-        case PLAYER_UP:
-            orb_moveY -= orb.orb_velocity_Y * deltaTime;
-            if (CP_Input_KeyTriggered(KEY_K)) {
-                player.player_posX = orb.x;
-                player.player_posY = orb.y + player.player_height / 2;
-                orb.isActive = 0;
-                player.player_velocityY = 0.0f;
-                player_moveX = 0.0f;
-            }
-            break;
-        case PLAYER_DOWN:
-            orb_moveY += orb.orb_velocity_Y * deltaTime;
-            if (CP_Input_KeyTriggered(KEY_K)) {
-                player.player_posX = orb.x;
-                player.player_posY = orb.y - player.player_height / 2;
-                orb.isActive = 0;
-                player.player_velocityY = 0.0f;
-                player_moveX = 0.0f;
-            }
-            break;
-        }
-        //Change orb type
-        switch (player.orb_type) {
-        case TELEPORT_ORB:
-            CP_Settings_Fill(CP_Color_Create(0, 190, 255, 255));
-            break;
-        case DESTROY_ORB:
-            CP_Settings_Fill(CP_Color_Create(255, 0, 0, 255));
-            break;
-        default:
-            CP_Settings_Fill(CP_Color_Create(0, 0, 255, 255));
-            break;
-        }
-        CP_Graphics_DrawCircle(orb.x, orb.y, orb.diameter);
-    }
+    //Orb movement, direction, change orb type
+    Orb_Update(&player, &orb, &player_moveX, &orb_moveX, &orb_moveY, deltaTime);
 
     // ========== VERTICAL COLLISION DETECTION ==========
 
@@ -175,7 +104,7 @@ void LevelTwo_Update(void) {
 
     AABB playerHitBoxX = Get_Player_HitBox(&player);
     playerHitBoxY.x = player.player_posX - (player.player_width / 2.0f);
-    //AABB orbHitBoxX = Get_Orb_HitBox(&orb);
+    AABB orbHitBoxX = Get_Orb_HitBox(&orb);
     orbHitbox.x = orb.x - (orb.diameter / 2.0f);
 
     // Check stage wall collisions (horizontal)
@@ -236,6 +165,9 @@ void LevelTwo_Update(void) {
     if (CP_Input_KeyTriggered(KEY_Q)) {
         CP_Engine_SetNextGameState(Game_Init, Game_Update, Game_Exit);
     }
+
+    //Level Timer 15s 
+    LevelTimer(&leveltime, deltaTime);
 
     //FPS Counter & Player coordinates & Mouse coordinates & player pov
     if (CP_Input_KeyTriggered(KEY_LEFT_ALT)) {

@@ -2,6 +2,7 @@
 #include "player.h"
 #include "stage_wall.h"
 #include "collisionHandling.h"
+#include "levelone.h"
 
 void Player_Init(Player *player, Orb *orb) {
 	Stage_wall_Init();
@@ -37,13 +38,13 @@ void Player_Init(Player *player, Orb *orb) {
 	orb->diameter = 20.0f;
 }
 
-float Player_Update(Player* player, Orb* orb, float deltaTime, float player_moveX, float jump_strength) {
+void Player_Update(Player* player, Orb* orb, float deltaTime, float *player_moveX, float jump_strength) {
 	if (CP_Input_KeyDown(KEY_D)) {
-		player_moveX += player->player_velocityX * deltaTime;
+		*player_moveX += player->player_velocityX * deltaTime;
 		player->direction = PLAYER_RIGHT;
 	}
 	if (CP_Input_KeyDown(KEY_A)) {
-		player_moveX -= player->player_velocityX * deltaTime;
+		*player_moveX -= player->player_velocityX * deltaTime;
 		player->direction = PLAYER_LEFT;
 	}
 
@@ -74,7 +75,85 @@ float Player_Update(Player* player, Orb* orb, float deltaTime, float player_move
 		player->player_velocityY = -jump_strength;
 		player->isGrounded = 0;
 	}
-	return player_moveX;
+
 }
 
+void Orb_Update(Player* player, Orb* orb, float *player_moveX, float *orb_moveX, float *orb_moveY, float deltaTime) {
+    if (CP_Input_KeyTriggered(KEY_1)) {
+        player->orb_type = TELEPORT_ORB;
+    }
+    if (CP_Input_KeyTriggered(KEY_2)) {
+        player->orb_type = DESTROY_ORB;
+    }
+    //Checking if orb is active in the air
+    if (orb->isActive == 0) {
+        if (CP_Input_KeyTriggered(KEY_J)) {
+            orb->isActive = 1;
+            orb->x = player->player_posX;
+            orb->y = player->player_posY;
+            orb->direction = player->direction;
+        }
+    }
+
+    if (orb->isActive == 1) {
+        switch (orb->direction) {
+        case PLAYER_RIGHT:
+            player->degree = 0; //for sprite looking direction
+            *orb_moveX += orb->orb_velocity_x * deltaTime;
+            if (CP_Input_KeyTriggered(KEY_K)) {
+                player->player_posX = orb->x - player->player_width / 2;
+                player->player_posY = orb->y;
+                orb->isActive = 0;
+                player->player_velocityY = 0.0f;
+                *player_moveX = 0.0f;
+            }
+            break;
+        case PLAYER_LEFT:
+            player->degree = 180;
+            *orb_moveX -= orb->orb_velocity_x * deltaTime;
+            if (CP_Input_KeyTriggered(KEY_K)) {
+                player->player_posX = orb->x + player->player_width / 2;
+                player->player_posY = orb->y;
+                orb->isActive = 0;
+                player->player_velocityY = 0.0f;
+                *player_moveX = 0.0f;
+            }
+            break;
+        case PLAYER_UP:
+            *orb_moveY -= orb->orb_velocity_Y * deltaTime;
+            if (CP_Input_KeyTriggered(KEY_K)) {
+                player->player_posX = orb->x;
+                player->player_posY = orb->y + player->player_height / 2;
+                orb->isActive = 0;
+                player->player_velocityY = 0.0f;
+                *player_moveX = 0.0f;
+            }
+            break;
+        case PLAYER_DOWN:
+            *orb_moveY += orb->orb_velocity_Y * deltaTime;
+            if (CP_Input_KeyTriggered(KEY_K)) {
+                player->player_posX = orb->x;
+                player->player_posY = orb->y - player->player_height / 2;
+                orb->isActive = 0;
+                player->player_velocityY = 0.0f;
+                *player_moveX = 0.0f;
+            }
+            break;
+        }
+        //Change orb type
+        switch (player->orb_type) {
+        case TELEPORT_ORB:
+            CP_Settings_Fill(CP_Color_Create(0, 190, 255, 255));
+            break;
+        case DESTROY_ORB:
+            CP_Settings_Fill(CP_Color_Create(255, 0, 0, 255));
+            break;
+        default:
+            CP_Settings_Fill(CP_Color_Create(0, 0, 255, 255));
+            break;
+        }
+        CP_Graphics_DrawCircle(orb->x, orb->y, orb->diameter);
+    }
+
+}
  
