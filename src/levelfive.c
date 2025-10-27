@@ -6,12 +6,9 @@
 #include "collisionHandling.h"
 #include "game.h"
 
-static Player player;
-static Orb orb;
 
 void LevelFive_Init(void) {
-    Stage_wall_Init();
-    Player_Init(&player, &orb);
+     
 }
 
 void LevelFive_Update(void) {

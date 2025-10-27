@@ -17,7 +17,8 @@ static int DebugState = 0; //enable FPS and player coords
 static float leveltime;
 
 void LevelTwo_Init(void) {
-    Stage_wall_Init();
+    Stage_Walls_Init();
+    level2_Object_Walls_Init();
     Player_Init(&player, &orb);
     greenStartTime = 0;
     level2_door.isActivated = 0; // Start with the door closed

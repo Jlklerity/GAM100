@@ -6,14 +6,12 @@
 
  
 
-bool checkAABBCollision(AABB objectA, AABB objectB) {
+bool checkAABBCollision(AABB objectA, AABB objectB) { //Main AABB collision logic
 	
 	bool bothOverlap_X = (objectA.x < objectB.x + objectB.width) && (objectA.x + objectA.width > objectB.x);
-
 	bool bothOverlap_Y = (objectA.y < objectB.y + objectB.height) && (objectA.y + objectA.height > objectB.y);
 
 	return bothOverlap_X && bothOverlap_Y;
-	printf("hi");
 }
 AABB Get_Wall_HitBox(Wall *wall) {
 	AABB box;
@@ -41,6 +39,12 @@ AABB Get_Orb_HitBox(Orb* orb) {
 	box.height = orb->diameter;
 	return box;
 }
+
+//void Resolve_Collision_Ray_Wall(Player *player, AABB WallHitBox) {
+//	for (int i = 0; i < level1_wall_count; i++) {
+//		function(level1_walls[i]);
+//	}
+//}
 
 void Resolve_Collision_Wall_Player_Y(AABB playerHitBox, AABB WallHitBox, Player* player, float breathing_space) {
 	// can use for stage wall, platform, door, interactable wall, for interactable wall, please check type of wall before implementing collision.
@@ -115,7 +119,6 @@ void Resolve_Collision_Wall_Orb_Y(AABB orbHitBox, AABB WallHitBox, Orb* orb, Pla
 				orb->isActive = 0;
 			}
 			else if (orb_moveY < 0) {
-				printf("Teleporting...");
 				float Wall_Bottom = WallHitBox.y + WallHitBox.height;
 				player->player_posY = Wall_Bottom + (player->player_height / 2.0f) + breathing_space;
 				player->player_posX = clampedX;
@@ -165,4 +168,5 @@ void Resolve_Collision_Wall_Orb_X(AABB orbHitBox, AABB WallHitBox, Orb* orb, Pla
 		}
 	}
 }
+
 

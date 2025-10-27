@@ -28,4 +28,6 @@ extern Wall level1_teleport_wall;
 extern Wall level2_teleport_wall;
 extern int stage_wall_count;
 
-void Stage_wall_Init(void);
+void Stage_Walls_Init(void);
+void level1_Object_Walls_Init(void);
+void level2_Object_Walls_Init(void);

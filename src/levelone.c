@@ -17,7 +17,8 @@ static int DebugState = 0; //enable FPS and player coords
 static float leveltime;
 
 void LevelOne_Init(void) {
-    Stage_wall_Init();
+    void Stage_Walls_Init();
+    level1_Object_Walls_Init();
     Player_Init(&player, &orb);
     greenStartTime = 0;
     level1_door.isActivated = 0; // Start with the door closed
@@ -121,6 +122,10 @@ void LevelOne_Update(void) {
             Resolve_Collision_Wall_Orb_X(orbHitbox, platformHitBox, &orb, &player, breathing_space, orb_moveX);
         }
 
+        //Check PlayerPov's ray endpoint collision (horizontal)
+        /*level
+        Resolve_Collision_Ray_Wall(&player, stagewallHitBox);*/
+        
         // Check platform collision (horizontal)
         Resolve_Collision_Wall_Orb_X(orbHitbox, TeleportWallHitBox, &orb, &player, breathing_space, orb_moveX);
         // Check pressure door collision (horizontal)

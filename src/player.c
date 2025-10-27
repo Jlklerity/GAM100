@@ -5,7 +5,7 @@
 #include "levelone.h"
 
 void Player_Init(Player *player, Orb *orb) {
-	Stage_wall_Init();
+    Stage_Walls_Init();
 
 	const float screen_width = (float)CP_System_GetWindowWidth();
 	const float screen_height = (float)CP_System_GetWindowHeight();
