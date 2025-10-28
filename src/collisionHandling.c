@@ -49,34 +49,55 @@ AABB Get_Orb_HitBox(Orb* orb) {
 
 // This variable will hold the X-coordinate of the closest wall we've hit so far.
 // We start it at the screen edge.
-
-void Resolve_Raycast_Right(Player* player, float* end_x, float* end_y) {
-	float closest_hit_x = *end_x;
-	// 1. This loop checks ALL 10 walls in the master list
+Point Calculate_Ray_Endpoint(float start_point_x, float start_point_y, Wall* wall[], Direction dir) {
+	Point end_point = { start_point_x, start_point_y };
 	for (int i = 0; i < level1_wall_count; i++) {
+		Wall* w = wall[i];
 
-		// 2. THIS IS THE LINE YOU ASKED ABOUT
-		// When i = 0, current_wall points to stage_wall[0]
-		// When i = 4, current_wall points to level1_platform[0]
-		Wall* current_wall = level1_walls[i];
-		// 3. Get the boundaries for the current wall
-		float wall_left = current_wall->x - current_wall->width / 2.0f;
-		float wall_top = current_wall->y - current_wall->height / 2.0f;
-		float wall_bottom = current_wall->y + current_wall->height / 2.0f;
-		// 4. Check for a collision
-		bool isInFront = (wall_left >= player->player_posX);
-		bool isAligned = (player->player_posY >= wall_top && player->player_posY <= wall_bottom);
-		bool isCloser = (wall_left < closest_hit_x);
+		// to get the borders of the walls
+		float wall_left = w->x - w->width / 2.0f;
+		float wall_right = w->x + w->width / 2.0f;
+		float wall_top = w->y - w->height / 2.0f;
+		float wall_bottom = w->y + w->height / 2.0f;
 
-		if (isInFront && isAligned && isCloser)
-		{
-			closest_hit_x = wall_left;
+		switch (dir) {
+			/* First term is to check if the wall is alligned with the start point. Second term is to check the wall in front 
+			   of the laser, ensuring the wall is ahead of the laser's start point, the third term is when no wall is found 
+			   yet, and the fourth term checks if the wall's border is closer than the previously found one. */
+			case RIGHT: {
+				bool isAligned = (start_point_y >= wall_top && start_point_y <= wall_bottom);
+				if (isAligned && wall_left > start_point_x && (end_point.x == start_point_x || wall_left < end_point.x)) {
+					end_point.x = wall_left;
+				}
+				break;
+			}
+			case LEFT: {
+				bool isAligned = (start_point_y >= wall_top && start_point_y <= wall_bottom);
+				if (isAligned && wall_right < start_point_x && (end_point.x == start_point_x || wall_right > end_point.x)) {
+					end_point.x = wall_right;
+				}
+				break;
+			}
+			case DOWN: {
+				bool isAligned = (start_point_x >= wall_left && start_point_x <= wall_right);
+				if (isAligned && wall_top > start_point_y && (end_point.y == start_point_y || wall_top < end_point.y)) {
+					end_point.y = wall_top;
+				}
+				break;
+			}
+			case UP: {
+				bool isAligned = (start_point_x >= wall_left && start_point_x <= wall_right);
+				if (isAligned && wall_bottom < start_point_y && (end_point.y == start_point_y || wall_bottom > end_point.y)) {
+					end_point.y = wall_bottom;
+				}
+				break;
+			}
 		}
 	}
-	// 5. Update the final endpoint
-	*end_x = closest_hit_x;
-	*end_y = player->player_posY;
+	return end_point;
 }
+
+
 
 void Resolve_Collision_Wall_Player_Y(AABB playerHitBox, AABB WallHitBox, Player* player, float breathing_space) {
 	// can use for stage wall, platform, door, interactable wall, for interactable wall, please check type of wall before implementing collision.

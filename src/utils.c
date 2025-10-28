@@ -95,27 +95,23 @@ void MousePos() {
 }
 
 void PlayerPov(Player* player) {
-    CP_Settings_Stroke(CP_Color_Create(0, 160, 255, 255));    
-    float end_x, end_y;
-    float screen_width = (float)CP_System_GetWindowWidth();
-    float screen_height = (float)CP_System_GetWindowHeight();
+    CP_Settings_Stroke(CP_Color_Create(0, 160, 255, 255));
+    //float screen_width = (float)CP_System_GetWindowWidth();
+    //float screen_height = (float)CP_System_GetWindowHeight();
+    Point end = Calculate_Ray_Endpoint(player->player_posX, player->player_posY, &level1_walls, player->direction);
     switch (player->direction) {
         case (PLAYER_RIGHT):
-            end_x = screen_width;
-            end_y = player->player_posY;
             //check collision of player's ray right direction with stage wall left
-            Resolve_Raycast_Right(player, &end_x, &end_y);
-            CP_Graphics_DrawLine(player->player_posX, player->player_posY, end_x, end_y);
-            printf("end_x: %0.2f, end_y %0.2f", end_x, end_y);
+            CP_Graphics_DrawLine(player->player_posX, player->player_posY, end.x, end.y);
             break;
         case (PLAYER_LEFT):
-            CP_Graphics_DrawLine(player->player_posX, player->player_posY, player->player_posX - 50.0f, player->player_posY);
+            CP_Graphics_DrawLine(player->player_posX, player->player_posY, end.x, end.y);
             break;
         case (PLAYER_UP):
-            CP_Graphics_DrawLine(player->player_posX, player->player_posY, player->player_posX, player->player_posY - 50.0f);
+            CP_Graphics_DrawLine(player->player_posX, player->player_posY, end.x, end.y);
             break;
         case (PLAYER_DOWN):
-            CP_Graphics_DrawLine(player->player_posX, player->player_posY, player->player_posX, player->player_posY + 50.0f);
+            CP_Graphics_DrawLine(player->player_posX, player->player_posY, end.x, end.y);
             break;
         }
     CP_Settings_Stroke(CP_Color_Create(0, 0, 0, 255));
