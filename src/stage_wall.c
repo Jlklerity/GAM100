@@ -2,6 +2,7 @@
 #include "stage_wall.h"
 
 Wall stage_wall[4];  // Shared walls 
+int stage_wall_count = 0;
 // Level 1 Objects
 Wall level1_platform[3];
 Wall level1_pressure_plate;
@@ -15,8 +16,6 @@ Wall level2_door;
 Wall level2_exit_door;
 Wall level2_teleport_wall;
 
-int stage_wall_count = 0;
-
 Wall* level1_walls[] = {
     &stage_wall[0], &stage_wall[1], &stage_wall[2], &stage_wall[3],
     &level1_platform[0], &level1_platform[1], &level1_platform[2],
@@ -24,9 +23,6 @@ Wall* level1_walls[] = {
 };
 int level1_wall_count = sizeof(level1_walls) / sizeof(level1_walls[0]);
 
-
-//int level1_wall_count = sizeof(level1_walls) / sizeof(level1_walls[0]);
-//
 //Wall* level2_walls[] = {
 //    &stage_wall[0], &stage_wall[1], &stage_wall[2], &stage_wall[3],
 //    &level2_platform[0], &level2_platform[1], &level2_platform[2],
