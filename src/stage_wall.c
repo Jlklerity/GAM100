@@ -17,17 +17,20 @@ Wall level2_teleport_wall;
 
 int stage_wall_count = 0;
 
-//Wall* level1_walls[] = {
-//    &stage_wall[0], &stage_wall[1], &stage_wall[2], &stage_wall[3],
-//    &level1_platform[0], &level1_platform[1], &level1_platform[2],
-//    &level1_door, &level1_exit_door, &level1_teleport_wall
-//};
+Wall* level1_walls[] = {
+    &stage_wall[0], &stage_wall[1], &stage_wall[2], &stage_wall[3],
+    &level1_platform[0], &level1_platform[1], &level1_platform[2],
+    &level1_door, &level1_teleport_wall
+};
+int level1_wall_count = sizeof(level1_walls) / sizeof(level1_walls[0]);
+
+
 //int level1_wall_count = sizeof(level1_walls) / sizeof(level1_walls[0]);
 //
 //Wall* level2_walls[] = {
 //    &stage_wall[0], &stage_wall[1], &stage_wall[2], &stage_wall[3],
 //    &level2_platform[0], &level2_platform[1], &level2_platform[2],
-//    &level2_door, &level2_exit_door, &level2_teleport_wall
+//    &level2_door, &level2_teleport_wall
 //};
 //int level2_wall_count = sizeof(level2_walls) / sizeof(level2_walls[0]);
 
