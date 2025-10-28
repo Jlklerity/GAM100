@@ -1,9 +1,11 @@
 #include "collisionHandling.h"
 #include "stage_wall.h"
 #include "player.h"
+#include "cprocessing.h"
 #include <stdio.h>
+#
 #define EdgeMargin 32.0f // half the player height and width, used to calculate the clamped value so player doesn't teleport over unintedned platform.
-
+ 
  
 
 bool checkAABBCollision(AABB objectA, AABB objectB) { //Main AABB collision logic
@@ -13,6 +15,8 @@ bool checkAABBCollision(AABB objectA, AABB objectB) { //Main AABB collision logi
 
 	return bothOverlap_X && bothOverlap_Y;
 }
+
+
 AABB Get_Wall_HitBox(Wall *wall) {
 	AABB box;
 	box.x = wall->x - wall->width / 2;
@@ -40,11 +44,39 @@ AABB Get_Orb_HitBox(Orb* orb) {
 	return box;
 }
 
-//void Resolve_Collision_Ray_Wall(Player *player, AABB WallHitBox) {
-//	for (int i = 0; i < level1_wall_count; i++) {
-//		function(level1_walls[i]);
-//	}
-//}
+// Default endpoint is the screen edge
+
+
+// This variable will hold the X-coordinate of the closest wall we've hit so far.
+// We start it at the screen edge.
+
+void Resolve_Raycast_Right(Player* player, float* end_x, float* end_y) {
+	float closest_hit_x = *end_x;
+	// 1. This loop checks ALL 10 walls in the master list
+	for (int i = 0; i < level1_wall_count; i++) {
+
+		// 2. THIS IS THE LINE YOU ASKED ABOUT
+		// When i = 0, current_wall points to stage_wall[0]
+		// When i = 4, current_wall points to level1_platform[0]
+		Wall* current_wall = level1_walls[i];
+		// 3. Get the boundaries for the current wall
+		float wall_left = current_wall->x - current_wall->width / 2.0f;
+		float wall_top = current_wall->y - current_wall->height / 2.0f;
+		float wall_bottom = current_wall->y + current_wall->height / 2.0f;
+		// 4. Check for a collision
+		bool isInFront = (wall_left >= player->player_posX);
+		bool isAligned = (player->player_posY >= wall_top && player->player_posY <= wall_bottom);
+		bool isCloser = (wall_left < closest_hit_x);
+
+		if (isInFront && isAligned && isCloser)
+		{
+			closest_hit_x = wall_left;
+		}
+	}
+	// 5. Update the final endpoint
+	*end_x = closest_hit_x;
+	*end_y = player->player_posY;
+}
 
 void Resolve_Collision_Wall_Player_Y(AABB playerHitBox, AABB WallHitBox, Player* player, float breathing_space) {
 	// can use for stage wall, platform, door, interactable wall, for interactable wall, please check type of wall before implementing collision.

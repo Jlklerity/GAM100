@@ -5,6 +5,8 @@
 #include "player.h"
 #include <stdio.h>
 #include "levelone.h"
+#include "collisionHandling.h"
+#include "stage_wall.h"
 
 Player player;
 
@@ -93,10 +95,18 @@ void MousePos() {
 }
 
 void PlayerPov(Player* player) {
-    CP_Settings_Stroke(CP_Color_Create(0, 160, 255, 255));
+    CP_Settings_Stroke(CP_Color_Create(0, 160, 255, 255));    
+    float end_x, end_y;
+    float screen_width = (float)CP_System_GetWindowWidth();
+    float screen_height = (float)CP_System_GetWindowHeight();
     switch (player->direction) {
         case (PLAYER_RIGHT):
-            CP_Graphics_DrawLine(player->player_posX, player->player_posY, player->player_posX + 50.0f, player->player_posY);
+            end_x = screen_width;
+            end_y = player->player_posY;
+            //check collision of player's ray right direction with stage wall left
+            Resolve_Raycast_Right(player, &end_x, &end_y);
+            CP_Graphics_DrawLine(player->player_posX, player->player_posY, end_x, end_y);
+            printf("end_x: %0.2f, end_y %0.2f", end_x, end_y);
             break;
         case (PLAYER_LEFT):
             CP_Graphics_DrawLine(player->player_posX, player->player_posY, player->player_posX - 50.0f, player->player_posY);

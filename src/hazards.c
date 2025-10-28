@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include "player.h"
+#include "stage_wall.h"
+#include "hazards.h"
 #include "collisionHandling.h"
 
 

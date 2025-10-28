@@ -75,7 +75,6 @@ void Player_Update(Player* player, Orb* orb, float deltaTime, float *player_move
 		player->player_velocityY = -jump_strength;
 		player->isGrounded = 0;
 	}
-
 }
 
 void Orb_Update(Player* player, Orb* orb, float *player_moveX, float *orb_moveX, float *orb_moveY, float deltaTime) {

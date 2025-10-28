@@ -122,10 +122,6 @@ void LevelOne_Update(void) {
             Resolve_Collision_Wall_Orb_X(orbHitbox, platformHitBox, &orb, &player, breathing_space, orb_moveX);
         }
 
-        //Check PlayerPov's ray endpoint collision (horizontal)
-        /*level
-        Resolve_Collision_Ray_Wall(&player, stagewallHitBox);*/
-        
         // Check platform collision (horizontal)
         Resolve_Collision_Wall_Orb_X(orbHitbox, TeleportWallHitBox, &orb, &player, breathing_space, orb_moveX);
         // Check pressure door collision (horizontal)
@@ -184,7 +180,7 @@ void LevelOne_Update(void) {
             MousePos();
             PlayerPov(&player);
         }
-        
+   
         //Pause screen
         if (CP_Input_KeyTriggered(KEY_P)) {
             GameState = 1 - GameState;
@@ -194,8 +190,6 @@ void LevelOne_Update(void) {
             CP_Settings_Fill(CP_Color_Create(0, 0, 0, 20));
             CP_Graphics_DrawRect((float)CP_System_GetWindowWidth() / 2.0f, (float)CP_System_GetWindowHeight() / 2.0f, (float)CP_System_GetWindowWidth(), (float)CP_System_GetWindowHeight());
         }
-        
- 
 }
 
 void LevelOne_Exit(void) {

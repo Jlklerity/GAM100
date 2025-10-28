@@ -1,20 +1,10 @@
-﻿  collisionHandling.c
-  game.c
-  hazards.c
-  levelfive.c
-  levelfour.c
-  levelone.c
+﻿  levelone.c
 C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\levelone.c(109,14): warning C4101: 'orbHitBoxX': unreferenced local variable
-  levelthree.c
-  leveltwo.c
-C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(109,10): warning C4101: 'orbHitBoxX': unreferenced local variable
-  player.c
-  stage_wall.c
   utils.c
-C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\utils.c(40,45): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
-C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\utils.c(41,45): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
-C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\utils.c(40,24): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\utils.c(41,24): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\utils.c(42,45): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\utils.c(43,45): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\utils.c(42,24): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\src\utils.c(43,24): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
   Generating Code...
   TeleScape.vcxproj -> C:\Users\jlksh\source\repos\csd1401f25_team_duriancats\bin\Debug-x64\TeleScape.exe
   1266 File(s) copied
