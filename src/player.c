@@ -80,9 +80,11 @@ void Player_Update(Player* player, Orb* orb, float deltaTime, float *player_move
 void Orb_Update(Player* player, Orb* orb, float *player_moveX, float *orb_moveX, float *orb_moveY, float deltaTime) {
     if (CP_Input_KeyTriggered(KEY_1)) {
         player->orb_type = TELEPORT_ORB;
+        orb->orb_type = TELEPORT_ORB;
     }
     if (CP_Input_KeyTriggered(KEY_2)) {
         player->orb_type = DESTROY_ORB;
+        orb->orb_type = DESTROY_ORB;
     }
     //Checking if orb is active in the air
     if (orb->isActive == 0) {
