@@ -1,4 +1,28 @@
-﻿  player.c
+﻿  collisionHandling.c
+  game.c
+  hazards.c
+  levelfive.c
+C:\Users\narut\source\repos\csd1401f25_team_duriancats\src\hazards.c(13,73): warning C4047: 'function': 'Wall **' differs in levels of indirection from 'Wall ***'
+C:\Users\narut\source\repos\csd1401f25_team_duriancats\src\hazards.c(13,73): warning C4024: 'Calculate_Ray_Endpoint': different types for formal and actual parameter 3
+C:\Users\narut\source\repos\csd1401f25_team_duriancats\src\hazards.c(114,40): warning C4047: 'function': 'Player *' differs in levels of indirection from 'Player **'
+C:\Users\narut\source\repos\csd1401f25_team_duriancats\src\hazards.c(114,40): warning C4024: 'Get_Player_HitBox': different types for formal and actual parameter 1
+C:\Users\narut\source\repos\csd1401f25_team_duriancats\src\hazards.c(115,34): warning C4047: 'function': 'Orb *' differs in levels of indirection from 'Orb **'
+C:\Users\narut\source\repos\csd1401f25_team_duriancats\src\hazards.c(115,34): warning C4024: 'Get_Orb_HitBox': different types for formal and actual parameter 1
+  levelfour.c
+  levelone.c
+C:\Users\narut\source\repos\csd1401f25_team_duriancats\src\levelone.c(109,14): warning C4101: 'orbHitBoxX': unreferenced local variable
+  levelthree.c
+  leveltwo.c
+C:\Users\narut\source\repos\csd1401f25_team_duriancats\src\leveltwo.c(109,10): warning C4101: 'orbHitBoxX': unreferenced local variable
+  player.c
+  utils.c
+C:\Users\narut\source\repos\csd1401f25_team_duriancats\src\utils.c(42,45): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+C:\Users\narut\source\repos\csd1401f25_team_duriancats\src\utils.c(43,45): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+C:\Users\narut\source\repos\csd1401f25_team_duriancats\src\utils.c(42,24): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\narut\source\repos\csd1401f25_team_duriancats\src\utils.c(43,24): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\narut\source\repos\csd1401f25_team_duriancats\src\utils.c(101,82): warning C4047: 'function': 'Wall **' differs in levels of indirection from 'Wall *(*)[0]'
+C:\Users\narut\source\repos\csd1401f25_team_duriancats\src\utils.c(101,82): warning C4024: 'Calculate_Ray_Endpoint': different types for formal and actual parameter 3
+  Generating Code...
   TeleScape.vcxproj -> C:\Users\narut\source\repos\csd1401f25_team_duriancats\bin\Debug-x64\TeleScape.exe
   1266 File(s) copied
   1 File(s) copied
