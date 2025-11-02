@@ -49,9 +49,9 @@ AABB Get_Orb_HitBox(Orb* orb) {
 
 // This variable will hold the X-coordinate of the closest wall we've hit so far.
 // We start it at the screen edge.
-Point Calculate_Ray_Endpoint(float start_point_x, float start_point_y, Wall* wall[], Direction dir) {
+Point Calculate_Ray_Endpoint(float start_point_x, float start_point_y, Wall* wall[], int wall_count, Direction dir) {
 	Point end_point = { start_point_x, start_point_y };
-	for (int i = 0; i < level1_wall_count; i++) {
+	for (int i = 0; i < wall_count; i++) {
 		Wall* w = wall[i];
 
 		// to get the borders of the walls
