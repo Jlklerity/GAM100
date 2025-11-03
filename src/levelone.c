@@ -155,7 +155,7 @@ void LevelOne_Update(void) {
        
         // Check destroy door collision (horizontal)
         if (level1_destroy_wall.isActivated == 0) {
-            Resolve_Collision_Destroy_Wall_Orb(orbHitbox, destroy_wall_hitbox, &orb, &level1_destroy_wall);
+            Resolve_Collision_Destroy_Wall_Orb(orbHitbox, destroy_wall_hitbox, &orb, &level1_destroy_wall, breathing_space, orb_moveX);
             Resolve_Collision_Wall_Player_X(playerHitBoxX, destroy_wall_hitbox, &player, breathing_space, player_moveX);
         }
 

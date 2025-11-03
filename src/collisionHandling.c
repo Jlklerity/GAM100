@@ -224,15 +224,23 @@ void Resolve_Collision_Wall_Orb_X(AABB orbHitBox, AABB WallHitBox, Orb* orb, Pla
 }
 
 
-void Resolve_Collision_Destroy_Wall_Orb(AABB orbHitBox, AABB destroy_wallHitBox, Orb* orb, Wall* destroy_wall) {
+void Resolve_Collision_Destroy_Wall_Orb(AABB orbHitBox, AABB destroy_wallHitBox, Orb* orb, Wall* destroy_wall, float breathing_space, float orb_moveX) {
 	if (checkAABBCollision(orbHitBox, destroy_wallHitBox)) {
 		if (orb->orb_type == DESTROY_ORB && destroy_wallHitBox.type == RED_DESTROY) {
-			destroy_wall->color = CP_Color_Create(0, 255, 0, 255);
-			destroy_wall->isActivated = 1;
-			orb->isActive = 0;
+			if (orb_moveX > 0) {
+				destroy_wall->isActivated = 1;
+				orb->x = orb->x + breathing_space;
+				orb->isActive = 0;
+			}
+			if (orb_moveX < 0) {
+				destroy_wall->isActivated = 1;
+				orb->x = orb->x - breathing_space;
+				orb->isActive = 0;
+			}
 		}
 		else {
 			orb->isActive = 0;
+			orb->x = 0;
 		}
 	}
 	else {
