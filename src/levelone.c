@@ -121,6 +121,12 @@ void LevelOne_Update(void) {
             Resolve_Collision_Wall_Orb_Y(orbHitbox, Pressure_sense_DoorHitBox, &orb, &player, breathing_space, orb_moveY);
         }
         Resolve_Collision_FloorSensor_Player(playerHitBoxY, floor_sensor_DoorHitBox, &player, &level1_door, &level1_pressure_plate);
+
+        // Check destroy door collision (vertical)
+        if (level1_destroy_wall.isActivated == 0) {
+            Resolve_Collision_Wall_Player_Y(playerHitBoxY, destroy_wall_hitbox, &player, breathing_space);
+            Resolve_Collision_Destroy_Wall_Orb_Y(orbHitbox, destroy_wall_hitbox, &orb, &level1_destroy_wall, breathing_space, orb_moveY);
+        }
     
         // ========== HORIZONTAL COLLISION DETECTION ==========
 
@@ -155,8 +161,8 @@ void LevelOne_Update(void) {
        
         // Check destroy door collision (horizontal)
         if (level1_destroy_wall.isActivated == 0) {
-            Resolve_Collision_Destroy_Wall_Orb(orbHitbox, destroy_wall_hitbox, &orb, &level1_destroy_wall, breathing_space, orb_moveX);
             Resolve_Collision_Wall_Player_X(playerHitBoxX, destroy_wall_hitbox, &player, breathing_space, player_moveX);
+            Resolve_Collision_Destroy_Wall_Orb_X(orbHitbox, destroy_wall_hitbox, &orb, &level1_destroy_wall, breathing_space, orb_moveX);
         }
 
         // Draw exit door
