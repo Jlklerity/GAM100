@@ -26,6 +26,7 @@ extern Wall level2_exit_door;
 extern Wall level1_exit_door;
 extern Wall level1_teleport_wall;
 extern Wall level2_teleport_wall;
+extern Wall level1_destroy_wall;
 
 extern Wall* level1_walls[];
 

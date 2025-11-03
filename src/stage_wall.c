@@ -9,6 +9,7 @@ Wall level1_pressure_plate;
 Wall level1_door;
 Wall level1_exit_door;
 Wall level1_teleport_wall;
+Wall level1_destroy_wall;
 // Level 2 Objects
 Wall level2_platform[3];
 Wall level2_pressure_plate;
@@ -66,6 +67,7 @@ void level1_Object_Walls_Init(void) {
     level1_door = (Wall){ screen_width - stage_wall_thickness - 190.0f, screen_height / 2.0f - 100.0f, 20.0f, 180.0f, CP_Color_Create(113,121,126,255), 0,0 , DOOR };
     level1_exit_door = (Wall){ screen_width - stage_wall_thickness - 100.0f, screen_height / 2.0f - 85.0f, 100.0f, 150.0f, color, 0,0, EXIT_DOOR };
     level1_teleport_wall = (Wall){ screen_width - stage_wall_thickness - 5.0f,screen_height / 2.0f - 100.0f,10.0f,180.0f,color, 0,0 ,BLUE_TELEPORT };
+    level1_destroy_wall = (Wall){ screen_width - stage_wall_thickness - 195.0f,screen_height / 2.0f + 220.0f,10.0f,418.0f,color, 0,0 ,RED_DESTROY };
 }
 void level2_Object_Walls_Init(void) {
     const float screen_width = (float)CP_System_GetWindowWidth();

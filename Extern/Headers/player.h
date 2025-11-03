@@ -28,6 +28,8 @@ typedef struct {
 	float orb_velocity_x, orb_velocity_Y;
 	int direction;
 	int isActive;
+	int ammo;
+	int max_ammo;
 	enum Orb_Type orb_type;
 } Orb;
 

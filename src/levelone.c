@@ -37,7 +37,10 @@ void LevelOne_Init(void) {
 
     greenStartTime = 0;
     level1_door.isActivated = 0; // Start with the door closed
+    level1_destroy_wall.isActivated = 0; // destroy wall is up
     leveltime = 15.0f;
+    orb.max_ammo = 3;
+    orb.ammo = orb.max_ammo;
 }
 
 void LevelOne_Update(void) {
@@ -84,6 +87,7 @@ void LevelOne_Update(void) {
         AABB Pressure_sense_DoorHitBox = Get_Wall_HitBox(&level1_door);
         AABB floor_sensor_DoorHitBox = Get_Wall_HitBox(&level1_pressure_plate);
         AABB TeleportWallHitBox = Get_Wall_HitBox(&level1_teleport_wall);
+        AABB destroy_wall_hitbox = Get_Wall_HitBox(&level1_destroy_wall);
         AABB orbHitbox = Get_Orb_HitBox(&orb);
         // still need to initialize hitboxfor door and pressure plate, and need to write the function for both as well.
 
@@ -123,6 +127,8 @@ void LevelOne_Update(void) {
         playerHitBoxY.x = player.player_posX - (player.player_width / 2.0f);
         AABB orbHitBoxX = Get_Orb_HitBox(&orb);
         orbHitbox.x = orb.x - (orb.diameter / 2.0f);
+        AABB wallHitBoxX = Get_Wall_HitBox(&level1_destroy_wall);
+        
 
         // Check stage wall collisions (horizontal)
         for (int i = 0; i < stage_wall_count; i++) {
@@ -144,6 +150,14 @@ void LevelOne_Update(void) {
             Resolve_Collision_Wall_Player_X(playerHitBoxX, Pressure_sense_DoorHitBox, &player, breathing_space, player_moveX);
             Resolve_Collision_Wall_Orb_X(orbHitbox, Pressure_sense_DoorHitBox, &orb, &player, breathing_space, orb_moveX);
         }
+
+       
+        // Check destroy door collision (horizontal)
+        if (level1_destroy_wall.isActivated == 0) {
+            Resolve_Collision_Destroy_Wall_Orb(orbHitbox, destroy_wall_hitbox, &orb, &level1_destroy_wall);
+            Resolve_Collision_Wall_Player_X(playerHitBoxX, destroy_wall_hitbox, &player, breathing_space, player_moveX);
+        }
+
         // Draw exit door
         CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
         CP_Graphics_DrawRect(level1_exit_door.x, level1_exit_door.y, level1_exit_door.width, level1_exit_door.height);
@@ -172,6 +186,12 @@ void LevelOne_Update(void) {
         //Draw Teleport Wall   
         CP_Settings_Fill(CP_Color_Create(0, RGBChange(greenStartTime), 255, 255));
         CP_Graphics_DrawRectAdvanced(level1_teleport_wall.x, level1_teleport_wall.y, level1_teleport_wall.width, level1_teleport_wall.height, 0.0f, 0.0f);
+
+        //Draw Destroy Wall
+        if (level1_destroy_wall.isActivated == 0) {
+            CP_Settings_Fill(level1_destroy_wall.color);
+            CP_Graphics_DrawRectAdvanced(level1_destroy_wall.x, level1_destroy_wall.y, level1_destroy_wall.width, level1_destroy_wall.height, 0.0f, 0.0f);
+        }
 
         // Draw player
      /*   CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
@@ -244,6 +264,9 @@ void LevelOne_Update(void) {
             MousePos();
             PlayerPov(&player);
         }
+
+        //Ammo counter
+        OrbCount(&orb);
    
         //Pause screen
         if (CP_Input_KeyTriggered(KEY_P)) {

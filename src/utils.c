@@ -140,4 +140,12 @@ void LevelTimer(float* leveltime) {
     }
 }
 
+void OrbCount(Orb* orb) {
+    debug_TEXT = CP_Font_Load("Assets/Exo2 - Regular.ttf");
+    CP_Settings_TextSize(64.0);
+    char buffer[50] = { 0 };
+    sprintf_s(buffer, 50, "%d", orb->ammo);
+    CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
+    CP_Font_DrawText(buffer, 200, 300);
+}
   
