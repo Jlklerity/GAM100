@@ -207,6 +207,7 @@ void Resolve_Collision_Wall_Orb_X(AABB orbHitBox, AABB WallHitBox, Orb* orb, Pla
 				player->player_velocityY = 0.0f;
 				orb->isActive = 0;
 			}
+	
 			else if (orb_moveX < 0) {
 				float Wall_Right_Edge = WallHitBox.x + WallHitBox.width;
 				player->player_posX = Wall_Right_Edge + (player->player_width / 2.0f) + breathing_space;
@@ -228,6 +229,9 @@ void Resolve_Collision_Destroy_Wall_Orb(AABB orbHitBox, AABB destroy_wallHitBox,
 		if (orb->orb_type == DESTROY_ORB && destroy_wallHitBox.type == RED_DESTROY) {
 			destroy_wall->color = CP_Color_Create(0, 255, 0, 255);
 			destroy_wall->isActivated = 1;
+			orb->isActive = 0;
+		}
+		else {
 			orb->isActive = 0;
 		}
 	}

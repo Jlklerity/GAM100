@@ -41,6 +41,7 @@ void LevelOne_Init(void) {
     leveltime = 15.0f;
     orb.max_ammo = 3;
     orb.ammo = orb.max_ammo;
+    orb.orb_type = TELEPORT_ORB;
 }
 
 void LevelOne_Update(void) {
