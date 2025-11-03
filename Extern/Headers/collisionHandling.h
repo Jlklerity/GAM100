@@ -25,3 +25,4 @@ void Resolve_Collision_Wall_Orb_Y(AABB orbHitBox, AABB WallHitBox, Orb* orb, Pla
 void Resolve_Collision_Wall_Player_X(AABB playerHitBox, AABB WallHitBox, Player* player, float breathing_space, float player_moveX);
 void Resolve_Collision_Wall_Orb_X(AABB orbHitBox, AABB WallHitBox, Orb* orb, Player* player, float breathing_space, float orb_moveX);
 void Resolve_Collision_FloorSensor_Player(AABB playerHitBox, AABB Pressure_sensor, Player* player, Wall* door, Wall* pressure_plate);
+void Resolve_Collision_Destroy_Wall_Orb(AABB orbHitBox, AABB destroy_wallHitBox, Orb* orb, Wall* destroy_wall);

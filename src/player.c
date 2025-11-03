@@ -79,21 +79,34 @@ void Player_Update(Player* player, Orb* orb, float deltaTime, float *player_move
 }
 
 void Orb_Update(Player* player, Orb* orb, float *player_moveX, float *orb_moveX, float *orb_moveY, float deltaTime) {
-    if (CP_Input_KeyTriggered(KEY_1)) {
-        player->orb_type = TELEPORT_ORB;
-        orb->orb_type = TELEPORT_ORB;
+    if (orb->isActive == 0) {
+        if (CP_Input_KeyTriggered(KEY_1)) {
+            player->orb_type = TELEPORT_ORB;
+            orb->orb_type = TELEPORT_ORB;
+        }
+        if (CP_Input_KeyTriggered(KEY_2)) {
+            player->orb_type = DESTROY_ORB;
+            orb->orb_type = DESTROY_ORB;
+        }
     }
-    if (CP_Input_KeyTriggered(KEY_2)) {
-        player->orb_type = DESTROY_ORB;
-        orb->orb_type = DESTROY_ORB;
+    static float ammo_timer = 0.0f;
+    ammo_timer += deltaTime;
+    if (ammo_timer > 10.0f) { // every 10 seconds
+        if (orb->ammo < orb->max_ammo) {
+            orb->ammo++;
+        }
+        ammo_timer = 0.0f;
     }
     //Checking if orb is active in the air
     if (orb->isActive == 0) {
         if (CP_Input_KeyTriggered(KEY_J)) {
-            orb->isActive = 1;
-            orb->x = player->player_posX;
-            orb->y = player->player_posY;
-            orb->direction = player->direction;
+            if (orb->ammo > 0) {
+                orb->isActive = 1;
+                orb->x = player->player_posX;
+                orb->y = player->player_posY;
+                orb->direction = player->direction;
+                orb->ammo--;  // decrease ammo when shooting
+            }
         }
     }
 

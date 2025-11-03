@@ -9,3 +9,4 @@ void Player_Coords(player);
 void MousePos();
 void PlayerPov(player);
 void LevelTimer(leveltime);
+void OrbCount(orb);
