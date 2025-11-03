@@ -11,8 +11,8 @@ static int GameIsRunning = 0;
 
 void start_screen_init(void)
 {
-	float width = CP_System_GetWindowWidth();
-	float height = CP_System_GetWindowHeight();
+	float width = (float)CP_System_GetWindowWidth();
+	float height = (float)CP_System_GetWindowHeight();
 
 	CP_System_SetWindowSize(1600, 900);
 	logo = CP_Image_Load("./Assets/DigiPen_Singapore_allrightsreserved.png");
@@ -22,10 +22,10 @@ void start_screen_init(void)
 
 void displayStartScreen(void)
 {
-	float width = CP_System_GetWindowWidth();
-	float height = CP_System_GetWindowHeight();
-	float image_width = CP_Image_GetWidth(logo);
-	float image_height = CP_Image_GetHeight(logo);
+	float width = (float)CP_System_GetWindowWidth();
+	float height = (float)CP_System_GetWindowHeight();
+	float image_width = (float)CP_Image_GetWidth(logo);
+	float image_height = (float)CP_Image_GetHeight(logo);
 	//first function called once on startup of game, this shows the IGT logo on the screen. Comment by Teo Zijie.
 	CP_Graphics_ClearBackground(CP_Color_Create(0, 0, 0, 255));
 

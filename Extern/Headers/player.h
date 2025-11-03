@@ -19,6 +19,7 @@ typedef struct {
 	enum Orb_Type orb_type;
 	enum player_facingdirection direction;
 	enum player_facingdirection last_direction;
+	CP_Image fox_sprite;
 } Player;
 
 typedef struct {

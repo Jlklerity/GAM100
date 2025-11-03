@@ -16,10 +16,25 @@ static int GameState = 1; //for pause state i guess...
 static int DebugState = 0; //enable FPS and player coords
 static float leveltime;
 
+//fox animation sprite canvas
+int start_x = 0;
+int start_y = 128;
+int end_x = 64;
+int end_y = 192;
+
+float animation_timer;
+int frame_count = 0;   // counts frames for timing
+int idle_count = 0;    // counts idle frames
+int animation_speed = 10;
+
+
 void LevelOne_Init(void) {
     void Stage_Walls_Init();
     level1_Object_Walls_Init();
     Player_Init(&player, &orb);
+
+           animation_timer = 0;  // added animation_timer (only dif in this void)
+
     greenStartTime = 0;
     level1_door.isActivated = 0; // Start with the door closed
     leveltime = 15.0f;
@@ -159,9 +174,58 @@ void LevelOne_Update(void) {
         CP_Graphics_DrawRectAdvanced(level1_teleport_wall.x, level1_teleport_wall.y, level1_teleport_wall.width, level1_teleport_wall.height, 0.0f, 0.0f);
 
         // Draw player
-        CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
+     /*   CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
         CP_Graphics_DrawRectAdvanced(player.player_posX, player.player_posY,
-            player.player_width, player.player_height, (float)player.degree, 0);
+            player.player_width, player.player_height, (float)player.degree, 0);*/
+
+        // Draw Fox
+        CP_Image_DrawSubImage(player.fox_sprite, player.player_posX, player.player_posY - 30.0f, player.player_width * 3.0f, player.player_height * 3.0f, (float)start_x, (float)start_y, (float)end_x, (float)end_y, 255);
+
+
+        // Fox keyboard movement
+        if (CP_Input_KeyDown(KEY_A)) {
+            start_y = 0;       // walk left
+            end_y = 64;
+            idle_count = 0;
+            animation_speed = 10;
+        }
+        else if (CP_Input_KeyDown(KEY_D)) {
+            start_y = 64;      // walk right
+            end_y = 128;
+            idle_count = 0;
+            animation_speed = 10;
+        }
+        else {
+            idle_count++;
+            if (idle_count < 300) { // ~10 frames idle before sleeping
+                start_y = 128; // idle
+                end_y = 192;
+                animation_speed = 10;
+            }
+            else {
+                start_y = 192; // sleep
+                end_y = 256;
+                animation_speed = 50;
+
+            }
+        }
+
+        // animating the frames
+       // --- animate frames roughly 3 FPS ---
+        frame_count++;
+        if (frame_count >= animation_speed) {  // every 10 frames change sprite (adjust to speed)
+            frame_count = 0;
+
+            start_x += 64;
+            end_x += 64;
+
+            if (start_x >= 64 * 4) { // 4 columns
+                start_x = 0;
+                end_x = 64;
+            }
+        }
+
+
 
         if (CP_Input_KeyTriggered(KEY_Q)) {
             CP_Engine_SetNextGameState(Game_Init, Game_Update, Game_Exit);
@@ -193,5 +257,5 @@ void LevelOne_Update(void) {
 }
 
 void LevelOne_Exit(void) {
-    
+        CP_Image_Free(player.fox_sprite);
 }
