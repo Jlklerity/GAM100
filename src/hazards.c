@@ -10,7 +10,7 @@ void laser_hitbox_warning(float start_point_x, float start_point_y, float width_
 	   rectangle should not have any collision with the player and should show up 1 seconds before the laser starts.
 	   Might need to use vector for either width and height.*/
 
-	Point end_point = Calculate_Ray_Endpoint(start_point_x, start_point_y, &wall, wall_count, dir);
+	Point end_point = Calculate_Ray_Endpoint(start_point_x, start_point_y, wall, wall_count, dir);
 
 	// this variable is initiallised and used for drawing the "laser" later on.
 	float rect_x = start_point_x; // used to get x-coordinates of the rectangle to draw (midpoint)
@@ -111,8 +111,8 @@ void laser_hitbox(float start_point_x, float start_point_y, float width_of_laser
 		CP_Graphics_DrawRect(rect_x, rect_y, rect_w, rect_h);
 	}
 
-	AABB playerHitBox = Get_Player_HitBox(&player);
-	AABB orbHitBox = Get_Orb_HitBox(&orb);
+	AABB playerHitBox = Get_Player_HitBox(player);
+	AABB orbHitBox = Get_Orb_HitBox(orb);
 	AABB laserHitBox = { rect_x,rect_y, rect_w,rect_h,STAGEWALL };
 	
 	if (checkAABBCollision(playerHitBox, laserHitBox)) {

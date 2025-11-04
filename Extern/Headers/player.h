@@ -37,7 +37,7 @@ typedef struct {
 //extern int maxOrb;
 
 void Player_Init(Player *player, Orb *orb);
-void Player_Update(Player* player, Orb* orb, float deltaTime, float *player_moveX, float jump_strength);
+void Player_Update(Player* player, float deltaTime, float *player_moveX, float jump_strength);
 void Orb_Update(Player* player, Orb* orb, float *player_moveX, float *orb_moveX, float *orb_moveY, float deltaTime);
 //extern Player player;
 //

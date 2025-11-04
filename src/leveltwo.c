@@ -34,8 +34,6 @@ void LevelTwo_Update(void) {
         deltaTime = max_deltaTime;
     }
 
-    const float screen_width = (float)CP_System_GetWindowWidth();
-    const float screen_height = (float)CP_System_GetWindowHeight();
     const float gravity = 2200.0f;
     const float jump_strength = 1200.0f;
     const float breathing_space = 0.1f;
@@ -52,7 +50,7 @@ void LevelTwo_Update(void) {
     float orb_moveY = 0.0f;
 
     //Player movement, direction. x and y velocity, jumping
-    Player_Update(&player, &orb, deltaTime, &player_moveX, jump_strength);
+    Player_Update(&player, deltaTime, &player_moveX, jump_strength);
 
     // Apply gravity
     player.player_velocityY += gravity * deltaTime;
@@ -100,13 +98,12 @@ void LevelTwo_Update(void) {
         Resolve_Collision_Wall_Player_Y(playerHitBoxY, Pressure_sense_DoorHitBox, &player, breathing_space);
         Resolve_Collision_Wall_Orb_Y(orbHitbox, Pressure_sense_DoorHitBox, &orb, &player, breathing_space, orb_moveY);
     }
-    Resolve_Collision_FloorSensor_Player(playerHitBoxY, floor_sensor_DoorHitBox, &player, &level2_door, &level2_pressure_plate);
+    Resolve_Collision_FloorSensor_Player(playerHitBoxY, floor_sensor_DoorHitBox, &level2_door, &level2_pressure_plate);
 
     // ========== HORIZONTAL COLLISION DETECTION ==========
 
     AABB playerHitBoxX = Get_Player_HitBox(&player);
     playerHitBoxY.x = player.player_posX - (player.player_width / 2.0f);
-    AABB orbHitBoxX = Get_Orb_HitBox(&orb);
     orbHitbox.x = orb.x - (orb.diameter / 2.0f);
 
     // Check stage wall collisions (horizontal)

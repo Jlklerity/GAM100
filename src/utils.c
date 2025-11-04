@@ -39,8 +39,8 @@ int IsCircleClicked(float circle_center_x, float circle_center_y, float diameter
 int IsCircleColliding(float circle1_center_x, float circle1_center_y, float circle2_center_x, float circle2_center_y, float diameter) {
     
     float collided = diameter*2 + 10;
-    float distance_x = abs(circle1_center_x - circle2_center_x);
-    float distance_y = abs(circle1_center_y - circle2_center_y);
+    float distance_x = (fabsf(circle1_center_x - circle2_center_x));
+    float distance_y = (fabsf(circle1_center_y - circle2_center_y));
     if (distance_x <= collided && distance_y <= collided) {
         
         return 1;
@@ -53,7 +53,7 @@ int IsCircleColliding(float circle1_center_x, float circle1_center_y, float circ
 
 int RGBChange(float StaticValue) {
     float currentTime = CP_System_GetSeconds();
-    float elapsed = currentTime - StaticValue;
+    //float elapsed = currentTime - StaticValue;
     float pulseSpeed = 1.5f; // adjust for speed of pulsing
     float t = (currentTime - StaticValue) * pulseSpeed;
     float greenValue = 115.0f + 75.0f * sinf(t);
@@ -98,7 +98,7 @@ void PlayerPov(Player* player) {
     CP_Settings_Stroke(CP_Color_Create(0, 160, 255, 255));
     //float screen_width = (float)CP_System_GetWindowWidth();
     //float screen_height = (float)CP_System_GetWindowHeight();
-    Point end = Calculate_Ray_Endpoint(player->player_posX, player->player_posY, &level1_walls, level1_wall_count, player->direction);
+    Point end = Calculate_Ray_Endpoint(player->player_posX, player->player_posY, level1_walls, level1_wall_count, player->direction);
     switch (player->direction) {
         case (PLAYER_RIGHT):
             //check collision of player's ray right direction with stage wall left

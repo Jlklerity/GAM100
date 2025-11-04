@@ -1,5 +1,5 @@
 #include "fullscreen.h"
-
+#include "cprocessing.h"
 
 void fullscreen(void)
 {
