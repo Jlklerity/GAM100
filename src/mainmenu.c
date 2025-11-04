@@ -14,7 +14,7 @@ void Main_Menu_Init(void)
 	mainmenu_TEXT = CP_Font_Load("Assets/kenney_ui-pack-space-expansion/Font/Kenney Future Narrow.ttf");
 	mainmenu_ButtonBackground = CP_Image_Load("Assets/kenney_ui-pack-space-expansion/PNG/Extra/Double/button_rectangle_depth.png");
 	mainmenu_ButtonWhenPressed = CP_Image_Load("Assets/kenney_ui-pack-space-expansion/PNG/Extra/Double/panel_rectangle_screws.png");
-	float textSize = 72.0f;
+	textSize = 72.0f;
 	buttonWidth = 300.0f;
 	buttonHeight = 150.0f;
 	CP_Settings_TextSize(textSize);

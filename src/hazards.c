@@ -5,6 +5,7 @@
 #include "collisionHandling.h"
 
 
+
 void laser_hitbox_warning(float start_point_x, float start_point_y, float width_of_laser, Wall* wall[], int wall_count, Direction dir) {
 	/* draw a rectangle that starts from the laser and ends at any wall encountered, the alpha value of this is 100
 	   rectangle should not have any collision with the player and should show up 1 seconds before the laser starts.
