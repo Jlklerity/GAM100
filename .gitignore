@@ -5,11 +5,30 @@
 .vs/
 *.suo
 *.user
+*.userosscache
 *.sln.docstates
 
 # Build results
 [Bb]in/
 [Oo]bj/
+[Tt]mp/
 
-# Rider
+# Rider / JetBrains
 .idea/
+
+# Compiled binaries
+*.exe
+*.dll
+*.pdb
+*.lib
+*.app
+*.out
+*.so
+
+# Logs and temporary files
+*.log
+*.tmp
+
+# OS-generated files
+.DS_Store
+Thumbs.db

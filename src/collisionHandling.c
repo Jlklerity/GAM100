@@ -116,7 +116,7 @@ void Resolve_Collision_Wall_Player_Y(AABB playerHitBox, AABB WallHitBox, Player*
 }
 
 static float time_pressure_sensorLastPressed = -10.0f;
-void Resolve_Collision_FloorSensor_Player(AABB playerHitBox, AABB pressure_sensorHitBox, Player* player, Wall* door, Wall* pressure_plate) {
+void Resolve_Collision_FloorSensor_Player(AABB playerHitBox, AABB pressure_sensorHitBox, Wall* door, Wall* pressure_plate) {
 
 	// Get the actual current time, once per frame.
 	float currentTime = CP_System_GetSeconds();

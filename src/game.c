@@ -18,7 +18,7 @@ Level_Button button[5];
 void Game_Init(void)
 {
 	const float screen_width = (float)CP_System_GetWindowWidth();
-	const float screen_height = (float)CP_System_GetWindowHeight();
+	//const float screen_height = (float)CP_System_GetWindowHeight();
 	mainmenu_TEXT = CP_Font_Load("Assets/kenney_ui-pack-space-expansion/Font/Kenney Future Narrow.ttf");
 	mainmenu_ButtonBackground = CP_Image_Load("Assets/kenney_ui-pack-space-expansion/PNG/Extra/Double/button_rectangle_depth.png");
 	mainmenu_ButtonWhenPressed = CP_Image_Load("Assets/kenney_ui-pack-space-expansion/PNG/Extra/Double/panel_rectangle_screws.png");
