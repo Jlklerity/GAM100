@@ -42,7 +42,7 @@ void Player_Init(Player *player, Orb *orb) {
 }
 
 void Player_Update(Player* player, Orb* orb, float deltaTime, float *player_moveX, float jump_strength) {
-	if (CP_Input_KeyDown(68)) {
+	if (CP_Input_KeyDown(KEY_D)) {
 		*player_moveX += player->player_velocityX * deltaTime;
 		player->direction = PLAYER_RIGHT;
 	}
