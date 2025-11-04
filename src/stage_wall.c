@@ -20,7 +20,7 @@ Wall level2_teleport_wall;
 Wall* level1_walls[] = {
     &stage_wall[0], &stage_wall[1], &stage_wall[2], &stage_wall[3],
     &level1_platform[0], &level1_platform[1], &level1_platform[2],
-    &level1_door, &level1_teleport_wall
+    &level1_door, &level1_teleport_wall, & level1_destroy_wall
 };
 int level1_wall_count = sizeof(level1_walls) / sizeof(level1_walls[0]);
 
@@ -36,7 +36,7 @@ void Stage_Walls_Init(void) {
     const float screen_height = (float)CP_System_GetWindowHeight();
     const float stage_wall_thickness = 20.0f;
     stage_wall_count = 4;
-    const float orb_diameter = 50.0f;
+    //const float orb_diameter = 50.0f;
     CP_Color color = CP_Color_Create(255, 255, 255, 255);
 
     //top wall
@@ -53,7 +53,7 @@ void level1_Object_Walls_Init(void) {
     const float screen_width = (float)CP_System_GetWindowWidth();
     const float screen_height = (float)CP_System_GetWindowHeight();
     const float stage_wall_thickness = 20.0f;
-    const float orb_diameter = 50.0f;
+    //const float orb_diameter = 50.0f;
     CP_Color color = CP_Color_Create(255, 255, 255, 255);
 
     //middle platform

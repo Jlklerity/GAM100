@@ -7,13 +7,13 @@
 void Player_Init(Player *player, Orb *orb) {
     Stage_Walls_Init();
 
-	const float screen_width = (float)CP_System_GetWindowWidth();
+	//const float screen_width = (float)CP_System_GetWindowWidth();
 	const float screen_height = (float)CP_System_GetWindowHeight();
 	const float player_width = 64.0f;
 	const float player_height = 64.0f;
 	const int player_highlight = 255;
 	const float posX = 100, posY = screen_height - player_height/2 - stage_wall[1].height;
-	const int degree = 0; //player facing right
+	//const int degree = 0; //player facing right
 	/*orbCount = 0;
 	maxOrb = 5;*/
 
@@ -41,8 +41,11 @@ void Player_Init(Player *player, Orb *orb) {
 	orb->diameter = 20.0f;
 }
 
-void Player_Update(Player* player, Orb* orb, float deltaTime, float *player_moveX, float jump_strength) {
-	if (CP_Input_KeyDown(68)) {
+
+
+ 
+void Player_Update(Player* player, float deltaTime, float *player_moveX, float jump_strength) {
+	if (CP_Input_KeyDown(KEY_D)) {
 		*player_moveX += player->player_velocityX * deltaTime;
 		player->direction = PLAYER_RIGHT;
 	}

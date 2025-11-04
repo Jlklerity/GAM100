@@ -23,37 +23,34 @@ int IsAreaClicked(float area_center_x, float area_center_y, float area_width, fl
     return 0;
 }
 
-//int IsCircleClicked(float circle_center_x, float circle_center_y, float diameter, float click_x, float click_y)
-//{
-//    float radius = diameter / 2.0f;
-//    
-//    float distance_x = click_x - circle_center_x;
-//    float distance_y = click_y - circle_center_y;
-//     
-//
-//    int is_clicked = (distance_x * distance_x + distance_y * distance_y) <= (radius * radius);
-//        
-//    return is_clicked;
-//}
-//
-//int IsCircleColliding(float circle1_center_x, float circle1_center_y, float circle2_center_x, float circle2_center_y, float diameter) {
-//    
-//    float collided = diameter*2 + 10;
-//    float distance_x = (float)abs((int)circle1_center_x - (int)circle2_center_x);
-//    float distance_y = (float)abs((int)circle1_center_y - (int)circle2_center_y);
-//    if (distance_x <= collided && distance_y <= collided) {
-//        
-//        return 1;
-//    }
-//    else {
-//        return 0;
-//    }
-//    
-//}
+int IsCircleClicked(float circle_center_x, float circle_center_y, float diameter, float click_x, float click_y)
+{
+    float radius = diameter / 2.0f;
+    float distance_x = click_x - circle_center_x;
+    float distance_y = click_y - circle_center_y;
+    int is_clicked = (distance_x * distance_x + distance_y * distance_y) <= (radius * radius);
+        
+    return is_clicked;
+}
+
+int IsCircleColliding(float circle1_center_x, float circle1_center_y, float circle2_center_x, float circle2_center_y, float diameter) {
+    
+    float collided = diameter*2 + 10;
+    float distance_x = (fabsf(circle1_center_x - circle2_center_x));
+    float distance_y = (fabsf(circle1_center_y - circle2_center_y));
+    if (distance_x <= collided && distance_y <= collided) {
+        
+        return 1;
+    }
+    else {
+        return 0;
+    }
+    
+}
 
 int RGBChange(float StaticValue) {
     float currentTime = CP_System_GetSeconds();
-    float elapsed = currentTime - StaticValue;
+    //float elapsed = currentTime - StaticValue;
     float pulseSpeed = 1.5f; // adjust for speed of pulsing
     float t = (currentTime - StaticValue) * pulseSpeed;
     float greenValue = 115.0f + 75.0f * sinf(t);
@@ -96,9 +93,7 @@ void MousePos() {
 
 void PlayerPov(Player* player) {
     CP_Settings_Stroke(CP_Color_Create(0, 160, 255, 255));
-    //float screen_width = (float)CP_System_GetWindowWidth();
-    //float screen_height = (float)CP_System_GetWindowHeight();
-    Point end = Calculate_Ray_Endpoint(player->player_posX, player->player_posY, &level1_walls, level1_wall_count, player->direction);
+    Point end = Calculate_Ray_Endpoint(player->player_posX, player->player_posY, level1_walls, level1_wall_count, player->direction);
     switch (player->direction) {
         case (PLAYER_RIGHT):
             //check collision of player's ray right direction with stage wall left

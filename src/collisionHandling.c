@@ -116,7 +116,7 @@ void Resolve_Collision_Wall_Player_Y(AABB playerHitBox, AABB WallHitBox, Player*
 }
 
 static float time_pressure_sensorLastPressed = -10.0f;
-void Resolve_Collision_FloorSensor_Player(AABB playerHitBox, AABB pressure_sensorHitBox, Player* player, Wall* door, Wall* pressure_plate) {
+void Resolve_Collision_FloorSensor_Player(AABB playerHitBox, AABB pressure_sensorHitBox, Wall* door, Wall* pressure_plate) {
 
 	// Get the actual current time, once per frame.
 	float currentTime = CP_System_GetSeconds();
@@ -207,6 +207,7 @@ void Resolve_Collision_Wall_Orb_X(AABB orbHitBox, AABB WallHitBox, Orb* orb, Pla
 				player->player_velocityY = 0.0f;
 				orb->isActive = 0;
 			}
+	
 			else if (orb_moveX < 0) {
 				float Wall_Right_Edge = WallHitBox.x + WallHitBox.width;
 				player->player_posX = Wall_Right_Edge + (player->player_width / 2.0f) + breathing_space;
@@ -223,12 +224,48 @@ void Resolve_Collision_Wall_Orb_X(AABB orbHitBox, AABB WallHitBox, Orb* orb, Pla
 }
 
 
-void Resolve_Collision_Destroy_Wall_Orb(AABB orbHitBox, AABB destroy_wallHitBox, Orb* orb, Wall* destroy_wall) {
+void Resolve_Collision_Destroy_Wall_Orb_X(AABB orbHitBox, AABB destroy_wallHitBox, Orb* orb, Wall* destroy_wall, float breathing_space, float orb_moveX) {
 	if (checkAABBCollision(orbHitBox, destroy_wallHitBox)) {
 		if (orb->orb_type == DESTROY_ORB && destroy_wallHitBox.type == RED_DESTROY) {
-			destroy_wall->color = CP_Color_Create(0, 255, 0, 255);
-			destroy_wall->isActivated = 1;
+			if (orb_moveX > 0) {
+				destroy_wall->isActivated = 1;
+				orb->x = orb->x + breathing_space;
+				orb->isActive = 0;
+			}
+			if (orb_moveX < 0) {
+				destroy_wall->isActivated = 1;
+				orb->x = orb->x - breathing_space;
+				orb->isActive = 0;
+			}
+		}
+		else {
 			orb->isActive = 0;
+			orb->x = 0;
+		}
+	}
+	else {
+		destroy_wall->isActivated = 0;
+		destroy_wall->color = CP_Color_Create(255, 0, 0, 255);
+	}
+}
+
+void Resolve_Collision_Destroy_Wall_Orb_Y(AABB orbHitBox, AABB destroy_wallHitBox, Orb* orb, Wall* destroy_wall, float breathing_space, float orb_moveY) {
+	if (checkAABBCollision(orbHitBox, destroy_wallHitBox)) {
+		if (orb->orb_type == DESTROY_ORB && destroy_wallHitBox.type == RED_DESTROY) {
+			if (orb_moveY > 0) {
+				destroy_wall->isActivated = 1;
+				orb->y = orb->y - breathing_space;
+				orb->isActive = 0;
+			}
+			if (orb_moveY < 0) {
+				destroy_wall->isActivated = 1;
+				orb->y = orb->y + breathing_space;
+				orb->isActive = 0;
+			}
+		}
+		else {
+			orb->isActive = 0;
+			orb->x = 0;
 		}
 	}
 	else {

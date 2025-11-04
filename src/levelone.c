@@ -41,6 +41,7 @@ void LevelOne_Init(void) {
     leveltime = 15.0f;
     orb.max_ammo = 3;
     orb.ammo = orb.max_ammo;
+    orb.orb_type = TELEPORT_ORB;
 }
 
 void LevelOne_Update(void) {
@@ -52,8 +53,6 @@ void LevelOne_Update(void) {
             deltaTime = max_deltaTime;
         }
 
-        const float screen_width = (float)CP_System_GetWindowWidth();
-        const float screen_height = (float)CP_System_GetWindowHeight();
         const float gravity = 2200.0f;
         const float jump_strength = 1200.0f;
         const float breathing_space = 0.1f;
@@ -70,7 +69,7 @@ void LevelOne_Update(void) {
         float orb_moveY = 0.0f;
 
         //Player movement, direction. x and y velocity, jumping
-        Player_Update(&player, &orb, deltaTime, &player_moveX, jump_strength);
+        Player_Update(&player, deltaTime, &player_moveX, jump_strength);
 
         // Apply gravity
         player.player_velocityY += gravity * deltaTime;
@@ -119,15 +118,19 @@ void LevelOne_Update(void) {
             Resolve_Collision_Wall_Player_Y(playerHitBoxY, Pressure_sense_DoorHitBox, &player, breathing_space);
             Resolve_Collision_Wall_Orb_Y(orbHitbox, Pressure_sense_DoorHitBox, &orb, &player, breathing_space, orb_moveY);
         }
-        Resolve_Collision_FloorSensor_Player(playerHitBoxY, floor_sensor_DoorHitBox, &player, &level1_door, &level1_pressure_plate);
+        Resolve_Collision_FloorSensor_Player(playerHitBoxY, floor_sensor_DoorHitBox, &level1_door, &level1_pressure_plate);
+
+        // Check destroy door collision (vertical)
+        if (level1_destroy_wall.isActivated == 0) {
+            Resolve_Collision_Wall_Player_Y(playerHitBoxY, destroy_wall_hitbox, &player, breathing_space);
+            Resolve_Collision_Destroy_Wall_Orb_Y(orbHitbox, destroy_wall_hitbox, &orb, &level1_destroy_wall, breathing_space, orb_moveY);
+        }
     
         // ========== HORIZONTAL COLLISION DETECTION ==========
 
         AABB playerHitBoxX = Get_Player_HitBox(&player);
         playerHitBoxY.x = player.player_posX - (player.player_width / 2.0f);
-        AABB orbHitBoxX = Get_Orb_HitBox(&orb);
         orbHitbox.x = orb.x - (orb.diameter / 2.0f);
-        AABB wallHitBoxX = Get_Wall_HitBox(&level1_destroy_wall);
         
 
         // Check stage wall collisions (horizontal)
@@ -154,8 +157,8 @@ void LevelOne_Update(void) {
        
         // Check destroy door collision (horizontal)
         if (level1_destroy_wall.isActivated == 0) {
-            Resolve_Collision_Destroy_Wall_Orb(orbHitbox, destroy_wall_hitbox, &orb, &level1_destroy_wall);
             Resolve_Collision_Wall_Player_X(playerHitBoxX, destroy_wall_hitbox, &player, breathing_space, player_moveX);
+            Resolve_Collision_Destroy_Wall_Orb_X(orbHitbox, destroy_wall_hitbox, &orb, &level1_destroy_wall, breathing_space, orb_moveX);
         }
 
         // Draw exit door
@@ -199,8 +202,8 @@ void LevelOne_Update(void) {
             player.player_width, player.player_height, (float)player.degree, 0);*/
 
         // Draw Fox
-        CP_Image_DrawSubImage(player.fox_sprite, player.player_posX, player.player_posY - 30.0f, player.player_width * 3.0f, player.player_height * 3.0f, (float)start_x, (float)start_y, (float)end_x, (float)end_y, 255);
-
+         CP_Image_DrawSubImage(player.fox_sprite, player.player_posX, player.player_posY - 30.0f, player.player_width * 3.0f, player.player_height * 3.0f, (float)start_x, (float)start_y, (float)end_x, (float)end_y, 255);
+  
 
         // Fox keyboard movement
         if (CP_Input_KeyDown(KEY_A)) {
