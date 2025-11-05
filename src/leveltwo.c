@@ -9,20 +9,53 @@
 #include "levelthree.h"
 #include "utils.h"
 
+extern Wall* g_level_platforms[3];
+extern Wall* g_level_pressure_plate;
+extern Wall* g_level_door;
+extern Wall* g_level_exit_door;
+extern Wall* g_level_teleport_wall;
+extern Wall* g_level_destroy_wall;
+extern Wall* g_level_collidables[];
+extern int g_level_collidable_count;
+
 static float greenStartTime;
-Player player;
-Orb orb;
+static Player player;
+static Orb orb;
 static int GameState = 1; //for pause state i guess...
 static int DebugState = 0; //enable FPS and player coords
 static float leveltime;
 
+//fox animation sprite canvas
+static int start_x = 0;
+static int start_y = 128;
+static int end_x = 64;
+static int end_y = 192;
+
+static float animation_timer;
+static int frame_count = 0;   // counts frames for timing
+static int idle_count = 0;    // counts idle frames
+static int animation_speed = 10;
+
+
 void LevelTwo_Init(void) {
-    Stage_Walls_Init();
-    level2_Object_Walls_Init();
+    void Stage_Walls_Init();
+    LoadLevelFromFile("Assets/Levels/level2.txt");
     Player_Init(&player, &orb);
+
+    animation_timer = 0;  // added animation_timer (only dif in this void)
+
     greenStartTime = 0;
-    level2_door.isActivated = 0; // Start with the door closed
+    if (g_level_door) {
+        g_level_door->isActivated = 0; // Start with the door closed
+    }
+    if (g_level_destroy_wall) {
+        g_level_destroy_wall->isActivated = 0; // destroy wall is up
+    } 
+
     leveltime = 15.0f;
+    orb.max_ammo = 3;
+    orb.ammo = orb.max_ammo;
+    orb.orb_type = TELEPORT_ORB;
 }
 
 void LevelTwo_Update(void) {
@@ -63,10 +96,11 @@ void LevelTwo_Update(void) {
     // ========== VERTICAL COLLISION DETECTION ==========
 
     AABB playerHitBoxY = Get_Player_HitBox(&player);
-    AABB ExitDoorHitBox = Get_Wall_HitBox(&level2_exit_door);
-    AABB Pressure_sense_DoorHitBox = Get_Wall_HitBox(&level2_door);
-    AABB floor_sensor_DoorHitBox = Get_Wall_HitBox(&level2_pressure_plate);
-    AABB TeleportWallHitBox = Get_Wall_HitBox(&level2_teleport_wall);
+    AABB ExitDoorHitBox = Get_Wall_HitBox(g_level_exit_door);
+    AABB Pressure_sense_DoorHitBox = Get_Wall_HitBox(g_level_door);
+    AABB floor_sensor_DoorHitBox = Get_Wall_HitBox(g_level_pressure_plate);
+    AABB TeleportWallHitBox = Get_Wall_HitBox(g_level_teleport_wall);
+    AABB destroy_wall_hitbox = Get_Wall_HitBox(g_level_destroy_wall);
     AABB orbHitbox = Get_Orb_HitBox(&orb);
     // still need to initialize hitboxfor door and pressure plate, and need to write the function for both as well.
 
@@ -85,8 +119,8 @@ void LevelTwo_Update(void) {
         Resolve_Collision_Wall_Player_Y(playerHitBoxY, stagewallHitBox, &player, breathing_space);
         Resolve_Collision_Wall_Orb_Y(orbHitbox, stagewallHitBox, &orb, &player, breathing_space, orb_moveY);
     }
-    for (int i = 0; i < 3; i++) {
-        AABB platformHitBox = Get_Wall_HitBox(&level2_platform[i]);
+    for (int i = 0; i < g_level_collidable_count; i++) {
+        AABB platformHitBox = Get_Wall_HitBox(g_level_collidables[i]);
         Resolve_Collision_Wall_Player_Y(playerHitBoxY, platformHitBox, &player, breathing_space);
         Resolve_Collision_Wall_Orb_Y(orbHitbox, platformHitBox, &orb, &player, breathing_space, orb_moveY);
     }
@@ -94,17 +128,24 @@ void LevelTwo_Update(void) {
     // Check platform collision (vertical)
     Resolve_Collision_Wall_Orb_Y(orbHitbox, TeleportWallHitBox, &orb, &player, breathing_space, orb_moveY);
     // Check pressure door collision (vertical)
-    if (level2_door.isActivated == 0) {
+    if (g_level_door->isActivated == 0) {
         Resolve_Collision_Wall_Player_Y(playerHitBoxY, Pressure_sense_DoorHitBox, &player, breathing_space);
         Resolve_Collision_Wall_Orb_Y(orbHitbox, Pressure_sense_DoorHitBox, &orb, &player, breathing_space, orb_moveY);
     }
-    Resolve_Collision_FloorSensor_Player(playerHitBoxY, floor_sensor_DoorHitBox, &level2_door, &level2_pressure_plate);
+    Resolve_Collision_FloorSensor_Player(playerHitBoxY, floor_sensor_DoorHitBox, g_level_door, g_level_pressure_plate);
+
+    // Check destroy door collision (vertical)
+    if (g_level_destroy_wall->isActivated == 0) {
+        Resolve_Collision_Wall_Player_Y(playerHitBoxY, destroy_wall_hitbox, &player, breathing_space);
+        Resolve_Collision_Destroy_Wall_Orb_Y(orbHitbox, destroy_wall_hitbox, &orb, g_level_destroy_wall, breathing_space, orb_moveY);
+    }
 
     // ========== HORIZONTAL COLLISION DETECTION ==========
 
     AABB playerHitBoxX = Get_Player_HitBox(&player);
     playerHitBoxY.x = player.player_posX - (player.player_width / 2.0f);
     orbHitbox.x = orb.x - (orb.diameter / 2.0f);
+
 
     // Check stage wall collisions (horizontal)
     for (int i = 0; i < stage_wall_count; i++) {
@@ -113,8 +154,8 @@ void LevelTwo_Update(void) {
         Resolve_Collision_Wall_Orb_X(orbHitbox, stagewallHitBox, &orb, &player, breathing_space, orb_moveX);
     }
 
-    for (int i = 0; i < 3; i++) {
-        AABB platformHitBox = Get_Wall_HitBox(&level2_platform[i]);
+    for (int i = 0; i < g_level_collidable_count; i++) {
+        AABB platformHitBox = Get_Wall_HitBox(g_level_collidables[i]);
         Resolve_Collision_Wall_Player_X(playerHitBoxX, platformHitBox, &player, breathing_space, player_moveX);
         Resolve_Collision_Wall_Orb_X(orbHitbox, platformHitBox, &orb, &player, breathing_space, orb_moveX);
     }
@@ -122,13 +163,21 @@ void LevelTwo_Update(void) {
     // Check platform collision (horizontal)
     Resolve_Collision_Wall_Orb_X(orbHitbox, TeleportWallHitBox, &orb, &player, breathing_space, orb_moveX);
     // Check pressure door collision (horizontal)
-    if (level2_door.isActivated == 0) {
+    if (g_level_door->isActivated == 0) {
         Resolve_Collision_Wall_Player_X(playerHitBoxX, Pressure_sense_DoorHitBox, &player, breathing_space, player_moveX);
         Resolve_Collision_Wall_Orb_X(orbHitbox, Pressure_sense_DoorHitBox, &orb, &player, breathing_space, orb_moveX);
     }
+
+
+    // Check destroy door collision (horizontal)
+    if (g_level_destroy_wall->isActivated == 0) {
+        Resolve_Collision_Wall_Player_X(playerHitBoxX, destroy_wall_hitbox, &player, breathing_space, player_moveX);
+        Resolve_Collision_Destroy_Wall_Orb_X(orbHitbox, destroy_wall_hitbox, &orb, g_level_destroy_wall, breathing_space, orb_moveX);
+    }
+
     // Draw exit door
     CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
-    CP_Graphics_DrawRect(level2_exit_door.x, level2_exit_door.y, level2_exit_door.width, level2_exit_door.height);
+    CP_Graphics_DrawRect(g_level_exit_door->x, g_level_exit_door->y, g_level_exit_door->width, g_level_exit_door->height);
 
     // Draw stage walls
     for (int i = 0; i < stage_wall_count; i++) {
@@ -136,30 +185,85 @@ void LevelTwo_Update(void) {
         CP_Graphics_DrawRect(stage_wall[i].x, stage_wall[i].y,
             stage_wall[i].width, stage_wall[i].height);
     }
-    // Draw stage platforms
-    for (int i = 0; i < 3; i++) {
-        CP_Graphics_DrawRectAdvanced(level2_platform[i].x, level2_platform[i].y, level2_platform[i].width, level2_platform[i].height, 0.0f, 0.0f);
-
+    // Draw all platforms
+    for (int i = 0; i < g_level_collidable_count; i++) {
+        // Check if this object is a platform
+        if (g_level_collidables[i]->type == PLATFORM) {
+            CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
+            CP_Graphics_DrawRectAdvanced(g_level_collidables[i]->x, g_level_collidables[i]->y, g_level_collidables[i]->width, g_level_collidables[i]->height, 0.0f, 0.0f);
+        }
     }
     //Draw pressure sensitive wall
-    if (level2_door.isActivated == 0) {
+    if (g_level_door->isActivated == 0) {
         CP_Settings_Fill(CP_Color_Create(113, 121, 126, 255));
-        CP_Graphics_DrawRectAdvanced(level2_door.x, level2_door.y, level2_door.width, level2_door.height, 0.0f, 0.0f);
+        CP_Graphics_DrawRectAdvanced(g_level_door->x, g_level_door->y, g_level_door->width, g_level_door->height, 0.0f, 0.0f);
     }
 
     //Draw floor sensor
-    CP_Settings_Fill(level2_pressure_plate.color);
-    CP_Graphics_DrawRectAdvanced(level2_pressure_plate.x, level2_pressure_plate.y, level2_pressure_plate.width, level2_pressure_plate.height, 0.0f, 0.0f);
-
+    CP_Settings_Fill(g_level_pressure_plate->color);
+    CP_Graphics_DrawRectAdvanced(g_level_pressure_plate->x, g_level_pressure_plate->y, g_level_pressure_plate->width, g_level_pressure_plate->height, 0.0f, 0.0f);
 
     //Draw Teleport Wall   
     CP_Settings_Fill(CP_Color_Create(0, RGBChange(greenStartTime), 255, 255));
-    CP_Graphics_DrawRectAdvanced(level2_teleport_wall.x, level2_teleport_wall.y, level2_teleport_wall.width, level2_teleport_wall.height, 0.0f, 0.0f);
+    CP_Graphics_DrawRectAdvanced(g_level_teleport_wall->x, g_level_teleport_wall->y, g_level_teleport_wall->width, g_level_teleport_wall->height, 0.0f, 0.0f);
+
+    //Draw Destroy Wall
+    if (g_level_destroy_wall->isActivated == 0) {
+        CP_Settings_Fill(g_level_destroy_wall->color);
+        CP_Graphics_DrawRectAdvanced(g_level_destroy_wall->x, g_level_destroy_wall->y, g_level_destroy_wall->width, g_level_destroy_wall->height, 0.0f, 0.0f);
+    }
 
     // Draw player
-    CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
+ /*   CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
     CP_Graphics_DrawRectAdvanced(player.player_posX, player.player_posY,
-        player.player_width, player.player_height, (float)player.degree, 0);
+        player.player_width, player.player_height, (float)player.degree, 0);*/
+
+        // Draw Fox
+    CP_Image_DrawSubImage(player.fox_sprite, player.player_posX, player.player_posY - 30.0f, player.player_width * 3.0f, player.player_height * 3.0f, (float)start_x, (float)start_y, (float)end_x, (float)end_y, 255);
+
+
+    // Fox keyboard movement
+    if (CP_Input_KeyDown(KEY_A)) {
+        start_y = 0;       // walk left
+        end_y = 64;
+        idle_count = 0;
+        animation_speed = 10;
+    }
+    else if (CP_Input_KeyDown(KEY_D)) {
+        start_y = 64;      // walk right
+        end_y = 128;
+        idle_count = 0;
+        animation_speed = 10;
+    }
+    else {
+        idle_count++;
+        if (idle_count < 300) { // ~10 frames idle before sleeping
+            start_y = 128; // idle
+            end_y = 192;
+            animation_speed = 10;
+        }
+        else {
+            start_y = 192; // sleep
+            end_y = 256;
+            animation_speed = 50;
+
+        }
+    }
+
+    // animating the frames
+   // --- animate frames roughly 3 FPS ---
+    frame_count++;
+    if (frame_count >= animation_speed) {  // every 10 frames change sprite (adjust to speed)
+        frame_count = 0;
+
+        start_x += 64;
+        end_x += 64;
+
+        if (start_x >= 64 * 4) { // 4 columns
+            start_x = 0;
+            end_x = 64;
+        }
+    }
 
     if (CP_Input_KeyTriggered(KEY_Q)) {
         CP_Engine_SetNextGameState(Game_Init, Game_Update, Game_Exit);
@@ -179,6 +283,9 @@ void LevelTwo_Update(void) {
         PlayerPov(&player);
     }
 
+    //Ammo counter
+    OrbCount(&orb);
+
     //Pause screen
     if (CP_Input_KeyTriggered(KEY_P)) {
         GameState = 1 - GameState;
@@ -188,10 +295,8 @@ void LevelTwo_Update(void) {
         CP_Settings_Fill(CP_Color_Create(0, 0, 0, 20));
         CP_Graphics_DrawRect((float)CP_System_GetWindowWidth() / 2.0f, (float)CP_System_GetWindowHeight() / 2.0f, (float)CP_System_GetWindowWidth(), (float)CP_System_GetWindowHeight());
     }
-
-
 }
 
 void LevelTwo_Exit(void) {
-    
+    CP_Image_Free(player.fox_sprite);
 }
