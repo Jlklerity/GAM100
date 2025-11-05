@@ -18,7 +18,7 @@ bool checkAABBCollision(AABB objectA, AABB objectB) { //Main AABB collision logi
 
 
 AABB Get_Wall_HitBox(Wall *wall) {
-	AABB box;
+	AABB box = { 0 };
 	box.x = wall->x - wall->width / 2;
 	box.y = wall->y - wall->height / 2;
 	box.width = wall->width;
@@ -27,7 +27,7 @@ AABB Get_Wall_HitBox(Wall *wall) {
 	return box;
 }
 AABB Get_Player_HitBox(Player* player) {
-	AABB box;
+	AABB box = { 0 };
 	box.x = player->player_posX - player->player_width / 2;
 	box.y = player->player_posY - player->player_height / 2;
 	box.width = player->player_width;
@@ -36,7 +36,7 @@ AABB Get_Player_HitBox(Player* player) {
 }
 
 AABB Get_Orb_HitBox(Orb* orb) {
-	AABB box;
+	AABB box = { 0 };
 	box.x = orb->x - orb->diameter / 2;
 	box.y = orb->y - orb->diameter / 2;
 	box.width = orb->diameter;
