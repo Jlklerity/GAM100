@@ -46,4 +46,5 @@ extern int g_level_collidable_count;
 
 void Stage_Walls_Init(void);
 void level1_Object_Walls_Init(void);
+void LoadLevelFromFile(const char* filename);
 //void level2_Object_Walls_Init(void);
