@@ -112,7 +112,11 @@ void LevelTwo_Update(void) {
         Resolve_Collision_Wall_Orb_Y(orbHitbox, stagewallHitBox, &orb, &player, breathing_space, orb_moveY);
     }
     for (int i = 0; i < g_level_collidable_count; i++) {
-        AABB platformHitBox = Get_Wall_HitBox(g_level_collidables[i]);
+        Wall* current_wall = g_level_collidables[i];
+        if (current_wall->isActivated == 1) {
+            continue;
+        }
+        AABB platformHitBox = Get_Wall_HitBox(current_wall);
         Resolve_Collision_Wall_Player_Y(playerHitBoxY, platformHitBox, &player, breathing_space);
         Resolve_Collision_Wall_Orb_Y(orbHitbox, platformHitBox, &orb, &player, breathing_space, orb_moveY);
     }
@@ -147,7 +151,11 @@ void LevelTwo_Update(void) {
     }
 
     for (int i = 0; i < g_level_collidable_count; i++) {
-        AABB platformHitBox = Get_Wall_HitBox(g_level_collidables[i]);
+        Wall* current_wall = g_level_collidables[i];
+        if (current_wall->isActivated == 1) {
+            continue;
+        }
+        AABB platformHitBox = Get_Wall_HitBox(current_wall);
         Resolve_Collision_Wall_Player_X(playerHitBoxX, platformHitBox, &player, breathing_space, player_moveX);
         Resolve_Collision_Wall_Orb_X(orbHitbox, platformHitBox, &orb, &player, breathing_space, orb_moveX);
     }
