@@ -132,6 +132,7 @@ xcopy "$(SolutionDir)Extern\CProcessing\lib\x64\fmod.dll" "$(OutDir)"
     <ClInclude Include="Extern\Headers\utils.h" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="Assets\Levels\level1.txt" />
     <Text Include="Assets\Levels\level2.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

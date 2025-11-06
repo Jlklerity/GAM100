@@ -93,7 +93,7 @@ void MousePos() {
 
 void PlayerPov(Player* player) {
     CP_Settings_Stroke(CP_Color_Create(0, 160, 255, 255));
-    Point end = Calculate_Ray_Endpoint(player->player_posX, player->player_posY, level1_walls, level1_wall_count, player->direction);
+    Point end = Calculate_Ray_Endpoint(player->player_posX, player->player_posY, g_level_collidables, g_level_collidable_count, player->direction);
     switch (player->direction) {
         case (PLAYER_RIGHT):
             //check collision of player's ray right direction with stage wall left

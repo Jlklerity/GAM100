@@ -30,7 +30,7 @@ static int animation_speed = 10;
 
 
 void LevelTwo_Init(void) {
-    void Stage_Walls_Init();
+    //void Stage_Walls_Init();
     LoadLevelFromFile("Assets/Levels/level2.txt");
     Player_Init(&player, &orb);
 
@@ -42,7 +42,7 @@ void LevelTwo_Init(void) {
     }
     if (g_level_destroy_wall) {
         g_level_destroy_wall->isActivated = 0; // destroy wall is up
-    } 
+    }
 
     leveltime = 15.0f;
     orb.max_ammo = 3;
@@ -105,36 +105,29 @@ void LevelTwo_Update(void) {
         CP_Engine_SetNextGameState(LevelThree_Init, LevelThree_Update, LevelThree_Exit);
     }
 
-    // Check stage wall collisions (vertical)
-    for (int i = 0; i < stage_wall_count; i++) {
-        AABB stagewallHitBox = Get_Wall_HitBox(&stage_wall[i]);
-        Resolve_Collision_Wall_Player_Y(playerHitBoxY, stagewallHitBox, &player, breathing_space);
-        Resolve_Collision_Wall_Orb_Y(orbHitbox, stagewallHitBox, &orb, &player, breathing_space, orb_moveY);
-    }
+
     for (int i = 0; i < g_level_collidable_count; i++) {
         Wall* current_wall = g_level_collidables[i];
         if (current_wall->isActivated == 1) {
             continue;
         }
         AABB platformHitBox = Get_Wall_HitBox(current_wall);
+
+        // --- Player Collision (always happens) ---
         Resolve_Collision_Wall_Player_Y(playerHitBoxY, platformHitBox, &player, breathing_space);
-        Resolve_Collision_Wall_Orb_Y(orbHitbox, platformHitBox, &orb, &player, breathing_space, orb_moveY);
+
+        // --- Orb Collision (check wall type) ---
+        if (current_wall->type == RED_DESTROY) {
+            Resolve_Collision_Destroy_Wall_Orb_Y(orbHitbox, platformHitBox, &orb, current_wall, breathing_space, orb_moveY);
+        }
+        else {
+            Resolve_Collision_Wall_Orb_Y(orbHitbox, platformHitBox, &orb, &player, breathing_space, orb_moveY);
+        }
     }
 
-    // Check platform collision (vertical)
-    Resolve_Collision_Wall_Orb_Y(orbHitbox, TeleportWallHitBox, &orb, &player, breathing_space, orb_moveY);
-    // Check pressure door collision (vertical)
-    if (g_level_door->isActivated == 0) {
-        Resolve_Collision_Wall_Player_Y(playerHitBoxY, Pressure_sense_DoorHitBox, &player, breathing_space);
-        Resolve_Collision_Wall_Orb_Y(orbHitbox, Pressure_sense_DoorHitBox, &orb, &player, breathing_space, orb_moveY);
-    }
+
     Resolve_Collision_FloorSensor_Player(playerHitBoxY, floor_sensor_DoorHitBox, g_level_door, g_level_pressure_plate);
 
-    // Check destroy door collision (vertical)
-    if (g_level_destroy_wall->isActivated == 0) {
-        Resolve_Collision_Wall_Player_Y(playerHitBoxY, destroy_wall_hitbox, &player, breathing_space);
-        Resolve_Collision_Destroy_Wall_Orb_Y(orbHitbox, destroy_wall_hitbox, &orb, g_level_destroy_wall, breathing_space, orb_moveY);
-    }
 
     // ========== HORIZONTAL COLLISION DETECTION ==========
 
@@ -142,53 +135,43 @@ void LevelTwo_Update(void) {
     playerHitBoxY.x = player.player_posX - (player.player_width / 2.0f);
     orbHitbox.x = orb.x - (orb.diameter / 2.0f);
 
-
-    // Check stage wall collisions (horizontal)
-    for (int i = 0; i < stage_wall_count; i++) {
-        AABB stagewallHitBox = Get_Wall_HitBox(&stage_wall[i]);
-        Resolve_Collision_Wall_Player_X(playerHitBoxX, stagewallHitBox, &player, breathing_space, player_moveX);
-        Resolve_Collision_Wall_Orb_X(orbHitbox, stagewallHitBox, &orb, &player, breathing_space, orb_moveX);
-    }
-
     for (int i = 0; i < g_level_collidable_count; i++) {
         Wall* current_wall = g_level_collidables[i];
         if (current_wall->isActivated == 1) {
             continue;
         }
         AABB platformHitBox = Get_Wall_HitBox(current_wall);
+
+        // --- Player Collision (always happens) ---
         Resolve_Collision_Wall_Player_X(playerHitBoxX, platformHitBox, &player, breathing_space, player_moveX);
-        Resolve_Collision_Wall_Orb_X(orbHitbox, platformHitBox, &orb, &player, breathing_space, orb_moveX);
+
+        // --- Orb Collision (check wall type) ---
+        if (current_wall->type == RED_DESTROY) {
+            Resolve_Collision_Destroy_Wall_Orb_X(orbHitbox, platformHitBox, &orb, current_wall, breathing_space, orb_moveX);
+        }
+        else {
+            Resolve_Collision_Wall_Orb_X(orbHitbox, platformHitBox, &orb, &player, breathing_space, orb_moveX);
+        }
     }
 
-    // Check platform collision (horizontal)
-    Resolve_Collision_Wall_Orb_X(orbHitbox, TeleportWallHitBox, &orb, &player, breathing_space, orb_moveX);
-    // Check pressure door collision (horizontal)
-    if (g_level_door->isActivated == 0) {
-        Resolve_Collision_Wall_Player_X(playerHitBoxX, Pressure_sense_DoorHitBox, &player, breathing_space, player_moveX);
-        Resolve_Collision_Wall_Orb_X(orbHitbox, Pressure_sense_DoorHitBox, &orb, &player, breathing_space, orb_moveX);
-    }
-
-
-    // Check destroy door collision (horizontal)
-    if (g_level_destroy_wall->isActivated == 0) {
-        Resolve_Collision_Wall_Player_X(playerHitBoxX, destroy_wall_hitbox, &player, breathing_space, player_moveX);
-        Resolve_Collision_Destroy_Wall_Orb_X(orbHitbox, destroy_wall_hitbox, &orb, g_level_destroy_wall, breathing_space, orb_moveX);
-    }
 
     // Draw exit door
     CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
     CP_Graphics_DrawRect(g_level_exit_door->x, g_level_exit_door->y, g_level_exit_door->width, g_level_exit_door->height);
 
-    // Draw stage walls
-    for (int i = 0; i < stage_wall_count; i++) {
-        CP_Settings_Fill(stage_wall[i].color);
-        CP_Graphics_DrawRect(stage_wall[i].x, stage_wall[i].y,
-            stage_wall[i].width, stage_wall[i].height);
-    }
     // Draw all platforms
     for (int i = 0; i < g_level_collidable_count; i++) {
         // Check if this object is a platform
         if (g_level_collidables[i]->type == PLATFORM) {
+            CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
+            CP_Graphics_DrawRectAdvanced(g_level_collidables[i]->x, g_level_collidables[i]->y, g_level_collidables[i]->width, g_level_collidables[i]->height, 0.0f, 0.0f);
+        }
+    }
+
+    // Draw all platforms
+    for (int i = 0; i < g_level_collidable_count; i++) {
+        // Check if this object is a platform
+        if (g_level_collidables[i]->type == PLATFORM || g_level_collidables[i]->type == STAGEWALL) {
             CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
             CP_Graphics_DrawRectAdvanced(g_level_collidables[i]->x, g_level_collidables[i]->y, g_level_collidables[i]->width, g_level_collidables[i]->height, 0.0f, 0.0f);
         }
