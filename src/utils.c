@@ -63,32 +63,29 @@ int RGBChange(float StaticValue) {
 
 void FPSCount() {
     CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
-    debug_TEXT = CP_Font_Load("Assets/Exo2 - Regular.ttf");
     textSize = 20.0f;
     char buffer[50] = { 0 };
     CP_Settings_TextSize(textSize);
     sprintf_s(buffer, 50, "frame count: %i", CP_System_GetFrameCount());
-    CP_Font_DrawText(buffer, 200, 30);
+    CP_Font_DrawText(buffer, 1580.0f, 20.0f);
 }
 void Player_Coords(Player* player) {
     CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
-    debug_TEXT = CP_Font_Load("Assets/Exo2 - Regular.ttf");
     textSize = 20.0f;
     char buffer[50] = { 0 };
     CP_Settings_TextSize(textSize);
     sprintf_s(buffer, 50, "player <X:%0.2f Y:%0.2f> ", player->player_posX, player->player_posY);
-    CP_Font_DrawText(buffer, 200, 50);
+    CP_Font_DrawText(buffer, 1580.0f, 45.0f);
 }
 void MousePos() {
     CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
     mouseX = (float)CP_Input_GetMouseX();
     mouseY = (float)CP_Input_GetMouseY();
-    debug_TEXT = CP_Font_Load("Assets/Exo2 - Regular.ttf");
     textSize = 20.0f;
     char buffer[50] = { 0 };
     CP_Settings_TextSize(textSize);
     sprintf_s(buffer, 50, "mouse <X:%0.2f Y:%0.2f> ", mouseX, mouseY);
-    CP_Font_DrawText(buffer, 200, 75);
+    CP_Font_DrawText(buffer, 1580.0f, 70.0f);
 }
 
 void PlayerPov(Player* player) {
@@ -115,7 +112,6 @@ void PlayerPov(Player* player) {
 void LevelTimer(float* leveltime) {
     int minutes = (int)(*leveltime / 60);
     int seconds = (int)(*leveltime) % 60;
-    debug_TEXT = CP_Font_Load("Assets/Exo2 - Regular.ttf");
     CP_Settings_TextSize(32.0);
     char time[50] = { 0 };
     sprintf_s(time, 50, "%02d:%02d", minutes, seconds);
@@ -126,7 +122,7 @@ void LevelTimer(float* leveltime) {
         *leveltime -= CP_System_GetDt();
         if (*leveltime <= 10.0f) {
             CP_Settings_Fill(CP_Color_Create(255, 0, 0, 255));
-            CP_Font_DrawText(time, 200, 200);
+            CP_Font_DrawText(time, (float)CP_System_GetWindowWidth() / 2.0f, 50.0f);
         }
         if (*leveltime < 0.0f) {
             *leveltime = 0.0f;
@@ -136,11 +132,10 @@ void LevelTimer(float* leveltime) {
 }
 
 void OrbCount(Orb* orb) {
-    debug_TEXT = CP_Font_Load("Assets/Exo2 - Regular.ttf");
-    CP_Settings_TextSize(32.0);
+    CP_Settings_TextSize(64.0f);
     char buffer[50] = { 0 };
     sprintf_s(buffer, 50, "%d", orb->ammo);
     CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
-    CP_Font_DrawText(buffer, (float)CP_System_GetWindowWidth() / 2.0f - 200.0f, 50.0f);
+    CP_Font_DrawText(buffer, 30.0f, 60.0f);
 }
   

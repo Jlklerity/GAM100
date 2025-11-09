@@ -34,6 +34,7 @@ void LevelOne_Init(void) {
     LoadLevelFromFile("Assets/Levels/level1.txt");
     Player_Init(&player, &orb);
 
+    debug_TEXT = CP_Font_Load("Assets/Exo2 - Regular.ttf");
     animation_timer = 0;  // added animation_timer (only dif in this void)
 
     greenStartTime = 0;
@@ -263,22 +264,25 @@ void LevelOne_Update(void) {
         CP_Engine_SetNextGameState(Game_Init, Game_Update, Game_Exit);
     }
 
+    CP_Font_Set(debug_TEXT);
+    CP_Settings_TextAlignment(CP_TEXT_ALIGN_H_LEFT, CP_TEXT_ALIGN_V_TOP);
     //Level Timer 15s 
     LevelTimer(&leveltime);
+    //Ammo counter
+    OrbCount(&orb);
 
     //FPS Counter & Player coordinates & Mouse coordinates & player pov
     if (CP_Input_KeyTriggered(KEY_LEFT_ALT)) {
         DebugState = 1 - DebugState;
     }
     if (DebugState == 1) {
+        CP_Settings_TextAlignment(CP_TEXT_ALIGN_H_RIGHT, CP_TEXT_ALIGN_V_TOP);
         FPSCount();
         Player_Coords(&player);
         MousePos();
         PlayerPov(&player);
     }
-
-    //Ammo counter
-    OrbCount(&orb);
+    CP_Settings_TextAlignment(CP_TEXT_ALIGN_H_LEFT, CP_TEXT_ALIGN_V_TOP);
 
     //Pause screen
     if (CP_Input_KeyTriggered(KEY_P)) {
@@ -293,4 +297,5 @@ void LevelOne_Update(void) {
 
 void LevelOne_Exit(void) {
     CP_Image_Free(player.fox_sprite);
+    CP_Font_Free(debug_TEXT);
 }

@@ -26,48 +26,19 @@ Wall* g_level_collidables[MAX_LEVEL_OBJECTS];
 int g_level_collidable_count = 0;
 
 
-//void Stage_Walls_Init(void) {
-//    const float screen_width = (float)CP_System_GetWindowWidth();
-//    const float screen_height = (float)CP_System_GetWindowHeight();
-//    const float stage_wall_thickness = 20.0f;
-//    stage_wall_count = 4;
-//    //const float orb_diameter = 50.0f;
-//    CP_Color color = CP_Color_Create(255, 255, 255, 255);
-//
-//    //top wall
-//    stage_wall[0] = (Wall){ screen_width / 2.0f, stage_wall_thickness / 2.0f, screen_width, stage_wall_thickness, color, 0, 0, STAGEWALL }; //example
-//    //bottom wall
-//    stage_wall[1] = (Wall){ screen_width / 2.0f, screen_height - (stage_wall_thickness / 2.0f), screen_width, stage_wall_thickness, color, 0, 0,STAGEWALL };
-//    //left wall
-//    stage_wall[2] = (Wall){ stage_wall_thickness / 2.0f, screen_height / 2.0f, stage_wall_thickness, screen_height, color, 0, 0,STAGEWALL };
-//    //right wall
-//    stage_wall[3] = (Wall){ screen_width - (stage_wall_thickness / 2.0f), screen_height / 2.0f, stage_wall_thickness, screen_height, color, 0, 0,STAGEWALL };
-//
-//}
-
 void LoadLevelFromFile(const char* filename) {
     // 1. Reset all counters and pointers
     s_level_object_count = 0;
     g_level_collidable_count = 0;
-    for (int i = 0; i < MAX_LEVEL_OBJECTS; i++) {
-        g_level_pressure_plate[i] = NULL;
-    }
-    for (int i = 0; i < MAX_LEVEL_OBJECTS; i++) {
-        g_level_door[i] = NULL;
-    }
+    // Use memset to clear the arrays to all-bits-zero(NULL)
+    memset(g_level_pressure_plate, 0, sizeof(g_level_pressure_plate));
+    memset(g_level_door, 0, sizeof(g_level_door));
+    memset(g_level_teleport_wall, 0, sizeof(g_level_teleport_wall));
+    memset(g_level_destroy_wall, 0, sizeof(g_level_destroy_wall));
+    memset(g_level_platforms, 0, sizeof(g_level_platforms));
+    memset(g_stage_wall, 0, sizeof(g_stage_wall));
     g_level_exit_door = NULL;
-    for (int i = 0; i < MAX_LEVEL_OBJECTS; i++) {
-        g_level_teleport_wall[i] = NULL;
-    }
-    for (int i = 0; i < MAX_LEVEL_OBJECTS; i++) {
-        g_level_destroy_wall[i] = NULL;
-    }
-    for (int i = 0; i < MAX_LEVEL_OBJECTS; i++) {
-        g_level_platforms[i] = NULL;
-    }
-    for (int i = 0; i < MAX_LEVEL_OBJECTS; i++) {
-        g_stage_wall[i] = NULL;
-    }
+    
     FILE* file = fopen(filename, "r");
     if (!file) {
         printf("ERROR: Could not load level file: %s\n", filename);
