@@ -6,20 +6,20 @@
 //Wall stage_wall[4];  // Shared walls 
 //int stage_wall_count = 0;
 
-#define MAX_LEVEL_OBJECTS 50
+ 
 // This array holds the ACTUAL wall data for the currently loaded level
 static Wall s_level_objects[MAX_LEVEL_OBJECTS];
 static int s_level_object_count = 0;
 
 // These are POINTERS that level files (leveltwo.c)
 // will use to access the loaded objects.
-Wall* g_stage_wall[4] = { 0 };
-Wall* g_level_platforms[3] = { 0 }; // Array for platforms
-Wall* g_level_pressure_plate = NULL;
-Wall* g_level_door = NULL;
+Wall* g_stage_wall[MAX_LEVEL_OBJECTS] = { 0 };
+Wall* g_level_platforms[MAX_LEVEL_OBJECTS] = { 0 }; // Array for platforms
+Wall* g_level_pressure_plate[MAX_LEVEL_OBJECTS] = { 0 };;
+Wall* g_level_door[MAX_LEVEL_OBJECTS] = { 0 };;
 Wall* g_level_exit_door = NULL;
-Wall* g_level_teleport_wall = NULL;
-Wall* g_level_destroy_wall = NULL;
+Wall* g_level_teleport_wall[MAX_LEVEL_OBJECTS] = { 0 };;
+Wall* g_level_destroy_wall[MAX_LEVEL_OBJECTS] = { 0 };;
 
 // Pointers to any other collidable objects (like platforms)
 Wall* g_level_collidables[MAX_LEVEL_OBJECTS];
@@ -49,15 +49,23 @@ void LoadLevelFromFile(const char* filename) {
     // 1. Reset all counters and pointers
     s_level_object_count = 0;
     g_level_collidable_count = 0;
-    g_level_pressure_plate = NULL;
-    g_level_door = NULL;
+    for (int i = 0; i < MAX_LEVEL_OBJECTS; i++) {
+        g_level_pressure_plate[i] = NULL;
+    }
+    for (int i = 0; i < MAX_LEVEL_OBJECTS; i++) {
+        g_level_door[i] = NULL;
+    }
     g_level_exit_door = NULL;
-    g_level_teleport_wall = NULL;
-    g_level_destroy_wall = NULL;
-    for (int i = 0; i < 3; i++) {
+    for (int i = 0; i < MAX_LEVEL_OBJECTS; i++) {
+        g_level_teleport_wall[i] = NULL;
+    }
+    for (int i = 0; i < MAX_LEVEL_OBJECTS; i++) {
+        g_level_destroy_wall[i] = NULL;
+    }
+    for (int i = 0; i < MAX_LEVEL_OBJECTS; i++) {
         g_level_platforms[i] = NULL;
     }
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < MAX_LEVEL_OBJECTS; i++) {
         g_stage_wall[i] = NULL;
     }
     FILE* file = fopen(filename, "r");
@@ -70,7 +78,13 @@ void LoadLevelFromFile(const char* filename) {
     char type_str[50];
     float x, y, w, h;
     int wall_type_enum_int;
+
     int platform_index = 0; // To count platforms
+    int pressure_plate_index = 0;
+    int door_index = 0;
+    int teleport_wall_index = 0;
+    int destroy_wall_index = 0;
+    int stage_wall_index = 0;
 
     // 2. Read file line by line
     while (fgets(line_buffer, sizeof(line_buffer), file)) {
@@ -94,33 +108,47 @@ void LoadLevelFromFile(const char* filename) {
             // 5. Assign global pointers based on type
             //    And set special colors
             switch (type) {
+                case STAGEWALL: // You forgot to handle STAGEWALL
+                    if (stage_wall_index < MAX_LEVEL_OBJECTS) {
+                        g_stage_wall[stage_wall_index++] = new_wall;
+                    }
+                    g_level_collidables[g_level_collidable_count++] = new_wall;
+                    break;
                 case PLATFORM:
-                    if (platform_index < 3) {
+                    if (platform_index < MAX_LEVEL_OBJECTS) {
                         g_level_platforms[platform_index++] = new_wall;
                     }
                     // Add to general collidable list
                     g_level_collidables[g_level_collidable_count++] = new_wall;
                     break;
                 case PRESSURE_PLATE:
-                    g_level_pressure_plate = new_wall;
+                    if (pressure_plate_index < MAX_LEVEL_OBJECTS) {
+                        g_level_pressure_plate[pressure_plate_index++] = new_wall;
+                    }
                     new_wall->color = CP_Color_Create(113, 121, 126, 255);
                     // Don't add to collidables, it's handled special
                     break;
                 case DOOR:
-                    g_level_door = new_wall;
+                    if (door_index < MAX_LEVEL_OBJECTS) {
+                        g_level_door[door_index++] = new_wall;
+                    }
                     new_wall->color = CP_Color_Create(113, 121, 126, 255);
                     g_level_collidables[g_level_collidable_count++] = new_wall;
                     break;
                 case EXIT_DOOR:
                     g_level_exit_door = new_wall;
-                    // Not collidable
+                    // Not physically collidable
                     break;
                 case BLUE_TELEPORT:
-                    g_level_teleport_wall = new_wall;
+                    if (teleport_wall_index < MAX_LEVEL_OBJECTS) {
+                        g_level_teleport_wall[teleport_wall_index++] = new_wall;
+                    }
                     g_level_collidables[g_level_collidable_count++] = new_wall;
                     break;
                 case RED_DESTROY:
-                    g_level_destroy_wall = new_wall;
+                    if (destroy_wall_index < MAX_LEVEL_OBJECTS) {
+                        g_level_destroy_wall[destroy_wall_index++] = new_wall;
+                    }
                     new_wall->color = CP_Color_Create(255, 0, 0, 255);
                     g_level_collidables[g_level_collidable_count++] = new_wall;
                     break;

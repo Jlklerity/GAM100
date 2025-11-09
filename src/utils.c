@@ -116,13 +116,13 @@ void LevelTimer(float* leveltime) {
     int minutes = (int)(*leveltime / 60);
     int seconds = (int)(*leveltime) % 60;
     debug_TEXT = CP_Font_Load("Assets/Exo2 - Regular.ttf");
-    CP_Settings_TextSize(64.0);
+    CP_Settings_TextSize(32.0);
     char time[50] = { 0 };
     sprintf_s(time, 50, "%02d:%02d", minutes, seconds);
 
     if (*leveltime > 0.0f) {
         CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
-        CP_Font_DrawText(time, 200, 200);
+        CP_Font_DrawText(time, (float)CP_System_GetWindowWidth()/2.0f, 50.0f);
         *leveltime -= CP_System_GetDt();
         if (*leveltime <= 10.0f) {
             CP_Settings_Fill(CP_Color_Create(255, 0, 0, 255));
@@ -137,10 +137,10 @@ void LevelTimer(float* leveltime) {
 
 void OrbCount(Orb* orb) {
     debug_TEXT = CP_Font_Load("Assets/Exo2 - Regular.ttf");
-    CP_Settings_TextSize(64.0);
+    CP_Settings_TextSize(32.0);
     char buffer[50] = { 0 };
     sprintf_s(buffer, 50, "%d", orb->ammo);
     CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
-    CP_Font_DrawText(buffer, 200, 300);
+    CP_Font_DrawText(buffer, (float)CP_System_GetWindowWidth() / 2.0f - 200.0f, 50.0f);
 }
   

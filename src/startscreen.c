@@ -11,8 +11,8 @@ static int GameIsRunning = 0;
 
 void start_screen_init(void)
 {
- 	float width = (float)CP_System_GetWindowWidth();
-	float height = (float)CP_System_GetWindowHeight();
+ //	float width = (float)CP_System_GetWindowWidth();
+	//float height = (float)CP_System_GetWindowHeight();
  
 	CP_System_SetWindowSize(1600, 900);
 	logo = CP_Image_Load("./Assets/DigiPen_Singapore_allrightsreserved.png");

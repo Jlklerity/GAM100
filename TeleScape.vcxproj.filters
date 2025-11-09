@@ -108,5 +108,6 @@
   <ItemGroup>
     <Text Include="Assets\Levels\level2.txt" />
     <Text Include="Assets\Levels\level1.txt" />
+    <Text Include="Assets\Levels\Level3.txt" />
   </ItemGroup>
 </Project>

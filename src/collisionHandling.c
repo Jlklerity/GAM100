@@ -115,7 +115,6 @@ void Resolve_Collision_Wall_Player_Y(AABB playerHitBox, AABB WallHitBox, Player*
 	}
 }
 
-static float time_pressure_sensorLastPressed = -10.0f;
 void Resolve_Collision_FloorSensor_Player(AABB playerHitBox, AABB pressure_sensorHitBox, Wall* door, Wall* pressure_plate) {
 
 	// Get the actual current time, once per frame.
@@ -125,10 +124,10 @@ void Resolve_Collision_FloorSensor_Player(AABB playerHitBox, AABB pressure_senso
 		pressure_plate->color = CP_Color_Create(255, 0, 0, 255);
 		// 2. Open the door
 		door->isActivated = 1;
-		time_pressure_sensorLastPressed = currentTime;
+		pressure_plate->last_pressed_time = currentTime;
 	}
 	else {
-		float timeSinceLastPress = currentTime - time_pressure_sensorLastPressed;
+		float timeSinceLastPress = currentTime - pressure_plate->last_pressed_time; 
 		if (timeSinceLastPress >= 5.0f) {
 			door->isActivated = 0;
 			pressure_plate->color = CP_Color_Create(113, 121, 126, 255);
