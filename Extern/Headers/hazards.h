@@ -21,5 +21,5 @@ typedef struct {
 } LaserRect;
 
 void laser_hitbox_warning(Laser* laser, Wall* wall[], int wall_count);
-void laser_hitbox(Laser* laser, Wall* wall, int wall_count, Player* player, Orb* orb);
+void laser_hitbox(Laser* laser, Wall* wall[], int wall_count, Player* player, Orb* orb);
 void pitfall(float pitfall_x, float pitfall_y, float width_of_pitfall, float depth_of_pitfall, Wall* wall, Player* player);

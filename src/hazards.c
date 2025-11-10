@@ -72,7 +72,7 @@ void laser_hitbox(Laser* laser, Wall* wall[], int wall_count, Player* player, Or
 
 	AABB playerHitBox = Get_Player_HitBox(player);
 	AABB orbHitBox = Get_Orb_HitBox(orb);
-	AABB laserHitBox = { rect.x,rect.y, rect.w,rect.h,LASER };
+	AABB laserHitBox = { rect.x,rect.y, rect.w,rect.h,NORMAL };
 	
 	if (checkAABBCollision(playerHitBox, laserHitBox)) {
 		Player_Init(player,orb); //reset player position only

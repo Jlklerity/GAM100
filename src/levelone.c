@@ -201,6 +201,9 @@ void LevelOne_Update(void) {
             CP_Graphics_DrawRectAdvanced(g_level_teleport_wall[i]->x, g_level_teleport_wall[i]->y, g_level_teleport_wall[i]->width, g_level_teleport_wall[i]->height, 0.0f, 0.0f);
         }
     }
+
+    
+    
     //Draw Destroy Walls
     for (int i = 0; i < MAX_LEVEL_OBJECTS; i++) {
         if (g_level_destroy_wall[i] != NULL && g_level_destroy_wall[i]->isActivated == 0) {
