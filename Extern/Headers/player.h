@@ -33,6 +33,8 @@ typedef struct {
 	enum Orb_Type orb_type;
 } Orb;
 
+
+
 //extern int orbCount;
 //extern int maxOrb;
 

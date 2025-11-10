@@ -44,7 +44,7 @@ static LaserRect calculate_laser_rect(Laser* laser, Wall* wall[], int wall_count
 	return rect;
 }
 
-void laser_hitbox_warning(Laser* laser, Wall* wall[], int wall_count) {
+static void laser_hitbox_warning(Laser* laser, Wall* wall[], int wall_count) {
 	/* draw a rectangle that starts from the laser and ends at any wall encountered, the alpha value of this is 100
 	   rectangle should not have any collision with the player and should show up 1 seconds before the laser starts.
 	   Might need to use vector for either width and height.*/
@@ -58,7 +58,7 @@ void laser_hitbox_warning(Laser* laser, Wall* wall[], int wall_count) {
 	}
 }
 
-void laser_hitbox(Laser* laser, Wall* wall[], int wall_count, Player* player, Orb* orb) {
+static void laser_hitbox(Laser* laser, Wall* wall[], int wall_count, Player* player, Orb* orb) {
 	/* draw a rectangle that starts from the laser and ends at any wall encountered, the alpha value of this is 255
 	   if rectangle collides with player, player gets knocked back to the direction player came from and loses one health, player 
 	   should not be able to pass through the laser when it is firing, laser last for 3 seconds. Destroys any orb that comes 
@@ -82,6 +82,42 @@ void laser_hitbox(Laser* laser, Wall* wall[], int wall_count, Player* player, Or
 
 	if (checkAABBCollision(orbHitBox, laserHitBox)) {
 		orb->isActive = 0;
+	}
+}
+
+void update_laser(Laser* laser, float delta_time, Wall* wall[], int wall_count, Player* player, Orb* orbs) {
+	laser->timer += delta_time;
+
+	switch (laser->state) {
+	case LASER_WARNING:
+		laser_hitbox_warning(laser, wall, wall_count);
+
+		// After 1 second, switch to firing
+		if (laser->timer >= 1.0f) {
+			laser->state = LASER_FIRING;
+			laser->timer = 0.0f;  // reset timer for firing duration
+		}
+		break;
+
+	case LASER_FIRING:
+		laser_hitbox(laser, wall, wall_count, player, orbs);
+		// Laser lasts 3 seconds
+		if (laser->timer >= 3.0f) {
+			laser->state = LASER_IDLE;
+			laser->timer = 0.0f;  // reset timer for firing duration
+		}
+		break;
+
+	case LASER_IDLE:
+		// Do nothing
+	// After 5 seconds got to LASER_WARNING
+		if (laser->timer >= 5.0f) {
+			laser->state = LASER_WARNING;
+			laser->timer = 0.0f;  // reset timer for firing duration
+		}
+		break;
+	case LASER_CONTINUOUS:
+		laser_hitbox(laser, wall, wall_count, player, orbs);
 	}
 }
 

@@ -20,6 +20,10 @@ typedef struct {
 	float h; // height
 } LaserRect;
 
+ 
 void laser_hitbox_warning(Laser* laser, Wall* wall[], int wall_count);
 void laser_hitbox(Laser* laser, Wall* wall[], int wall_count, Player* player, Orb* orb);
+static void laser_hitbox_warning(Laser* laser, Wall* wall[], int wall_count);
+static void laser_hitbox(Laser* laser, Wall* wall[], int wall_count, Player* player, Orb* orb);
+void update_laser(Laser* laser, float delta_time, Wall* wall[], int wall_count, Player* player, Orb* orbs);
 void pitfall(float pitfall_x, float pitfall_y, float width_of_pitfall, float depth_of_pitfall, Wall* wall, Player* player);
