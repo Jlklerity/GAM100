@@ -1,0 +1,17 @@
+# This is Level 2.
+# Type_Name (for reference)   X     Y      W    H     WallTypeEnum (from stage_wall.h)
+STAGEWALL                     800   10    1600  20    2
+STAGEWALL                     800   890   1600  20    2
+STAGEWALL                     10    450   20    900   2
+STAGEWALL                     1590  450   20    900   2
+PLATFORM		      890   350   20    180   3 
+PLATFORM		      710   350   20    180   3 
+PLATFORM                      300   500   200   20    3
+PLATFORM                      700   600   200   20    3
+PLATFORM                      800   450   200   20    3
+PLATFORM                      1480  250   200   20    3
+PRESSURE_PLATE                1480  240   100   10    5
+DOOR                          800   260   200   15    4
+EXIT_DOOR                     800   365   100   150   6
+TELEPORT_WALL                 1575  130   10    220   0
+DESTROY_WALL                  1385  130   10    220   1
