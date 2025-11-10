@@ -1,5 +1,7 @@
 #pragma once
 #include "cprocessing.h"
+#include "utils.h"
+#define MAX_LEVEL_OBJECTS 100
 
 enum TypeofWall {
 	BLUE_TELEPORT, RED_DESTROY, STAGEWALL, PLATFORM, DOOR, PRESSURE_PLATE, EXIT_DOOR, NORMAL, LASER
@@ -12,27 +14,17 @@ typedef struct {
 	int isOpen;
 	int isActivated;
 	enum TypeofWall type;
+	float last_pressed_time;
 }Wall;
 
+extern Wall* g_stage_wall[MAX_LEVEL_OBJECTS];
+extern Wall* g_level_platforms[MAX_LEVEL_OBJECTS];
+extern Wall* g_level_pressure_plate[MAX_LEVEL_OBJECTS];
+extern Wall* g_level_door[MAX_LEVEL_OBJECTS];
+extern Wall* g_level_exit_door;
+extern Wall* g_level_teleport_wall[MAX_LEVEL_OBJECTS];
+extern Wall* g_level_destroy_wall[MAX_LEVEL_OBJECTS];
+extern Wall* g_level_collidables[];
+extern int g_level_collidable_count;
 
-extern Wall stage_wall[4];
-extern Wall level2_platform[3];
-extern Wall level1_platform[3];
-extern Wall level1_pressure_plate;
-extern Wall level2_pressure_plate;
-extern Wall level2_door;
-extern Wall level1_door;
-extern Wall level2_exit_door;
-extern Wall level1_exit_door;
-extern Wall level1_teleport_wall;
-extern Wall level2_teleport_wall;
-extern Wall level1_destroy_wall;
-
-extern Wall* level1_walls[];
-
-extern int stage_wall_count;
-extern int level1_wall_count;
-
-void Stage_Walls_Init(void);
-void level1_Object_Walls_Init(void);
-void level2_Object_Walls_Init(void);
+void LoadLevelFromFile(const char* filename);

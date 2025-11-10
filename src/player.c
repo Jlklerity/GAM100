@@ -5,14 +5,13 @@
 #include "levelone.h"
 
 void Player_Init(Player *player, Orb *orb) {
-    Stage_Walls_Init();
-
 	//const float screen_width = (float)CP_System_GetWindowWidth();
 	const float screen_height = (float)CP_System_GetWindowHeight();
+    const float wall_thickness = 20.0f;
 	const float player_width = 64.0f;
 	const float player_height = 64.0f;
 	const int player_highlight = 255;
-	const float posX = 100, posY = screen_height - player_height/2 - stage_wall[1].height;
+	const float posX = 100, posY = screen_height - player_height/2 - wall_thickness;
 	//const int degree = 0; //player facing right
 	/*orbCount = 0;
 	maxOrb = 5;*/
