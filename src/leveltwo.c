@@ -22,6 +22,8 @@ static int start_x = 0;
 static int start_y = 128;
 static int end_x = 64;
 static int end_y = 192;
+static int facing_left = 0;  // stores the last facing direction 0 = right, 1 = left
+
 
 static float animation_timer;
 static int frame_count = 0;   // counts frames for timing
@@ -60,6 +62,7 @@ void LevelTwo_Init(void) {
 
 void LevelTwo_Update(void) {
     // ========== INITIALIZATION ==========
+    if (GameState) {
 
     float deltaTime = CP_System_GetDt();
     const float max_deltaTime = 0.02f;
@@ -208,45 +211,65 @@ void LevelTwo_Update(void) {
             CP_Graphics_DrawRectAdvanced(g_level_destroy_wall[i]->x, g_level_destroy_wall[i]->y, g_level_destroy_wall[i]->width, g_level_destroy_wall[i]->height, 0.0f, 0.0f);
         }
     }
-    // Draw player
- /*   CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
-    CP_Graphics_DrawRectAdvanced(player.player_posX, player.player_posY,
-        player.player_width, player.player_height, (float)player.degree, 0);*/
-
-        // Draw Fox
-    CP_Image_DrawSubImage(player.fox_sprite, player.player_posX, player.player_posY - 30.0f, player.player_width * 3.0f, player.player_height * 3.0f, (float)start_x, (float)start_y, (float)end_x, (float)end_y, 255);
+  
 
 
-    // Fox keyboard movement
-    if (CP_Input_KeyDown(KEY_A)) {
-        start_y = 0;       // walk left
+    //FOX SSPRITE ANIMATION
+    //DEFAULT FACING RIGHT 
+    if (facing_left)
+
+        CP_Image_DrawSubImage(player.fox_sprite, player.player_posX, player.player_posY - 30, -player.player_width * 3, player.player_height * 3, start_x, start_y, end_x, end_y, 255);
+    else
+        CP_Image_DrawSubImage(player.fox_sprite, player.player_posX, player.player_posY - 30, player.player_width * 3, player.player_height * 3, start_x, start_y, end_x, end_y, 255);
+
+    // STORED FACING VALUE
+    if (CP_Input_KeyDown(KEY_A)) { //WALKING LEFT
+        facing_left = 1;
+        start_y = 0;
         end_y = 64;
         idle_count = 0;
-        animation_speed = 10;
     }
-    else if (CP_Input_KeyDown(KEY_D)) {
-        start_y = 64;      // walk right
-        end_y = 128;
+    else if (CP_Input_KeyDown(KEY_D)) { //WALKING RIGHT
+        facing_left = 0;
+        start_y = 0;
+        end_y = 64;
         idle_count = 0;
-        animation_speed = 10;
     }
-    else {
-        idle_count++;
-        if (idle_count < 300) { // ~10 frames idle before sleeping
-            start_y = 128; // idle
-            end_y = 192;
-            animation_speed = 10;
+
+
+    //CHECK WHEN FOX IS NOT ON THE GROUND
+    if (!player.isGrounded) {
+
+
+        if (player.player_velocityY > 0) { // falling down
+            start_y = 192;
+            end_y = 256;
+            idle_count = 0;
         }
         else {
-            start_y = 192; // sleep
-            end_y = 256;
-            animation_speed = 50;
+            start_y = 128;        // jumping up
+            end_y = 192;
+            idle_count = 0;
+        }
+    }
+
+    //IDLE STATE / 
+    if (player.isGrounded && !CP_Input_KeyDown(KEY_A) && !CP_Input_KeyDown(KEY_D)) {
+        idle_count++;
+        if (idle_count < 300) {
+            start_y = 64;   // idle
+            end_y = 128;
+
+        }
+        else {
+            start_y = 256;   // sleep
+            end_y = 320;
 
         }
     }
 
-    // animating the frames
-   // --- animate frames roughly 3 FPS ---
+
+    // --- animate frames roughly 3 FPS ---
     frame_count++;
     if (frame_count >= animation_speed) {  // every 10 frames change sprite (adjust to speed)
         frame_count = 0;
@@ -284,14 +307,15 @@ void LevelTwo_Update(void) {
     }
     CP_Settings_TextAlignment(CP_TEXT_ALIGN_H_LEFT, CP_TEXT_ALIGN_V_TOP);
 
+    }
     //Pause screen
     if (CP_Input_KeyTriggered(KEY_P)) {
         GameState = 1 - GameState;
+        CP_Settings_Fill(CP_Color_Create(50, 50, 50, 200));
+        CP_Graphics_DrawRect(0, 0, 1600 * 4, 900 * 4);
     }
+
     if (GameState == 0) {
-        CP_Graphics_ClearBackground(CP_Color_Create(0, 0, 0, 100));
-        CP_Settings_Fill(CP_Color_Create(0, 0, 0, 20));
-        CP_Graphics_DrawRect((float)CP_System_GetWindowWidth() / 2.0f, (float)CP_System_GetWindowHeight() / 2.0f, (float)CP_System_GetWindowWidth(), (float)CP_System_GetWindowHeight());
     }
 }
 

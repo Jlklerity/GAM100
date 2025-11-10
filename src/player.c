@@ -16,7 +16,7 @@ void Player_Init(Player *player, Orb *orb) {
 	/*orbCount = 0;
 	maxOrb = 5;*/
 
-    player->fox_sprite = CP_Image_Load("./Assets/Piskel_sprite_assets/fox_animation.png"); //fox sprite drawing
+    player->fox_sprite = CP_Image_Load("./Assets/Piskel_sprite_assets/FOX_ANIMATION_ALL_MOVEMENTS_05_JUMP.png"); //fox sprite drawing
 
 
 	player->orb_type = TELEPORT_ORB;
