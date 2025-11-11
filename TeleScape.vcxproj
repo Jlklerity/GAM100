@@ -110,6 +110,7 @@ xcopy "$(SolutionDir)Extern\CProcessing\lib\x64\fmod.dll" "$(OutDir)"
     <ClCompile Include="src\levelone.c" />
     <ClCompile Include="src\main.c" />
     <ClCompile Include="src\mainmenu.c" />
+    <ClCompile Include="src\option.c" />
     <ClCompile Include="src\player.c" />
     <ClCompile Include="src\sound.c" />
     <ClCompile Include="src\stage_wall.c" />
@@ -127,6 +128,7 @@ xcopy "$(SolutionDir)Extern\CProcessing\lib\x64\fmod.dll" "$(OutDir)"
     <ClInclude Include="Extern\Headers\levelthree.h" />
     <ClInclude Include="Extern\Headers\leveltwo.h" />
     <ClInclude Include="Extern\Headers\mainmenu.h" />
+    <ClInclude Include="Extern\Headers\option.h" />
     <ClInclude Include="Extern\Headers\player.h" />
     <ClInclude Include="Extern\Headers\sound.h" />
     <ClInclude Include="Extern\Headers\stage_wall.h" />
@@ -134,6 +136,7 @@ xcopy "$(SolutionDir)Extern\CProcessing\lib\x64\fmod.dll" "$(OutDir)"
     <ClInclude Include="Extern\Headers\utils.h" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="Assets\Levels\Laser.txt" />
     <Text Include="Assets\Levels\level1.txt" />
     <Text Include="Assets\Levels\level2.txt" />
     <Text Include="Assets\Levels\Level3.txt" />

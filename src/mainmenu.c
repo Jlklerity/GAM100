@@ -2,19 +2,20 @@
 #include "game.h"
 #include "utils.h"
 #include "fullscreen.h"
+#include "option.h"
 
 float mouseX, mouseY;
-float playButtonX, playButtonY; 
-float exitButtonX, exitButtonY; 
+float playButtonX, playButtonY;
+float exitButtonX, exitButtonY;
 float buttonWidth, buttonHeight;
-
+float optionButtonX, optionButtonY;
 
 void Main_Menu_Init(void)
 {
 	mainmenu_TEXT = CP_Font_Load("Assets/kenney_ui-pack-space-expansion/Font/Kenney Future Narrow.ttf");
 	mainmenu_ButtonBackground = CP_Image_Load("Assets/kenney_ui-pack-space-expansion/PNG/Extra/Double/button_rectangle_depth.png");
 	mainmenu_ButtonWhenPressed = CP_Image_Load("Assets/kenney_ui-pack-space-expansion/PNG/Extra/Double/panel_rectangle_screws.png");
-	textSize = 72.0f;
+	textSize = 62.0f;
 	buttonWidth = 300.0f;
 	buttonHeight = 150.0f;
 	CP_Settings_TextSize(textSize);
@@ -32,6 +33,13 @@ void Main_Menu_Update(void)
 	playButtonY = (float)(CP_System_GetWindowHeight() / 2 - 200);
 	exitButtonX = (float)(CP_System_GetWindowWidth() / 2);
 	exitButtonY = (float)(CP_System_GetWindowHeight() / 2 + 200);
+
+	optionButtonX = (float)(CP_System_GetWindowWidth() / 2);
+	optionButtonY = (float)(CP_System_GetWindowHeight() / 2);
+
+	CP_System_GetWindowHeight();
+	CP_System_GetWindowWidth();
+	
 	mouseX = (float)CP_Input_GetMouseX();
 	mouseY = (float)CP_Input_GetMouseY();
 
@@ -47,33 +55,49 @@ void Main_Menu_Update(void)
 	/*CP_Settings_Fill(CP_Color_Create(255, 128, 128, 255));
 	CP_Graphics_DrawRect(exitButtonX, exitButtonY, buttonWidth, buttonHeight);*/
 	CP_Image_Draw(mainmenu_ButtonBackground, exitButtonX, exitButtonY, buttonWidth, buttonHeight, 255);
-	CP_Settings_Fill(CP_Color_Create(0,0,0, 255));
+
+	//box of option button
+	/*CP_Settings_Fill(CP_Color_Create(255, 128, 128, 255));
+	CP_Graphics_DrawRect(exitButtonX, exitButtonY, buttonWidth, buttonHeight);*/
+	CP_Image_Draw(mainmenu_ButtonBackground, optionButtonX, optionButtonY, buttonWidth, buttonHeight, 255);
+
+	CP_Settings_Fill(CP_Color_Create(0, 0, 0, 255));
 	CP_Settings_TextAlignment(CP_TEXT_ALIGN_H_CENTER, CP_TEXT_ALIGN_V_MIDDLE);
 	CP_Font_DrawText("Play", playButtonX, playButtonY);
 	CP_Font_DrawText("Exit", exitButtonX, exitButtonY);
-	
+	CP_Font_DrawText("Option", optionButtonX, optionButtonY);
 
-	
-		if (CP_Input_MouseDown(MOUSE_BUTTON_LEFT)) {
-			if (IsAreaClicked(playButtonX, playButtonY, buttonWidth, buttonHeight, mouseX, mouseY)) {
-				CP_Image_Draw(mainmenu_ButtonWhenPressed, playButtonX, playButtonY, buttonWidth, buttonHeight, 255);
-				CP_Settings_Fill(CP_Color_Create(0, 0, 0, 150));
-				CP_Font_DrawText("Play", playButtonX, playButtonY);
-			}
-			if (IsAreaClicked(exitButtonX, exitButtonY, buttonWidth, buttonHeight, mouseX, mouseY)) {
-				CP_Image_Draw(mainmenu_ButtonWhenPressed, exitButtonX, exitButtonY, buttonWidth, buttonHeight, 255);
-				CP_Settings_Fill(CP_Color_Create(0, 0, 0, 150));
-				CP_Font_DrawText("Exit", exitButtonX, exitButtonY);
-			}
+
+
+	if (CP_Input_MouseDown(MOUSE_BUTTON_LEFT)) {
+		if (IsAreaClicked(playButtonX, playButtonY, buttonWidth, buttonHeight, mouseX, mouseY)) {
+			CP_Image_Draw(mainmenu_ButtonWhenPressed, playButtonX, playButtonY, buttonWidth, buttonHeight, 255);
+			CP_Settings_Fill(CP_Color_Create(0, 0, 0, 150));
+			CP_Font_DrawText("Play", playButtonX, playButtonY);
 		}
-		if (CP_Input_MouseReleased(MOUSE_BUTTON_LEFT)) {
-			if (IsAreaClicked(playButtonX, playButtonY, buttonWidth, buttonHeight, mouseX, mouseY)) {
-				CP_Engine_SetNextGameState(Game_Init, Game_Update, Game_Exit);
-			}
-			if (IsAreaClicked(exitButtonX, exitButtonY, buttonWidth, buttonHeight, mouseX, mouseY)) {
-				CP_Engine_Terminate();
-			}
+		if (IsAreaClicked(exitButtonX, exitButtonY, buttonWidth, buttonHeight, mouseX, mouseY)) {
+			CP_Image_Draw(mainmenu_ButtonWhenPressed, exitButtonX, exitButtonY, buttonWidth, buttonHeight, 255);
+			CP_Settings_Fill(CP_Color_Create(0, 0, 0, 150));
+			CP_Font_DrawText("Exit", exitButtonX, exitButtonY);
 		}
+
+		if (IsAreaClicked(optionButtonX, optionButtonY, buttonWidth, buttonHeight, mouseX, mouseY)) {
+			CP_Image_Draw(mainmenu_ButtonWhenPressed, optionButtonX, optionButtonY, buttonWidth, buttonHeight, 255);
+			CP_Settings_Fill(CP_Color_Create(0, 0, 0, 150));
+			CP_Font_DrawText("option", optionButtonX, optionButtonY);
+		}
+	}
+	if (CP_Input_MouseReleased(MOUSE_BUTTON_LEFT)) {
+		if (IsAreaClicked(playButtonX, playButtonY, buttonWidth, buttonHeight, mouseX, mouseY)) {
+			CP_Engine_SetNextGameState(Game_Init, Game_Update, Game_Exit);
+		}
+		if (IsAreaClicked(exitButtonX, exitButtonY, buttonWidth, buttonHeight, mouseX, mouseY)) {
+			CP_Engine_Terminate();
+		}
+		if (IsAreaClicked(optionButtonX, optionButtonY, buttonWidth, buttonHeight, mouseX, mouseY)) {
+			CP_Engine_SetNextGameState(option_Init, option_Update, option_Exit);
+		}
+	}
 	
 }
 	 

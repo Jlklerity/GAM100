@@ -15,11 +15,11 @@ static int s_level_object_count = 0;
 // will use to access the loaded objects.
 Wall* g_stage_wall[MAX_LEVEL_OBJECTS] = { 0 };
 Wall* g_level_platforms[MAX_LEVEL_OBJECTS] = { 0 }; // Array for platforms
-Wall* g_level_pressure_plate[MAX_LEVEL_OBJECTS] = { 0 };;
-Wall* g_level_door[MAX_LEVEL_OBJECTS] = { 0 };;
+Wall* g_level_pressure_plate[MAX_LEVEL_OBJECTS] = { 0 };
+Wall* g_level_door[MAX_LEVEL_OBJECTS] = { 0 };
 Wall* g_level_exit_door = NULL;
-Wall* g_level_teleport_wall[MAX_LEVEL_OBJECTS] = { 0 };;
-Wall* g_level_destroy_wall[MAX_LEVEL_OBJECTS] = { 0 };;
+Wall* g_level_teleport_wall[MAX_LEVEL_OBJECTS] = { 0 };
+Wall* g_level_destroy_wall[MAX_LEVEL_OBJECTS] = { 0 };
 
 // Pointers to any other collidable objects (like platforms)
 Wall* g_level_collidables[MAX_LEVEL_OBJECTS];
@@ -56,6 +56,7 @@ void LoadLevelFromFile(const char* filename) {
     int teleport_wall_index = 0;
     int destroy_wall_index = 0;
     int stage_wall_index = 0;
+    int laser_index = 0;
 
     // 2. Read file line by line
     while (fgets(line_buffer, sizeof(line_buffer), file)) {

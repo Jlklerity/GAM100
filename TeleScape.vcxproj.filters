@@ -60,6 +60,9 @@
     <ClCompile Include="src\hazards.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\option.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Extern\Headers\startscreen.h">
@@ -104,10 +107,14 @@
     <ClInclude Include="Extern\Headers\hazards.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Extern\Headers\option.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Assets\Levels\level2.txt" />
     <Text Include="Assets\Levels\level1.txt" />
     <Text Include="Assets\Levels\Level3.txt" />
+    <Text Include="Assets\Levels\Laser.txt" />
   </ItemGroup>
 </Project>
