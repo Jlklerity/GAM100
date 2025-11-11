@@ -15,6 +15,7 @@ typedef struct {
 	int isActivated;
 	enum TypeofWall type;
 	float last_pressed_time;
+	CP_Sound wall_sound;
 }Wall;
 
 extern Wall* g_stage_wall[MAX_LEVEL_OBJECTS];

@@ -3,6 +3,7 @@
 #include "stage_wall.h"
 #include "collisionHandling.h"
 #include "levelone.h"
+#include "sound.h"
 
 void Player_Init(Player *player, Orb *orb) {
 	//const float screen_width = (float)CP_System_GetWindowWidth();
@@ -37,7 +38,7 @@ void Player_Init(Player *player, Orb *orb) {
 	orb->orb_velocity_Y = 800.0f;
 	orb->x = player->player_posX;
 	orb->y = player->player_posY;
-	orb->diameter = 20.0f;
+    orb->diameter = 20.0f;
 }
 
 void Player_Update(Player* player, float deltaTime, float *player_moveX, float jump_strength) {
@@ -108,6 +109,7 @@ void Orb_Update(Player* player, Orb* orb, float *player_moveX, float *orb_moveX,
                 orb->y = player->player_posY;
                 orb->direction = player->direction;
                 orb->ammo--;  // decrease ammo when shooting
+                Sound_PlayOrbShoot();
             }
         }
     }

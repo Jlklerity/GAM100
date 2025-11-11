@@ -137,5 +137,15 @@ void OrbCount(Orb* orb) {
     sprintf_s(buffer, 50, "%d", orb->ammo);
     CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
     CP_Font_DrawText(buffer, 30.0f, 60.0f);
+
+    switch (orb->orb_type) {
+    case TELEPORT_ORB:
+        CP_Settings_Fill(CP_Color_Create(0, 190, 255, 255));
+        break;
+    case DESTROY_ORB:
+        CP_Settings_Fill(CP_Color_Create(255, 0, 0, 255));
+        break;
+    }
+    CP_Graphics_DrawCircle(120.0f, 120.0f, orb->diameter);
 }
-  
+

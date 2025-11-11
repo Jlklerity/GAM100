@@ -111,6 +111,7 @@ xcopy "$(SolutionDir)Extern\CProcessing\lib\x64\fmod.dll" "$(OutDir)"
     <ClCompile Include="src\main.c" />
     <ClCompile Include="src\mainmenu.c" />
     <ClCompile Include="src\player.c" />
+    <ClCompile Include="src\sound.c" />
     <ClCompile Include="src\stage_wall.c" />
     <ClCompile Include="src\startscreen.c" />
     <ClCompile Include="src\utils.c" />
@@ -127,6 +128,7 @@ xcopy "$(SolutionDir)Extern\CProcessing\lib\x64\fmod.dll" "$(OutDir)"
     <ClInclude Include="Extern\Headers\leveltwo.h" />
     <ClInclude Include="Extern\Headers\mainmenu.h" />
     <ClInclude Include="Extern\Headers\player.h" />
+    <ClInclude Include="Extern\Headers\sound.h" />
     <ClInclude Include="Extern\Headers\stage_wall.h" />
     <ClInclude Include="Extern\Headers\startscreen.h" />
     <ClInclude Include="Extern\Headers\utils.h" />
