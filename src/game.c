@@ -12,8 +12,31 @@
 #include "levelfour.h"
 #include "levelfive.h"
 #include "game.h"
- 
 Level_Button button[5];
+int g_highest_level_unlocked = 1; //default to level1 being accessible
+int g_current_level_at = 1; //current level we are at
+
+void Load_Progress(void) {
+	FILE* file_input = fopen("Assets/Levels/SaveData.txt", "r");
+	if (!file_input) {
+		Save_Progress();
+		return;
+	}
+	fscanf_s(file_input, "%d", &g_highest_level_unlocked);
+	fclose(file_input);
+
+}
+
+void Save_Progress(void) {
+	FILE* file_output = fopen("Assets/Levels/SaveData.txt", "w");
+	if (!file_output) {
+		printf("Could not save progress!");
+		return;
+	}
+	fprintf(file_output, "%d", g_highest_level_unlocked);
+	fclose(file_output);
+}
+
 
 void Game_Init(void)
 {
@@ -32,7 +55,7 @@ void Game_Init(void)
 }
 void Game_Update(void)
 {
-
+	Load_Progress();
 	float deltaTime = CP_System_GetDt();
 	const float max_deltaTime = 0.02f; // cap deltaTime to be lower than 0.02f prevents collision tunneling
 	if (deltaTime > max_deltaTime) {
@@ -45,45 +68,36 @@ void Game_Update(void)
 	CP_Graphics_ClearBackground(CP_Color_Create(85, 85, 85, 255));
 
 	for (int i = 0; i < 5; i++) {
-		/*CP_Settings_Fill(CP_Color_Create(255, 128, 128, 255));
-		CP_Graphics_DrawRect(button[i].button_x, button[i].button_y, button[i].button_width, button[i].button_height);*/
-		CP_Image_Draw(mainmenu_ButtonBackground, button[i].button_x, button[i].button_y, button[i].button_width, button[i].button_height, 255);
+		int level_num = i + 1;
+		if (level_num <= g_highest_level_unlocked) {
+			CP_Image_Draw(mainmenu_ButtonBackground, button[i].button_x, button[i].button_y, button[i].button_width, button[i].button_height, 255);
+		}
+		else {
+			CP_Image_Draw(mainmenu_ButtonBackground, button[i].button_x, button[i].button_y, button[i].button_width, button[i].button_height, 100);
+
+		}
 	}
 
-	CP_Settings_Fill(CP_Color_Create(0, 0, 0, 255));
-	CP_Settings_TextAlignment(CP_TEXT_ALIGN_H_CENTER, CP_TEXT_ALIGN_V_MIDDLE);
-	CP_Font_DrawText("1", button[0].button_x, button[0].button_y);
-	CP_Font_DrawText("2", button[1].button_x, button[1].button_y);
-	CP_Font_DrawText("3", button[2].button_x, button[2].button_y);
-	CP_Font_DrawText("4", button[3].button_x, button[3].button_y);
-	CP_Font_DrawText("5", button[4].button_x, button[4].button_y);
+	for (int i = 0; i < 5; i++) {
+		CP_Settings_Fill(CP_Color_Create(0, 0, 0, 255));
+		CP_Settings_TextAlignment(CP_TEXT_ALIGN_H_CENTER, CP_TEXT_ALIGN_V_MIDDLE);
+		char level_text[2];
+		int level_num = i + 1;
+		sprintf_s(level_text, 2, "%d", level_num);
+		CP_Font_DrawText(level_text, button[i].button_x, button[i].button_y);
+	}
 
 	if (CP_Input_MouseDown(MOUSE_BUTTON_LEFT)) {
-
-		if (IsAreaClicked(button[0].button_x, button[0].button_y, button[0].button_width, button[0].button_height, mouseX, mouseY)) {
-			CP_Image_Draw(mainmenu_ButtonWhenPressed, button[0].button_x, button[0].button_y, button[0].button_width, button[0].button_height, 255);
-			CP_Settings_Fill(CP_Color_Create(0, 0, 0, 150));
-			CP_Font_DrawText("1", button[0].button_x, button[0].button_y);
-		}
-		if (IsAreaClicked(button[1].button_x, button[1].button_y, button[1].button_width, button[1].button_height, mouseX, mouseY)) {
-			CP_Image_Draw(mainmenu_ButtonWhenPressed, button[1].button_x, button[1].button_y, button[1].button_width, button[1].button_height, 255);
-			CP_Settings_Fill(CP_Color_Create(0, 0, 0, 150));
-			CP_Font_DrawText("2", button[1].button_x, button[1].button_y);
-		}
-		if (IsAreaClicked(button[2].button_x, button[2].button_y, button[2].button_width, button[2].button_height, mouseX, mouseY)) {
-			CP_Image_Draw(mainmenu_ButtonWhenPressed, button[2].button_x, button[2].button_y, button[2].button_width, button[2].button_height, 255);
-			CP_Settings_Fill(CP_Color_Create(0, 0, 0, 150));
-			CP_Font_DrawText("3", button[2].button_x, button[2].button_y);
-		}
-		if (IsAreaClicked(button[3].button_x, button[3].button_y, button[3].button_width, button[3].button_height, mouseX, mouseY)) {
-			CP_Image_Draw(mainmenu_ButtonWhenPressed, button[3].button_x, button[3].button_y, button[3].button_width, button[3].button_height, 255);
-			CP_Settings_Fill(CP_Color_Create(0, 0, 0, 150));
-			CP_Font_DrawText("4", button[3].button_x, button[3].button_y);
-		}
-		if (IsAreaClicked(button[4].button_x, button[4].button_y, button[4].button_width, button[4].button_height, mouseX, mouseY)) {
-			CP_Image_Draw(mainmenu_ButtonWhenPressed, button[4].button_x, button[4].button_y, button[4].button_width, button[4].button_height, 255);
-			CP_Settings_Fill(CP_Color_Create(0, 0, 0, 150));
-			CP_Font_DrawText("5", button[4].button_x, button[4].button_y);
+		for (int i = 0; i < 5; i++) {
+			if (IsAreaClicked(button[i].button_x, button[i].button_y, button[i].button_width, button[i].button_height, mouseX, mouseY)) {
+				int level_num = i + 1;
+					CP_Image_Draw(mainmenu_ButtonWhenPressed, button[i].button_x, button[i].button_y, button[i].button_width, button[i].button_height, 255);
+					CP_Settings_Fill(CP_Color_Create(0, 0, 0, 150));
+					char level_text[2];
+					sprintf_s(level_text, 2, "%d", level_num);
+					CP_Font_DrawText(level_text, button[i].button_x, button[i].button_y);
+				
+			}
 		}
 	}
 
@@ -91,16 +105,16 @@ void Game_Update(void)
 		if (IsAreaClicked(button[0].button_x, button[0].button_y, button[0].button_width, button[0].button_height, mouseX, mouseY)) {
 			CP_Engine_SetNextGameState(LevelOne_Init, LevelOne_Update, LevelOne_Exit);
 		}
-		if (IsAreaClicked(button[1].button_x, button[1].button_y, button[1].button_width, button[1].button_height, mouseX, mouseY)) {
+		if (IsAreaClicked(button[1].button_x, button[1].button_y, button[1].button_width, button[1].button_height, mouseX, mouseY) && g_highest_level_unlocked >= 2) {
 			CP_Engine_SetNextGameState(LevelTwo_Init, LevelTwo_Update, LevelTwo_Exit);
 		}
-		if (IsAreaClicked(button[2].button_x, button[2].button_y, button[2].button_width, button[2].button_height, mouseX, mouseY)) {
+		if (IsAreaClicked(button[2].button_x, button[2].button_y, button[2].button_width, button[2].button_height, mouseX, mouseY) && g_highest_level_unlocked >= 3) {
 			CP_Engine_SetNextGameState(LevelThree_Init, LevelThree_Update, LevelThree_Exit);
 		}
-		if (IsAreaClicked(button[3].button_x, button[3].button_y, button[3].button_width, button[3].button_height, mouseX, mouseY)) {
+		if (IsAreaClicked(button[3].button_x, button[3].button_y, button[3].button_width, button[3].button_height, mouseX, mouseY) && g_highest_level_unlocked >= 4) {
 			CP_Engine_SetNextGameState(LevelFour_Init, LevelFour_Update, LevelFour_Exit);
 		}
-		if (IsAreaClicked(button[4].button_x, button[4].button_y, button[4].button_width, button[4].button_height, mouseX, mouseY)) {
+		if (IsAreaClicked(button[4].button_x, button[4].button_y, button[4].button_width, button[4].button_height, mouseX, mouseY) && g_highest_level_unlocked >= 5) {
 			CP_Engine_SetNextGameState(LevelFive_Init, LevelFive_Update, LevelFive_Exit);
 		}
 	}

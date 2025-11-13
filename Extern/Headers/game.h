@@ -14,6 +14,10 @@ CP_Font option_TEXT; //author: Zi Jie (for options menu)
 
 float mouseX, mouseY;
 float textSize;
+extern int g_highest_level_unlocked;
+
+void Load_Progress(void);
+void Save_Progress(void);
 
 void Game_Init(void);
 

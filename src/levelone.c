@@ -10,8 +10,6 @@
 #include "utils.h"
 #include "sound.h"
 
-
-
 static float greenStartTime;
 static Player player;
 static Orb orb;
@@ -32,8 +30,8 @@ static int frame_count = 0;   // counts frames for timing
 static int idle_count = 0;    // counts idle frames
 static int animation_speed = 10;
 
-
 void LevelOne_Init(void) {
+    Load_Progress();
     CP_Settings_RectMode(CP_POSITION_CENTER);
     //void Stage_Walls_Init();
     LoadLevelFromFile("Assets/Levels/level1.txt");
@@ -113,10 +111,14 @@ void LevelOne_Update(void) {
 
     //check if player has opened the door
     if (checkAABBCollision(playerHitBoxY, ExitDoorHitBox) && CP_Input_KeyTriggered(KEY_W)) {
+        int next_level = 2; // next level to unlock after finishing level 1
+        if (next_level > g_highest_level_unlocked) {
+            g_highest_level_unlocked = next_level;
+        }
+        Save_Progress();
         CP_Engine_SetNextGameState(LevelTwo_Init, LevelTwo_Update, LevelTwo_Exit);
         Sound_PlayExit();
     }
-
 
         for (int i = 0; i < g_level_collidable_count; i++) {
             Wall* current_wall = g_level_collidables[i];

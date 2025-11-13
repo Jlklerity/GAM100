@@ -31,7 +31,7 @@ static int animation_speed = 10;
 
 
 void LevelThree_Init(void) {
-    //void Stage_Walls_Init();
+    Load_Progress();
     LoadLevelFromFile("Assets/Levels/level3.txt");
     Player_Init(&player, &orb);
 
@@ -108,6 +108,10 @@ void LevelThree_Update(void) {
 
         //check if player has opened the door
         if (checkAABBCollision(playerHitBoxY, ExitDoorHitBox) && CP_Input_KeyTriggered(KEY_W)) {
+            int next_level = 4; // next level to unlock after finishing level 3
+            if (next_level > g_highest_level_unlocked) {
+                g_highest_level_unlocked = next_level;
+            }
             CP_Engine_SetNextGameState(LevelFour_Init, LevelFour_Update, LevelFour_Exit);
         }
 
