@@ -1,6 +1,7 @@
 #pragma once
 #include "player.h"
 #include "stage_wall.h"
+#define MAXLASER 100
 
 typedef enum { RIGHT, LEFT, UP, DOWN } Direction;
 typedef enum { LASER_IDLE, LASER_WARNING, LASER_FIRING, LASER_CONTINUOUS } Laser_State;
@@ -21,9 +22,7 @@ typedef struct {
 } LaserRect;
 
  
-void laser_hitbox_warning(Laser* laser, Wall* wall[], int wall_count);
-void laser_hitbox(Laser* laser, Wall* wall[], int wall_count, Player* player, Orb* orb);
-static void laser_hitbox_warning(Laser* laser, Wall* wall[], int wall_count);
-static void laser_hitbox(Laser* laser, Wall* wall[], int wall_count, Player* player, Orb* orb);
 void update_laser(Laser* laser, float delta_time, Wall* wall[], int wall_count, Player* player, Orb* orbs);
 void pitfall(float pitfall_x, float pitfall_y, float width_of_pitfall, float depth_of_pitfall, Wall* wall, Player* player);
+
+extern Laser* g_level_laser[MAXLASER];

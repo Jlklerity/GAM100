@@ -1,0 +1,5 @@
+# This is Level 3 for Lazers.
+# Type_Name (for reference)   X     Y     Width     Time     Direction     State
+LASER_IDLE_TOP1               500   30    50        0        3             0
+LASER_IDLE_TOP2               900   30    50        0        3             0
+LAZER_CONST_RIGHT             1220  250   50        0        3             3

@@ -122,6 +122,10 @@
     <Text Include="Assets\Levels\level1.txt" />
     <Text Include="Assets\Levels\level3.txt" />
     <Text Include="Assets\Levels\Laser.txt" />
+<<<<<<< HEAD
     <Text Include="Assets\Levels\SavaData.txt" />
+=======
+    <Text Include="Assets\Levels\Level3_Lazer.txt" />
+>>>>>>> 2a9d0f4302570a098e55a368927b701c97321333
   </ItemGroup>
 </Project>

@@ -140,9 +140,13 @@ xcopy "$(SolutionDir)Extern\CProcessing\lib\x64\fmod.dll" "$(OutDir)"
     <Text Include="Assets\Levels\level1.txt" />
     <Text Include="Assets\Levels\level2.txt" />
     <Text Include="Assets\Levels\level3.txt" />
+<<<<<<< HEAD
     <Text Include="Assets\Levels\SavaData.txt">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
     </Text>
+=======
+    <Text Include="Assets\Levels\Level3_Lazer.txt" />
+>>>>>>> 2a9d0f4302570a098e55a368927b701c97321333
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -8,6 +8,7 @@
 #include "game.h"
 #include "levelfour.h"
 #include "utils.h"
+#include "hazards.h"
 
 
 static float greenStartTime;
@@ -33,8 +34,8 @@ static int animation_speed = 10;
 void LevelThree_Init(void) {
     Load_Progress();
     LoadLevelFromFile("Assets/Levels/level3.txt");
+    LoadLaserFromFile("Assets/Levels/Level3_Lazer.txt");
     Player_Init(&player, &orb);
-
     debug_TEXT = CP_Font_Load("Assets/Exo2 - Regular.ttf");
     animation_timer = 0;  // added animation_timer (only dif in this void)
 
@@ -172,7 +173,10 @@ void LevelThree_Update(void) {
             }
         }
 
-
+        for (int i = 0; i < g_laser_count; i++) {
+            if (g_level_laser[i])
+                update_laser(g_level_laser[i], deltaTime, g_level_collidables, g_level_collidable_count, &player, &orb);
+        }
         // Draw exit door
         CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
         CP_Graphics_DrawRect(g_level_exit_door->x, g_level_exit_door->y, g_level_exit_door->width, g_level_exit_door->height);

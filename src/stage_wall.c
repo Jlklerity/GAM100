@@ -1,5 +1,6 @@
 #include "cprocessing.h"
 #include "stage_wall.h"
+#include "hazards.h"
 #include <stdio.h>
 #include <string.h>
 
@@ -10,6 +11,8 @@
 // This array holds the ACTUAL wall data for the currently loaded level
 static Wall s_level_objects[MAX_LEVEL_OBJECTS];
 static int s_level_object_count = 0;
+static Laser s_level_lasers[MAXLASER];
+static int s_level_laser_count = 0;
 
 // These are POINTERS that level files (leveltwo.c)
 // will use to access the loaded objects.
@@ -20,17 +23,56 @@ Wall* g_level_door[MAX_LEVEL_OBJECTS] = { 0 };
 Wall* g_level_exit_door = NULL;
 Wall* g_level_teleport_wall[MAX_LEVEL_OBJECTS] = { 0 };
 Wall* g_level_destroy_wall[MAX_LEVEL_OBJECTS] = { 0 };
+Laser* g_level_laser[MAXLASER] = { 0 };
 
 // Pointers to any other collidable objects (like platforms)
 Wall* g_level_collidables[MAX_LEVEL_OBJECTS];
 int g_level_collidable_count = 0;
+int g_laser_count;
 
+void LoadLaserFromFile(const char* filename) {
+    s_level_laser_count = 0;
+    g_laser_count = 0;
+    memset(g_level_laser, 0, sizeof(g_level_laser));
+    FILE* file = fopen(filename, "r");
+    if (!file) {
+        printf("ERROR: Could not load level file: %s\n", filename);
+        return;
+    }
+    char line_buffer[256];
+    char type_str[50];
+    float x, y, width, time;
+    int direction, state;
+    int laser_index = 0; //to count laser
+    while (fgets(line_buffer, sizeof(line_buffer), file)) {
+        // Skip comments and empty lines
+        if (line_buffer[0] == '#' || line_buffer[0] == '\n') {
+            continue;
+        }
+        int items_read = sscanf(line_buffer, "%s %f %f %f %f %d %d",
+            type_str, &x, &y, &width, &time, &direction, &state);
+
+        if (items_read == 7 && s_level_laser_count < MAXLASER) {
+            Laser* new_laser = &s_level_lasers[s_level_laser_count];
+            Direction dir = (Direction)direction;
+            Laser_State laser_state = (Laser_State)state;
+            *new_laser = (Laser){ x,y,width,time,dir,laser_state };
+            if (laser_index < MAXLASER) {
+                g_level_laser[laser_index++] = new_laser;
+            }
+            s_level_laser_count++;
+            g_laser_count++;
+        }
+    }
+    fclose(file);
+}
 
 void LoadLevelFromFile(const char* filename) {
     // 1. Reset all counters and pointers
     s_level_object_count = 0;
     g_level_collidable_count = 0;
     // Use memset to clear the arrays to all-bits-zero(NULL)
+    // memset sets every variable inside the array to 0
     memset(g_level_pressure_plate, 0, sizeof(g_level_pressure_plate));
     memset(g_level_door, 0, sizeof(g_level_door));
     memset(g_level_teleport_wall, 0, sizeof(g_level_teleport_wall));
@@ -43,6 +85,7 @@ void LoadLevelFromFile(const char* filename) {
     if (!file) {
         printf("ERROR: Could not load level file: %s\n", filename);
         return;
+
     }
 
     char line_buffer[256];

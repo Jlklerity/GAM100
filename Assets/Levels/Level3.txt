@@ -8,8 +8,8 @@ PLATFORM		              120   450   200   500   3
 PLATFORM                      1380  250   400   20    3 
 PLATFORM		              500   500   200   20    3
 PLATFORM		              900   600   200   20    3	
-PLATFORM		              600   30    120   20    3 
-PLATFORM		              1000  30    120   20    3 
+PLATFORM		              500   30    120   20    3 
+PLATFORM		              900   30    120   20    3 
 PLATFORM		              1370  780   20    200   3 
 PRESSURE_PLATE                1480  880   100   10    5
 DOOR                          1385  130   10    220   4 
