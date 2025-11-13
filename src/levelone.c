@@ -58,7 +58,7 @@ void LevelOne_Init(void) {
         }
     }
 
-    leveltime = 100.0f;
+    leveltime = 30.0f;
     orb.max_ammo = 3;
     orb.ammo = orb.max_ammo;
     orb.orb_type = TELEPORT_ORB;
@@ -290,8 +290,6 @@ void LevelOne_Update(void) {
         else {
             CP_Image_DrawSubImage(player.fox_sprite, player.player_posX, player.player_posY - 30, player.player_width * 3, player.player_height * 3, start_x, start_y, end_x, end_y, 255);
         }
-
-        
 
         CP_Font_Set(debug_TEXT);
         CP_Settings_TextAlignment(CP_TEXT_ALIGN_H_LEFT, CP_TEXT_ALIGN_V_TOP);
