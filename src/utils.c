@@ -109,14 +109,14 @@ void PlayerPov(Player* player) {
     CP_Settings_Stroke(CP_Color_Create(0, 0, 0, 255));
 }
     
-void LevelTimer(float* leveltime) {
+void LevelTimer(float* leveltime, int* GameState) {
     int minutes = (int)(*leveltime / 60);
     int seconds = (int)(*leveltime) % 60;
     CP_Settings_TextSize(32.0);
     char time[50] = { 0 };
     sprintf_s(time, 50, "%02d:%02d", minutes, seconds);
 
-    if (*leveltime > 0.0f) {
+    if (*leveltime > 0.0f && *GameState) {
         CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
         CP_Font_DrawText(time, (float)CP_System_GetWindowWidth()/2.0f, 50.0f);
         *leveltime -= CP_System_GetDt();
@@ -127,6 +127,16 @@ void LevelTimer(float* leveltime) {
         if (*leveltime < 0.0f) {
             *leveltime = 0.0f;
             CP_Engine_SetNextGameState(Game_Init, Game_Update, Game_Exit);
+        }
+    }
+    else {
+        if (*leveltime > 10.0f) {
+         CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
+         CP_Font_DrawText(time, (float)CP_System_GetWindowWidth() / 2.0f, 50.0f);
+        }
+        else if(*leveltime <= 10.0f){
+            CP_Settings_Fill(CP_Color_Create(255, 0, 0, 255));
+            CP_Font_DrawText(time, (float)CP_System_GetWindowWidth() / 2.0f, 50.0f);
         }
     }
 }
