@@ -9,5 +9,5 @@ void FPSCount();
 void Player_Coords(Player* player);
 void MousePos();
 void PlayerPov(Player* player);
-void LevelTimer(float* leveltime);
+void LevelTimer(float* leveltime, int* GameState);
 void OrbCount(Orb* orb);

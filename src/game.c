@@ -74,7 +74,6 @@ void Game_Update(void)
 		}
 		else {
 			CP_Image_Draw(mainmenu_ButtonBackground, button[i].button_x, button[i].button_y, button[i].button_width, button[i].button_height, 100);
-
 		}
 	}
 

@@ -54,7 +54,7 @@ void LevelThree_Init(void) {
         }
     }
 
-    leveltime = 99999.0f;
+    leveltime = 11.0f;
     orb.max_ammo = 3;
     orb.ammo = orb.max_ammo;
     orb.orb_type = TELEPORT_ORB;
@@ -177,55 +177,6 @@ void LevelThree_Update(void) {
             if (g_level_laser[i])
                 update_laser(g_level_laser[i], deltaTime, g_level_collidables, g_level_collidable_count, &player, &orb);
         }
-        // Draw exit door
-        CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
-        CP_Graphics_DrawRect(g_level_exit_door->x, g_level_exit_door->y, g_level_exit_door->width, g_level_exit_door->height);
-
-        // Draw all platforms
-        for (int i = 0; i < g_level_collidable_count; i++) {
-            // Check if this object is a platform
-            if (g_level_collidables[i]->type == PLATFORM || g_level_collidables[i]->type == STAGEWALL) {
-                CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
-                CP_Graphics_DrawRectAdvanced(g_level_collidables[i]->x, g_level_collidables[i]->y, g_level_collidables[i]->width, g_level_collidables[i]->height, 0.0f, 0.0f);
-            }
-        }
-        //Draw all sensitive doors
-        for (int i = 0; i < MAX_LEVEL_OBJECTS; i++) {
-            if (g_level_door[i] != NULL && g_level_door[i]->isActivated == 0) {
-                CP_Settings_Fill(CP_Color_Create(113, 121, 126, 255));
-                CP_Graphics_DrawRectAdvanced(g_level_door[i]->x, g_level_door[i]->y, g_level_door[i]->width, g_level_door[i]->height, 0.0f, 0.0f);
-            }
-        }
-
-        //Draw all floor sensors  
-        for (int i = 0; i < MAX_LEVEL_OBJECTS; i++) {
-            if (g_level_pressure_plate[i] != NULL) {
-                CP_Settings_Fill(g_level_pressure_plate[i]->color);
-                CP_Graphics_DrawRectAdvanced(g_level_pressure_plate[i]->x, g_level_pressure_plate[i]->y, g_level_pressure_plate[i]->width, g_level_pressure_plate[i]->height, 0.0f, 0.0f);
-            }
-        }
-        //Draw Teleport Walls   
-        for (int i = 0; i < MAX_LEVEL_OBJECTS; i++) {
-            if (g_level_teleport_wall[i] != NULL) {
-                CP_Settings_Fill(CP_Color_Create(0, RGBChange(greenStartTime), 255, 255));
-                CP_Graphics_DrawRectAdvanced(g_level_teleport_wall[i]->x, g_level_teleport_wall[i]->y, g_level_teleport_wall[i]->width, g_level_teleport_wall[i]->height, 0.0f, 0.0f);
-            }
-        }
-        //Draw Destroy Walls
-        for (int i = 0; i < MAX_LEVEL_OBJECTS; i++) {
-            if (g_level_destroy_wall[i] != NULL && g_level_destroy_wall[i]->isActivated == 0) {
-                CP_Settings_Fill(g_level_destroy_wall[i]->color);
-                CP_Graphics_DrawRectAdvanced(g_level_destroy_wall[i]->x, g_level_destroy_wall[i]->y, g_level_destroy_wall[i]->width, g_level_destroy_wall[i]->height, 0.0f, 0.0f);
-            }
-        }
-        //FOX SSPRITE ANIMATION
-        //DEFAULT FACING RIGHT 
-        if (facing_left)
-
-            CP_Image_DrawSubImage(player.fox_sprite, player.player_posX, player.player_posY - 30, -player.player_width * 3, player.player_height * 3, start_x, start_y, end_x, end_y, 255);
-        else
-            CP_Image_DrawSubImage(player.fox_sprite, player.player_posX, player.player_posY - 30, player.player_width * 3, player.player_height * 3, start_x, start_y, end_x, end_y, 255);
-
         // STORED FACING VALUE
         if (CP_Input_KeyDown(KEY_A)) { //WALKING LEFT
             facing_left = 1;
@@ -293,11 +244,62 @@ void LevelThree_Update(void) {
         if (CP_Input_KeyTriggered(KEY_Q)) {
             CP_Engine_SetNextGameState(Game_Init, Game_Update, Game_Exit);
         }
+    } //end of if GameState
+        // Draw exit door
+        CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
+        CP_Graphics_DrawRect(g_level_exit_door->x, g_level_exit_door->y, g_level_exit_door->width, g_level_exit_door->height);
+
+        // Draw all platforms
+        for (int i = 0; i < g_level_collidable_count; i++) {
+            // Check if this object is a platform
+            if (g_level_collidables[i]->type == PLATFORM || g_level_collidables[i]->type == STAGEWALL) {
+                CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
+                CP_Graphics_DrawRectAdvanced(g_level_collidables[i]->x, g_level_collidables[i]->y, g_level_collidables[i]->width, g_level_collidables[i]->height, 0.0f, 0.0f);
+            }
+        }
+        //Draw all sensitive doors
+        for (int i = 0; i < MAX_LEVEL_OBJECTS; i++) {
+            if (g_level_door[i] != NULL && g_level_door[i]->isActivated == 0) {
+                CP_Settings_Fill(CP_Color_Create(113, 121, 126, 255));
+                CP_Graphics_DrawRectAdvanced(g_level_door[i]->x, g_level_door[i]->y, g_level_door[i]->width, g_level_door[i]->height, 0.0f, 0.0f);
+            }
+        }
+
+        //Draw all floor sensors  
+        for (int i = 0; i < MAX_LEVEL_OBJECTS; i++) {
+            if (g_level_pressure_plate[i] != NULL) {
+                CP_Settings_Fill(g_level_pressure_plate[i]->color);
+                CP_Graphics_DrawRectAdvanced(g_level_pressure_plate[i]->x, g_level_pressure_plate[i]->y, g_level_pressure_plate[i]->width, g_level_pressure_plate[i]->height, 0.0f, 0.0f);
+            }
+        }
+        //Draw Teleport Walls   
+        for (int i = 0; i < MAX_LEVEL_OBJECTS; i++) {
+            if (g_level_teleport_wall[i] != NULL) {
+                CP_Settings_Fill(CP_Color_Create(0, RGBChange(greenStartTime), 255, 255));
+                CP_Graphics_DrawRectAdvanced(g_level_teleport_wall[i]->x, g_level_teleport_wall[i]->y, g_level_teleport_wall[i]->width, g_level_teleport_wall[i]->height, 0.0f, 0.0f);
+            }
+        }
+        //Draw Destroy Walls
+        for (int i = 0; i < MAX_LEVEL_OBJECTS; i++) {
+            if (g_level_destroy_wall[i] != NULL && g_level_destroy_wall[i]->isActivated == 0) {
+                CP_Settings_Fill(g_level_destroy_wall[i]->color);
+                CP_Graphics_DrawRectAdvanced(g_level_destroy_wall[i]->x, g_level_destroy_wall[i]->y, g_level_destroy_wall[i]->width, g_level_destroy_wall[i]->height, 0.0f, 0.0f);
+            }
+        }
+        //FOX SSPRITE ANIMATION
+        //DEFAULT FACING RIGHT 
+        if (facing_left)
+
+            CP_Image_DrawSubImage(player.fox_sprite, player.player_posX, player.player_posY - 30, -player.player_width * 3, player.player_height * 3, start_x, start_y, end_x, end_y, 255);
+        else
+            CP_Image_DrawSubImage(player.fox_sprite, player.player_posX, player.player_posY - 30, player.player_width * 3, player.player_height * 3, start_x, start_y, end_x, end_y, 255);
+
+         
 
         CP_Font_Set(debug_TEXT);
         CP_Settings_TextAlignment(CP_TEXT_ALIGN_H_LEFT, CP_TEXT_ALIGN_V_TOP);
         //Level Timer 15s 
-        LevelTimer(&leveltime);
+        LevelTimer(&leveltime, &GameState);
         //Ammo counter
         OrbCount(&orb);
 
@@ -313,16 +315,17 @@ void LevelThree_Update(void) {
             PlayerPov(&player);
         }
         CP_Settings_TextAlignment(CP_TEXT_ALIGN_H_LEFT, CP_TEXT_ALIGN_V_TOP);
-    }
+    
 
     //Pause screen
-    if (CP_Input_KeyTriggered(KEY_P)) {
+    if (CP_Input_KeyTriggered(KEY_ESCAPE)) {
         GameState = 1 - GameState;
-        CP_Settings_Fill(CP_Color_Create(50, 50, 50, 200));
-        CP_Graphics_DrawRect(0, 0, 1600 * 4, 900 * 4);
     }
 
     if (GameState == 0) {
+        CP_Settings_Fill(CP_Color_Create(50, 50, 50, 200));
+        CP_Graphics_DrawRect((float)CP_System_GetWindowWidth() / 2.0f, (float)CP_System_GetWindowHeight() / 2.0f, 
+            (float)CP_System_GetWindowWidth(), (float)CP_System_GetWindowHeight());
     }
 }
 
