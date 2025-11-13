@@ -58,7 +58,7 @@ void LevelTwo_Init(void) {
         }
     }
 
-    leveltime = 11.0f;
+    leveltime = 30.0f;
     orb.max_ammo = 3;
     orb.ammo = orb.max_ammo;
     orb.orb_type = TELEPORT_ORB;

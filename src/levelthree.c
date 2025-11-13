@@ -9,6 +9,8 @@
 #include "levelfour.h"
 #include "utils.h"
 #include "hazards.h"
+#include "option.h"
+#include "mainmenu.h"
 
 
 static float greenStartTime;
@@ -36,9 +38,11 @@ void LevelThree_Init(void) {
     LoadLevelFromFile("Assets/Levels/level3.txt");
     LoadLaserFromFile("Assets/Levels/Level3_Lazer.txt");
     Player_Init(&player, &orb);
+    Sound_Init();
+    option_Init();
     debug_TEXT = CP_Font_Load("Assets/Exo2 - Regular.ttf");
     animation_timer = 0;  // added animation_timer (only dif in this void)
-
+    GameState = 1;
     greenStartTime = 0;
     // Loop to initialize all doors
     for (int i = 0; i < MAX_LEVEL_OBJECTS; i++) {
@@ -54,7 +58,7 @@ void LevelThree_Init(void) {
         }
     }
 
-    leveltime = 11.0f;
+    leveltime = 30.0f;
     orb.max_ammo = 3;
     orb.ammo = orb.max_ammo;
     orb.orb_type = TELEPORT_ORB;
@@ -190,12 +194,8 @@ void LevelThree_Update(void) {
             end_y = 64;
             idle_count = 0;
         }
-
-
         //CHECK WHEN FOX IS NOT ON THE GROUND
         if (!player.isGrounded) {
-
-
             if (player.player_velocityY > 0) { // falling down
                 start_y = 192;
                 end_y = 256;
@@ -207,25 +207,18 @@ void LevelThree_Update(void) {
                 idle_count = 0;
             }
         }
-
-
-
         //IDLE STATE / 
         if (player.isGrounded && !CP_Input_KeyDown(KEY_A) && !CP_Input_KeyDown(KEY_D)) {
             idle_count++;
             if (idle_count < 300) {
                 start_y = 64;   // idle
                 end_y = 128;
-
             }
             else {
                 start_y = 256;   // sleep
                 end_y = 320;
-
             }
         }
-
-
         // animating the frames
         // --- animate frames roughly 3 FPS ---
         frame_count++;
@@ -239,10 +232,6 @@ void LevelThree_Update(void) {
                 start_x = 0;
                 end_x = 64;
             }
-        }
-
-        if (CP_Input_KeyTriggered(KEY_Q)) {
-            CP_Engine_SetNextGameState(Game_Init, Game_Update, Game_Exit);
         }
     } //end of if GameState
         // Draw exit door
@@ -288,13 +277,12 @@ void LevelThree_Update(void) {
         }
         //FOX SSPRITE ANIMATION
         //DEFAULT FACING RIGHT 
-        if (facing_left)
-
+        if (facing_left) {
             CP_Image_DrawSubImage(player.fox_sprite, player.player_posX, player.player_posY - 30, -player.player_width * 3, player.player_height * 3, start_x, start_y, end_x, end_y, 255);
-        else
+        }
+        else {
             CP_Image_DrawSubImage(player.fox_sprite, player.player_posX, player.player_posY - 30, player.player_width * 3, player.player_height * 3, start_x, start_y, end_x, end_y, 255);
-
-         
+        }
 
         CP_Font_Set(debug_TEXT);
         CP_Settings_TextAlignment(CP_TEXT_ALIGN_H_LEFT, CP_TEXT_ALIGN_V_TOP);
@@ -315,21 +303,28 @@ void LevelThree_Update(void) {
             PlayerPov(&player);
         }
         CP_Settings_TextAlignment(CP_TEXT_ALIGN_H_LEFT, CP_TEXT_ALIGN_V_TOP);
-    
-
     //Pause screen
     if (CP_Input_KeyTriggered(KEY_ESCAPE)) {
         GameState = 1 - GameState;
     }
 
     if (GameState == 0) {
-        CP_Settings_Fill(CP_Color_Create(50, 50, 50, 200));
-        CP_Graphics_DrawRect((float)CP_System_GetWindowWidth() / 2.0f, (float)CP_System_GetWindowHeight() / 2.0f, 
-            (float)CP_System_GetWindowWidth(), (float)CP_System_GetWindowHeight());
+        int pause_signal = pause_menu();
+
+        if (pause_signal == 1) {
+            // Resume game
+            GameState = 1;
+        }
+        else if (pause_signal == 2) {
+            // Go to main menu
+            CP_Engine_SetNextGameState(Main_Menu_Init, Main_Menu_Update, Main_Menu_Exit);
+        }
     }
 }
 
 void LevelThree_Exit(void) {
     CP_Image_Free(player.fox_sprite);
     CP_Font_Free(debug_TEXT);
+    Sound_Exit();
+    option_Exit();
 }
