@@ -8,6 +8,7 @@
 #include "game.h"
 #include "leveltwo.h"
 #include "utils.h"
+#include "sound.h"
 
 
 
@@ -37,6 +38,7 @@ void LevelOne_Init(void) {
     //void Stage_Walls_Init();
     LoadLevelFromFile("Assets/Levels/level1.txt");
     Player_Init(&player, &orb);
+    Sound_Init();
 
     debug_TEXT = CP_Font_Load("Assets/Exo2 - Regular.ttf");
     animation_timer = 0;  // added animation_timer (only dif in this void)
@@ -109,10 +111,11 @@ void LevelOne_Update(void) {
         orb.x += orb_moveX;
         orb.y += orb_moveY;
 
-        //check if player has opened the door
-        if (checkAABBCollision(playerHitBoxY, ExitDoorHitBox) && CP_Input_KeyTriggered(KEY_W)) {
-            CP_Engine_SetNextGameState(LevelTwo_Init, LevelTwo_Update, LevelTwo_Exit);
-        }
+    //check if player has opened the door
+    if (checkAABBCollision(playerHitBoxY, ExitDoorHitBox) && CP_Input_KeyTriggered(KEY_W)) {
+        CP_Engine_SetNextGameState(LevelTwo_Init, LevelTwo_Update, LevelTwo_Exit);
+        Sound_PlayExit();
+    }
 
 
         for (int i = 0; i < g_level_collidable_count; i++) {
@@ -327,4 +330,5 @@ void LevelOne_Update(void) {
 void LevelOne_Exit(void) {
     CP_Image_Free(player.fox_sprite);
     CP_Font_Free(debug_TEXT);
+    Sound_Exit();
 }

@@ -2,6 +2,7 @@
 #include "stage_wall.h"
 #include "player.h"
 #include "cprocessing.h"
+#include "sound.h"
 #include <stdio.h>
 #
 #define EdgeMargin 32.0f // half the player height and width, used to calculate the clamped value so player doesn't teleport over unintedned platform.
@@ -120,11 +121,20 @@ void Resolve_Collision_FloorSensor_Player(AABB playerHitBox, AABB pressure_senso
 	// Get the actual current time, once per frame.
 	float currentTime = CP_System_GetSeconds();
 
+	static int playsound = 0; 
+	static int doorwasopen = 0;
+
 	if (checkAABBCollision(playerHitBox, pressure_sensorHitBox)) {
 		pressure_plate->color = CP_Color_Create(255, 0, 0, 255);
 		// 2. Open the door
 		door->isActivated = 1;
 		pressure_plate->last_pressed_time = currentTime;
+
+		//to play sound upon activation only
+		if (!playsound) {
+			Sound_PlayDoorOpen();
+		}
+		playsound = 1;
 	}
 	else {
 		float timeSinceLastPress = currentTime - pressure_plate->last_pressed_time; 
@@ -132,8 +142,16 @@ void Resolve_Collision_FloorSensor_Player(AABB playerHitBox, AABB pressure_senso
 			door->isActivated = 0;
 			pressure_plate->color = CP_Color_Create(113, 121, 126, 255);
 		}
+		playsound = 0;
 		
 	}
+	//sound for when door closes
+	if (doorwasopen && door->isActivated == 0) {
+		Sound_PlayDoorClose(); 
+	}
+
+	// update door state for next frame
+	doorwasopen = door->isActivated;
 }
 
 void Resolve_Collision_Wall_Player_X(AABB playerHitBox, AABB WallHitBox, Player* player, float breathing_space, float player_moveX) {
@@ -169,6 +187,7 @@ void Resolve_Collision_Wall_Orb_Y(AABB orbHitBox, AABB WallHitBox, Orb* orb, Pla
 				player->player_posX = clampedX;
 				player->player_velocityY = 0.0f;
 				orb->isActive = 0;
+				Sound_PlayTeleport();
 			}
 			else if (orb_moveY < 0) {
 				float Wall_Bottom = WallHitBox.y + WallHitBox.height;
@@ -176,6 +195,7 @@ void Resolve_Collision_Wall_Orb_Y(AABB orbHitBox, AABB WallHitBox, Orb* orb, Pla
 				player->player_posX = clampedX;
 				player->player_velocityY = 0.0f;
 				orb->isActive = 0;
+				Sound_PlayTeleport();
 			}
 		}
 		else {
@@ -205,6 +225,7 @@ void Resolve_Collision_Wall_Orb_X(AABB orbHitBox, AABB WallHitBox, Orb* orb, Pla
 				player->player_posY = clampedY;
 				player->player_velocityY = 0.0f;
 				orb->isActive = 0;
+				Sound_PlayTeleport();
 			}
 	
 			else if (orb_moveX < 0) {
@@ -213,6 +234,7 @@ void Resolve_Collision_Wall_Orb_X(AABB orbHitBox, AABB WallHitBox, Orb* orb, Pla
 				player->player_posY = clampedY;
 				player->player_velocityY = 0.0f;
 				orb->isActive = 0;
+				Sound_PlayTeleport();
 			}
 		}
 		else {
@@ -230,11 +252,13 @@ void Resolve_Collision_Destroy_Wall_Orb_X(AABB orbHitBox, AABB destroy_wallHitBo
 				destroy_wall->isActivated = 1;
 				orb->x = orb->x + breathing_space;
 				orb->isActive = 0;
+				Sound_PlayDestroy();
 			}
 			if (orb_moveX < 0) {
 				destroy_wall->isActivated = 1;
 				orb->x = orb->x - breathing_space;
 				orb->isActive = 0;
+				Sound_PlayDestroy();
 			}
 		}
 		else {
@@ -255,11 +279,13 @@ void Resolve_Collision_Destroy_Wall_Orb_Y(AABB orbHitBox, AABB destroy_wallHitBo
 				destroy_wall->isActivated = 1;
 				orb->y = orb->y - breathing_space;
 				orb->isActive = 0;
+				Sound_PlayDestroy();
 			}
 			if (orb_moveY < 0) {
 				destroy_wall->isActivated = 1;
 				orb->y = orb->y + breathing_space;
 				orb->isActive = 0;
+				Sound_PlayDestroy();
 			}
 		}
 		else {
