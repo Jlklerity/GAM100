@@ -139,7 +139,8 @@ xcopy "$(SolutionDir)Extern\CProcessing\lib\x64\fmod.dll" "$(OutDir)"
     <Text Include="Assets\Levels\Laser.txt" />
     <Text Include="Assets\Levels\level1.txt" />
     <Text Include="Assets\Levels\level2.txt" />
-    <Text Include="Assets\Levels\Level3.txt" />
+    <Text Include="Assets\Levels\level3.txt" />
+    <Text Include="Assets\Levels\Level3_Lazer.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
