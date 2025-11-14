@@ -119,7 +119,7 @@ void LevelTwo_Update(void) {
             }
             Save_Progress();
             CP_Engine_SetNextGameState(LevelThree_Init, LevelThree_Update, LevelThree_Exit);
-            Sound_PlayExit();
+            Sound_PlaySFX(exit);
         }
 
         for (int i = 0; i < g_level_collidable_count; i++) {

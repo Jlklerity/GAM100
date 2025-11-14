@@ -64,19 +64,19 @@ void Sound_SetSFXVolume(float volume)
     CP_Sound_SetGroupVolume(CP_SOUND_GROUP_SFX, volume);
 }
 
-void Sound_SetMusicVolume(float v)
+void Sound_SetMusicVolume(float volume)
 {
-    if (v < 0) v = 0;
-    if (v > 1) v = 1;
-    musicVolume = v;
-    CP_Sound_SetGroupVolume(CP_SOUND_GROUP_MUSIC, v);
+    if (volume < 0) volume = 0;
+    if (volume > 1) volume = 1;
+    musicVolume = volume;
+    CP_Sound_SetGroupVolume(CP_SOUND_GROUP_MUSIC, volume);
 }
 
 void Sound_Exit()
 {
     for (int i = 0; i < sfx_count; i++)
-        CP_Sound_Free(&sfx[i]);
+        CP_Sound_Free(sfx[i]);
 
     for (int i = 0; i < music_count; i++)
-        CP_Sound_Free(&music[i]);
+        CP_Sound_Free(music[i]);
 }

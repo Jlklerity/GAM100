@@ -26,5 +26,5 @@ void Sound_PlaySFX(SFX type);
 void Sound_PlayMUSIC(MUSIC type);
 void Sound_StopMUSIC(MUSIC type);
 void Sound_StopAll(void);
-void Sound_SetMusicVolume(float v);
-void Sound_SetSFXVolume(float v);
+void Sound_SetMusicVolume(float volume);
+void Sound_SetSFXVolume(float volume);
