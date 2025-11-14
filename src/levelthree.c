@@ -10,6 +10,7 @@
 #include "utils.h"
 #include "hazards.h"
 #include "option.h"
+#include "sound.h"
 #include "mainmenu.h"
 
 
