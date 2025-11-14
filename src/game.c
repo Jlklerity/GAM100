@@ -120,8 +120,8 @@ void Game_Update(void)
 			CP_Engine_SetNextGameState(LevelFive_Init, LevelFive_Update, LevelFive_Exit);
 		}
 	}
-	back_option();
-	reset_option(); //reset level progression button
+	back_option_gamemenu();
+	reset_option_gamemenu(); //reset level progression button
 	// Fullscreen and exit fullscreen
 	if (((CP_Input_KeyDown(KEY_LEFT_ALT)) || (CP_Input_KeyDown(KEY_RIGHT_ALT))) && (CP_Input_KeyDown(KEY_ENTER)))
 	{

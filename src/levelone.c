@@ -329,6 +329,10 @@ void LevelOne_Update(void) {
                 // Go to main menu
                 CP_Engine_SetNextGameState(Main_Menu_Init, Main_Menu_Update, Main_Menu_Exit);
             }
+            else if (pause_signal == 3) {
+                GameState = 1; 
+                LevelOne_Init();
+            }
         }
     }
 
