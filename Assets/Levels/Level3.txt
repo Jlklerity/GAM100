@@ -1,18 +1,19 @@
 # This is Level 3.
-# Type_Name (for reference)   X     Y      W    H     WallTypeEnum (from stage_wall.h)
+# Type_Name (for reference)   X     Y      W    H   WallTypeEnum   LinkID  targetX  targetY
 STAGEWALL                     800   10    1600  20    2
 STAGEWALL                     800   890   1600  20    2
 STAGEWALL                     10    450   20    900   2
 STAGEWALL                     1590  450   20    900   2
 PLATFORM		              120   450   200   500   3
 PLATFORM                      1380  250   400   20    3 
-PLATFORM		              500   500   200   20    3
+MOVING_PLATFORM		          500   500   200   20    7              2		 1200     500
 PLATFORM		              900   600   200   20    3	
 PLATFORM		              500   30    120   20    3 
 PLATFORM		              900   30    120   20    3 
 PLATFORM		              1370  780   20    200   3 
-PRESSURE_PLATE                1480  880   100   10    5
-DOOR                          1385  130   10    220   4 
+PRESSURE_PLATE                1480  880   100   10    5              1
+PRESSURE_PLATE                120   200   100   10    5              2
+DOOR                          1385  130   10    220   4              1
 EXIT_DOOR                     1480  165   100   150   6
 TELEPORT_WALL                 1575  130   10    220   0
 DESTROY_WALL                  1480  700   200   15    1 

@@ -1,3 +1,0 @@
-# This is for lasers.
-# Type_Name (for reference)   X     Y      W    H     WallTypeEnum (from hazards.h)
-LASER                         1400  500   10    50    8

@@ -58,6 +58,12 @@ void LevelThree_Init(void) {
             g_level_destroy_wall[i]->isActivated = 0;
         }
     }
+    // Loop to initialize all movable platforms
+    for (int i = 0; i < MAX_LEVEL_OBJECTS; i++) {
+        if (g_level_movable_platform[i] != NULL) {
+            g_level_movable_platform[i]->isActivated = 0;
+        }
+    }
 
     leveltime = 30.0f;
     orb.max_ammo = 3;
@@ -121,10 +127,9 @@ void LevelThree_Update(void) {
             CP_Engine_SetNextGameState(LevelFour_Init, LevelFour_Update, LevelFour_Exit);
         }
 
-
         for (int i = 0; i < g_level_collidable_count; i++) {
             Wall* current_wall = g_level_collidables[i];
-            if (current_wall->isActivated == 1) {
+            if (current_wall->isActivated == 1 && (current_wall->type == DOOR || current_wall->type == RED_DESTROY)) {
                 continue;
             }
             AABB platformHitBox = Get_Wall_HitBox(current_wall);
@@ -142,14 +147,28 @@ void LevelThree_Update(void) {
         }
 
 
-        // Loop and link plate[i] to door[i]
+        // Loop through all pressure plates
         for (int i = 0; i < MAX_LEVEL_OBJECTS; i++) {
-            if (g_level_pressure_plate[i] == NULL || g_level_door[i] == NULL) {
+            if (g_level_pressure_plate[i] == NULL) {
                 continue; // Skip if this pair doesn't exist
             }
+            //get linkID
+            int current_link_ID = g_level_pressure_plate[i]->link_id;
+            if (current_link_ID == 0) continue;
 
             AABB floor_sensor_DoorHitBox = Get_Wall_HitBox(g_level_pressure_plate[i]);
-            Resolve_Collision_FloorSensor_Player(playerHitBoxY, floor_sensor_DoorHitBox, g_level_door[i], g_level_pressure_plate[i]);
+             //Check current iterated plate against ALL doors
+            for (int j = 0; j < MAX_LEVEL_OBJECTS; j++) {
+                if (g_level_door[j] != NULL && g_level_door[j]->link_id == current_link_ID) {
+                     Resolve_Collision_FloorSensor_Player(playerHitBoxY, floor_sensor_DoorHitBox, g_level_door[j], g_level_pressure_plate[i]);
+                }
+            }
+            for (int k = 0; k < MAX_LEVEL_OBJECTS; k++) {
+                if (g_level_movable_platform[k] != NULL && g_level_movable_platform[k]->link_id == current_link_ID) {
+                    Resolve_Collision_FloorSensor_Player(playerHitBoxY, floor_sensor_DoorHitBox, g_level_movable_platform[k], g_level_pressure_plate[i]);
+                }
+            }
+            
         };
 
 
@@ -161,7 +180,7 @@ void LevelThree_Update(void) {
 
         for (int i = 0; i < g_level_collidable_count; i++) {
             Wall* current_wall = g_level_collidables[i];
-            if (current_wall->isActivated == 1) {
+            if (current_wall->isActivated == 1 && (current_wall->type == DOOR || current_wall->type == RED_DESTROY)) {
                 continue;
             }
             AABB platformHitBox = Get_Wall_HitBox(current_wall);
@@ -245,6 +264,13 @@ void LevelThree_Update(void) {
             if (g_level_collidables[i]->type == PLATFORM || g_level_collidables[i]->type == STAGEWALL) {
                 CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
                 CP_Graphics_DrawRectAdvanced(g_level_collidables[i]->x, g_level_collidables[i]->y, g_level_collidables[i]->width, g_level_collidables[i]->height, 0.0f, 0.0f);
+            }
+        }
+        //Draw all movable platforms
+        for (int i = 0; i < MAX_LEVEL_OBJECTS; i++) {
+            if (g_level_movable_platform[i] != NULL) {
+                CP_Settings_Fill(CP_Color_Create(255, 255, 0, 255));
+                CP_Graphics_DrawRectAdvanced(g_level_movable_platform[i]->x, g_level_movable_platform[i]->y, g_level_movable_platform[i]->width, g_level_movable_platform[i]->height, 0.0f, 0.0f);
             }
         }
         //Draw all sensitive doors

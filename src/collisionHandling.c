@@ -4,7 +4,6 @@
 #include "cprocessing.h"
 #include "sound.h"
 #include <stdio.h>
-#
 #define EdgeMargin 32.0f // half the player height and width, used to calculate the clamped value so player doesn't teleport over unintedned platform.
  
  
@@ -116,22 +115,24 @@ void Resolve_Collision_Wall_Player_Y(AABB playerHitBox, AABB WallHitBox, Player*
 	}
 }
 
-void Resolve_Collision_FloorSensor_Player(AABB playerHitBox, AABB pressure_sensorHitBox, Wall* door, Wall* pressure_plate) {
+void Resolve_Collision_FloorSensor_Player(AABB playerHitBox, AABB pressure_sensorHitBox, Wall* interactable, Wall* pressure_plate) {
 
 	// Get the actual current time, once per frame.
 	float currentTime = CP_System_GetSeconds();
-
+	int was_activated_last_frame = interactable->isOpen;
 	static int playsound = 0; 
-	static int doorwasopen = 0;
 
 	if (checkAABBCollision(playerHitBox, pressure_sensorHitBox)) {
 		pressure_plate->color = CP_Color_Create(255, 0, 0, 255);
-		// 2. Open the door
-		door->isActivated = 1;
+		// Open the door
+		interactable->isActivated = 1;
 		pressure_plate->last_pressed_time = currentTime;
-
+		if (interactable->type == MOVABLE) {
+			interactable->x = interactable->target_x;
+			interactable->y = interactable->target_y;
+		}
 		//to play sound upon activation only
-		if (!playsound) {
+		if (was_activated_last_frame == 0) {
 			Sound_PlaySFX(door_open);
 		}
 		playsound = 1;
@@ -139,19 +140,24 @@ void Resolve_Collision_FloorSensor_Player(AABB playerHitBox, AABB pressure_senso
 	else {
 		float timeSinceLastPress = currentTime - pressure_plate->last_pressed_time; 
 		if (timeSinceLastPress >= 5.0f) {
-			door->isActivated = 0;
+			
+			interactable->isActivated = 0;
+			if (interactable->type == MOVABLE) {
+				interactable->x = interactable->original_x;
+				interactable->y = interactable->original_x;
+			}
 			pressure_plate->color = CP_Color_Create(113, 121, 126, 255);
 		}
 		playsound = 0;
 		
 	}
 	//sound for when door closes
-	if (doorwasopen && door->isActivated == 0) {
+	if (was_activated_last_frame == 1 && interactable->isActivated == 0) {
 		Sound_PlaySFX(door_close); 
 	}
 
-	// update door state for next frame
-	doorwasopen = door->isActivated;
+	// Update the "last frame" state for next time
+	interactable->isOpen = interactable->isActivated;
 }
 
 void Resolve_Collision_Wall_Player_X(AABB playerHitBox, AABB WallHitBox, Player* player, float breathing_space, float player_moveX) {
@@ -266,10 +272,6 @@ void Resolve_Collision_Destroy_Wall_Orb_X(AABB orbHitBox, AABB destroy_wallHitBo
 			orb->x = 0;
 		}
 	}
-	else {
-		destroy_wall->isActivated = 0;
-		destroy_wall->color = CP_Color_Create(255, 0, 0, 255);
-	}
 }
 
 void Resolve_Collision_Destroy_Wall_Orb_Y(AABB orbHitBox, AABB destroy_wallHitBox, Orb* orb, Wall* destroy_wall, float breathing_space, float orb_moveY) {
@@ -292,9 +294,5 @@ void Resolve_Collision_Destroy_Wall_Orb_Y(AABB orbHitBox, AABB destroy_wallHitBo
 			orb->isActive = 0;
 			orb->x = 0;
 		}
-	}
-	else {
-		destroy_wall->isActivated = 0;
-		destroy_wall->color = CP_Color_Create(255, 0, 0, 255);
 	}
 }

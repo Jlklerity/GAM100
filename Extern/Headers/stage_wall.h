@@ -4,7 +4,7 @@
 #define MAX_LEVEL_OBJECTS 100
 
 enum TypeofWall {
-	BLUE_TELEPORT, RED_DESTROY, STAGEWALL, PLATFORM, DOOR, PRESSURE_PLATE, EXIT_DOOR, NORMAL
+	BLUE_TELEPORT, RED_DESTROY, STAGEWALL, PLATFORM, DOOR, PRESSURE_PLATE, EXIT_DOOR, MOVABLE, NORMAL
 };
 
 typedef struct {
@@ -15,7 +15,13 @@ typedef struct {
 	int isActivated;
 	enum TypeofWall type;
 	float last_pressed_time;
-	CP_Sound wall_sound;
+	int link_id;
+
+	float original_x;
+	float original_y;
+	float target_x;
+	float target_y;
+	float move_speed;
 }Wall;
 
 extern Wall* g_stage_wall[MAX_LEVEL_OBJECTS];
@@ -25,6 +31,7 @@ extern Wall* g_level_door[MAX_LEVEL_OBJECTS];
 extern Wall* g_level_exit_door;
 extern Wall* g_level_teleport_wall[MAX_LEVEL_OBJECTS];
 extern Wall* g_level_destroy_wall[MAX_LEVEL_OBJECTS];
+extern Wall* g_level_movable_platform[MAX_LEVEL_OBJECTS];
 extern Wall* g_level_collidables[];
 extern int g_level_collidable_count;
 extern int g_laser_count;

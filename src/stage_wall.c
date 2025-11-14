@@ -4,10 +4,6 @@
 #include <stdio.h>
 #include <string.h>
 
-//Wall stage_wall[4];  // Shared walls 
-//int stage_wall_count = 0;
-
- 
 // This array holds the ACTUAL wall data for the currently loaded level
 static Wall s_level_objects[MAX_LEVEL_OBJECTS];
 static int s_level_object_count = 0;
@@ -23,6 +19,7 @@ Wall* g_level_door[MAX_LEVEL_OBJECTS] = { 0 };
 Wall* g_level_exit_door = NULL;
 Wall* g_level_teleport_wall[MAX_LEVEL_OBJECTS] = { 0 };
 Wall* g_level_destroy_wall[MAX_LEVEL_OBJECTS] = { 0 };
+Wall* g_level_movable_platform[MAX_LEVEL_OBJECTS] = { 0 };
 Laser* g_level_laser[MAXLASER] = { 0 };
 
 // Pointers to any other collidable objects (like platforms)
@@ -78,6 +75,7 @@ void LoadLevelFromFile(const char* filename) {
     memset(g_level_teleport_wall, 0, sizeof(g_level_teleport_wall));
     memset(g_level_destroy_wall, 0, sizeof(g_level_destroy_wall));
     memset(g_level_platforms, 0, sizeof(g_level_platforms));
+    memset(g_level_movable_platform, 0, sizeof(g_level_movable_platform));
     memset(g_stage_wall, 0, sizeof(g_stage_wall));
     g_level_exit_door = NULL;
     
@@ -99,6 +97,7 @@ void LoadLevelFromFile(const char* filename) {
     int teleport_wall_index = 0;
     int destroy_wall_index = 0;
     int stage_wall_index = 0;
+    int movable_platform_index = 0;
     int laser_index = 0;
 
     // 2. Read file line by line
@@ -108,19 +107,30 @@ void LoadLevelFromFile(const char* filename) {
             continue;
         }
 
-        // 3. Parse the line
-        int items_read = sscanf(line_buffer, "%s %f %f %f %f %d",
-                                type_str, &x, &y, &w, &h, &wall_type_enum_int);
+        int link_id = 0;
+        float target_x = 0; // Default target X
+        float target_y = 0; // Default target Y
 
-        if (items_read == 6 && s_level_object_count < MAX_LEVEL_OBJECTS) {
+        // 3. Parse the line
+        int items_read = sscanf(line_buffer, "%s %f %f %f %f %d %d %f %f",
+                                type_str, &x, &y, &w, &h, &wall_type_enum_int, &link_id, &target_x, &target_y);
+
+        if ((items_read == 6 || items_read == 7 || items_read == 9) && s_level_object_count < MAX_LEVEL_OBJECTS) {
             // Get the new wall object from our static pool
             Wall* new_wall = &s_level_objects[s_level_object_count];
             enum TypeofWall type = (enum TypeofWall)wall_type_enum_int;
 
             // 4. Assign its data
-            *new_wall = (Wall){x, y, w, h, CP_Color_Create(255, 255, 255, 255), 0, 0, type};
-
-            // 5. Assign global pointers based on type
+            *new_wall = (Wall){x, y, w, h, CP_Color_Create(255, 255, 255, 255), 0, 0, type, 0.0f, link_id, x, y, 200.0f };
+                                                                                                           
+                                                                                                           // target_x, target_y, move_speed)
+            if (items_read == 9) {
+                new_wall->target_x = target_x;
+                new_wall->target_y = target_y;
+                new_wall->original_x = x;
+                new_wall->original_y = y;
+            }
+            // Assign global pointers based on type
             //    And set special colors
             switch (type) {
                 case STAGEWALL: // You forgot to handle STAGEWALL
@@ -165,6 +175,13 @@ void LoadLevelFromFile(const char* filename) {
                         g_level_destroy_wall[destroy_wall_index++] = new_wall;
                     }
                     new_wall->color = CP_Color_Create(255, 0, 0, 255);
+                    g_level_collidables[g_level_collidable_count++] = new_wall;
+                    break;
+                case MOVABLE:
+                    if (movable_platform_index < MAX_LEVEL_OBJECTS) {
+                        g_level_movable_platform[movable_platform_index++] = new_wall;
+                    }
+                    new_wall->color = CP_Color_Create(255, 255, 255, 255);
                     g_level_collidables[g_level_collidable_count++] = new_wall;
                     break;
                 default:

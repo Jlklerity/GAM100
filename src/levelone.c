@@ -81,7 +81,7 @@ void LevelOne_Update(void) {
         const float breathing_space = 0.1f;
 
 
-        //get color to change for cp color create for green value
+            //get color to change for cp color create for green value
 
 
         // ========== INPUT HANDLING ==========
@@ -134,21 +134,21 @@ void LevelOne_Update(void) {
             // --- Player Collision (always happens) ---
             Resolve_Collision_Wall_Player_Y(playerHitBoxY, platformHitBox, &player, breathing_space);
 
-            // --- Orb Collision (check wall type) ---
-            if (current_wall->type == RED_DESTROY) {
-                Resolve_Collision_Destroy_Wall_Orb_Y(orbHitbox, platformHitBox, &orb, current_wall, breathing_space, orb_moveY);
+                // --- Orb Collision (check wall type) ---
+                if (current_wall->type == RED_DESTROY) {
+                    Resolve_Collision_Destroy_Wall_Orb_Y(orbHitbox, platformHitBox, &orb, current_wall, breathing_space, orb_moveY);
+                }
+                else {
+                    Resolve_Collision_Wall_Orb_Y(orbHitbox, platformHitBox, &orb, &player, breathing_space, orb_moveY);
+                }
             }
-            else {
-                Resolve_Collision_Wall_Orb_Y(orbHitbox, platformHitBox, &orb, &player, breathing_space, orb_moveY);
-            }
-        }
 
 
-        // Loop and link plate[i] to door[i]
-        for (int i = 0; i < MAX_LEVEL_OBJECTS; i++) {
-            if (g_level_pressure_plate[i] == NULL && g_level_door[i] == NULL) {
-                continue; // Skip if this pair doesn't exist
-            }
+            // Loop and link plate[i] to door[i]
+            for (int i = 0; i < MAX_LEVEL_OBJECTS; i++) {
+                if (g_level_pressure_plate[i] == NULL || g_level_door[i] == NULL) {
+                    continue; // Skip if this pair doesn't exist
+                }
 
             AABB floor_sensor_DoorHitBox = Get_Wall_HitBox(g_level_pressure_plate[i]);
             Resolve_Collision_FloorSensor_Player(playerHitBoxY, floor_sensor_DoorHitBox, g_level_door[i], g_level_pressure_plate[i]);
