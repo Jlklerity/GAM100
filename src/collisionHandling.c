@@ -132,7 +132,7 @@ void Resolve_Collision_FloorSensor_Player(AABB playerHitBox, AABB pressure_senso
 
 		//to play sound upon activation only
 		if (!playsound) {
-			Sound_PlayDoorOpen();
+			Sound_PlaySFX(door_open);
 		}
 		playsound = 1;
 	}
@@ -147,7 +147,7 @@ void Resolve_Collision_FloorSensor_Player(AABB playerHitBox, AABB pressure_senso
 	}
 	//sound for when door closes
 	if (doorwasopen && door->isActivated == 0) {
-		Sound_PlayDoorClose(); 
+		Sound_PlaySFX(door_close); 
 	}
 
 	// update door state for next frame
@@ -187,7 +187,7 @@ void Resolve_Collision_Wall_Orb_Y(AABB orbHitBox, AABB WallHitBox, Orb* orb, Pla
 				player->player_posX = clampedX;
 				player->player_velocityY = 0.0f;
 				orb->isActive = 0;
-				Sound_PlayTeleport();
+				Sound_PlaySFX(teleport);
 			}
 			else if (orb_moveY < 0) {
 				float Wall_Bottom = WallHitBox.y + WallHitBox.height;
@@ -195,7 +195,7 @@ void Resolve_Collision_Wall_Orb_Y(AABB orbHitBox, AABB WallHitBox, Orb* orb, Pla
 				player->player_posX = clampedX;
 				player->player_velocityY = 0.0f;
 				orb->isActive = 0;
-				Sound_PlayTeleport();
+				Sound_PlaySFX(teleport);
 			}
 		}
 		else {
@@ -225,7 +225,7 @@ void Resolve_Collision_Wall_Orb_X(AABB orbHitBox, AABB WallHitBox, Orb* orb, Pla
 				player->player_posY = clampedY;
 				player->player_velocityY = 0.0f;
 				orb->isActive = 0;
-				Sound_PlayTeleport();
+				Sound_PlaySFX(teleport);
 			}
 	
 			else if (orb_moveX < 0) {
@@ -234,7 +234,7 @@ void Resolve_Collision_Wall_Orb_X(AABB orbHitBox, AABB WallHitBox, Orb* orb, Pla
 				player->player_posY = clampedY;
 				player->player_velocityY = 0.0f;
 				orb->isActive = 0;
-				Sound_PlayTeleport();
+				Sound_PlaySFX(teleport);
 			}
 		}
 		else {
@@ -252,13 +252,13 @@ void Resolve_Collision_Destroy_Wall_Orb_X(AABB orbHitBox, AABB destroy_wallHitBo
 				destroy_wall->isActivated = 1;
 				orb->x = orb->x + breathing_space;
 				orb->isActive = 0;
-				Sound_PlayDestroy();
+				Sound_PlaySFX(destroy);
 			}
 			if (orb_moveX < 0) {
 				destroy_wall->isActivated = 1;
 				orb->x = orb->x - breathing_space;
 				orb->isActive = 0;
-				Sound_PlayDestroy();
+				Sound_PlaySFX(destroy);
 			}
 		}
 		else {
@@ -279,13 +279,13 @@ void Resolve_Collision_Destroy_Wall_Orb_Y(AABB orbHitBox, AABB destroy_wallHitBo
 				destroy_wall->isActivated = 1;
 				orb->y = orb->y - breathing_space;
 				orb->isActive = 0;
-				Sound_PlayDestroy();
+				Sound_PlaySFX(destroy);
 			}
 			if (orb_moveY < 0) {
 				destroy_wall->isActivated = 1;
 				orb->y = orb->y + breathing_space;
 				orb->isActive = 0;
-				Sound_PlayDestroy();
+				Sound_PlaySFX(destroy);
 			}
 		}
 		else {

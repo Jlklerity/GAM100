@@ -38,8 +38,13 @@ void LevelOne_Init(void) {
     LoadLevelFromFile("Assets/Levels/level1.txt");
     Player_Init(&player, &orb);
     Sound_Init();
+<<<<<<< Updated upstream
     option_Init();
     GameState = 1;
+=======
+    Sound_PlayMUSIC(bgm_level);
+
+>>>>>>> Stashed changes
     debug_TEXT = CP_Font_Load("Assets/Exo2 - Regular.ttf");
     animation_timer = 0;  // added animation_timer (only dif in this void)
 
@@ -67,11 +72,75 @@ void LevelOne_Init(void) {
 void LevelOne_Update(void) {
     // ========== INITIALIZATION ==========
         CP_Graphics_ClearBackground(CP_Color_Create(85, 85, 85, 255));
+<<<<<<< Updated upstream
         if (GameState) {
             float deltaTime = CP_System_GetDt();
             const float max_deltaTime = 0.02f;
             if (deltaTime > max_deltaTime) {
                 deltaTime = max_deltaTime;
+=======
+
+        // ========== INPUT HANDLING ==========
+
+        // Horizontal movement
+        float player_moveX = 0.0f;
+        float orb_moveX = 0.0f;
+        float orb_moveY = 0.0f;
+
+        //Player movement, direction. x and y velocity, jumping
+        Player_Update(&player, deltaTime, &player_moveX, jump_strength);
+
+        // Apply gravity
+        player.player_velocityY += gravity * deltaTime;
+        player.player_posY += player.player_velocityY * deltaTime;
+        player.isGrounded = 0;
+
+        //Orb movement, direction, change orb type
+        Orb_Update(&player, &orb, &player_moveX, &orb_moveX, &orb_moveY, deltaTime);
+
+        // ========== VERTICAL COLLISION DETECTION ==========
+
+        AABB playerHitBoxY = Get_Player_HitBox(&player);
+        AABB ExitDoorHitBox = Get_Wall_HitBox(g_level_exit_door);
+        AABB orbHitbox = Get_Orb_HitBox(&orb);
+        // still need to initialize hitboxfor door and pressure plate, and need to write the function for both as well.
+
+        player.player_posX += player_moveX;
+        orb.x += orb_moveX;
+        orb.y += orb_moveY;
+
+    //check if player has opened the door
+    if (checkAABBCollision(playerHitBoxY, ExitDoorHitBox) && CP_Input_KeyTriggered(KEY_W)) {
+        CP_Engine_SetNextGameState(LevelTwo_Init, LevelTwo_Update, LevelTwo_Exit);
+        Sound_PlaySFX(exit);
+    }
+
+
+        for (int i = 0; i < g_level_collidable_count; i++) {
+            Wall* current_wall = g_level_collidables[i];
+            if (current_wall->isActivated == 1) {
+                continue;
+            }
+            AABB platformHitBox = Get_Wall_HitBox(current_wall);
+
+            // --- Player Collision (always happens) ---
+            Resolve_Collision_Wall_Player_Y(playerHitBoxY, platformHitBox, &player, breathing_space);
+
+            // --- Orb Collision (check wall type) ---
+            if (current_wall->type == RED_DESTROY) {
+                Resolve_Collision_Destroy_Wall_Orb_Y(orbHitbox, platformHitBox, &orb, current_wall, breathing_space, orb_moveY);
+            }
+            else {
+                Resolve_Collision_Wall_Orb_Y(orbHitbox, platformHitBox, &orb, &player, breathing_space, orb_moveY);
+            }
+        }
+
+
+        // Loop and link plate[i] to door[i]
+        for (int i = 0; i < MAX_LEVEL_OBJECTS; i++) {
+            if (g_level_pressure_plate[i] == NULL || g_level_door[i] == NULL) {
+                continue; // Skip if this pair doesn't exist
+>>>>>>> Stashed changes
             }
 
             const float gravity = 2200.0f;
@@ -340,6 +409,7 @@ void LevelOne_Update(void) {
 void LevelOne_Exit(void) {
     CP_Image_Free(player.fox_sprite);
     CP_Font_Free(debug_TEXT);
+    Sound_StopAll();
     Sound_Exit();
     option_Exit();
 }

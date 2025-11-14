@@ -109,7 +109,7 @@ void Orb_Update(Player* player, Orb* orb, float *player_moveX, float *orb_moveX,
                 orb->y = player->player_posY;
                 orb->direction = player->direction;
                 orb->ammo--;  // decrease ammo when shooting
-                Sound_PlayOrbShoot();
+                Sound_PlaySFX(orb_shoot);
             }
         }
     }
