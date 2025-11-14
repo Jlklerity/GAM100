@@ -12,9 +12,10 @@
 #include "levelfour.h"
 #include "levelfive.h"
 #include "game.h"
+#include "option.h"
 Level_Button button[5];
 int g_highest_level_unlocked = 1; //default to level1 being accessible
-int g_current_level_at = 1; //current level we are at
+//int g_current_level_at = 1; //current level we are at
 
 void Load_Progress(void) {
 	FILE* file_input = fopen("Assets/Levels/SaveData.txt", "r");
@@ -40,6 +41,7 @@ void Save_Progress(void) {
 
 void Game_Init(void)
 {
+	option_Init();
 	const float screen_width = (float)CP_System_GetWindowWidth();
 	//const float screen_height = (float)CP_System_GetWindowHeight();
 	mainmenu_TEXT = CP_Font_Load("Assets/kenney_ui-pack-space-expansion/Font/Kenney Future Narrow.ttf");
@@ -80,6 +82,7 @@ void Game_Update(void)
 	for (int i = 0; i < 5; i++) {
 		CP_Settings_Fill(CP_Color_Create(0, 0, 0, 255));
 		CP_Settings_TextAlignment(CP_TEXT_ALIGN_H_CENTER, CP_TEXT_ALIGN_V_MIDDLE);
+		CP_Settings_TextSize(62.0f);
 		char level_text[2];
 		int level_num = i + 1;
 		sprintf_s(level_text, 2, "%d", level_num);
@@ -117,15 +120,12 @@ void Game_Update(void)
 			CP_Engine_SetNextGameState(LevelFive_Init, LevelFive_Update, LevelFive_Exit);
 		}
 	}
-
+	back_option();
+	reset_option(); //reset level progression button
 	// Fullscreen and exit fullscreen
 	if (((CP_Input_KeyDown(KEY_LEFT_ALT)) || (CP_Input_KeyDown(KEY_RIGHT_ALT))) && (CP_Input_KeyDown(KEY_ENTER)))
 	{
 		fullscreen();
-	}
-	// To get to Main Menu
-	if (CP_Input_KeyTriggered(KEY_Q)) {
-		CP_Engine_SetNextGameState(Main_Menu_Init, Main_Menu_Update, Main_Menu_Exit);
 	}
 }
 

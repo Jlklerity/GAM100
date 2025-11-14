@@ -119,45 +119,45 @@ void Orb_Update(Player* player, Orb* orb, float *player_moveX, float *orb_moveX,
         case PLAYER_RIGHT:
             player->degree = 0; //for sprite looking direction
             *orb_moveX += orb->orb_velocity_x * deltaTime;
-            if (CP_Input_KeyTriggered(KEY_K)) {
+            /*if (CP_Input_KeyTriggered(KEY_K)) {
                 player->player_posX = orb->x - player->player_width / 2;
                 player->player_posY = orb->y;
                 orb->isActive = 0;
                 player->player_velocityY = 0.0f;
                 *player_moveX = 0.0f;
-            }
+            }*/
             break;
         case PLAYER_LEFT:
             player->degree = 180;
             *orb_moveX -= orb->orb_velocity_x * deltaTime;
-            if (CP_Input_KeyTriggered(KEY_K)) {
+            /*if (CP_Input_KeyTriggered(KEY_K)) {
                 player->player_posX = orb->x + player->player_width / 2;
                 player->player_posY = orb->y;
                 orb->isActive = 0;
                 player->player_velocityY = 0.0f;
                 *player_moveX = 0.0f;
             }
-            break;
+            break;*/
         case PLAYER_UP:
             *orb_moveY -= orb->orb_velocity_Y * deltaTime;
-            if (CP_Input_KeyTriggered(KEY_K)) {
+            /*if (CP_Input_KeyTriggered(KEY_K)) {
                 player->player_posX = orb->x;
                 player->player_posY = orb->y + player->player_height / 2;
                 orb->isActive = 0;
                 player->player_velocityY = 0.0f;
                 *player_moveX = 0.0f;
             }
-            break;
+            break;*/
         case PLAYER_DOWN:
             *orb_moveY += orb->orb_velocity_Y * deltaTime;
-            if (CP_Input_KeyTriggered(KEY_K)) {
+            /*if (CP_Input_KeyTriggered(KEY_K)) {
                 player->player_posX = orb->x;
                 player->player_posY = orb->y - player->player_height / 2;
                 orb->isActive = 0;
                 player->player_velocityY = 0.0f;
                 *player_moveX = 0.0f;
             }
-            break;
+            break;*/
         }
         //Change orb type
         switch (player->orb_type) {
