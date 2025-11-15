@@ -5,6 +5,7 @@
 #include "option.h"
 
 float mouseX, mouseY;
+float logoX, logoY;
 float playButtonX, playButtonY;
 float exitButtonX, exitButtonY;
 float buttonWidth, buttonHeight;
@@ -15,11 +16,10 @@ void Main_Menu_Init(void)
 	mainmenu_TEXT = CP_Font_Load("Assets/kenney_ui-pack-space-expansion/Font/Kenney Future Narrow.ttf");
 	mainmenu_ButtonBackground = CP_Image_Load("Assets/kenney_ui-pack-space-expansion/PNG/Extra/Double/button_rectangle_depth.png");
 	mainmenu_ButtonWhenPressed = CP_Image_Load("Assets/kenney_ui-pack-space-expansion/PNG/Extra/Double/panel_rectangle_screws.png");
-	textSize = 62.0f;
-	buttonWidth = 300.0f;
-	buttonHeight = 150.0f;
-	CP_Settings_TextSize(textSize);
-	 
+	textSize = 32.0f;
+	logoSize = 75.0f;
+	buttonWidth = 150.0f;
+	buttonHeight = 75.0f;
 }
 
 void Main_Menu_Update(void)
@@ -28,11 +28,13 @@ void Main_Menu_Update(void)
 	{
 		fullscreen();
 	}
-	
+	 
+	logoX = (float)(CP_System_GetWindowWidth() / 2);
+	logoY = (float)(CP_System_GetWindowWidth() / 8.1f);
 	playButtonX = (float)(CP_System_GetWindowWidth() / 2);
-	playButtonY = (float)(CP_System_GetWindowHeight() / 2 - 200);
+	playButtonY = (float)(CP_System_GetWindowHeight() / 3);
 	exitButtonX = (float)(CP_System_GetWindowWidth() / 2);
-	exitButtonY = (float)(CP_System_GetWindowHeight() / 2 + 200);
+	exitButtonY = (float)(CP_System_GetWindowHeight() / 1.5f);
 
 	optionButtonX = (float)(CP_System_GetWindowWidth() / 2);
 	optionButtonY = (float)(CP_System_GetWindowHeight() / 2);
@@ -47,27 +49,24 @@ void Main_Menu_Update(void)
 	CP_Graphics_ClearBackground(CP_Color_Create(85, 85, 85, 255));
 
 	//box of play button
-	/*CP_Settings_Fill(CP_Color_Create(255, 128, 128, 255));
-	CP_Graphics_DrawRect(playButtonX, playButtonY, buttonWidth, buttonHeight);*/
 	CP_Image_Draw(mainmenu_ButtonBackground, playButtonX, playButtonY, buttonWidth, buttonHeight, 255);
-
 	//box of exit button
-	/*CP_Settings_Fill(CP_Color_Create(255, 128, 128, 255));
-	CP_Graphics_DrawRect(exitButtonX, exitButtonY, buttonWidth, buttonHeight);*/
 	CP_Image_Draw(mainmenu_ButtonBackground, exitButtonX, exitButtonY, buttonWidth, buttonHeight, 255);
-
 	//box of option button
-	/*CP_Settings_Fill(CP_Color_Create(255, 128, 128, 255));
-	CP_Graphics_DrawRect(exitButtonX, exitButtonY, buttonWidth, buttonHeight);*/
 	CP_Image_Draw(mainmenu_ButtonBackground, optionButtonX, optionButtonY, buttonWidth, buttonHeight, 255);
 
-	CP_Settings_Fill(CP_Color_Create(0, 0, 0, 255));
+	//Draw logo
+	CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
 	CP_Settings_TextAlignment(CP_TEXT_ALIGN_H_CENTER, CP_TEXT_ALIGN_V_MIDDLE);
+	CP_Settings_TextSize(logoSize);
+	CP_Font_DrawText("TELESCAPE", logoX, logoY);
+
+	//Draw button text
+	CP_Settings_Fill(CP_Color_Create(0, 0, 0, 255));
+	CP_Settings_TextSize(textSize);
 	CP_Font_DrawText("Play", playButtonX, playButtonY);
 	CP_Font_DrawText("Exit", exitButtonX, exitButtonY);
 	CP_Font_DrawText("Option", optionButtonX, optionButtonY);
-
-
 
 	if (CP_Input_MouseDown(MOUSE_BUTTON_LEFT)) {
 		if (IsAreaClicked(playButtonX, playButtonY, buttonWidth, buttonHeight, mouseX, mouseY)) {
@@ -98,9 +97,7 @@ void Main_Menu_Update(void)
 			CP_Engine_SetNextGameState(option_Init, option_Update, option_Exit);
 		}
 	}
-	
 }
-	 
 
 void Main_Menu_Exit(void)
 {

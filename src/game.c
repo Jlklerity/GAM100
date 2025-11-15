@@ -15,7 +15,6 @@
 #include "option.h"
 Level_Button button[5];
 int g_highest_level_unlocked = 1; //default to level1 being accessible
-//int g_current_level_at = 1; //current level we are at
 
 void Load_Progress(void) {
 	FILE* file_input = fopen("Assets/Levels/SaveData.txt", "r");
@@ -120,8 +119,62 @@ void Game_Update(void)
 			CP_Engine_SetNextGameState(LevelFive_Init, LevelFive_Update, LevelFive_Exit);
 		}
 	}
-	back_option_gamemenu();
-	reset_option_gamemenu(); //reset level progression button
+	// --- NEW "Back" Button ---
+	float back_x = 150.0f;
+	float back_y = 800.0f;
+	float back_w = 200.0f;
+	float back_h = 100.0f;
+
+	CP_Settings_TextSize(48.0f);
+	if (IsAreaClicked(back_x, back_y, back_w, back_h, mouseX, mouseY)) {
+		if (CP_Input_MouseDown(MOUSE_BUTTON_LEFT)) {
+			CP_Image_Draw(mainmenu_ButtonWhenPressed, back_x, back_y, back_w, back_h, 255);
+			CP_Settings_Fill(CP_Color_Create(0, 0, 0, 150));
+		}
+		else {
+			CP_Image_Draw(mainmenu_ButtonBackground, back_x, back_y, back_w, back_h, 255);
+			CP_Settings_Fill(CP_Color_Create(0, 0, 0, 255));
+		}
+		if (CP_Input_MouseReleased(MOUSE_BUTTON_LEFT)) {
+			CP_Engine_SetNextGameState(Main_Menu_Init, Main_Menu_Update, Main_Menu_Exit);
+		}
+	}
+	else {
+		CP_Image_Draw(mainmenu_ButtonBackground, back_x, back_y, back_w, back_h, 255);
+		CP_Settings_Fill(CP_Color_Create(0, 0, 0, 255));
+	}
+	CP_Settings_TextAlignment(CP_TEXT_ALIGN_H_CENTER, CP_TEXT_ALIGN_V_MIDDLE);
+	CP_Font_DrawText("Back", back_x, back_y);
+
+
+	// --- NEW "Reset Progress" Button ---
+	float reset_x = 1450.0f;
+	float reset_y = 800.0f;
+	float reset_w = 200.0f;
+	float reset_h = 100.0f;
+
+	CP_Settings_TextSize(32.0f);
+	if (IsAreaClicked(reset_x, reset_y, reset_w, reset_h, mouseX, mouseY)) {
+		if (CP_Input_MouseDown(MOUSE_BUTTON_LEFT)) {
+			CP_Image_Draw(mainmenu_ButtonWhenPressed, reset_x, reset_y, reset_w, reset_h, 255);
+			CP_Settings_Fill(CP_Color_Create(0, 0, 0, 150));
+		}
+		else {
+			CP_Image_Draw(mainmenu_ButtonBackground, reset_x, reset_y, reset_w, reset_h, 255);
+			CP_Settings_Fill(CP_Color_Create(0, 0, 0, 255));
+		}
+		if (CP_Input_MouseReleased(MOUSE_BUTTON_LEFT)) {
+			g_highest_level_unlocked = 1;
+			Save_Progress();
+		}
+	}
+	else {
+		CP_Image_Draw(mainmenu_ButtonBackground, reset_x, reset_y, reset_w, reset_h, 255);
+		CP_Settings_Fill(CP_Color_Create(0, 0, 0, 255));
+	}
+	CP_Settings_TextAlignment(CP_TEXT_ALIGN_H_CENTER, CP_TEXT_ALIGN_V_MIDDLE);
+	CP_Font_DrawText("Reset All", reset_x, reset_y);
+
 	// Fullscreen and exit fullscreen
 	if (((CP_Input_KeyDown(KEY_LEFT_ALT)) || (CP_Input_KeyDown(KEY_RIGHT_ALT))) && (CP_Input_KeyDown(KEY_ENTER)))
 	{

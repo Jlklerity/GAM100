@@ -14,6 +14,7 @@ CP_Font option_TEXT; //author: Zi Jie (for options menu)
 
 float mouseX, mouseY;
 float textSize;
+float logoSize;
 extern int g_highest_level_unlocked;
 
 void Load_Progress(void);

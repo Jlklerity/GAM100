@@ -124,7 +124,8 @@ void LevelThree_Update(void) {
             if (next_level > g_highest_level_unlocked) {
                 g_highest_level_unlocked = next_level;
             }
-            CP_Engine_SetNextGameState(LevelFour_Init, LevelFour_Update, LevelFour_Exit);
+            //CP_Engine_SetNextGameState(LevelFour_Init, LevelFour_Update, LevelFour_Exit);
+            CP_Engine_SetNextGameState(Main_Menu_Init, Main_Menu_Update, Main_Menu_Exit);
         }
 
         for (int i = 0; i < g_level_collidable_count; i++) {
