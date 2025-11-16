@@ -40,7 +40,7 @@ typedef struct {
 
 void Player_Init(Player *player, Orb *orb);
 void Player_Update(Player* player, float deltaTime, float *player_moveX, float jump_strength);
-void Orb_Update(Player* player, Orb* orb, float *player_moveX, float *orb_moveX, float *orb_moveY, float deltaTime);
+void Orb_Update(Player* player, Orb* orb, float *orb_moveX, float *orb_moveY, float deltaTime);
 //extern Player player;
 //
 //

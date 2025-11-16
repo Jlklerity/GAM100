@@ -26,6 +26,7 @@ Laser* g_level_laser[MAXLASER] = { 0 };
 Wall* g_level_collidables[MAX_LEVEL_OBJECTS];
 int g_level_collidable_count = 0;
 int g_laser_count;
+int laser_index = 0;
 
 void LoadLaserFromFile(const char* filename) {
     s_level_laser_count = 0;
@@ -40,7 +41,6 @@ void LoadLaserFromFile(const char* filename) {
     char type_str[50];
     float x, y, width, time;
     int direction, state;
-    int laser_index = 0; //to count laser
     while (fgets(line_buffer, sizeof(line_buffer), file)) {
         // Skip comments and empty lines
         if (line_buffer[0] == '#' || line_buffer[0] == '\n') {
@@ -98,7 +98,6 @@ void LoadLevelFromFile(const char* filename) {
     int destroy_wall_index = 0;
     int stage_wall_index = 0;
     int movable_platform_index = 0;
-    int laser_index = 0;
 
     // 2. Read file line by line
     while (fgets(line_buffer, sizeof(line_buffer), file)) {
@@ -150,14 +149,18 @@ void LoadLevelFromFile(const char* filename) {
                     if (pressure_plate_index < MAX_LEVEL_OBJECTS) {
                         g_level_pressure_plate[pressure_plate_index++] = new_wall;
                     }
-                    new_wall->color = CP_Color_Create(113, 121, 126, 255);
+                    if (new_wall->link_id == 1) {
+                        new_wall->color = CP_Color_Create(113, 121, 126, 255);
+                    }
+                    else if (new_wall->link_id == 2) {
+                        new_wall->color = CP_Color_Create(255, 255, 0, 255);
+                    }
                     // Don't add to collidables, it's handled special
                     break;
                 case DOOR:
                     if (door_index < MAX_LEVEL_OBJECTS) {
                         g_level_door[door_index++] = new_wall;
                     }
-                    new_wall->color = CP_Color_Create(113, 121, 126, 255);
                     g_level_collidables[g_level_collidable_count++] = new_wall;
                     break;
                 case EXIT_DOOR:

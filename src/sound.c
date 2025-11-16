@@ -46,11 +46,6 @@ void Sound_PlayMUSIC(MUSIC type)
     CP_Sound_PlayAdvanced(music[type], 1.0f, 1.0f, TRUE, CP_SOUND_GROUP_MUSIC);
 }
 
-void Sound_StopMUSIC(MUSIC type)
-{
-    CP_Sound_StopAll(); 
-}
-
 void Sound_StopAll()
 {
     CP_Sound_StopAll();

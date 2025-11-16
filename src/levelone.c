@@ -60,7 +60,7 @@ void LevelOne_Init(void) {
         }
     }
 
-    leveltime = 30.0f;
+    leveltime = 90.0f;
     orb.max_ammo = 3;
     orb.ammo = orb.max_ammo;
     orb.orb_type = TELEPORT_ORB;
@@ -100,7 +100,7 @@ void LevelOne_Update(void) {
         player.isGrounded = 0;
 
         //Orb movement, direction, change orb type
-        Orb_Update(&player, &orb, &player_moveX, &orb_moveX, &orb_moveY, deltaTime);
+        Orb_Update(&player, &orb, &orb_moveX, &orb_moveY, deltaTime);
 
         // ========== VERTICAL COLLISION DETECTION ==========
 
@@ -287,10 +287,10 @@ void LevelOne_Update(void) {
     //DEFAULT FACING RIGHT 
     if (facing_left)
     {
-        CP_Image_DrawSubImage(player.fox_sprite, player.player_posX, player.player_posY - 30, -player.player_width * 3, player.player_height * 3, start_x, start_y, end_x, end_y, 255);
+        CP_Image_DrawSubImage(player.fox_sprite, player.player_posX, player.player_posY - 30.0f, -player.player_width * 3.0f, player.player_height * 3.0f, (float)start_x, (float)start_y, (float)end_x, (float)end_y, 255);
     }
     else {
-        CP_Image_DrawSubImage(player.fox_sprite, player.player_posX, player.player_posY - 30, player.player_width * 3, player.player_height * 3, start_x, start_y, end_x, end_y, 255);
+        CP_Image_DrawSubImage(player.fox_sprite, player.player_posX, player.player_posY - 30.0f, player.player_width * 3.0f, player.player_height * 3.0f, (float)start_x, (float)start_y, (float)end_x, (float)end_y, 255);
     }
 
     CP_Font_Set(debug_TEXT);
@@ -300,6 +300,9 @@ void LevelOne_Update(void) {
 
     //Ammo counter
     OrbCount(&orb);
+
+    //Controls
+    ControlsDisplay();
 
     //FPS Counter & Player coordinates & Mouse coordinates & player pov
     if (CP_Input_KeyTriggered(KEY_LEFT_ALT)) {

@@ -102,7 +102,7 @@ void update_laser(Laser* laser, float delta_time, Wall* wall[], int wall_count, 
 	case LASER_FIRING:
 		laser_hitbox(laser, wall, wall_count, player, orbs);
 		// Laser lasts 3 seconds
-		if (laser->timer >= 3.0f) {
+		if (laser->timer >= 2.0f) {
 			laser->state = LASER_IDLE;
 			laser->timer = 0.0f;  // reset timer for firing duration
 		}
@@ -111,7 +111,7 @@ void update_laser(Laser* laser, float delta_time, Wall* wall[], int wall_count, 
 	case LASER_IDLE:
 		// Do nothing
 	// After 5 seconds got to LASER_WARNING
-		if (laser->timer >= 5.0f) {
+		if (laser->timer >= 3.0f) {
 			laser->state = LASER_WARNING;
 			laser->timer = 0.0f;  // reset timer for firing duration
 		}

@@ -9,7 +9,7 @@
 #include "mainmenu.h"
 #include "sound.h"
 
-static int pause_submenu_state = 0.0f; // 0 = main pause menu, 1 = sound menu
+static int pause_submenu_state = 0; // 0 = main pause menu, 1 = sound menu
 static float volumePercent = 100.0f;
 static float pauseTextX, pauseTextY;
 static float backButtonX, backButtonY;
@@ -31,7 +31,7 @@ static void sound_option_pausemenu(void);
 
 int pause_menu(void)
 {
-    float textSize = 32.0f;
+    textSize = 32.0f;
     buttonWidth = 200.0f;
     buttonHeight = 75.0f;
 
@@ -59,9 +59,9 @@ int pause_menu(void)
         restartbarX = (float)CP_System_GetWindowWidth() / 2.0f;
         restartbarY = (float)CP_System_GetWindowHeight() / 2.0f;
         mainmenubarX = (float)CP_System_GetWindowWidth() / 2.0f;
-        mainmenubarY = (float)CP_System_GetWindowHeight() / 1.65f;
+        mainmenubarY = (float)CP_System_GetWindowHeight() / 1.4f;
         soundButtonX = (float)CP_System_GetWindowWidth() / 2.0f;
-        soundButtonY = (float)CP_System_GetWindowHeight() / 1.4f;
+        soundButtonY = (float)CP_System_GetWindowHeight() / 1.65f;
 
         // Draw buttons
         CP_Image_Draw(mainmenu_ButtonBackground, resumebarX, resumebarY, buttonWidth, buttonHeight, 255);
@@ -267,7 +267,7 @@ void option_Init(void)
     mainmenu_ButtonBackground = CP_Image_Load("Assets/kenney_ui-pack-space-expansion/PNG/Extra/Double/button_rectangle_depth.png");
     mainmenu_ButtonWhenPressed = CP_Image_Load("Assets/kenney_ui-pack-space-expansion/PNG/Extra/Double/panel_rectangle_screws.png");
 
-    float textSize = 32.0f;
+    textSize = 32.0f;
     buttonWidth = 150.0f;
     buttonHeight = 75.0f;
 

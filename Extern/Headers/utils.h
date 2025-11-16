@@ -5,9 +5,10 @@ int IsAreaClicked(float area_center_x, float area_center_y, float area_width, fl
 int IsCircleClicked(float circle_center_x, float circle_center_y, float diameter, float click_x, float click_y);
 int IsCircleColliding(float circle1_center_x, float circle1_center_y, float circle2_center_x, float circle2_center_y, float diameter);
 int RGBChange(float StaticValue);
-void FPSCount();
+void FPSCount(void);
 void Player_Coords(Player* player);
-void MousePos();
+void MousePos(void);
+void ControlsDisplay(void);
 void PlayerPov(Player* player);
 void LevelTimer(float* leveltime, int* GameState);
 void OrbCount(Orb* orb);

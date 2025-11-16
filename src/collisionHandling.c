@@ -139,14 +139,19 @@ void Resolve_Collision_FloorSensor_Player(AABB playerHitBox, AABB pressure_senso
 	}
 	else {
 		float timeSinceLastPress = currentTime - pressure_plate->last_pressed_time; 
-		if (timeSinceLastPress >= 5.0f) {
+		if (timeSinceLastPress >= 7.0f) {
 			
 			interactable->isActivated = 0;
 			if (interactable->type == MOVABLE) {
 				interactable->x = interactable->original_x;
 				interactable->y = interactable->original_x;
 			}
-			pressure_plate->color = CP_Color_Create(113, 121, 126, 255);
+			if (pressure_plate->link_id == 1) {
+				pressure_plate->color = CP_Color_Create(113, 121, 126, 255);
+			}
+			else if (pressure_plate->link_id == 2) {
+				pressure_plate->color = CP_Color_Create(255, 255, 0, 255);
+			}
 		}
 		playsound = 0;
 		
