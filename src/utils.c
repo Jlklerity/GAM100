@@ -157,11 +157,11 @@ void LevelTimer(float* leveltime, int* GameState) {
 }
 
 void OrbCount(Orb* orb) {
-    CP_Settings_TextSize(64.0f);
+    CP_Settings_TextSize(32.0f);
     char buffer[50] = { 0 };
-    sprintf_s(buffer, 50, "%d", orb->ammo);
+    sprintf_s(buffer, 50, "Ammo: %d", orb->ammo);
     CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
-    CP_Font_DrawText(buffer, 30.0f, 60.0f);
+    CP_Font_DrawText(buffer, 30.0f, 30.0f);
 
     switch (orb->orb_type) {
     case TELEPORT_ORB:
@@ -171,6 +171,6 @@ void OrbCount(Orb* orb) {
         CP_Settings_Fill(CP_Color_Create(255, 0, 0, 255));
         break;
     }
-    CP_Graphics_DrawCircle(120.0f, 120.0f, orb->diameter);
+    CP_Graphics_DrawCircle(90.0f, 90.0f, orb->diameter);
 }
 

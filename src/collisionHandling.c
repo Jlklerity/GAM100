@@ -146,6 +146,7 @@ void Resolve_Collision_FloorSensor_Player(AABB playerHitBox, AABB pressure_senso
 				interactable->x = interactable->original_x;
 				interactable->y = interactable->original_x;
 			}
+			pressure_plate->color = CP_Color_Create(113, 121, 126, 255);
 			if (pressure_plate->link_id == 1) {
 				pressure_plate->color = CP_Color_Create(113, 121, 126, 255);
 			}

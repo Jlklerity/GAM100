@@ -65,6 +65,8 @@ void LevelThree_Init(void) {
         }
     }
 
+   
+
     leveltime = 30.0f;
     orb.max_ammo = 3;
     orb.ammo = orb.max_ammo;
@@ -80,6 +82,7 @@ void LevelThree_Update(void) {
         if (deltaTime > max_deltaTime) {
             deltaTime = max_deltaTime;
         }
+
 
         const float gravity = 2200.0f;
         const float jump_strength = 1200.0f;
@@ -199,8 +202,10 @@ void LevelThree_Update(void) {
         }
 
         for (int i = 0; i < g_laser_count; i++) {
-            if (g_level_laser[i])
+            if (g_level_laser[i] != NULL) {
                 update_laser(g_level_laser[i], deltaTime, g_level_collidables, g_level_collidable_count, &player, &orb);
+            }
+            
         }
         // STORED FACING VALUE
         if (CP_Input_KeyDown(KEY_A)) { //WALKING LEFT

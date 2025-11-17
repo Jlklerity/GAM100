@@ -25,12 +25,13 @@ Laser* g_level_laser[MAXLASER] = { 0 };
 // Pointers to any other collidable objects (like platforms)
 Wall* g_level_collidables[MAX_LEVEL_OBJECTS];
 int g_level_collidable_count = 0;
-int g_laser_count;
+int g_laser_count = 0;
 int laser_index = 0;
 
 void LoadLaserFromFile(const char* filename) {
     s_level_laser_count = 0;
     g_laser_count = 0;
+    laser_index = 0;
     memset(g_level_laser, 0, sizeof(g_level_laser));
     FILE* file = fopen(filename, "r");
     if (!file) {
