@@ -7,7 +7,7 @@ static float timer = 0.0f;
 static int current_slide = 0;
 static float alpha = 0.0f; 
 
-#define SLIDE_DURATION 4.0f  
+#define SLIDE_DURATION 2.5f  
 #define FADE_SPEED 200.0f  
 
 void Gamecredits_Init(void) {
