@@ -1,5 +1,5 @@
 #include "collisionHandling.h"
-#include "stage_wall.h"
+#include "stagewall.h"
 #include "player.h"
 #include "cprocessing.h"
 #include "sound.h"

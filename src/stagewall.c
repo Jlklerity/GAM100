@@ -1,5 +1,5 @@
 #include "cprocessing.h"
-#include "stage_wall.h"
+#include "stagewall.h"
 #include "hazards.h"
 #include <stdio.h>
 #include <string.h>
@@ -27,6 +27,8 @@ Wall* g_level_collidables[MAX_LEVEL_OBJECTS];
 int g_level_collidable_count = 0;
 int g_laser_count = 0;
 int laser_index = 0;
+int g_laser_count;
+int laser_index;
 
 void LoadLaserFromFile(const char* filename) {
     s_level_laser_count = 0;

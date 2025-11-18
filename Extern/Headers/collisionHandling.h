@@ -1,6 +1,6 @@
 #pragma once
 #include <stdbool.h>
-#include "stage_wall.h"
+#include "stagewall.h"
 #include "player.h"
 #include "hazards.h"
 

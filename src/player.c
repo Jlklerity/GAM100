@@ -1,6 +1,6 @@
 #include "cprocessing.h"
 #include "player.h"
-#include "stage_wall.h"
+#include "stagewall.h"
 #include "collisionHandling.h"
 #include "levelone.h"
 #include "sound.h"

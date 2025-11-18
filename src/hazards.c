@@ -1,6 +1,5 @@
-#include <stdio.h>
 #include "player.h"
-#include "stage_wall.h"
+#include "stagewall.h"
 #include "hazards.h"
 #include "collisionHandling.h"
 
@@ -121,41 +120,3 @@ void update_laser(Laser* laser, float delta_time, Wall* wall[], int wall_count, 
 	}
 }
 
-
-void pitfall(float pitfall_x, float pitfall_y, float width_of_pitfall, float depth_of_pitfall, Wall* wall, Player* player) {
-	/* checks where the player first comes above the pitfall and marks the direction of the player. If player falls into depth
-	   player should be teleported to left or right of pitfall depending whereplayer comes from, player will lose 1 health. */
-	static int not_entered = 1;
-	static int entering_fromleft = 0;
-	static int entering_fromright = 0;
-	float pit_left = pitfall_x - width_of_pitfall / 2.0f;
-	float pit_right = pitfall_x + width_of_pitfall / 2.0f;
-	float player_left = player->player_posX - player->player_width / 2.0f;
-	float player_right = player->player_posX + player->player_width / 2.0f;
-
-	if (not_entered) {
-		if (player_right < pit_left) {
-			entering_fromleft = 1;
-		}
-		else if (player_left > pit_right) {
-			entering_fromright = 1;
-		}
-		else {
-			not_entered = 0;
-		}
-	}
-	else if (!not_entered) {
-		if (player_left > pit_left && player_right < pit_right && player->player_posY - player->player_height / 2.0f < depth_of_pitfall) {
-			if (entering_fromleft) {
-				player->player_posX = pit_left - player->player_width;
-				not_entered = 1;
-				entering_fromleft = 0;
-			}
-			else if (entering_fromright) {
-				player->player_posX = pit_right + player->player_width;
-				not_entered = 1;
-				entering_fromright = 0;
-			}
-		}
-	}
-}

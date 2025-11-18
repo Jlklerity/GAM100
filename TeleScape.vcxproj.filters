@@ -1,131 +1,45 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
+    <ClCompile Include="src\hazards.c" />
+    <ClCompile Include="src\levelthree.c" />
+    <ClCompile Include="src\leveltwo.c" />
+    <ClCompile Include="src\collisionHandling.c" />
+    <ClCompile Include="src\fullscreen.c" />
+    <ClCompile Include="src\game.c" />
+    <ClCompile Include="src\levelone.c" />
+    <ClCompile Include="src\main.c" />
+    <ClCompile Include="src\mainmenu.c" />
+    <ClCompile Include="src\option.c" />
+    <ClCompile Include="src\player.c" />
+    <ClCompile Include="src\sound.c" />
+    <ClCompile Include="src\stagewall.c" />
+    <ClCompile Include="src\startscreen.c" />
+    <ClCompile Include="src\utils.c" />
+    <ClCompile Include="src\creditscreen.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\game.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\main.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\utils.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\mainmenu.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\startscreen.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\fullscreen.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\stage_wall.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\collisionHandling.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\player.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\levelone.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\leveltwo.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\levelfive.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\levelfour.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\levelthree.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\hazards.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\option.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\sound.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
+    <ClInclude Include="Extern\Headers\collisionHandling.h" />
+    <ClInclude Include="Extern\Headers\fullscreen.h" />
+    <ClInclude Include="Extern\Headers\game.h" />
+    <ClInclude Include="Extern\Headers\hazards.h" />
+    <ClInclude Include="Extern\Headers\levelone.h" />
+    <ClInclude Include="Extern\Headers\levelthree.h" />
+    <ClInclude Include="Extern\Headers\leveltwo.h" />
+    <ClInclude Include="Extern\Headers\mainmenu.h" />
+    <ClInclude Include="Extern\Headers\option.h" />
+    <ClInclude Include="Extern\Headers\player.h" />
+    <ClInclude Include="Extern\Headers\sound.h" />
+    <ClInclude Include="Extern\Headers\stagewall.h" />
+    <ClInclude Include="Extern\Headers\startscreen.h" />
+    <ClInclude Include="Extern\Headers\utils.h" />
+    <ClInclude Include="Extern\Headers\creditscreen.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Extern\Headers\startscreen.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Extern\Headers\fullscreen.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Extern\Headers\game.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Extern\Headers\mainmenu.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Extern\Headers\utils.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Extern\Headers\stage_wall.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Extern\Headers\collisionHandling.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Extern\Headers\player.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Extern\Headers\levelone.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Extern\Headers\leveltwo.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Extern\Headers\levelfive.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Extern\Headers\levelfour.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Extern\Headers\levelthree.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Extern\Headers\hazards.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Extern\Headers\option.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Extern\Headers\sound.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="Assets\Levels\level2.txt" />
     <Text Include="Assets\Levels\level1.txt" />
+    <Text Include="Assets\Levels\level2.txt" />
     <Text Include="Assets\Levels\level3.txt" />
-    <Text Include="Assets\Levels\Laser.txt" />
-<<<<<<< HEAD
     <Text Include="Assets\Levels\SavaData.txt" />
-=======
     <Text Include="Assets\Levels\Level3_Lazer.txt" />
->>>>>>> 2a9d0f4302570a098e55a368927b701c97321333
   </ItemGroup>
 </Project>

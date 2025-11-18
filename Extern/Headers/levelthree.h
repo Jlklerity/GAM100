@@ -1,9 +1,4 @@
 #pragma once
-#include "cprocessing.h"
-#include "player.h"
-#include "stage_wall.h"
-#include "game.h"
-#include "collisionHandling.h"
 
 void LevelThree_Init(void);
 

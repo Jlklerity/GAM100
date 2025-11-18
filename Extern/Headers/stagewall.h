@@ -1,6 +1,5 @@
 #pragma once
 #include "cprocessing.h"
-#include "utils.h"
 #define MAX_LEVEL_OBJECTS 100
 
 enum TypeofWall {

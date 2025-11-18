@@ -2,7 +2,7 @@
 #include <string.h>
 #include <math.h>
 #include "cprocessing.h"
-#include "stage_wall.h"
+#include "stagewall.h"
 #include "player.h"
 #include "collisionHandling.h"
 #include "game.h"

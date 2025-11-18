@@ -1,12 +1,10 @@
 #include <math.h>
-#include <stdlib.h>
+#include <stdio.h>
 #include "cprocessing.h"
 #include "game.h"
 #include "player.h"
-#include <stdio.h>
-#include "levelone.h"
 #include "collisionHandling.h"
-#include "stage_wall.h"
+#include "stagewall.h"
 
 int IsAreaClicked(float area_center_x, float area_center_y, float area_width, float area_height, float click_x, float click_y)
 {

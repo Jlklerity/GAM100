@@ -1,9 +1,7 @@
-#include <stdio.h>
-#include <string.h>
 #include "cprocessing.h"
 #include "utils.h"
 #include "fullscreen.h"
-#include "stage_wall.h"
+#include "stagewall.h"
 #include "player.h"
 #include "game.h"
 #include "mainmenu.h"

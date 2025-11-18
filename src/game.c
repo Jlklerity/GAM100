@@ -4,13 +4,11 @@
 #include "mainmenu.h"
 #include "utils.h"
 #include "fullscreen.h"
-#include "stage_wall.h"
+#include "stagewall.h"
 #include "player.h"
 #include "levelone.h"
 #include "leveltwo.h"
 #include "levelthree.h"
-#include "levelfour.h"
-#include "levelfive.h"
 #include "game.h"
 #include "option.h"
 Level_Button button[5];
@@ -111,12 +109,6 @@ void Game_Update(void)
 		}
 		if (IsAreaClicked(button[2].button_x, button[2].button_y, button[2].button_width, button[2].button_height, mouseX, mouseY) && g_highest_level_unlocked >= 3) {
 			CP_Engine_SetNextGameState(LevelThree_Init, LevelThree_Update, LevelThree_Exit);
-		}
-		if (IsAreaClicked(button[3].button_x, button[3].button_y, button[3].button_width, button[3].button_height, mouseX, mouseY) && g_highest_level_unlocked >= 4) {
-			CP_Engine_SetNextGameState(LevelFour_Init, LevelFour_Update, LevelFour_Exit);
-		}
-		if (IsAreaClicked(button[4].button_x, button[4].button_y, button[4].button_width, button[4].button_height, mouseX, mouseY) && g_highest_level_unlocked >= 5) {
-			CP_Engine_SetNextGameState(LevelFive_Init, LevelFive_Update, LevelFive_Exit);
 		}
 	}
 	// --- NEW "Back" Button ---
