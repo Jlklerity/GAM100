@@ -1,3 +1,4 @@
 #pragma once
-
-void gamecredits(void);
+void Gamecredits_Init(void);
+void Gamecredits_Update(void);
+void Gamecredits_Exit(void);
