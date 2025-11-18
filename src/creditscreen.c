@@ -11,7 +11,7 @@ static float alpha = 0.0f;
 #define FADE_SPEED 200.0f  
 
 void Gamecredits_Init(void) {
-	font_credits = CP_Font_Load("Assets/Exo2 - Regular.ttf");
+	font_credits = CP_Font_Load("Assets/kenney_ui-pack-space-expansion/Font/Kenney Future Narrow.ttf");
 	timer = 0.0f;
 	current_slide = 0;
 	alpha = 0.0f;
@@ -100,22 +100,19 @@ void Gamecredits_Update(void) {
 			CP_Font_DrawText("All content \u00A9 2025 DigiPen Institute of Technology Singapore. All Rights Reserved.", screenWidth / 2.0f, screenHeight - 50.0f);
 			break;
 
-			case 4:
-				CP_Settings_TextSize(40.0f);
-				CP_Font_DrawText("TOOLS AND LIBRARIES", screenWidth / 2.0f, 100.0f);
-
-				CP_Settings_TextSize(25.0f);
-				CP_Font_DrawText("CProcessing", screenWidth / 2.0f, 200.0f);
-
+		case 4:
+			CP_Settings_TextSize(40.0f);
+			CP_Font_DrawText("TOOLS AND LIBRARIES", screenWidth / 2.0f, 100.0f);
+			CP_Settings_TextSize(25.0f);
+			CP_Font_DrawText("CProcessing", screenWidth / 2.0f, 200.0f);
 				// Mandatory FMOD Credit
-				CP_Font_DrawText("FMOD Sound System", screenWidth / 2.0f, 300.0f);
-				CP_Font_DrawText("\u00A9 FireLight Technologies Pty Ltd (1998 - 2020)", screenWidth / 2.0f, 330.0f);
-				break;
+			CP_Font_DrawText("FMOD Sound System", screenWidth / 2.0f, 300.0f);
+			CP_Font_DrawText("\u00A9 FireLight Technologies Pty Ltd (1998 - 2020)", screenWidth / 2.0f, 330.0f);
+			break;
 
-			default:
-				// End of credits
-				CP_Engine_SetNextGameState(Main_Menu_Init, Main_Menu_Update, Main_Menu_Exit);
-				break;
+		default:				// End of credits
+			CP_Engine_SetNextGameState(Main_Menu_Init, Main_Menu_Update, Main_Menu_Exit);
+			break;
 	}
 
 	if (timer >= SLIDE_DURATION) {
