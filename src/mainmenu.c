@@ -4,6 +4,7 @@
 #include "fullscreen.h"
 #include "option.h"
 #include "controls.h"
+#include "creditscreen.h"
 
 float mouseX, mouseY;
 float logoX, logoY;
@@ -12,6 +13,7 @@ float exitButtonX, exitButtonY;
 float buttonWidth, buttonHeight;
 float optionButtonX, optionButtonY;
 float controlsButtonX, controlsButtonY;
+float creditsButtonX, creditsButtonY;
 
 void Main_Menu_Init(void)
 {
@@ -35,6 +37,9 @@ void Main_Menu_Init(void)
 
 	controlsButtonX = (float)(CP_System_GetWindowWidth() / 2);
 	controlsButtonY = (float)(CP_System_GetWindowHeight() / 1.5);
+
+	creditsButtonX = (float)(CP_System_GetWindowWidth() / 1.5);
+	creditsButtonY = (float)(CP_System_GetWindowHeight() / 1.2);
 }
 
 void Main_Menu_Update(void)
@@ -57,6 +62,9 @@ void Main_Menu_Update(void)
 	CP_Image_Draw(mainmenu_ButtonBackground, optionButtonX, optionButtonY, buttonWidth, buttonHeight, 255);
 	//box of controls button
 	CP_Image_Draw(mainmenu_ButtonBackground, controlsButtonX, controlsButtonY, buttonWidth, buttonHeight, 255);
+	//box of credits button
+	CP_Image_Draw(mainmenu_ButtonBackground, creditsButtonX, creditsButtonY, buttonWidth, buttonHeight, 255);
+
 
 
 	//Draw logo
@@ -72,6 +80,8 @@ void Main_Menu_Update(void)
 	CP_Font_DrawText("Exit", exitButtonX, exitButtonY);
 	CP_Font_DrawText("Option", optionButtonX, optionButtonY);
 	CP_Font_DrawText("Controls", controlsButtonX, controlsButtonY);
+	CP_Font_DrawText("Credits", creditsButtonX, creditsButtonY);
+
 
 	if (CP_Input_MouseDown(MOUSE_BUTTON_LEFT)) {
 		if (IsAreaClicked(playButtonX, playButtonY, buttonWidth, buttonHeight, mouseX, mouseY)) {
@@ -96,6 +106,11 @@ void Main_Menu_Update(void)
 			CP_Settings_Fill(CP_Color_Create(0, 0, 0, 150));
 			CP_Font_DrawText("Controls", controlsButtonX, controlsButtonY);
 		}
+		if (IsAreaClicked(creditsButtonX, creditsButtonY, buttonWidth, buttonHeight, mouseX, mouseY)) {
+			CP_Image_Draw(mainmenu_ButtonWhenPressed, creditsButtonX, creditsButtonY, buttonWidth, buttonHeight, 255);
+			CP_Settings_Fill(CP_Color_Create(0, 0, 0, 150));
+			CP_Font_DrawText("Credits", creditsButtonX, creditsButtonY);
+		}
 	}
 	if (CP_Input_MouseReleased(MOUSE_BUTTON_LEFT)) {
 		if (IsAreaClicked(playButtonX, playButtonY, buttonWidth, buttonHeight, mouseX, mouseY)) {
@@ -109,6 +124,9 @@ void Main_Menu_Update(void)
 		}
 		if (IsAreaClicked(controlsButtonX, controlsButtonY, buttonWidth, buttonHeight, mouseX, mouseY)) {
 			CP_Engine_SetNextGameState(controls_Init, controls_Update, controls_Exit);
+		}
+		if (IsAreaClicked(creditsButtonX, creditsButtonY, buttonWidth, buttonHeight, mouseX, mouseY)) {
+			CP_Engine_SetNextGameState(Gamecredits_Init, Gamecredits_Update, Gamecredits_Exit);
 		}
 	}
 }
