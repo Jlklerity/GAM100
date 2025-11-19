@@ -88,17 +88,7 @@ void ControlsDisplay(void) {
     CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
     textSize = 32.0f;
     CP_Settings_TextSize(textSize);
-    CP_Font_DrawText("W - LOOK UP / ENTER DOORS", 200.0f, 70.0f);
-    CP_Font_DrawText("S - LOOK DOWN", 200.0f, 110.0f);
-    CP_Font_DrawText("A - GO LEFT", 200.0f, 150.0f);
-    CP_Font_DrawText("D - GO RIGHT", 200.0f, 190.0f);
-    CP_Font_DrawText("SPACE - JUMP", 200.0f, 230.0f);
-    CP_Settings_Fill(CP_Color_Create(0, 190, 255, 255));
-    CP_Font_DrawText("1 - TELEPORT ORB", 200.0f, 270.0f);
-    CP_Settings_Fill(CP_Color_Create(255, 0, 0, 255));
-    CP_Font_DrawText("2 - DESTROY ORB", 550.0f, 270.0f);
-    CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
-    CP_Font_DrawText("J - THROW SELECTED ORB", 200.0f, 310.0f);
+    
 }
 
 void PlayerPov(Player* player) {
