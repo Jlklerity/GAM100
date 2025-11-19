@@ -69,7 +69,7 @@ void Main_Menu_Update(void)
 	CP_Settings_Fill(CP_Color_Create(0, 0, 0, 255));
 	CP_Settings_TextSize(textSize);
 	CP_Font_DrawText("Play", playButtonX, playButtonY);
-	CP_Font_DrawText("Exit", exitButtonX, exitButtonY);
+	CP_Font_DrawText("Quit", exitButtonX, exitButtonY);
 	CP_Font_DrawText("Option", optionButtonX, optionButtonY);
 	CP_Font_DrawText("Controls", controlsButtonX, controlsButtonY);
 
@@ -82,7 +82,7 @@ void Main_Menu_Update(void)
 		if (IsAreaClicked(exitButtonX, exitButtonY, buttonWidth, buttonHeight, mouseX, mouseY)) {
 			CP_Image_Draw(mainmenu_ButtonWhenPressed, exitButtonX, exitButtonY, buttonWidth, buttonHeight, 255);
 			CP_Settings_Fill(CP_Color_Create(0, 0, 0, 150));
-			CP_Font_DrawText("Exit", exitButtonX, exitButtonY);
+			CP_Font_DrawText("Quit", exitButtonX, exitButtonY);
 		}
 
 		if (IsAreaClicked(optionButtonX, optionButtonY, buttonWidth, buttonHeight, mouseX, mouseY)) {
