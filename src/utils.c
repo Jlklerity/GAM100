@@ -88,17 +88,21 @@ void ControlsDisplay(void) {
     CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
     textSize = 32.0f;
     CP_Settings_TextSize(textSize);
-    CP_Font_DrawText("W - LOOK UP / ENTER DOORS", 200.0f, 70.0f);
-    CP_Font_DrawText("S - LOOK DOWN", 200.0f, 110.0f);
-    CP_Font_DrawText("A - GO LEFT", 200.0f, 150.0f);
-    CP_Font_DrawText("D - GO RIGHT", 200.0f, 190.0f);
-    CP_Font_DrawText("SPACE - JUMP", 200.0f, 230.0f);
-    CP_Settings_Fill(CP_Color_Create(0, 190, 255, 255));
-    CP_Font_DrawText("1 - TELEPORT ORB", 200.0f, 270.0f);
-    CP_Settings_Fill(CP_Color_Create(255, 0, 0, 255));
-    CP_Font_DrawText("2 - DESTROY ORB", 550.0f, 270.0f);
-    CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
-    CP_Font_DrawText("J - THROW SELECTED ORB", 200.0f, 310.0f);
+    for (int i = 0; i < MAX_LEVEL_OBJECTS; i++) {
+        if (g_level_destroy_wall[i] != NULL && g_level_destroy_wall[i]->isActivated == 0) {
+            CP_Settings_Fill(g_level_destroy_wall[i]->color);
+            CP_Font_DrawText("Destroy This", g_level_destroy_wall[i]->x - 300, g_level_destroy_wall[i]->y);
+        }
+        else if (g_level_pressure_plate[i] != NULL && g_level_door[i]->isActivated == 0) {
+            CP_Settings_Fill(g_level_pressure_plate[i]->color);
+            CP_Font_DrawText("Step Here", g_level_pressure_plate[i]->x - 100, g_level_pressure_plate[i]->y - 100);
+        }
+        else if (g_level_teleport_wall[i] != NULL) {
+            CP_Settings_Fill(CP_Color_Create(0, 190, 255, 255));
+            CP_Font_DrawText("Teleport Here", g_level_teleport_wall[i]->x - 300, g_level_teleport_wall[i]->y);
+        }
+    }
+
 }
 
 void PlayerPov(Player* player) {
