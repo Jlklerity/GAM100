@@ -11,7 +11,7 @@
 #include "option.h"
 #include "sound.h"
 #include "mainmenu.h"
-
+#include "GameOver.h"
 
 static float greenStartTime;
 static Player player;
@@ -19,6 +19,7 @@ static Orb orb;
 static int GameState = 1; //for pause state i guess...
 static int DebugState = 0; //enable FPS and player coords
 static float leveltime;
+static int GameOverState;
 
 //fox animation sprite canvas
 static int start_x = 0;
@@ -43,6 +44,7 @@ void LevelThree_Init(void) {
     debug_TEXT = CP_Font_Load("Assets/Exo2 - Regular.ttf");
     animation_timer = 0;  // added animation_timer (only dif in this void)
     GameState = 1;
+    GameOverState = 1;
     greenStartTime = 0;
     // Loop to initialize all doors
     for (int i = 0; i < MAX_LEVEL_OBJECTS; i++) {
@@ -74,7 +76,7 @@ void LevelThree_Init(void) {
 
 void LevelThree_Update(void) {
     // ========== INITIALIZATION ==========
-    if (GameState) {
+    if (GameState && GameOverState) {
 
         float deltaTime = CP_System_GetDt();
         const float max_deltaTime = 0.02f;
@@ -319,7 +321,7 @@ void LevelThree_Update(void) {
         CP_Font_Set(debug_TEXT);
         CP_Settings_TextAlignment(CP_TEXT_ALIGN_H_LEFT, CP_TEXT_ALIGN_V_TOP);
         //Level Timer 15s 
-        LevelTimer(&leveltime, &GameState);
+        LevelTimer(&leveltime, &GameState, &GameOverState);
         //Ammo counter
         OrbCount(&orb);
 
@@ -335,27 +337,43 @@ void LevelThree_Update(void) {
             PlayerPov(&player);
         }
         CP_Settings_TextAlignment(CP_TEXT_ALIGN_H_LEFT, CP_TEXT_ALIGN_V_TOP);
-    //Pause screen
-    if (CP_Input_KeyTriggered(KEY_ESCAPE)) {
-        GameState = 1 - GameState;
-    }
 
-    if (GameState == 0) {
-        int pause_signal = pause_menu();
+        if (GameOverState == 0) {
+            int GameOver_signal = GameOver_screen();
 
-        if (pause_signal == 1) {
-            // Resume game
-            GameState = 1;
+            if (GameOver_signal == 2) {
+                // Go to main menu
+                CP_Engine_SetNextGameState(Main_Menu_Init, Main_Menu_Update, Main_Menu_Exit);
+            }
+            else if (GameOver_signal == 3) {
+                GameState = 1;
+                LevelThree_Init();
+            }
         }
-        else if (pause_signal == 2) {
-            // Go to main menu
-            CP_Engine_SetNextGameState(Main_Menu_Init, Main_Menu_Update, Main_Menu_Exit);
+
+        //Pause screen
+        if (GameOverState != 0) {
+            if (CP_Input_KeyTriggered(KEY_ESCAPE)) {
+                GameState = 1 - GameState;
+                //Sound_StopAll();
+            }
         }
-        else if (pause_signal == 3) {
-            GameState = 1;
-            LevelThree_Init();
+        if (GameState == 0) {
+            int pause_signal = pause_menu();
+
+            if (pause_signal == 1) {
+                // Resume game
+                GameState = 1;
+            }
+            else if (pause_signal == 2) {
+                // Go to main menu
+                CP_Engine_SetNextGameState(Main_Menu_Init, Main_Menu_Update, Main_Menu_Exit);
+            }
+            else if (pause_signal == 3) {
+                GameState = 1;
+                LevelThree_Init();
+            }
         }
-    }
 }
 
 void LevelThree_Exit(void) {
@@ -363,4 +381,5 @@ void LevelThree_Exit(void) {
     CP_Font_Free(debug_TEXT);
     Sound_Exit();
     option_Exit();
+    GameOver_Exit();
 }

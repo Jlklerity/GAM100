@@ -14,6 +14,7 @@ float buttonWidth, buttonHeight;
 float optionButtonX, optionButtonY;
 float controlsButtonX, controlsButtonY;
 float creditsButtonX, creditsButtonY;
+CP_Image menu_background;
 
 void Main_Menu_Init(void)
 {
@@ -21,6 +22,7 @@ void Main_Menu_Init(void)
 	CP_Font_Set(mainmenu_TEXT);
 	mainmenu_ButtonBackground = CP_Image_Load("Assets/kenney_ui-pack-space-expansion/PNG/Extra/Double/button_rectangle_depth.png");
 	mainmenu_ButtonWhenPressed = CP_Image_Load("Assets/kenney_ui-pack-space-expansion/PNG/Extra/Double/panel_rectangle_screws.png");
+	menu_background = CP_Image_Load("./Assets/Piskel_sprite_assets/FOX_ANIMATION_ALL_MOVEMENTS_05_JUMP.png");
 	textSize = 32.0f;
 	logoSize = 75.0f;
 	buttonWidth = 200.0f;
@@ -52,8 +54,11 @@ void Main_Menu_Update(void)
 	mouseX = (float)CP_Input_GetMouseX();
 	mouseY = (float)CP_Input_GetMouseY();
 
-	CP_Graphics_ClearBackground(CP_Color_Create(85, 85, 85, 255));
-
+	CP_Graphics_ClearBackground(CP_Color_Create(85, 85, 85, 255)); //background color
+	CP_Settings_ImageMode(CP_POSITION_CORNER);
+	CP_Image_Draw(menu_background, 0, -120, 1600, 1800, 225); //background drawing 
+	CP_Settings_ImageMode(CP_POSITION_CENTER);
+	
 	//box of play button
 	CP_Image_Draw(mainmenu_ButtonBackground, playButtonX, playButtonY, buttonWidth, buttonHeight, 255);
 	//box of exit button
@@ -62,7 +67,7 @@ void Main_Menu_Update(void)
 	CP_Image_Draw(mainmenu_ButtonBackground, optionButtonX, optionButtonY, buttonWidth, buttonHeight, 255);
 	//box of controls button
 	CP_Image_Draw(mainmenu_ButtonBackground, controlsButtonX, controlsButtonY, buttonWidth, buttonHeight, 255);
-	//box of credits button
+	//box of credits button 
 	CP_Image_Draw(mainmenu_ButtonBackground, creditsButtonX, creditsButtonY, buttonWidth, buttonHeight, 255);
 
 
@@ -136,4 +141,5 @@ void Main_Menu_Exit(void)
 	CP_Image_Free(mainmenu_ButtonBackground);
 	CP_Image_Free(mainmenu_ButtonWhenPressed);
 	CP_Font_Free(mainmenu_TEXT);
+	CP_Image_Free(menu_background);
 }

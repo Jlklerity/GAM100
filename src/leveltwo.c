@@ -11,6 +11,7 @@
 #include "sound.h"
 #include "option.h"
 #include "mainmenu.h"
+#include "GameOver.h"
 
 static float greenStartTime;
 static Player player;
@@ -18,6 +19,7 @@ static Orb orb;
 static int GameState = 1; //for pause state i guess...
 static int DebugState = 0; //enable FPS and player coords
 static float leveltime;
+static int GameOverState;
 
 //fox animation sprite canvas
 static int start_x = 0;
@@ -40,6 +42,7 @@ void LevelTwo_Init(void) {
     Sound_Init();
     option_Init();
     GameState = 1;
+    GameOverState = 1;
     debug_TEXT = CP_Font_Load("Assets/Exo2 - Regular.ttf");
     animation_timer = 0;  // added animation_timer (only dif in this void)
 
@@ -67,7 +70,7 @@ void LevelTwo_Init(void) {
 void LevelTwo_Update(void) {
     CP_Graphics_ClearBackground(CP_Color_Create(85, 85, 85, 255));
     // ========== INITIALIZATION ==========
-    if (GameState) {
+    if (GameState && GameOverState) {
 
         float deltaTime = CP_System_GetDt();
         const float max_deltaTime = 0.02f;
@@ -294,7 +297,7 @@ void LevelTwo_Update(void) {
         CP_Font_Set(debug_TEXT);
         CP_Settings_TextAlignment(CP_TEXT_ALIGN_H_LEFT, CP_TEXT_ALIGN_V_TOP);
         //Level Timer 15s 
-        LevelTimer(&leveltime, &GameState);
+        LevelTimer(&leveltime, &GameState, &GameOverState);
         //Ammo counter
         OrbCount(&orb);
 
@@ -312,27 +315,42 @@ void LevelTwo_Update(void) {
         }
         CP_Settings_TextAlignment(CP_TEXT_ALIGN_H_LEFT, CP_TEXT_ALIGN_V_TOP);
     
-    //Pause screen
-    if (CP_Input_KeyTriggered(KEY_ESCAPE)) {
-        GameState = 1 - GameState;
-    }
+        if (GameOverState == 0) {
+            int GameOver_signal = GameOver_screen();
 
-    if (GameState == 0) {
-        int pause_signal = pause_menu();
+            if (GameOver_signal == 2) {
+                // Go to main menu
+                CP_Engine_SetNextGameState(Main_Menu_Init, Main_Menu_Update, Main_Menu_Exit);
+            }
+            else if (GameOver_signal == 3) {
+                GameState = 1;
+                LevelTwo_Init();
+            }
+        }
 
-        if (pause_signal == 1) {
-            // Resume game
-            GameState = 1;
+        //Pause screen
+        if (GameOverState != 0) {
+            if (CP_Input_KeyTriggered(KEY_ESCAPE)) {
+                GameState = 1 - GameState;
+                //Sound_StopAll();
+            }
         }
-        else if (pause_signal == 2) {
-            // Go to main menu
-            CP_Engine_SetNextGameState(Main_Menu_Init, Main_Menu_Update, Main_Menu_Exit);
+        if (GameState == 0) {
+            int pause_signal = pause_menu();
+
+            if (pause_signal == 1) {
+                // Resume game
+                GameState = 1;
+            }
+            else if (pause_signal == 2) {
+                // Go to main menu
+                CP_Engine_SetNextGameState(Main_Menu_Init, Main_Menu_Update, Main_Menu_Exit);
+            }
+            else if (pause_signal == 3) {
+                GameState = 1;
+                LevelTwo_Init();
+            }
         }
-        else if (pause_signal == 3) {
-            GameState = 1;
-            LevelTwo_Init();
-        }
-    }
 }
 
 
@@ -341,4 +359,5 @@ void LevelTwo_Exit(void) {
     CP_Font_Free(debug_TEXT);
     Sound_Exit();
     option_Exit();
+    GameOver_Exit();
 }

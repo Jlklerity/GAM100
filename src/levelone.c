@@ -12,6 +12,7 @@
 #include "sound.h"
 #include "option.h"
 #include "mainmenu.h"
+#include "GameOver.h"
 
 static float greenStartTime;
 static Player player;
@@ -19,6 +20,8 @@ static Orb orb;
 static int GameState = 1; //for pause state i guess...
 static int DebugState = 0; //enable FPS and player coords
 static float leveltime;
+
+static int GameOverState; //for pause state i guess...
 
 //fox animation sprite canvas
 static int start_x = 0;
@@ -41,7 +44,9 @@ void LevelOne_Init(void) {
     Sound_Init();
     Sound_PlayMUSIC(bgm_level);
     option_Init();
+    GameOver_Init();
     GameState = 1;
+    GameOverState = 1;
     debug_TEXT = CP_Font_Load("Assets/Exo2 - Regular.ttf");
     animation_timer = 0;  // added animation_timer (only dif in this void)
 
@@ -60,7 +65,7 @@ void LevelOne_Init(void) {
         }
     }
 
-    leveltime = 90.0f;
+    leveltime = 10.0f;
     orb.max_ammo = 3;
     orb.ammo = orb.max_ammo;
     orb.orb_type = TELEPORT_ORB;
@@ -69,7 +74,7 @@ void LevelOne_Init(void) {
 void LevelOne_Update(void) {
     // ========== INITIALIZATION ==========
     CP_Graphics_ClearBackground(CP_Color_Create(85, 85, 85, 255));
-    if (GameState) {
+    if (GameState && GameOverState) {
         float deltaTime = CP_System_GetDt();
         const float max_deltaTime = 0.02f;
         if (deltaTime > max_deltaTime) {
@@ -296,7 +301,7 @@ void LevelOne_Update(void) {
     CP_Font_Set(debug_TEXT);
     CP_Settings_TextAlignment(CP_TEXT_ALIGN_H_LEFT, CP_TEXT_ALIGN_V_TOP);
     //Level Timer 15s 
-    LevelTimer(&leveltime, &GameState);
+    LevelTimer(&leveltime, &GameState, &GameOverState);
 
     //Ammo counter
     OrbCount(&orb);
@@ -318,10 +323,27 @@ void LevelOne_Update(void) {
     }
     CP_Settings_TextAlignment(CP_TEXT_ALIGN_H_LEFT, CP_TEXT_ALIGN_V_TOP);
 
+    //GameOver Screen
+    if (GameOverState == 0) {
+        int GameOver_signal = GameOver_screen();
+
+         if (GameOver_signal == 2) {
+            // Go to main menu
+            CP_Engine_SetNextGameState(Main_Menu_Init, Main_Menu_Update, Main_Menu_Exit);
+        }
+        else if (GameOver_signal == 3) {
+            GameState = 1;
+            LevelOne_Init();
+        }
+    }
+
     //Pause screen
-    if (CP_Input_KeyTriggered(KEY_ESCAPE)) {
-        GameState = 1 - GameState;
-        //Sound_StopAll();
+    if (GameOverState != 0) {
+        if (CP_Input_KeyTriggered(KEY_ESCAPE)) {
+            GameState = 1 - GameState;
+            //Sound_StopAll();
+        }
+
     }
     if (GameState == 0) {
         int pause_signal = pause_menu();
@@ -347,4 +369,5 @@ void LevelOne_Exit(void) {
     Sound_StopAll();
     Sound_Exit();
     option_Exit();
+    GameOver_Exit();
 }

@@ -122,7 +122,7 @@ void PlayerPov(Player* player) {
     CP_Settings_Stroke(CP_Color_Create(0, 0, 0, 255));
 }
     
-void LevelTimer(float* leveltime, int* GameState) {
+void LevelTimer(float* leveltime, int* GameState, int* GameOverState) {
     int minutes = (int)(*leveltime / 60);
     int seconds = (int)(*leveltime) % 60;
     CP_Settings_TextSize(32.0);
@@ -139,7 +139,8 @@ void LevelTimer(float* leveltime, int* GameState) {
         }
         if (*leveltime < 0.0f) {
             *leveltime = 0.0f;
-            CP_Engine_SetNextGameState(Game_Init, Game_Update, Game_Exit);
+            *GameOverState = 0;//the game ends and runs the gamover screen
+            /*CP_Engine_SetNextGameState(Game_Init, Game_Update, Game_Exit);*/
         }
     }
     else {
