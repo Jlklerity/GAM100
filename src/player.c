@@ -117,16 +117,17 @@ void Orb_Update(Player* player, Orb* orb, float *orb_moveX, float *orb_moveY, fl
     if (orb->isActive == 1) {
         switch (orb->direction) {
         case PLAYER_RIGHT:
-            player->degree = 0; //for sprite looking direction
             *orb_moveX += orb->orb_velocity_x * deltaTime;
             break;
         case PLAYER_LEFT:
-            player->degree = 180;
             *orb_moveX -= orb->orb_velocity_x * deltaTime;
+            break;
         case PLAYER_UP:
             *orb_moveY -= orb->orb_velocity_Y * deltaTime;
+            break;
         case PLAYER_DOWN:
             *orb_moveY += orb->orb_velocity_Y * deltaTime;
+            break;
         }
         //Change orb type
         switch (player->orb_type) {
