@@ -8,7 +8,7 @@ int RGBChange(float StaticValue);
 void FPSCount(void);
 void Player_Coords(Player* player);
 void MousePos(void);
-void ControlsDisplay(void);
+void ControlsDisplay(Player* player, Orb* orb);
 void PlayerPov(Player* player);
 void LevelTimer(float* leveltime, int* GameState);
 void OrbCount(Orb* orb);

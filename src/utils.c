@@ -84,24 +84,38 @@ void MousePos(void) {
     CP_Font_DrawText(buffer, 1580.0f, 70.0f);
 }
 
-void ControlsDisplay(void) {
-    CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
+void ControlsDisplay(Player* player, Orb* orb) {
+    CP_Settings_TextAlignment(CP_TEXT_ALIGN_H_CENTER, CP_TEXT_ALIGN_V_MIDDLE);
     textSize = 32.0f;
     CP_Settings_TextSize(textSize);
     for (int i = 0; i < MAX_LEVEL_OBJECTS; i++) {
         if (g_level_destroy_wall[i] != NULL && g_level_destroy_wall[i]->isActivated == 0) {
+            if (player->orb_type == TELEPORT_ORB) {
+                CP_Settings_Fill(g_level_destroy_wall[i]->color);
+                CP_Font_DrawText("select red orb", player->player_posX, player->player_posY - 100);
+            }
             CP_Settings_Fill(g_level_destroy_wall[i]->color);
             CP_Font_DrawText("Destroy This", g_level_destroy_wall[i]->x - 300, g_level_destroy_wall[i]->y);
         }
         else if (g_level_pressure_plate[i] != NULL && g_level_door[i]->isActivated == 0) {
             CP_Settings_Fill(g_level_pressure_plate[i]->color);
-            CP_Font_DrawText("Step Here", g_level_pressure_plate[i]->x - 100, g_level_pressure_plate[i]->y - 100);
+            CP_Font_DrawText("Step Here", g_level_pressure_plate[i]->x, g_level_pressure_plate[i]->y - 100);
         }
-        else if (g_level_teleport_wall[i] != NULL) {
+        else if (g_level_teleport_wall[i] != NULL && orb->isActive == 0) {
+            if (player->orb_type == DESTROY_ORB) {
+                CP_Settings_Fill(CP_Color_Create(0, 190, 255, 255));
+                CP_Font_DrawText("select blue orb", player->player_posX, player->player_posY - 100);
+            }
             CP_Settings_Fill(CP_Color_Create(0, 190, 255, 255));
             CP_Font_DrawText("Teleport Here", g_level_teleport_wall[i]->x - 300, g_level_teleport_wall[i]->y);
         }
+        else {
+            CP_Settings_TextSize(24.0f);
+            CP_Settings_Fill(CP_Color_Create(255, 0, 255, 255));
+            CP_Font_DrawText("EXIT HERE", g_level_exit_door->x, g_level_exit_door->y - 90);
+        }
     }
+    
 
 }
 
