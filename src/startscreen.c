@@ -1,6 +1,5 @@
 //#include <stdio.h>
 #include "cprocessing.h"
-#include "fullscreen.h"
 #include "mainmenu.h"
 #include "startscreen.h"
 
@@ -58,12 +57,7 @@ void start_screen_update(void)
 				CP_Engine_SetNextGameState(Main_Menu_Init, Main_Menu_Update, Main_Menu_Exit);
 			}
 	}
-	
-	//setting buttons needed to press for game to enable fullscreen. Comment by Teo Zijie. Completed by Teo Zijie.
-	if (((CP_Input_KeyDown(KEY_LEFT_ALT)) || (CP_Input_KeyDown(KEY_RIGHT_ALT))) && (CP_Input_KeyDown(KEY_ENTER)))
-	{
-		fullscreen();
-	}
+
 }
 
 void start_screen_exit(void)

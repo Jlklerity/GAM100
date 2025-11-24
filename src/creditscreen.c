@@ -1,5 +1,4 @@
 ﻿#include <cprocessing.h>
-#include <locale.h>
 #include "mainmenu.h"
 #include "startscreen.h"
 
@@ -20,7 +19,6 @@ CP_Image logo;
 
 
 void Gamecredits_Init(void) {
-	setlocale(LC_CTYPE, "");
 	font_credits = CP_Font_Load("Assets/kenney_ui-pack-space-expansion/Font/Kenney Future Narrow.ttf");
 	logo = CP_Image_Load("./Assets/DigiPen_Singapore_Logo/DigiPen_Singapore_allrightsreserved.png");
 	timer = 0.0f;
@@ -74,22 +72,22 @@ void Gamecredits_Update(void) {
 
 		case 2:
 			CP_Settings_TextSize(50.0f);
-			CP_Font_DrawText("TEAM MEMBERS", screenWidth / 2.0f, 100.0f);
+			CP_Font_DrawText("TEAM MEMBERS", screenWidth / 2.0f, 200.0f);
 
 			CP_Settings_TextSize(30.0f);
-			CP_Font_DrawText("JEREMY LIM", screenWidth / 2.0f, 200.0f);
-			CP_Font_DrawText("TEO ZIJIE", screenWidth / 2.0f, 250.0f);
-			CP_Font_DrawText("CYRUS THAM", screenWidth / 2.0f, 300.0f);
-			CP_Font_DrawText("LIM ZI JIE", screenWidth / 2.0f, 350.0f);
+			CP_Font_DrawText("JEREMY LIM", screenWidth / 2.0f, 300.0f);
+			CP_Font_DrawText("TEO ZIJIE", screenWidth / 2.0f, 350.0f);
+			CP_Font_DrawText("CYRUS THAM", screenWidth / 2.0f, 400.0f);
+			CP_Font_DrawText("LIM ZI JIE", screenWidth / 2.0f, 450.0f);
 			break;
 
 		case 3:
 			CP_Settings_TextSize(40.0f);
-			CP_Font_DrawText("FACULTY AND ADVISORS", screenWidth / 2.0f, 100.0f);
+			CP_Font_DrawText("FACULTY AND ADVISORS", screenWidth / 2.0f, 200.0f);
 			CP_Settings_TextSize(25.0f);
-			CP_Font_DrawText("GERALD WONG HAN FENG  <3", screenWidth / 2.0f, 200.0f);
-			CP_Font_DrawText("DR. SOROOR MALEKMOHAMMADAI FARADOUNBEH", screenWidth / 2.0f, 250.0f);
-			CP_Font_DrawText("TOMMY TAN CHEE WEI", screenWidth / 2.0f, 300.0f);
+			CP_Font_DrawText("GERALD WONG HAN FENG  <3", screenWidth / 2.0f, 300.0f);
+			CP_Font_DrawText("DR. SOROOR MALEKMOHAMMADAI FARADOUNBEH", screenWidth / 2.0f, 350.0f);
+			CP_Font_DrawText("TOMMY TAN CHEE WEI", screenWidth / 2.0f, 400.0f);
 			break;
 
 		case 4:
@@ -114,7 +112,7 @@ void Gamecredits_Update(void) {
 			// Copyright at bottom
 			CP_Settings_TextSize(15.0f);
 			CP_Font_DrawText("WWW.DIGIPEN.EDU", screenWidth / 2.0f, screenHeight - 70.0f);
-			CP_Font_DrawText("All content \u00A9 2025 DigiPen Institute of Technology Singapore. All Rights Reserved.", screenWidth / 2.0f, screenHeight - 50.0f);
+			CP_Font_DrawText("All content 2025 DigiPen Institute of Technology Singapore. All Rights Reserved.", screenWidth / 2.0f, screenHeight - 50.0f);
 			break;
 
 		case 5:
@@ -126,6 +124,7 @@ void Gamecredits_Update(void) {
 			CP_Font_DrawText("soundly", screenWidth / 2.0f, 250.0f);
 			CP_Font_DrawText("Piskel for sprite art", screenWidth / 2.0f, 300.0f);
 			CP_Font_DrawText("Kenney Assets for ui text", screenWidth / 2.0f, 350.0f);
+			CP_Font_DrawText("Davinci Resolve", screenWidth / 2.0f, 400.0f);
 			break;
 
 		default:				

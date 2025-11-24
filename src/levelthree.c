@@ -339,6 +339,7 @@ void LevelThree_Update(void) {
     //Pause screen
     if (CP_Input_KeyTriggered(KEY_ESCAPE)) {
         GameState = 1 - GameState;
+
     }
 
     if (GameState == 0) {

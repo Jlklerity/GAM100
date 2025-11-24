@@ -1,7 +1,6 @@
 #include "cprocessing.h"
 #include "game.h"
 #include "utils.h"
-#include "fullscreen.h"
 #include "option.h"
 #include "controls.h"
 #include "creditscreen.h"
@@ -58,10 +57,6 @@ void Main_Menu_Init(void)
 
 void Main_Menu_Update(void)
 {
-	if (((CP_Input_KeyDown(KEY_LEFT_ALT)) || (CP_Input_KeyDown(KEY_RIGHT_ALT))) && (CP_Input_KeyDown(KEY_ENTER)))
-	{
-		fullscreen();
-	}
 
 	mouseX = (float)CP_Input_GetMouseX();
 	mouseY = (float)CP_Input_GetMouseY();
