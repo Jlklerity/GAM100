@@ -1,21 +1,20 @@
 //#include <stdio.h>
 #include "cprocessing.h"
-#include "fullscreen.h"
 #include "mainmenu.h"
+#include "startscreen.h"
 
 
 CP_Image logo;
-int transition_alpha = 255;
-static int GameIsRunning = 0;
+static int transition_alpha = 255;
+static int GameIsRunning;
 //find out we need to initialize the vales of init,update, and exit for other game states. Comment by Teo Zijie. Completed by Teo Zijie.
 
 void start_screen_init(void)
 {
- //	float width = (float)CP_System_GetWindowWidth();
-	//float height = (float)CP_System_GetWindowHeight();
- 
+	transition_alpha = 255; 
+	GameIsRunning = 0;
 	CP_System_SetWindowSize(1600, 900);
-	logo = CP_Image_Load("./Assets/DigiPen_Singapore_allrightsreserved.png");
+	logo = CP_Image_Load("./Assets/DigiPen_Singapore_Logo/DigiPen_Singapore_allrightsreserved.png");
 	CP_Settings_ImageMode(CP_POSITION_CENTER);
 }
 
@@ -58,12 +57,7 @@ void start_screen_update(void)
 				CP_Engine_SetNextGameState(Main_Menu_Init, Main_Menu_Update, Main_Menu_Exit);
 			}
 	}
-	
-	//setting buttons needed to press for game to enable fullscreen. Comment by Teo Zijie. Completed by Teo Zijie.
-	if (((CP_Input_KeyDown(KEY_LEFT_ALT)) || (CP_Input_KeyDown(KEY_RIGHT_ALT))) && (CP_Input_KeyDown(KEY_ENTER)))
-	{
-		fullscreen();
-	}
+
 }
 
 void start_screen_exit(void)

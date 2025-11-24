@@ -52,8 +52,9 @@ void LevelOne_Init(void) {
     CP_Settings_RectMode(CP_POSITION_CENTER);
     LoadLevelFromFile("Assets/Levels/level1.txt");
     Player_Init(&player, &orb);
+    Sound_StopAll();
     Sound_Init();
-    Sound_PlayMUSIC(bgm_level);
+    Sound_PlayMUSIC(bgm_level1);
     option_Init();
     GameOver_Init();
     GameState = 1;
@@ -104,12 +105,12 @@ void LevelOne_Update(void) {
         const float breathing_space = 0.1f;
 
 
-            //get color to change for cp color create for green value
+        //get color to change for cp color create for green value
 
 
-        // ========== INPUT HANDLING ==========
+    // ========== INPUT HANDLING ==========
 
-        // Horizontal movement
+    // Horizontal movement
         float player_moveX = 0.0f;
         float orb_moveX = 0.0f;
         float orb_moveY = 0.0f;
@@ -144,7 +145,6 @@ void LevelOne_Update(void) {
             }
             Save_Progress();
             CP_Engine_SetNextGameState(LevelTwo_Init, LevelTwo_Update, LevelTwo_Exit);
-            Sound_PlaySFX(exit);
         }
 
         for (int i = 0; i < g_level_collidable_count; i++) {
@@ -157,21 +157,21 @@ void LevelOne_Update(void) {
             // --- Player Collision (always happens) ---
             Resolve_Collision_Wall_Player_Y(playerHitBoxY, platformHitBox, &player, breathing_space);
 
-                // --- Orb Collision (check wall type) ---
-                if (current_wall->type == RED_DESTROY) {
-                    Resolve_Collision_Destroy_Wall_Orb_Y(orbHitbox, platformHitBox, &orb, current_wall, breathing_space, orb_moveY);
-                }
-                else {
-                    Resolve_Collision_Wall_Orb_Y(orbHitbox, platformHitBox, &orb, &player, breathing_space, orb_moveY);
-                }
+            // --- Orb Collision (check wall type) ---
+            if (current_wall->type == RED_DESTROY) {
+                Resolve_Collision_Destroy_Wall_Orb_Y(orbHitbox, platformHitBox, &orb, current_wall, breathing_space, orb_moveY);
             }
+            else {
+                Resolve_Collision_Wall_Orb_Y(orbHitbox, platformHitBox, &orb, &player, breathing_space, orb_moveY);
+            }
+        }
 
 
-            // Loop and link plate[i] to door[i]
-            for (int i = 0; i < MAX_LEVEL_OBJECTS; i++) {
-                if (g_level_pressure_plate[i] == NULL || g_level_door[i] == NULL) {
-                    continue; // Skip if this pair doesn't exist
-                }
+        // Loop and link plate[i] to door[i]
+        for (int i = 0; i < MAX_LEVEL_OBJECTS; i++) {
+            if (g_level_pressure_plate[i] == NULL || g_level_door[i] == NULL) {
+                continue; // Skip if this pair doesn't exist
+            }
 
             AABB floor_sensor_DoorHitBox = Get_Wall_HitBox(g_level_pressure_plate[i]);
             Resolve_Collision_FloorSensor_Player(playerHitBoxY, floor_sensor_DoorHitBox, g_level_door[i], g_level_pressure_plate[i]);
@@ -323,8 +323,8 @@ void LevelOne_Update(void) {
         CP_Image_DrawSubImage(player.fox_sprite, player.player_posX, player.player_posY - 30.0f, player.player_width * 3.0f, player.player_height * 3.0f, (float)start_x, (float)start_y, (float)end_x, (float)end_y, 255);
     }
 
-   
-    
+
+
 
 
 
@@ -341,7 +341,7 @@ void LevelOne_Update(void) {
     OrbCount(&orb, &player);
 
     //Controls
-    ControlsDisplay();
+    ControlsDisplay(&player, &orb);
 
     //FPS Counter & Player coordinates & Mouse coordinates & player pov
     if (CP_Input_KeyTriggered(KEY_LEFT_ALT)) {
@@ -361,7 +361,7 @@ void LevelOne_Update(void) {
     if (GameOverState == 0) {
         int GameOver_signal = GameOver_screen();
 
-         if (GameOver_signal == 2) {
+        if (GameOver_signal == 2) {
             // Go to main menu
             CP_Engine_SetNextGameState(Main_Menu_Init, Main_Menu_Update, Main_Menu_Exit);
         }
@@ -379,21 +379,29 @@ void LevelOne_Update(void) {
             //Sound_StopAll();
         }
 
-    }
-    if (GameState == 0) {
-        int pause_signal = pause_menu();
+        if (CP_Input_KeyTriggered(KEY_ESCAPE)) {
+            GameState = 1 - GameState;
+            CP_Sound_ResumeAll();
+        }
+        if (GameState == 0) {
+            CP_Sound_PauseAll();
+            int pause_signal = pause_menu();
 
-        if (pause_signal == 1) {
-            // Resume game
-            GameState = 1;
-        }
-        else if (pause_signal == 2) {
-            // Go to main menu
-            CP_Engine_SetNextGameState(Main_Menu_Init, Main_Menu_Update, Main_Menu_Exit);
-        }
-        else if (pause_signal == 3) {
-            GameState = 1;
-            LevelOne_Init();
+            if (pause_signal == 1) {
+                // Resume game
+                GameState = 1;
+                CP_Sound_ResumeAll();
+            }
+            else if (pause_signal == 2) {
+                // Go to main menu
+                CP_Engine_SetNextGameState(Main_Menu_Init, Main_Menu_Update, Main_Menu_Exit);
+                CP_Sound_ResumeAll();
+            }
+            else if (pause_signal == 3) {
+                GameState = 1;
+                CP_Sound_ResumeAll();
+                LevelOne_Init();
+            }
         }
     }
 }
@@ -404,7 +412,6 @@ void LevelOne_Exit(void) {
     CP_Image_Free(player.teleport_orb);
 
     CP_Font_Free(debug_TEXT);
-    Sound_StopAll();
     Sound_Exit();
     option_Exit();
     GameOver_Exit();

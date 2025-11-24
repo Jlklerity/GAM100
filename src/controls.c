@@ -2,12 +2,11 @@
 #include "utils.h"
 #include "game.h"
 #include "mainmenu.h"
+#include "controls.h"
 
 float backButtonX, backButtonY;
 float buttonWidth, buttonHeight;
 float boxWidth, boxHeight;
-CP_Image keybox;
-CP_Font keytext;
 
 void controls_Init(void) {
 	keytext = CP_Font_Load("Assets/kenney_ui-pack-space-expansion/Font/Kenney Future Narrow.ttf");
@@ -84,6 +83,9 @@ void controls_Update(void) {
     CP_Image_Draw(keybox, col2X, startY + spacingY * 2, boxWidth, boxHeight, 255);
     CP_Font_DrawText("J", col2X, startY + spacingY * 2);
 
+    CP_Image_Draw(keybox, col2X, startY + spacingY * 3, boxWidth + 50, boxHeight, 255);
+    CP_Font_DrawText("ESC", col2X, startY + spacingY * 3);
+
 
     //---------------------------------------------------
     // SECOND PASS — LEFT-ALIGNED DESCRIPTIONS
@@ -101,9 +103,10 @@ void controls_Update(void) {
     CP_Font_DrawText(" - JUMP", col1X + textOffset, startY + spacingY * 4);
 
     // ABILITIES DESCRIPTIONS ----------------------------------------------
-    CP_Font_DrawText(" - TELEPORT ORB", col2X + textOffset, startY);
-    CP_Font_DrawText(" - DESTROY ORB", col2X + textOffset, startY + spacingY);
+    CP_Font_DrawText(" - SELECT TELEPORT ORB", col2X + textOffset, startY);
+    CP_Font_DrawText(" - SELECT DESTROY ORB", col2X + textOffset, startY + spacingY);
     CP_Font_DrawText(" - THROW SELECTED ORB", col2X + textOffset, startY + spacingY * 2);
+    CP_Font_DrawText(" - PAUSE", col2X + textOffset, startY + spacingY * 3);
 
 
     CP_Image_Draw(mainmenu_ButtonBackground, backButtonX, backButtonY, buttonWidth, buttonHeight, 255);

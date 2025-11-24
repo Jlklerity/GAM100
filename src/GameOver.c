@@ -1,6 +1,5 @@
 #include "cprocessing.h"
 #include "utils.h"
-#include "fullscreen.h"
 #include "stagewall.h"
 #include "game.h"
 #include "mainmenu.h"

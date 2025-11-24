@@ -3,6 +3,7 @@
 #include "hazards.h"
 #include "collisionHandling.h"
 #include "game.h" 
+#include "sound.h"
 
 // --- ANIMATION VARIABLES ---
 static int KLS_x = 0;
@@ -110,6 +111,7 @@ static void laser_hitbox(Laser* laser, Wall* wall[], int wall_count, Player* pla
 }
 
 void update_laser(Laser* laser, float delta_time, Wall* wall[], int wall_count, Player* player, Orb* orbs) {
+	static int warningPlayed = 0; // flag to track if warning sound played
 	laser->timer += delta_time;
 
 	// --- ANIMATION UPDATE (Runs every frame) ---
@@ -140,10 +142,22 @@ void update_laser(Laser* laser, float delta_time, Wall* wall[], int wall_count, 
 		// No drawing here anymore, drawing happens in draw_laser called from LevelThree.c
 		// laser_hitbox_warning(laser, wall, wall_count); <-- Removed drawing call
 
+		// Play warning sound only once per warning cycle
+		if (!warningPlayed) {
+			Sound_PlaySFX(laser_warning); // <<< PLAY WARNING SOUND ONCE <<<
+			warningPlayed = 1;
+		}
+
 		// After 1 second, switch to firing
 		if (laser->timer >= 1.0f) {
 			laser->state = LASER_FIRING;
-			laser->timer = 0.0f;  // reset timer for firing duration
+			laser->timer = 0.0f;
+
+			// Reset warning flag for next cycle
+			warningPlayed = 0;
+
+			// >>> PLAY LASER ON <<<
+			Sound_PlayLaser(laser_on);
 		}
 		break;
 
@@ -153,18 +167,24 @@ void update_laser(Laser* laser, float delta_time, Wall* wall[], int wall_count, 
 		if (laser->timer >= 2.0f) {
 			laser->state = LASER_IDLE; //off
 			laser->timer = 0.0f;  // reset timer for firing duration
+			CP_Sound_StopGroup(CP_SOUND_GROUP_3);
+
+			// >>> PLAY LASER OFF <<<
+			Sound_PlaySFX(laser_off);
 		}
 		break;
 
 	case LASER_IDLE:
 		// Do nothing
-	// After 5 seconds got to LASER_WARNING
+		// After 3 seconds go to LASER_WARNING
 		if (laser->timer >= 3.0f) {
 			laser->state = LASER_WARNING;
-			laser->timer = 0.0f;  // reset timer for firing duration
+			laser->timer = 0.0f;
 		}
 		break;
+
 	case LASER_CONTINUOUS:
 		laser_hitbox(laser, wall, wall_count, player, orbs);
+		break;
 	}
 }

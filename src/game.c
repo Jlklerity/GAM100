@@ -3,7 +3,6 @@
 #include "cprocessing.h"
 #include "mainmenu.h"
 #include "utils.h"
-#include "fullscreen.h"
 #include "stagewall.h"
 #include "player.h"
 #include "levelone.h"
@@ -167,11 +166,6 @@ void Game_Update(void)
 	CP_Settings_TextAlignment(CP_TEXT_ALIGN_H_CENTER, CP_TEXT_ALIGN_V_MIDDLE);
 	CP_Font_DrawText("Reset All", reset_x, reset_y);
 
-	// Fullscreen and exit fullscreen
-	if (((CP_Input_KeyDown(KEY_LEFT_ALT)) || (CP_Input_KeyDown(KEY_RIGHT_ALT))) && (CP_Input_KeyDown(KEY_ENTER)))
-	{
-		fullscreen();
-	}
 }
 
 void Game_Exit(void)

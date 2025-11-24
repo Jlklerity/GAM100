@@ -5,7 +5,6 @@
     <ClCompile Include="src\levelthree.c" />
     <ClCompile Include="src\leveltwo.c" />
     <ClCompile Include="src\collisionHandling.c" />
-    <ClCompile Include="src\fullscreen.c" />
     <ClCompile Include="src\game.c" />
     <ClCompile Include="src\levelone.c" />
     <ClCompile Include="src\main.c" />
@@ -17,13 +16,13 @@
     <ClCompile Include="src\startscreen.c" />
     <ClCompile Include="src\utils.c" />
     <ClCompile Include="src\creditscreen.c" />
+    <ClCompile Include="src\controls.c" />
+    <ClCompile Include="src\howtoplay.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Extern\Headers\collisionHandling.h" />
-    <ClInclude Include="Extern\Headers\fullscreen.h" />
     <ClInclude Include="Extern\Headers\game.h" />
     <ClInclude Include="Extern\Headers\hazards.h" />
-    <ClInclude Include="Extern\Headers\levelone.h" />
     <ClInclude Include="Extern\Headers\levelthree.h" />
     <ClInclude Include="Extern\Headers\leveltwo.h" />
     <ClInclude Include="Extern\Headers\mainmenu.h" />
@@ -34,6 +33,9 @@
     <ClInclude Include="Extern\Headers\startscreen.h" />
     <ClInclude Include="Extern\Headers\utils.h" />
     <ClInclude Include="Extern\Headers\creditscreen.h" />
+    <ClInclude Include="Extern\Headers\controls.h" />
+    <ClInclude Include="Extern\Headers\howtoplay.h" />
+    <ClInclude Include="Extern\Headers\levelone.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Assets\Levels\level1.txt" />

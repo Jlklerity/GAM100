@@ -12,6 +12,8 @@
 #include "sound.h"
 #include "mainmenu.h"
 #include "GameOver.h"
+#include "creditscreen.h"
+
 
 static float greenStartTime;
 static Player player;
@@ -48,7 +50,11 @@ void LevelThree_Init(void) {
     LoadLevelFromFile("Assets/Levels/level3.txt");
     LoadLaserFromFile("Assets/Levels/Level3_Lazer.txt");
     Player_Init(&player, &orb);
+    Sound_StopAll();
     Sound_Init();
+    Sound_PlayMUSIC(bgm_level3);
+    Sound_PlayMUSIC(lasercont);
+    Sound_PlaySFX(exit);
     option_Init();
     debug_TEXT = CP_Font_Load("Assets/Exo2 - Regular.ttf");
     levelthree_background = CP_Image_Load("Assets/Piskel_sprite_assets/mainmenu_bg.jpg");
@@ -147,7 +153,7 @@ void LevelThree_Update(void) {
                 g_highest_level_unlocked = next_level;
             }
             //CP_Engine_SetNextGameState(LevelFour_Init, LevelFour_Update, LevelFour_Exit);
-            CP_Engine_SetNextGameState(Main_Menu_Init, Main_Menu_Update, Main_Menu_Exit);
+            CP_Engine_SetNextGameState(Gamecredits_Init, Gamecredits_Update, Gamecredits_Exit);
         }
 
         for (int i = 0; i < g_level_collidable_count; i++) {
@@ -388,18 +394,23 @@ void LevelThree_Update(void) {
         }
     }
     if (GameState == 0) {
+        CP_Sound_PauseAll();
         int pause_signal = pause_menu();
+       
 
         if (pause_signal == 1) {
             // Resume game
             GameState = 1;
+            CP_Sound_ResumeAll();
         }
         else if (pause_signal == 2) {
             // Go to main menu
             CP_Engine_SetNextGameState(Main_Menu_Init, Main_Menu_Update, Main_Menu_Exit);
+            CP_Sound_ResumeAll();
         }
         else if (pause_signal == 3) {
             GameState = 1;
+            CP_Sound_ResumeAll();
             LevelThree_Init();
         }
     }
