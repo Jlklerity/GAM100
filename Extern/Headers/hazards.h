@@ -12,6 +12,7 @@ typedef struct {
 	float timer; // for counting time elapsed
 	Direction dir; // to check which direction the laser is firing
 	Laser_State state; // to check what state the laser is in
+	Laser_State last_state;
 } Laser;
 
 typedef struct {

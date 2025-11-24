@@ -2,6 +2,7 @@
 #include "stagewall.h"
 #include "hazards.h"
 #include "collisionHandling.h"
+#include "sound.h"
 
 static LaserRect calculate_laser_rect(Laser* laser, Wall* wall[], int wall_count) {
 	/* draw a rectangle that starts from the laser and ends at any wall encountered, the alpha value of this is 100
@@ -85,38 +86,55 @@ static void laser_hitbox(Laser* laser, Wall* wall[], int wall_count, Player* pla
 }
 
 void update_laser(Laser* laser, float delta_time, Wall* wall[], int wall_count, Player* player, Orb* orbs) {
+	static int warningPlayed = 0; // flag to track if warning sound played
 	laser->timer += delta_time;
 
 	switch (laser->state) {
 	case LASER_WARNING:
 		laser_hitbox_warning(laser, wall, wall_count);
 
+		// Play warning sound only once per warning cycle
+		if (!warningPlayed) {
+			Sound_PlaySFX(laser_warning); // <<< PLAY WARNING SOUND ONCE <<<
+			warningPlayed = 1;
+		}
+
 		// After 1 second, switch to firing
 		if (laser->timer >= 1.0f) {
 			laser->state = LASER_FIRING;
-			laser->timer = 0.0f;  // reset timer for firing duration
+			laser->timer = 0.0f;
+
+			// >>> PLAY LASER ON <<<
+			Sound_PlaySFXLoop(laser_on);
 		}
 		break;
 
 	case LASER_FIRING:
 		laser_hitbox(laser, wall, wall_count, player, orbs);
+
 		// Laser lasts 3 seconds
 		if (laser->timer >= 2.0f) {
 			laser->state = LASER_IDLE;
-			laser->timer = 0.0f;  // reset timer for firing duration
+			laser->timer = 0.0f;
+			CP_Sound_StopGroup(CP_SOUND_GROUP_SFX);
+
+			// >>> PLAY LASER OFF <<<
+			Sound_PlaySFX(laser_off);
 		}
 		break;
 
 	case LASER_IDLE:
 		// Do nothing
-	// After 5 seconds got to LASER_WARNING
+		// After 5 seconds got to LASER_WARNING
 		if (laser->timer >= 3.0f) {
 			laser->state = LASER_WARNING;
-			laser->timer = 0.0f;  // reset timer for firing duration
+			laser->timer = 0.0f;
 		}
 		break;
+
 	case LASER_CONTINUOUS:
 		laser_hitbox(laser, wall, wall_count, player, orbs);
+		break;
 	}
 }
 
