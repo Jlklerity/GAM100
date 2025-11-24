@@ -1,7 +1,6 @@
 #include "cprocessing.h"
 #include "game.h"
 #include "utils.h"
-#include "fullscreen.h"
 #include "option.h"
 #include "controls.h"
 #include "creditscreen.h"
@@ -58,10 +57,6 @@ void Main_Menu_Init(void)
 
 void Main_Menu_Update(void)
 {
-	if (((CP_Input_KeyDown(KEY_LEFT_ALT)) || (CP_Input_KeyDown(KEY_RIGHT_ALT))) && (CP_Input_KeyDown(KEY_ENTER)))
-	{
-		fullscreen();
-	}
 
 	mouseX = (float)CP_Input_GetMouseX();
 	mouseY = (float)CP_Input_GetMouseY();
@@ -115,8 +110,8 @@ void Main_Menu_Update(void)
 			CP_Settings_Fill(CP_Color_Create(0, 0, 0, 150));
 			CP_Font_DrawText("option", optionButtonX, optionButtonY);
 		}
-		if (IsAreaClicked(howtoPlayButtonX, howtoPlayButtonY, buttonWidth, buttonHeight, mouseX, mouseY)) {
-			CP_Image_Draw(mainmenu_ButtonWhenPressed, howtoPlayButtonX, howtoPlayButtonY, buttonWidth, buttonHeight, 255);
+		if (IsAreaClicked(howtoPlayButtonX, howtoPlayButtonY, buttonWidth + 50.0f, buttonHeight, mouseX, mouseY)) {
+			CP_Image_Draw(mainmenu_ButtonWhenPressed, howtoPlayButtonX, howtoPlayButtonY, buttonWidth + 50.0f, buttonHeight, 255);
 			CP_Settings_Fill(CP_Color_Create(0, 0, 0, 150));
 			CP_Font_DrawText("How To Play", howtoPlayButtonX, howtoPlayButtonY);
 		}
@@ -142,7 +137,7 @@ void Main_Menu_Update(void)
 		if (IsAreaClicked(optionButtonX, optionButtonY, buttonWidth, buttonHeight, mouseX, mouseY)) {
 			CP_Engine_SetNextGameState(option_Init, option_Update, option_Exit);
 		}
-		if (IsAreaClicked(howtoPlayButtonX, howtoPlayButtonY, buttonWidth, buttonHeight, mouseX, mouseY)) {
+		if (IsAreaClicked(howtoPlayButtonX, howtoPlayButtonY, buttonWidth + 50.0f, buttonHeight, mouseX, mouseY)) {
 			CP_Engine_SetNextGameState(HowToPlay_Init, HowToPlay_Update, HowToPlay_Exit);
 		}
 		if (IsAreaClicked(controlsButtonX, controlsButtonY, buttonWidth, buttonHeight, mouseX, mouseY)) {

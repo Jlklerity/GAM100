@@ -1,6 +1,5 @@
 #include "cprocessing.h"
 #include "utils.h"
-#include "fullscreen.h"
 #include "stagewall.h"
 #include "player.h"
 #include "game.h"
@@ -419,11 +418,6 @@ void option_Init(void)
 
 void option_Update(void)
 {
-    if (((CP_Input_KeyDown(KEY_LEFT_ALT)) || (CP_Input_KeyDown(KEY_RIGHT_ALT))) &&
-        CP_Input_KeyDown(KEY_ENTER))
-    {
-        fullscreen();
-    }
 
     CP_Graphics_ClearBackground(CP_Color_Create(85, 85, 85, 255));
     CP_Font_Set(mainmenu_TEXT);
