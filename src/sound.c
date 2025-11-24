@@ -10,16 +10,23 @@ static float sfxVolume = 1.0f;
 static float musicVolume = 1.0f;
 
 static const char* sfxFiles[sfx_count] = {
-    "./Assets/SFX/test.wav",
-    "./Assets/SFX/test.wav",
-    "./Assets/SFX/test.wav",
-    "./Assets/SFX/test.wav",
-    "./Assets/SFX/test.wav",
-    "./Assets/SFX/test.wav"
+    "./Assets/SFX/orbshoot.wav",
+    "./Assets/SFX/destroy.wav",
+    "./Assets/SFX/teleport.wav",
+    "./Assets/SFX/dooropen.wav",
+    "./Assets/SFX/doorclose.wav",
+    "./Assets/SFX/exit.wav",
+    "./Assets/SFX/alarm.wav",
+    "./Assets/SFX/laseron.wav",
+    "./Assets/SFX/laseroff.wav",
+    "./Assets/SFX/laserwarning.wav"
 };
 
 static const char* musicFiles[music_count] = {
-    "./Assets/SFX/bgm.wav"
+    "./Assets/SFX/bgmlevel1.wav",
+    "./Assets/SFX/bgmlevel2.wav",
+    "./Assets/SFX/bgmlevel3.wav",
+    "./Assets/SFX/lasercont.wav"
 };
 
 
@@ -39,6 +46,11 @@ void Sound_Init(void)
 void Sound_PlaySFX(SFX type)
 {
     CP_Sound_PlayAdvanced(sfx[type], 1.0f, 1.0f, FALSE, CP_SOUND_GROUP_SFX);
+}
+
+void Sound_PlaySFXLoop(SFX type)
+{
+    CP_Sound_PlayAdvanced(sfx[type], 1.0f, 1.0f, TRUE, CP_SOUND_GROUP_SFX);
 }
 
 void Sound_PlayMUSIC(MUSIC type)

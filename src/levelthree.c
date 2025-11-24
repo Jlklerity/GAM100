@@ -40,6 +40,9 @@ void LevelThree_Init(void) {
     LoadLaserFromFile("Assets/Levels/Level3_Lazer.txt");
     Player_Init(&player, &orb);
     Sound_Init();
+    Sound_PlayMUSIC(bgm_level3);
+    Sound_PlayMUSIC(lasercont);
+    Sound_PlaySFX(exit);
     option_Init();
     debug_TEXT = CP_Font_Load("Assets/Exo2 - Regular.ttf");
     animation_timer = 0;  // added animation_timer (only dif in this void)
@@ -339,23 +342,26 @@ void LevelThree_Update(void) {
     //Pause screen
     if (CP_Input_KeyTriggered(KEY_ESCAPE)) {
         GameState = 1 - GameState;
-
     }
 
     if (GameState == 0) {
         int pause_signal = pause_menu();
+        CP_Sound_PauseAll();
 
         if (pause_signal == 1) {
             // Resume game
             GameState = 1;
+            CP_Sound_ResumeAll();
         }
         else if (pause_signal == 2) {
             // Go to main menu
             CP_Engine_SetNextGameState(Main_Menu_Init, Main_Menu_Update, Main_Menu_Exit);
+            CP_Sound_ResumeAll();
         }
         else if (pause_signal == 3) {
             GameState = 1;
             LevelThree_Init();
+            CP_Sound_ResumeAll();
         }
     }
 }

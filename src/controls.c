@@ -83,6 +83,9 @@ void controls_Update(void) {
     CP_Image_Draw(keybox, col2X, startY + spacingY * 2, boxWidth, boxHeight, 255);
     CP_Font_DrawText("J", col2X, startY + spacingY * 2);
 
+    CP_Image_Draw(keybox, col2X, startY + spacingY * 3, boxWidth + 50, boxHeight, 255);
+    CP_Font_DrawText("ESC", col2X, startY + spacingY * 3);
+
 
     //---------------------------------------------------
     // SECOND PASS — LEFT-ALIGNED DESCRIPTIONS
@@ -103,6 +106,7 @@ void controls_Update(void) {
     CP_Font_DrawText(" - SELECT TELEPORT ORB", col2X + textOffset, startY);
     CP_Font_DrawText(" - SELECT DESTROY ORB", col2X + textOffset, startY + spacingY);
     CP_Font_DrawText(" - THROW SELECTED ORB", col2X + textOffset, startY + spacingY * 2);
+    CP_Font_DrawText(" - PAUSE", col2X + textOffset, startY + spacingY * 3);
 
 
     CP_Image_Draw(mainmenu_ButtonBackground, backButtonX, backButtonY, buttonWidth, buttonHeight, 255);

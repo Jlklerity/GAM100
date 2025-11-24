@@ -39,7 +39,7 @@ void LevelOne_Init(void) {
     LoadLevelFromFile("Assets/Levels/level1.txt");
     Player_Init(&player, &orb);
     Sound_Init();
-    Sound_PlayMUSIC(bgm_level);
+    Sound_PlayMUSIC(bgm_level1);
     option_Init();
     GameState = 1;
     debug_TEXT = CP_Font_Load("Assets/Exo2 - Regular.ttf");
@@ -121,7 +121,6 @@ void LevelOne_Update(void) {
             }
             Save_Progress();
             CP_Engine_SetNextGameState(LevelTwo_Init, LevelTwo_Update, LevelTwo_Exit);
-            Sound_PlaySFX(exit);
         }
 
         for (int i = 0; i < g_level_collidable_count; i++) {
@@ -321,22 +320,26 @@ void LevelOne_Update(void) {
     //Pause screen
     if (CP_Input_KeyTriggered(KEY_ESCAPE)) {
         GameState = 1 - GameState;
-        //Sound_StopAll();
+        CP_Sound_ResumeAll();
     }
     if (GameState == 0) {
+        CP_Sound_PauseAll();
         int pause_signal = pause_menu();
 
         if (pause_signal == 1) {
             // Resume game
             GameState = 1;
+            CP_Sound_ResumeAll();
         }
         else if (pause_signal == 2) {
             // Go to main menu
             CP_Engine_SetNextGameState(Main_Menu_Init, Main_Menu_Update, Main_Menu_Exit);
+            CP_Sound_ResumeAll();
         }
         else if (pause_signal == 3) {
             GameState = 1;
             LevelOne_Init();
+            CP_Sound_ResumeAll();
         }
     }
 }
@@ -344,7 +347,6 @@ void LevelOne_Update(void) {
 void LevelOne_Exit(void) {
     CP_Image_Free(player.fox_sprite);
     CP_Font_Free(debug_TEXT);
-    Sound_StopAll();
     Sound_Exit();
     option_Exit();
 }
