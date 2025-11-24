@@ -38,6 +38,7 @@ void LevelOne_Init(void) {
     CP_Settings_RectMode(CP_POSITION_CENTER);
     LoadLevelFromFile("Assets/Levels/level1.txt");
     Player_Init(&player, &orb);
+    Sound_StopAll();
     Sound_Init();
     Sound_PlayMUSIC(bgm_level1);
     option_Init();
@@ -338,8 +339,8 @@ void LevelOne_Update(void) {
         }
         else if (pause_signal == 3) {
             GameState = 1;
-            LevelOne_Init();
             CP_Sound_ResumeAll();
+            LevelOne_Init();
         }
     }
 }

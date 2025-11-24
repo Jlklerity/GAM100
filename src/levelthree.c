@@ -39,6 +39,7 @@ void LevelThree_Init(void) {
     LoadLevelFromFile("Assets/Levels/level3.txt");
     LoadLaserFromFile("Assets/Levels/Level3_Lazer.txt");
     Player_Init(&player, &orb);
+    Sound_StopAll();
     Sound_Init();
     Sound_PlayMUSIC(bgm_level3);
     Sound_PlayMUSIC(lasercont);
@@ -346,8 +347,9 @@ void LevelThree_Update(void) {
     }
 
     if (GameState == 0) {
-        int pause_signal = pause_menu();
         CP_Sound_PauseAll();
+        int pause_signal = pause_menu();
+       
 
         if (pause_signal == 1) {
             // Resume game
@@ -361,8 +363,8 @@ void LevelThree_Update(void) {
         }
         else if (pause_signal == 3) {
             GameState = 1;
-            LevelThree_Init();
             CP_Sound_ResumeAll();
+            LevelThree_Init();
         }
     }
 }

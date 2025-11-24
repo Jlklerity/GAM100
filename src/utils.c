@@ -6,7 +6,6 @@
 #include "collisionHandling.h"
 #include "stagewall.h"
 #include "sound.h"
-int soundplayed = 0;
 
 
 int IsAreaClicked(float area_center_x, float area_center_y, float area_width, float area_height, float click_x, float click_y)
@@ -146,9 +145,11 @@ void PlayerPov(Player* player) {
         }
     CP_Settings_Stroke(CP_Color_Create(0, 0, 0, 255));
 }
-    
+   
+
 void LevelTimer(float* leveltime, int* GameState) {
     CP_Settings_TextAlignment(CP_TEXT_ALIGN_H_CENTER, CP_TEXT_ALIGN_V_MIDDLE);
+    static int soundplayed = 0;
 
     int minutes = (int)(*leveltime / 60);
     int seconds = (int)(*leveltime) % 60;
@@ -158,14 +159,15 @@ void LevelTimer(float* leveltime, int* GameState) {
     sprintf_s(time, 50, "%02d:%02d", minutes, seconds);
 
     if (*leveltime > 0.0f && *GameState) {
-
         float prevtime = *leveltime;
 
         // ---------- TEXT COLOR ----------
-        if (*leveltime <= 11.0f)
-            CP_Settings_Fill(CP_Color_Create(255, 0, 0, 255));   // RED under 10
-        else
-            CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255)); // WHITE above 10
+        if (*leveltime <= 11.0f) {
+            CP_Settings_Fill(CP_Color_Create(255, 0, 0, 255));
+        }
+        else {
+            CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
+        }
 
         CP_Font_DrawText(time, (float)CP_System_GetWindowWidth() / 2.0f, 60.0f);
 
@@ -173,28 +175,36 @@ void LevelTimer(float* leveltime, int* GameState) {
         *leveltime -= CP_System_GetDt();
 
         // ---------- Alarm: play once ----------
-        if (prevtime > 11.0f && *leveltime <= 11.0f && soundplayed == 0) {
-            Sound_PlaySFX(alarm);
+        if (prevtime > 10.0f && *leveltime <= 11.0f && soundplayed == 0) {
+            Sound_PlaySFX(alarm); 
             soundplayed = 1;
         }
 
+        //if restart level before timer ends
+        if (*leveltime <= 10.0f) {
+            soundplayed = 0; 
+        }
+
         // ---------- time ran out ----------
-        if (*leveltime < 0.0f) {
+        if (*leveltime <= 0.0f) {
             *leveltime = 0.0f;
+            CP_Sound_StopGroup(CP_SOUND_GROUP_SFX);
             CP_Engine_SetNextGameState(Game_Init, Game_Update, Game_Exit);
+            soundplayed = 0; // reset for next level
         }
     }
     else {
         // ---------- Paused display ----------
-        if (*leveltime <= 11.0f) {
+        if (*leveltime <= 11.0f)
             CP_Settings_Fill(CP_Color_Create(255, 0, 0, 255));
-        }
         else
             CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
 
         CP_Font_DrawText(time, (float)CP_System_GetWindowWidth() / 2.0f, 60.0f);
     }
 }
+
+
 
 
 void OrbCount(Orb* orb) {

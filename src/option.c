@@ -61,11 +61,11 @@ int pause_menu(void)
         restartbarX = (float)CP_System_GetWindowWidth() / 2.0f;
         restartbarY = (float)CP_System_GetWindowHeight() / 2.0f;
         mainmenubarX = (float)CP_System_GetWindowWidth() / 2.0f;
-        mainmenubarY = (float)CP_System_GetWindowHeight() / 1.4f;
+        mainmenubarY = (float)CP_System_GetWindowHeight() / 1.2f;
         soundButtonX = (float)CP_System_GetWindowWidth() / 2.0f;
         soundButtonY = (float)CP_System_GetWindowHeight() / 1.65f;
         controlsButtonX = (float)CP_System_GetWindowWidth() / 2;
-        controlsButtonY = (float)CP_System_GetWindowHeight() / 1.2f;
+        controlsButtonY = (float)CP_System_GetWindowHeight() / 1.4f;
 
         // Draw buttons
         CP_Image_Draw(mainmenu_ButtonBackground, resumebarX, resumebarY, buttonWidth, buttonHeight, 255);

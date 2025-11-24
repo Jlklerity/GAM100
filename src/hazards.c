@@ -104,19 +104,22 @@ void update_laser(Laser* laser, float delta_time, Wall* wall[], int wall_count, 
 			laser->state = LASER_FIRING;
 			laser->timer = 0.0f;
 
+			// Reset warning flag for next cycle
+			warningPlayed = 0;
+
 			// >>> PLAY LASER ON <<<
-			Sound_PlaySFXLoop(laser_on);
+			Sound_PlayLaser(laser_on);
 		}
 		break;
 
 	case LASER_FIRING:
 		laser_hitbox(laser, wall, wall_count, player, orbs);
 
-		// Laser lasts 3 seconds
+		// Laser lasts 2 seconds
 		if (laser->timer >= 2.0f) {
 			laser->state = LASER_IDLE;
 			laser->timer = 0.0f;
-			CP_Sound_StopGroup(CP_SOUND_GROUP_SFX);
+			CP_Sound_StopGroup(CP_SOUND_GROUP_3);
 
 			// >>> PLAY LASER OFF <<<
 			Sound_PlaySFX(laser_off);
@@ -125,7 +128,7 @@ void update_laser(Laser* laser, float delta_time, Wall* wall[], int wall_count, 
 
 	case LASER_IDLE:
 		// Do nothing
-		// After 5 seconds got to LASER_WARNING
+		// After 3 seconds go to LASER_WARNING
 		if (laser->timer >= 3.0f) {
 			laser->state = LASER_WARNING;
 			laser->timer = 0.0f;
@@ -137,4 +140,5 @@ void update_laser(Laser* laser, float delta_time, Wall* wall[], int wall_count, 
 		break;
 	}
 }
+
 

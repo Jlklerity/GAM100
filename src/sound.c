@@ -23,8 +23,8 @@ static const char* sfxFiles[sfx_count] = {
 };
 
 static const char* musicFiles[music_count] = {
-    "./Assets/SFX/bgmlevel1.wav",
-    "./Assets/SFX/bgmlevel2.wav",
+    "./Assets/SFX/bgmlevel1.mp3",
+    "./Assets/SFX/bgmlevel2.mp3",
     "./Assets/SFX/bgmlevel3.wav",
     "./Assets/SFX/lasercont.wav"
 };
@@ -48,9 +48,9 @@ void Sound_PlaySFX(SFX type)
     CP_Sound_PlayAdvanced(sfx[type], 1.0f, 1.0f, FALSE, CP_SOUND_GROUP_SFX);
 }
 
-void Sound_PlaySFXLoop(SFX type)
+void Sound_PlayLaser(SFX type)
 {
-    CP_Sound_PlayAdvanced(sfx[type], 1.0f, 1.0f, TRUE, CP_SOUND_GROUP_SFX);
+    CP_Sound_PlayAdvanced(sfx[type], 1.0f, 1.0f, TRUE, CP_SOUND_GROUP_3);
 }
 
 void Sound_PlayMUSIC(MUSIC type)

@@ -30,7 +30,7 @@ void Sound_Exit(void);
 
 // Playback control
 void Sound_PlaySFX(SFX type);
-void Sound_PlaySFXLoop(SFX type);
+void Sound_PlayLaser(SFX type);
 void Sound_PlayMUSIC(MUSIC type);
 void Sound_StopAll(void);
 void Sound_SetMusicVolume(float volume);

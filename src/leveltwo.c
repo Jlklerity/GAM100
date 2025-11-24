@@ -37,6 +37,7 @@ void LevelTwo_Init(void) {
     CP_Settings_RectMode(CP_POSITION_CENTER);
     LoadLevelFromFile("Assets/Levels/level2.txt");
     Player_Init(&player, &orb);
+    Sound_StopAll();
     Sound_Init();
     Sound_PlayMUSIC(bgm_level2);
     Sound_PlaySFX(exit);
@@ -336,8 +337,8 @@ void LevelTwo_Update(void) {
         }
         else if (pause_signal == 3) {
             GameState = 1;
-            LevelTwo_Init();
             CP_Sound_ResumeAll();
+            LevelTwo_Init();
         }
     }
 }
