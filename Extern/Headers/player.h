@@ -19,7 +19,12 @@ typedef struct {
 	enum Orb_Type orb_type;
 	enum player_facingdirection direction;
 	enum player_facingdirection last_direction;
+
+	//drawing of sprites 
 	CP_Image fox_sprite;
+	CP_Image destroy_orb;
+	CP_Image teleport_orb;
+
 } Player;
 
 typedef struct {

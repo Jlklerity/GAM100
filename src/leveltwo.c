@@ -44,6 +44,7 @@ void LevelTwo_Init(void) {
     GameState = 1;
     GameOverState = 1;
     debug_TEXT = CP_Font_Load("Assets/Exo2 - Regular.ttf");
+    leveltwo_background = CP_Image_Load("Assets/Piskel_sprite_assets/mainmenu_bg.jpg"); 
     animation_timer = 0;  // added animation_timer (only dif in this void)
 
     greenStartTime = 0;
@@ -69,6 +70,9 @@ void LevelTwo_Init(void) {
 
 void LevelTwo_Update(void) {
     CP_Graphics_ClearBackground(CP_Color_Create(85, 85, 85, 255));
+    CP_Settings_ImageMode(CP_POSITION_CORNER);
+    CP_Image_Draw(leveltwo_background, 0, 0, 1600 * 1.1f, 800 * 1.2f, 150); //background drawing 
+    CP_Settings_ImageMode(CP_POSITION_CENTER);//RESETS the standard drawing of shapes to draw from center 
     // ========== INITIALIZATION ==========
     if (GameState && GameOverState) {
 
@@ -299,7 +303,7 @@ void LevelTwo_Update(void) {
         //Level Timer 15s 
         LevelTimer(&leveltime, &GameState, &GameOverState);
         //Ammo counter
-        OrbCount(&orb);
+        OrbCount(&orb, &player);
 
         //FPS Counter & Player coordinates & Mouse coordinates & player pov
         if (CP_Input_KeyTriggered(KEY_LEFT_ALT)) {

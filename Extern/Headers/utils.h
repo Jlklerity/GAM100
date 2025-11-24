@@ -11,4 +11,4 @@ void MousePos(void);
 void ControlsDisplay(void);
 void PlayerPov(Player* player);
 void LevelTimer(float* leveltime, int* GameState, int* GameOverState);
-void OrbCount(Orb* orb);
+void OrbCount(Orb* orb, Player* player);

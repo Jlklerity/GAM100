@@ -5,16 +5,21 @@
 #include "option.h"
 #include "controls.h"
 #include "creditscreen.h"
+#include "howtoplay.h"
 
-float mouseX, mouseY;
-float logoX, logoY;
-float playButtonX, playButtonY;
-float exitButtonX, exitButtonY;
-float buttonWidth, buttonHeight;
-float optionButtonX, optionButtonY;
-float controlsButtonX, controlsButtonY;
-float creditsButtonX, creditsButtonY;
 CP_Image menu_background;
+float mouseX, mouseY;
+static float logoX, logoY;
+static float playButtonX, playButtonY;
+static float exitButtonX, exitButtonY;
+static float buttonWidth, buttonHeight;
+static float optionButtonX, optionButtonY;
+static float howtoPlayButtonX, howtoPlayButtonY;
+static float controlsButtonX, controlsButtonY;
+static float creditsButtonX, creditsButtonY;
+static float btn_gap;
+static float start_y;
+static float center_x;
 
 void Main_Menu_Init(void)
 {
@@ -22,26 +27,35 @@ void Main_Menu_Init(void)
 	CP_Font_Set(mainmenu_TEXT);
 	mainmenu_ButtonBackground = CP_Image_Load("Assets/kenney_ui-pack-space-expansion/PNG/Extra/Double/button_rectangle_depth.png");
 	mainmenu_ButtonWhenPressed = CP_Image_Load("Assets/kenney_ui-pack-space-expansion/PNG/Extra/Double/panel_rectangle_screws.png");
-	menu_background = CP_Image_Load("./Assets/Piskel_sprite_assets/FOX_ANIMATION_ALL_MOVEMENTS_05_JUMP.png");
+	menu_background = CP_Image_Load("./Assets/Piskel_sprite_assets/mainmenu_bg.jpg");
 	textSize = 32.0f;
 	logoSize = 75.0f;
 	buttonWidth = 200.0f;
 	buttonHeight = 75.0f;
-	logoX = (float)(CP_System_GetWindowWidth() / 2);
-	logoY = (float)(CP_System_GetWindowWidth() / 8.1f);
-	playButtonX = (float)(CP_System_GetWindowWidth() / 2);
-	playButtonY = (float)(CP_System_GetWindowHeight() / 3);
-	exitButtonX = (float)(CP_System_GetWindowWidth() / 2);
-	exitButtonY = (float)(CP_System_GetWindowHeight() / 1.2);
+	btn_gap = 100.0f;
+	center_x = CP_System_GetWindowWidth() / 2.0f;
+	start_y = (CP_System_GetWindowHeight() / 2.0f) - (2.5f * btn_gap);
+	
+	logoX = center_x;
+	logoY = start_y - 150.0f; // Logo is above the buttons
 
-	optionButtonX = (float)(CP_System_GetWindowWidth() / 2);
-	optionButtonY = (float)(CP_System_GetWindowHeight() / 2);
+	playButtonX = center_x;
+	playButtonY = start_y;
 
-	controlsButtonX = (float)(CP_System_GetWindowWidth() / 2);
-	controlsButtonY = (float)(CP_System_GetWindowHeight() / 1.5);
+	optionButtonX = center_x;
+	optionButtonY = start_y + btn_gap;
 
-	creditsButtonX = (float)(CP_System_GetWindowWidth() / 1.5);
-	creditsButtonY = (float)(CP_System_GetWindowHeight() / 1.2);
+	howtoPlayButtonX = center_x;
+	howtoPlayButtonY = start_y + (btn_gap * 2);
+
+	controlsButtonX = center_x;
+	controlsButtonY = start_y + (btn_gap * 3);
+
+	creditsButtonX = center_x;
+	creditsButtonY = start_y + (btn_gap * 4);
+
+	exitButtonX = center_x;
+	exitButtonY = start_y + (btn_gap * 5);
 }
 
 void Main_Menu_Update(void)
@@ -56,7 +70,7 @@ void Main_Menu_Update(void)
 
 	CP_Graphics_ClearBackground(CP_Color_Create(85, 85, 85, 255)); //background color
 	CP_Settings_ImageMode(CP_POSITION_CORNER);
-	CP_Image_Draw(menu_background, 0, -120, 1600, 1800, 225); //background drawing 
+	CP_Image_Draw(menu_background, 0, 0, 1600 * 1.1f, 800 * 1.2f, 225); //background drawing 
 	CP_Settings_ImageMode(CP_POSITION_CENTER);
 	
 	//box of play button
@@ -65,15 +79,15 @@ void Main_Menu_Update(void)
 	CP_Image_Draw(mainmenu_ButtonBackground, exitButtonX, exitButtonY, buttonWidth, buttonHeight, 255);
 	//box of option button
 	CP_Image_Draw(mainmenu_ButtonBackground, optionButtonX, optionButtonY, buttonWidth, buttonHeight, 255);
+	//box of howtoplay button
+	CP_Image_Draw(mainmenu_ButtonBackground, howtoPlayButtonX, howtoPlayButtonY, buttonWidth+50.0f, buttonHeight, 255);
 	//box of controls button
 	CP_Image_Draw(mainmenu_ButtonBackground, controlsButtonX, controlsButtonY, buttonWidth, buttonHeight, 255);
 	//box of credits button 
 	CP_Image_Draw(mainmenu_ButtonBackground, creditsButtonX, creditsButtonY, buttonWidth, buttonHeight, 255);
 
-
-
 	//Draw logo
-	CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
+	CP_Settings_Fill(CP_Color_Create(0, 0, 0, 255));
 	CP_Settings_TextAlignment(CP_TEXT_ALIGN_H_CENTER, CP_TEXT_ALIGN_V_MIDDLE);
 	CP_Settings_TextSize(logoSize);
 	CP_Font_DrawText("TELESCAPE", logoX, logoY);
@@ -82,8 +96,9 @@ void Main_Menu_Update(void)
 	CP_Settings_Fill(CP_Color_Create(0, 0, 0, 255));
 	CP_Settings_TextSize(textSize);
 	CP_Font_DrawText("Play", playButtonX, playButtonY);
-	CP_Font_DrawText("Exit", exitButtonX, exitButtonY);
+	CP_Font_DrawText("Quit", exitButtonX, exitButtonY);
 	CP_Font_DrawText("Option", optionButtonX, optionButtonY);
+	CP_Font_DrawText("How To Play", howtoPlayButtonX, howtoPlayButtonY);
 	CP_Font_DrawText("Controls", controlsButtonX, controlsButtonY);
 	CP_Font_DrawText("Credits", creditsButtonX, creditsButtonY);
 
@@ -97,13 +112,18 @@ void Main_Menu_Update(void)
 		if (IsAreaClicked(exitButtonX, exitButtonY, buttonWidth, buttonHeight, mouseX, mouseY)) {
 			CP_Image_Draw(mainmenu_ButtonWhenPressed, exitButtonX, exitButtonY, buttonWidth, buttonHeight, 255);
 			CP_Settings_Fill(CP_Color_Create(0, 0, 0, 150));
-			CP_Font_DrawText("Exit", exitButtonX, exitButtonY);
+			CP_Font_DrawText("Quit", exitButtonX, exitButtonY);
 		}
 
 		if (IsAreaClicked(optionButtonX, optionButtonY, buttonWidth, buttonHeight, mouseX, mouseY)) {
 			CP_Image_Draw(mainmenu_ButtonWhenPressed, optionButtonX, optionButtonY, buttonWidth, buttonHeight, 255);
 			CP_Settings_Fill(CP_Color_Create(0, 0, 0, 150));
 			CP_Font_DrawText("option", optionButtonX, optionButtonY);
+		}
+		if (IsAreaClicked(howtoPlayButtonX, howtoPlayButtonY, buttonWidth, buttonHeight, mouseX, mouseY)) {
+			CP_Image_Draw(mainmenu_ButtonWhenPressed, howtoPlayButtonX, howtoPlayButtonY, buttonWidth, buttonHeight, 255);
+			CP_Settings_Fill(CP_Color_Create(0, 0, 0, 150));
+			CP_Font_DrawText("How To Play", howtoPlayButtonX, howtoPlayButtonY);
 		}
 
 		if (IsAreaClicked(controlsButtonX, controlsButtonY, buttonWidth, buttonHeight, mouseX, mouseY)) {
@@ -126,6 +146,9 @@ void Main_Menu_Update(void)
 		}
 		if (IsAreaClicked(optionButtonX, optionButtonY, buttonWidth, buttonHeight, mouseX, mouseY)) {
 			CP_Engine_SetNextGameState(option_Init, option_Update, option_Exit);
+		}
+		if (IsAreaClicked(howtoPlayButtonX, howtoPlayButtonY, buttonWidth, buttonHeight, mouseX, mouseY)) {
+			CP_Engine_SetNextGameState(HowToPlay_Init, HowToPlay_Update, HowToPlay_Exit);
 		}
 		if (IsAreaClicked(controlsButtonX, controlsButtonY, buttonWidth, buttonHeight, mouseX, mouseY)) {
 			CP_Engine_SetNextGameState(controls_Init, controls_Update, controls_Exit);

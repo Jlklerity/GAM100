@@ -185,10 +185,10 @@ void Resolve_Collision_Wall_Orb_Y(AABB orbHitBox, AABB WallHitBox, Orb* orb, Pla
 	float WallLeft = WallHitBox.x;
 	float WallRight = WallHitBox.x + WallHitBox.width;
 
-	float SafeLeft = WallLeft + EdgeMargin;
+	float SafeLeft = WallLeft + EdgeMargin; //
 	float SafeRight = WallRight - EdgeMargin;
 
-	float clampedX = orb->x;
+	float clampedX = orb->x; //orb's position
 	if (clampedX < SafeLeft) clampedX = SafeLeft;
 	if (clampedX > SafeRight) clampedX = SafeRight;
 
@@ -247,6 +247,7 @@ void Resolve_Collision_Wall_Orb_X(AABB orbHitBox, AABB WallHitBox, Orb* orb, Pla
 				player->player_velocityY = 0.0f;
 				orb->isActive = 0;
 				Sound_PlaySFX(teleport);
+				///---DRAWING OF SPRITE TELEPORTATION EFFECT----///
 			}
 		}
 		else {

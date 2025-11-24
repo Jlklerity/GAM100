@@ -36,6 +36,17 @@ static int frame_count = 0;   // counts frames for timing
 static int idle_count = 0;    // counts idle frames
 static int animation_speed = 10;
 
+
+
+//Teleport orb canvas TOS 
+static int TOS_x = 0;
+static int TOS_y = 0;
+static int TOE_x = 32;
+static int TOE_y = 32;
+
+
+
+
 void LevelOne_Init(void) {
     Load_Progress();
     CP_Settings_RectMode(CP_POSITION_CENTER);
@@ -48,6 +59,8 @@ void LevelOne_Init(void) {
     GameState = 1;
     GameOverState = 1;
     debug_TEXT = CP_Font_Load("Assets/Exo2 - Regular.ttf");
+    levelone_background = CP_Image_Load("Assets/Piskel_sprite_assets/mainmenu_bg.jpg");
+
     animation_timer = 0;  // added animation_timer (only dif in this void)
 
     greenStartTime = 0;
@@ -65,7 +78,7 @@ void LevelOne_Init(void) {
         }
     }
 
-    leveltime = 10.0f;
+    leveltime = 90.0f;
     orb.max_ammo = 3;
     orb.ammo = orb.max_ammo;
     orb.orb_type = TELEPORT_ORB;
@@ -74,6 +87,11 @@ void LevelOne_Init(void) {
 void LevelOne_Update(void) {
     // ========== INITIALIZATION ==========
     CP_Graphics_ClearBackground(CP_Color_Create(85, 85, 85, 255));
+    CP_Settings_ImageMode(CP_POSITION_CORNER);
+    CP_Image_Draw(levelone_background, 0, 0, 1600 * 1.1f, 800 * 1.2f, 150); //background drawing 
+    CP_Settings_ImageMode(CP_POSITION_CENTER);//RESETS the standard drawing of shapes to draw from center 
+
+
     if (GameState && GameOverState) {
         float deltaTime = CP_System_GetDt();
         const float max_deltaTime = 0.02f;
@@ -184,6 +202,9 @@ void LevelOne_Update(void) {
                 Resolve_Collision_Wall_Orb_X(orbHitbox, platformHitBox, &orb, &player, breathing_space, orb_moveX);
             }
         }
+
+
+
         // STORED FACING VALUE
         if (CP_Input_KeyDown(KEY_A)) { //WALKING LEFT
             facing_left = 1;
@@ -244,6 +265,9 @@ void LevelOne_Update(void) {
                 end_x = 64;
             }
         }
+
+
+
     } //end of if GameState
 
     // Draw exit door
@@ -288,6 +312,7 @@ void LevelOne_Update(void) {
         }
     }
 
+
     //FOX SSPRITE ANIMATION
     //DEFAULT FACING RIGHT 
     if (facing_left)
@@ -298,13 +323,22 @@ void LevelOne_Update(void) {
         CP_Image_DrawSubImage(player.fox_sprite, player.player_posX, player.player_posY - 30.0f, player.player_width * 3.0f, player.player_height * 3.0f, (float)start_x, (float)start_y, (float)end_x, (float)end_y, 255);
     }
 
+   
+    
+
+
+
+
+
+
+
     CP_Font_Set(debug_TEXT);
     CP_Settings_TextAlignment(CP_TEXT_ALIGN_H_LEFT, CP_TEXT_ALIGN_V_TOP);
     //Level Timer 15s 
     LevelTimer(&leveltime, &GameState, &GameOverState);
 
     //Ammo counter
-    OrbCount(&orb);
+    OrbCount(&orb, &player);
 
     //Controls
     ControlsDisplay();
@@ -337,6 +371,7 @@ void LevelOne_Update(void) {
         }
     }
 
+
     //Pause screen
     if (GameOverState != 0) {
         if (CP_Input_KeyTriggered(KEY_ESCAPE)) {
@@ -365,6 +400,9 @@ void LevelOne_Update(void) {
 
 void LevelOne_Exit(void) {
     CP_Image_Free(player.fox_sprite);
+    CP_Image_Free(player.destroy_orb);
+    CP_Image_Free(player.teleport_orb);
+
     CP_Font_Free(debug_TEXT);
     Sound_StopAll();
     Sound_Exit();

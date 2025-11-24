@@ -21,6 +21,13 @@ typedef struct {
 	float h; // height
 } LaserRect;
 
+CP_Image kill_laser;
+CP_Image Warning_laser;
  
 void update_laser(Laser* laser, float delta_time, Wall* wall[], int wall_count, Player* player, Orb* orbs);
 extern Laser* g_level_laser[MAXLASER];
+
+// hazards.h
+void draw_laser(Laser* laser, Wall* wall[], int wall_count);
+// update_laser remains the same
+void update_laser(Laser* laser, float delta_time, Wall* wall[], int wall_count, Player* player, Orb* orbs);
