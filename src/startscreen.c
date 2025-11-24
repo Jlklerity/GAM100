@@ -2,20 +2,20 @@
 #include "cprocessing.h"
 #include "fullscreen.h"
 #include "mainmenu.h"
+#include "startscreen.h"
 
 
 CP_Image logo;
-int transition_alpha = 255;
-static int GameIsRunning = 0;
+static int transition_alpha = 255;
+static int GameIsRunning;
 //find out we need to initialize the vales of init,update, and exit for other game states. Comment by Teo Zijie. Completed by Teo Zijie.
 
 void start_screen_init(void)
 {
- //	float width = (float)CP_System_GetWindowWidth();
-	//float height = (float)CP_System_GetWindowHeight();
- 
+	transition_alpha = 255; 
+	GameIsRunning = 0;
 	CP_System_SetWindowSize(1600, 900);
-	logo = CP_Image_Load("./Assets/DigiPen_Singapore_allrightsreserved.png");
+	logo = CP_Image_Load("./Assets/DigiPen_Singapore_Logo/DigiPen_Singapore_allrightsreserved.png");
 	CP_Settings_ImageMode(CP_POSITION_CENTER);
 }
 

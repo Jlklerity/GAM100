@@ -1,30 +1,44 @@
-#include <cprocessing.h>
+﻿#include <cprocessing.h>
+#include <locale.h>
 #include "mainmenu.h"
+#include "startscreen.h"
 
 
 static CP_Font font_credits;
 static float timer = 0.0f;
 static int current_slide = 0;
 static float alpha = 0.0f; 
+static float deltaTime;
+static float screenWidth;
+static float screenHeight;
+static float image_width;
+static float image_height;
 
-#define SLIDE_DURATION 2.5f  
+CP_Image logo;
+#define SLIDE_DURATION 3.0f  
 #define FADE_SPEED 200.0f  
 
+
 void Gamecredits_Init(void) {
+	setlocale(LC_CTYPE, "");
 	font_credits = CP_Font_Load("Assets/kenney_ui-pack-space-expansion/Font/Kenney Future Narrow.ttf");
+	logo = CP_Image_Load("./Assets/DigiPen_Singapore_Logo/DigiPen_Singapore_allrightsreserved.png");
 	timer = 0.0f;
 	current_slide = 0;
 	alpha = 0.0f;
+	screenWidth = (float)CP_System_GetWindowWidth();
+	screenHeight = (float)CP_System_GetWindowHeight();
+	deltaTime = CP_System_GetDt();
+	image_width = (float)CP_Image_GetWidth(logo);
+	image_height = (float)CP_Image_GetHeight(logo);
 }
 
 void Gamecredits_Update(void) {
-	float deltaTime = CP_System_GetDt();
-	float screenWidth = (float)CP_System_GetWindowWidth();
-	float screenHeight = (float)CP_System_GetWindowHeight();
+	 
 
 	CP_Graphics_ClearBackground(CP_Color_Create(0, 0, 0, 255));
 
-	if (CP_Input_KeyTriggered(KEY_ESCAPE) || CP_Input_MouseClicked()) {
+	if (CP_Input_KeyTriggered(KEY_ESCAPE) || CP_Input_KeyTriggered(KEY_SPACE)) {
 		CP_Engine_SetNextGameState(Main_Menu_Init, Main_Menu_Update, Main_Menu_Exit);
 	}
 
@@ -50,32 +64,35 @@ void Gamecredits_Update(void) {
 	switch (current_slide) {
 
 		case 0:
+			CP_Image_Draw(logo, screenWidth / 2.0f, screenHeight/ 2.0f, image_width, image_height, (int)alpha);
+			
+			break;
+		case 1:
 			CP_Settings_TextSize(60.0f);
 			CP_Font_DrawText("TEAM DURIAN CATS", screenWidth / 2.0f, screenHeight / 2.0f);
 			break;
 
-		case 1:
+		case 2:
 			CP_Settings_TextSize(50.0f);
-			CP_Font_DrawText("THE TEAM", screenWidth / 2.0f, 100.0f);
+			CP_Font_DrawText("TEAM MEMBERS", screenWidth / 2.0f, 100.0f);
 
 			CP_Settings_TextSize(30.0f);
-			// Replace these with your actual names and roles
-			CP_Font_DrawText("JEREMY LIM - Role", screenWidth / 2.0f, 200.0f);
-			CP_Font_DrawText("TEO ZIJIE - Role", screenWidth / 2.0f, 250.0f);
-			CP_Font_DrawText("CYRUS THAM - Role", screenWidth / 2.0f, 300.0f);
-			CP_Font_DrawText("LIM ZI JIE - Role", screenWidth / 2.0f, 350.0f);
-			break;
-
-		case 2:
-			CP_Settings_TextSize(40.0f);
-			CP_Font_DrawText("FACULTY AND ADVISORS", screenWidth / 2.0f, 100.0f);
-			CP_Settings_TextSize(25.0f);
-			CP_Font_DrawText("Instructor Name", screenWidth / 2.0f, 200.0f);
-			CP_Font_DrawText("Instructor Name", screenWidth / 2.0f, 250.0f);
-			CP_Font_DrawText("TA Name", screenWidth / 2.0f, 300.0f);
+			CP_Font_DrawText("JEREMY LIM", screenWidth / 2.0f, 200.0f);
+			CP_Font_DrawText("TEO ZIJIE", screenWidth / 2.0f, 250.0f);
+			CP_Font_DrawText("CYRUS THAM", screenWidth / 2.0f, 300.0f);
+			CP_Font_DrawText("LIM ZI JIE", screenWidth / 2.0f, 350.0f);
 			break;
 
 		case 3:
+			CP_Settings_TextSize(40.0f);
+			CP_Font_DrawText("FACULTY AND ADVISORS", screenWidth / 2.0f, 100.0f);
+			CP_Settings_TextSize(25.0f);
+			CP_Font_DrawText("GERALD WONG HAN FENG  <3", screenWidth / 2.0f, 200.0f);
+			CP_Font_DrawText("DR. SOROOR MALEKMOHAMMADAI FARADOUNBEH", screenWidth / 2.0f, 250.0f);
+			CP_Font_DrawText("TOMMY TAN CHEE WEI", screenWidth / 2.0f, 300.0f);
+			break;
+
+		case 4:
 			CP_Settings_TextSize(35.0f);
 			CP_Font_DrawText("Created at DigiPen Institute of Technology Singapore", screenWidth / 2.0f, 100.0f);
 
@@ -100,17 +117,18 @@ void Gamecredits_Update(void) {
 			CP_Font_DrawText("All content \u00A9 2025 DigiPen Institute of Technology Singapore. All Rights Reserved.", screenWidth / 2.0f, screenHeight - 50.0f);
 			break;
 
-		case 4:
+		case 5:
 			CP_Settings_TextSize(40.0f);
 			CP_Font_DrawText("TOOLS AND LIBRARIES", screenWidth / 2.0f, 100.0f);
 			CP_Settings_TextSize(25.0f);
 			CP_Font_DrawText("CProcessing", screenWidth / 2.0f, 200.0f);
 				// Mandatory FMOD Credit
-			CP_Font_DrawText("FMOD Sound System", screenWidth / 2.0f, 300.0f);
-			CP_Font_DrawText("\u00A9 FireLight Technologies Pty Ltd (1998 - 2020)", screenWidth / 2.0f, 330.0f);
+			CP_Font_DrawText("soundly", screenWidth / 2.0f, 250.0f);
+			CP_Font_DrawText("Piskel for sprite art", screenWidth / 2.0f, 300.0f);
+			CP_Font_DrawText("Kenney Assets for ui text", screenWidth / 2.0f, 350.0f);
 			break;
 
-		default:				// End of credits
+		default:				
 			CP_Engine_SetNextGameState(Main_Menu_Init, Main_Menu_Update, Main_Menu_Exit);
 			break;
 	}

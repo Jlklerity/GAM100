@@ -11,6 +11,7 @@
 #include "option.h"
 #include "sound.h"
 #include "mainmenu.h"
+#include "creditscreen.h"
 
 
 static float greenStartTime;
@@ -127,7 +128,7 @@ void LevelThree_Update(void) {
                 g_highest_level_unlocked = next_level;
             }
             //CP_Engine_SetNextGameState(LevelFour_Init, LevelFour_Update, LevelFour_Exit);
-            CP_Engine_SetNextGameState(Main_Menu_Init, Main_Menu_Update, Main_Menu_Exit);
+            CP_Engine_SetNextGameState(Gamecredits_Init, Gamecredits_Update, Gamecredits_Exit);
         }
 
         for (int i = 0; i < g_level_collidable_count; i++) {
