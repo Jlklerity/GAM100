@@ -159,4 +159,6 @@ void Main_Menu_Exit(void)
 	CP_Image_Free(mainmenu_ButtonBackground);
 	CP_Image_Free(mainmenu_ButtonWhenPressed);
 	CP_Font_Free(mainmenu_TEXT);
+	CP_Image_Free(keybox);
+	CP_Font_Free(keytext);
 }

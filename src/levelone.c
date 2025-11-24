@@ -302,7 +302,7 @@ void LevelOne_Update(void) {
     OrbCount(&orb);
 
     //Controls
-    ControlsDisplay();
+    ControlsDisplay(&player, &orb);
 
     //FPS Counter & Player coordinates & Mouse coordinates & player pov
     if (CP_Input_KeyTriggered(KEY_LEFT_ALT)) {

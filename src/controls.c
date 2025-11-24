@@ -2,12 +2,11 @@
 #include "utils.h"
 #include "game.h"
 #include "mainmenu.h"
+#include "controls.h"
 
 float backButtonX, backButtonY;
 float buttonWidth, buttonHeight;
 float boxWidth, boxHeight;
-CP_Image keybox;
-CP_Font keytext;
 
 void controls_Init(void) {
 	keytext = CP_Font_Load("Assets/kenney_ui-pack-space-expansion/Font/Kenney Future Narrow.ttf");
@@ -101,8 +100,8 @@ void controls_Update(void) {
     CP_Font_DrawText(" - JUMP", col1X + textOffset, startY + spacingY * 4);
 
     // ABILITIES DESCRIPTIONS ----------------------------------------------
-    CP_Font_DrawText(" - TELEPORT ORB", col2X + textOffset, startY);
-    CP_Font_DrawText(" - DESTROY ORB", col2X + textOffset, startY + spacingY);
+    CP_Font_DrawText(" - SELECT TELEPORT ORB", col2X + textOffset, startY);
+    CP_Font_DrawText(" - SELECT DESTROY ORB", col2X + textOffset, startY + spacingY);
     CP_Font_DrawText(" - THROW SELECTED ORB", col2X + textOffset, startY + spacingY * 2);
 
 
