@@ -324,6 +324,7 @@ void LevelTwo_Update(void) {
     
         if (GameOverState == 0) {
             int GameOver_signal = GameOver_screen();
+            CP_Sound_StopAll();
 
             if (GameOver_signal == 2) {
                 // Go to main menu
@@ -343,54 +344,36 @@ void LevelTwo_Update(void) {
             }
         }
         if (GameState == 0) {
+            CP_Sound_PauseAll();
             int pause_signal = pause_menu();
+
 
             if (pause_signal == 1) {
                 // Resume game
                 GameState = 1;
+                CP_Sound_ResumeAll();
             }
             else if (pause_signal == 2) {
                 // Go to main menu
                 CP_Engine_SetNextGameState(Main_Menu_Init, Main_Menu_Update, Main_Menu_Exit);
+                CP_Sound_ResumeAll();
             }
             else if (pause_signal == 3) {
                 GameState = 1;
+                CP_Sound_ResumeAll();
                 LevelTwo_Init();
             }
         }
-    //Pause screen
-    if (CP_Input_KeyTriggered(KEY_ESCAPE)) {
-        GameState = 1 - GameState;
-        CP_Sound_ResumeAll();
-    }
-
-    if (GameState == 0) {
-        int pause_signal = pause_menu();
-        CP_Sound_PauseAll();
-
-        if (pause_signal == 1) {
-            // Resume game
-            GameState = 1;
-            CP_Sound_ResumeAll();
-        }
-        else if (pause_signal == 2) {
-            // Go to main menu
-            CP_Engine_SetNextGameState(Main_Menu_Init, Main_Menu_Update, Main_Menu_Exit);
-            CP_Sound_ResumeAll();
-        }
-        else if (pause_signal == 3) {
-            GameState = 1;
-            CP_Sound_ResumeAll();
-            LevelTwo_Init();
-        }
-    }
 }
 
 
 void LevelTwo_Exit(void) {
     CP_Image_Free(player.fox_sprite);
     CP_Font_Free(debug_TEXT);
+    CP_Image_Free(player.destroy_orb);
+    CP_Image_Free(player.teleport_orb);
+    CP_Image_Free(leveltwo_background);
     Sound_Exit();
     option_Exit();
-    GameOver_Exit();
+ 
 }

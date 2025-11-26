@@ -172,5 +172,6 @@ void Game_Exit(void)
 {
 	CP_Image_Free(mainmenu_ButtonBackground);
 	CP_Image_Free(mainmenu_ButtonWhenPressed);
+	option_Exit();
 	CP_Font_Free(mainmenu_TEXT);
 }

@@ -84,17 +84,17 @@ void Gamecredits_Update(void) {
 		case 3:
 			CP_Settings_TextSize(40.0f);
 			CP_Font_DrawText("FACULTY AND ADVISORS", screenWidth / 2.0f, 200.0f);
-			CP_Settings_TextSize(25.0f);
+			CP_Settings_TextSize(35.0f);
 			CP_Font_DrawText("GERALD WONG HAN FENG  <3", screenWidth / 2.0f, 300.0f);
 			CP_Font_DrawText("DR. SOROOR MALEKMOHAMMADAI FARADOUNBEH", screenWidth / 2.0f, 350.0f);
 			CP_Font_DrawText("TOMMY TAN CHEE WEI", screenWidth / 2.0f, 400.0f);
 			break;
 
 		case 4:
-			CP_Settings_TextSize(35.0f);
+			CP_Settings_TextSize(45.0f);
 			CP_Font_DrawText("Created at DigiPen Institute of Technology Singapore", screenWidth / 2.0f, 100.0f);
 
-			CP_Settings_TextSize(20.0f);
+			CP_Settings_TextSize(30.0f);
 			float start_y = 200.0f;
 			float gap = 30.0f;
 
@@ -118,7 +118,7 @@ void Gamecredits_Update(void) {
 		case 5:
 			CP_Settings_TextSize(40.0f);
 			CP_Font_DrawText("TOOLS AND LIBRARIES", screenWidth / 2.0f, 100.0f);
-			CP_Settings_TextSize(25.0f);
+			CP_Settings_TextSize(35.0f);
 			CP_Font_DrawText("CProcessing", screenWidth / 2.0f, 200.0f);
 				// Mandatory FMOD Credit
 			CP_Font_DrawText("soundly", screenWidth / 2.0f, 250.0f);
@@ -140,4 +140,5 @@ void Gamecredits_Update(void) {
 }
 void Gamecredits_Exit(void) {
 	CP_Font_Free(font_credits);
+	CP_Image_Free(logo);
 }

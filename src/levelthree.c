@@ -89,7 +89,7 @@ void LevelThree_Init(void) {
 
 
 
-    leveltime = 120.0f;
+    leveltime = 30.0f;
     orb.max_ammo = 3;
     orb.ammo = orb.max_ammo;
     orb.orb_type = TELEPORT_ORB;
@@ -375,7 +375,7 @@ void LevelThree_Update(void) {
 
     if (GameOverState == 0) {
         int GameOver_signal = GameOver_screen();
-
+        CP_Sound_StopAll();
         if (GameOver_signal == 2) {
             // Go to main menu
             CP_Engine_SetNextGameState(Main_Menu_Init, Main_Menu_Update, Main_Menu_Exit);
@@ -423,8 +423,12 @@ void LevelThree_Update(void) {
 
 void LevelThree_Exit(void) {
     CP_Image_Free(player.fox_sprite);
+    CP_Image_Free(Warning_laser);
+    CP_Image_Free(kill_laser);
+    CP_Image_Free(player.destroy_orb);
+    CP_Image_Free(player.teleport_orb);
+    CP_Image_Free(levelthree_background);
     CP_Font_Free(debug_TEXT);
     Sound_Exit();
     option_Exit();
-    GameOver_Exit();
 }

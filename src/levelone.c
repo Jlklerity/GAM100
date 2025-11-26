@@ -56,7 +56,6 @@ void LevelOne_Init(void) {
     Sound_Init();
     Sound_PlayMUSIC(bgm_level1);
     option_Init();
-    GameOver_Init();
     GameState = 1;
     GameOverState = 1;
     debug_TEXT = CP_Font_Load("Assets/Exo2 - Regular.ttf");
@@ -360,6 +359,7 @@ void LevelOne_Update(void) {
     //GameOver Screen
     if (GameOverState == 0) {
         int GameOver_signal = GameOver_screen();
+        CP_Sound_StopAll();
 
         if (GameOver_signal == 2) {
             // Go to main menu
@@ -378,41 +378,37 @@ void LevelOne_Update(void) {
             GameState = 1 - GameState;
             //Sound_StopAll();
         }
+    }
+    if (GameState == 0) {
+        CP_Sound_PauseAll();
+        int pause_signal = pause_menu();
 
-        if (CP_Input_KeyTriggered(KEY_ESCAPE)) {
-            GameState = 1 - GameState;
+
+        if (pause_signal == 1) {
+            // Resume game
+            GameState = 1;
             CP_Sound_ResumeAll();
         }
-        if (GameState == 0) {
-            CP_Sound_PauseAll();
-            int pause_signal = pause_menu();
-
-            if (pause_signal == 1) {
-                // Resume game
-                GameState = 1;
-                CP_Sound_ResumeAll();
-            }
-            else if (pause_signal == 2) {
-                // Go to main menu
-                CP_Engine_SetNextGameState(Main_Menu_Init, Main_Menu_Update, Main_Menu_Exit);
-                CP_Sound_ResumeAll();
-            }
-            else if (pause_signal == 3) {
-                GameState = 1;
-                CP_Sound_ResumeAll();
-                LevelOne_Init();
-            }
+        else if (pause_signal == 2) {
+            // Go to main menu
+            CP_Engine_SetNextGameState(Main_Menu_Init, Main_Menu_Update, Main_Menu_Exit);
+            CP_Sound_ResumeAll();
+        }
+        else if (pause_signal == 3) {
+            GameState = 1;
+            CP_Sound_ResumeAll();
+            LevelOne_Init();
         }
     }
 }
 
 void LevelOne_Exit(void) {
     CP_Image_Free(player.fox_sprite);
+    CP_Font_Free(debug_TEXT);
     CP_Image_Free(player.destroy_orb);
     CP_Image_Free(player.teleport_orb);
-
-    CP_Font_Free(debug_TEXT);
+    CP_Image_Free(levelone_background);
     Sound_Exit();
     option_Exit();
-    GameOver_Exit();
+
 }

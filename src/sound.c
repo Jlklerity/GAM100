@@ -69,6 +69,7 @@ void Sound_SetSFXVolume(float volume)
     if (volume > 1) volume = 1;
     sfxVolume = volume;
     CP_Sound_SetGroupVolume(CP_SOUND_GROUP_SFX, volume);
+    CP_Sound_SetGroupVolume(CP_SOUND_GROUP_3, volume);
 }
 
 void Sound_SetMusicVolume(float volume)

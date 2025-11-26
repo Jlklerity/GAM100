@@ -186,7 +186,7 @@ void LevelTimer(float* leveltime, int* GameState, int* GameOverState) {
             CP_Settings_Fill(CP_Color_Create(255, 0, 0, 255));
         }
         else {
-            CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
+            CP_Settings_Fill(CP_Color_Create(0, 0, 255, 255));
         }
 
         CP_Font_DrawText(time, (float)CP_System_GetWindowWidth() / 2.0f, 60.0f);
@@ -211,7 +211,7 @@ void LevelTimer(float* leveltime, int* GameState, int* GameOverState) {
             *GameOverState = 0;//the game ends and runs the gamover screen
             /*CP_Engine_SetNextGameState(Game_Init, Game_Update, Game_Exit);*/
             CP_Sound_StopGroup(CP_SOUND_GROUP_SFX);
-            CP_Engine_SetNextGameState(Game_Init, Game_Update, Game_Exit);
+          /*  CP_Engine_SetNextGameState(Game_Init, Game_Update, Game_Exit);*/
             soundplayed = 0; // reset for next level
         }
     }
@@ -220,7 +220,7 @@ void LevelTimer(float* leveltime, int* GameState, int* GameOverState) {
         if (*leveltime <= 11.0f)
             CP_Settings_Fill(CP_Color_Create(255, 0, 0, 255));
         else
-            CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
+            CP_Settings_Fill(CP_Color_Create(0, 0, 255, 255));
 
         CP_Font_DrawText(time, (float)CP_System_GetWindowWidth() / 2.0f, 60.0f);
     }
@@ -231,18 +231,18 @@ void OrbCount(Orb* orb, Player* player) {
     char buffer[50] = { 0 };
     sprintf_s(buffer, 50, "Ammo: %d", orb->ammo);
 
-    CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
+    CP_Settings_Fill(CP_Color_Create(0, 0, 0, 255));
     CP_Font_DrawText(buffer, 120.0f, 60.0f);
 
     switch (orb->orb_type) {
     case TELEPORT_ORB:
         /*CP_Settings_Fill(CP_Color_Create(0, 0, 0, 255));*/
-        CP_Image_DrawSubImage(player->teleport_orb, 85, 75, 50 , 50 , (float)TOS_x, (float)TOS_y, (float)TOE_x, (float)TOE_y, 255);
+        CP_Image_DrawSubImage(player->teleport_orb, 120.0f, 90.0f, 50 , 50 , (float)TOS_x, (float)TOS_y, (float)TOE_x, (float)TOE_y, 255);
 
         break;
     case DESTROY_ORB:
         CP_Settings_Fill(CP_Color_Create(255, 0, 0, 255));
-        CP_Image_DrawSubImage(player->destroy_orb, 85, 75, 50 * 1.5, 50 * 1.5, (float)DOS_x, (float)DOS_y, (float)DOE_x, (float)DOE_y, 255);
+        CP_Image_DrawSubImage(player->destroy_orb, 120.0f, 90.0f, 50 * 1.5, 50 * 1.5, (float)DOS_x, (float)DOS_y, (float)DOE_x, (float)DOE_y, 255);
 
         break;
     }
@@ -268,7 +268,6 @@ void OrbCount(Orb* orb, Player* player) {
             TOE_x = 32;
         }
     }
-    CP_Graphics_DrawCircle(120.0f, 90.0f, orb->diameter);
 }
 
 // animating the frames
