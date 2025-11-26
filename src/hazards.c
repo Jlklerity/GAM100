@@ -71,9 +71,8 @@ void draw_laser(Laser* laser, Wall* wall[], int wall_count) {
 	switch (laser->state) {
 	case LASER_WARNING:
 		// Preserving your multiplier * 3
-		CP_Image_DrawSubImage(Warning_laser, rect.x, rect.y, rect.w * 3, rect.h, (float)WLS_x, (float)WLS_y, (float)WLE_x, (float)WLE_y, 100);
+		CP_Image_DrawSubImage(Warning_laser, rect.x, rect.y, rect.w * 2, rect.h, (float)WLS_x, (float)WLS_y, (float)WLE_x, (float)WLE_y, 150);
 		break;
-
 	case LASER_FIRING:
 	case LASER_CONTINUOUS:
 		// Preserving your multiplier (normal width)

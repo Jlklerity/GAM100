@@ -27,6 +27,7 @@ void Main_Menu_Init(void)
 	mainmenu_ButtonBackground = CP_Image_Load("Assets/kenney_ui-pack-space-expansion/PNG/Extra/Double/button_rectangle_depth.png");
 	mainmenu_ButtonWhenPressed = CP_Image_Load("Assets/kenney_ui-pack-space-expansion/PNG/Extra/Double/panel_rectangle_screws.png");
 	menu_background = CP_Image_Load("./Assets/Piskel_sprite_assets/mainmenu_bg.jpg");
+	title = CP_Image_Load("./Assets/Piskel_sprite_assets/title.png");
 	textSize = 32.0f;
 	logoSize = 75.0f;
 	buttonWidth = 200.0f;
@@ -85,7 +86,9 @@ void Main_Menu_Update(void)
 	CP_Settings_Fill(CP_Color_Create(0, 0, 0, 255));
 	CP_Settings_TextAlignment(CP_TEXT_ALIGN_H_CENTER, CP_TEXT_ALIGN_V_MIDDLE);
 	CP_Settings_TextSize(logoSize);
-	CP_Font_DrawText("TELESCAPE", logoX, logoY);
+	//CP_Font_DrawText("TELESCAPE", logoX, logoY);
+
+	CP_Image_Draw(title, 800, 50 , 250*2 , 40*2  , 225); //title image 
 
 	//Draw button text
 	CP_Settings_Fill(CP_Color_Create(0, 0, 0, 255));

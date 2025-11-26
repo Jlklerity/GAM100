@@ -65,7 +65,7 @@ void LevelTwo_Init(void) {
         }
     }
 
-    leveltime = 30.0f;
+    leveltime = 90.0f;
     orb.max_ammo = 3;
     orb.ammo = orb.max_ammo;
     orb.orb_type = TELEPORT_ORB;
@@ -250,123 +250,107 @@ void LevelTwo_Update(void) {
     } //end of if GameState
 
         // Draw exit door
-        CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
-        CP_Graphics_DrawRect(g_level_exit_door->x, g_level_exit_door->y, g_level_exit_door->width, g_level_exit_door->height);
+    CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
+    CP_Graphics_DrawRect(g_level_exit_door->x, g_level_exit_door->y, g_level_exit_door->width, g_level_exit_door->height);
 
-        // Draw all platforms
-        for (int i = 0; i < g_level_collidable_count; i++) {
-            // Check if this object is a platform
-            if (g_level_collidables[i]->type == PLATFORM || g_level_collidables[i]->type == STAGEWALL) {
-                CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
-                CP_Graphics_DrawRectAdvanced(g_level_collidables[i]->x, g_level_collidables[i]->y, g_level_collidables[i]->width, g_level_collidables[i]->height, 0.0f, 0.0f);
-            }
+    // Draw all platforms
+    for (int i = 0; i < g_level_collidable_count; i++) {
+        // Check if this object is a platform
+        if (g_level_collidables[i]->type == PLATFORM || g_level_collidables[i]->type == STAGEWALL) {
+            CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
+            CP_Graphics_DrawRectAdvanced(g_level_collidables[i]->x, g_level_collidables[i]->y, g_level_collidables[i]->width, g_level_collidables[i]->height, 0.0f, 0.0f);
         }
-        //Draw all sensitive doors
-        for (int i = 0; i < MAX_LEVEL_OBJECTS; i++) {
-            if (g_level_door[i] != NULL && g_level_door[i]->isActivated == 0) {
-                CP_Settings_Fill(CP_Color_Create(113, 121, 126, 255));
-                CP_Graphics_DrawRectAdvanced(g_level_door[i]->x, g_level_door[i]->y, g_level_door[i]->width, g_level_door[i]->height, 0.0f, 0.0f);
-            }
+    }
+    //Draw all sensitive doors
+    for (int i = 0; i < MAX_LEVEL_OBJECTS; i++) {
+        if (g_level_door[i] != NULL && g_level_door[i]->isActivated == 0) {
+            CP_Settings_Fill(CP_Color_Create(113, 121, 126, 255));
+            CP_Graphics_DrawRectAdvanced(g_level_door[i]->x, g_level_door[i]->y, g_level_door[i]->width, g_level_door[i]->height, 0.0f, 0.0f);
         }
-
-        //Draw all floor sensors  
-        for (int i = 0; i < MAX_LEVEL_OBJECTS; i++) {
-            if (g_level_pressure_plate[i] != NULL) {
-                CP_Settings_Fill(g_level_pressure_plate[i]->color);
-                CP_Graphics_DrawRectAdvanced(g_level_pressure_plate[i]->x, g_level_pressure_plate[i]->y, g_level_pressure_plate[i]->width, g_level_pressure_plate[i]->height, 0.0f, 0.0f);
-            }
-        }
-        //Draw Teleport Walls   
-        for (int i = 0; i < MAX_LEVEL_OBJECTS; i++) {
-            if (g_level_teleport_wall[i] != NULL) {
-                CP_Settings_Fill(CP_Color_Create(0, RGBChange(greenStartTime), 255, 255));
-                CP_Graphics_DrawRectAdvanced(g_level_teleport_wall[i]->x, g_level_teleport_wall[i]->y, g_level_teleport_wall[i]->width, g_level_teleport_wall[i]->height, 0.0f, 0.0f);
-            }
-        }
-        //Draw Destroy Walls
-        for (int i = 0; i < MAX_LEVEL_OBJECTS; i++) {
-            if (g_level_destroy_wall[i] != NULL && g_level_destroy_wall[i]->isActivated == 0) {
-                CP_Settings_Fill(g_level_destroy_wall[i]->color);
-                CP_Graphics_DrawRectAdvanced(g_level_destroy_wall[i]->x, g_level_destroy_wall[i]->y, g_level_destroy_wall[i]->width, g_level_destroy_wall[i]->height, 0.0f, 0.0f);
-            }
-        }
-    
-            //FOX SSPRITE ANIMATION
-            //DEFAULT FACING RIGHT 
-        if (facing_left)
-
-            CP_Image_DrawSubImage(player.fox_sprite, player.player_posX, player.player_posY - 30.0f, -player.player_width * 3.0f, player.player_height * 3.0f, (float)start_x, (float)start_y, (float)end_x, (float)end_y, 255);
-        else
-            CP_Image_DrawSubImage(player.fox_sprite, player.player_posX, player.player_posY - 30.0f, player.player_width * 3.0f, player.player_height * 3.0f, (float)start_x, (float)start_y, (float)end_x, (float)end_y, 255);
-
-         
-
-        CP_Font_Set(debug_TEXT);
-        CP_Settings_TextAlignment(CP_TEXT_ALIGN_H_LEFT, CP_TEXT_ALIGN_V_TOP);
-        //Level Timer 15s 
-        LevelTimer(&leveltime, &GameState, &GameOverState);
-        //Ammo counter
-        OrbCount(&orb, &player);
-
-        //FPS Counter & Player coordinates & Mouse coordinates & player pov
-        if (CP_Input_KeyTriggered(KEY_LEFT_ALT)) {
-            DebugState = 1 - DebugState;
-        }
-
-        if (DebugState == 1) {
-            CP_Settings_TextAlignment(CP_TEXT_ALIGN_H_RIGHT, CP_TEXT_ALIGN_V_TOP);
-            FPSCount();
-            Player_Coords(&player);
-            MousePos();
-            PlayerPov(&player);
-        }
-        CP_Settings_TextAlignment(CP_TEXT_ALIGN_H_LEFT, CP_TEXT_ALIGN_V_TOP);
-    
-        if (GameOverState == 0) {
-            int GameOver_signal = GameOver_screen();
-
-            if (GameOver_signal == 2) {
-                // Go to main menu
-                CP_Engine_SetNextGameState(Main_Menu_Init, Main_Menu_Update, Main_Menu_Exit);
-            }
-            else if (GameOver_signal == 3) {
-                GameState = 1;
-                LevelTwo_Init();
-            }
-        }
-
-        //Pause screen
-        if (GameOverState != 0) {
-            if (CP_Input_KeyTriggered(KEY_ESCAPE)) {
-                GameState = 1 - GameState;
-                //Sound_StopAll();
-            }
-        }
-        if (GameState == 0) {
-            int pause_signal = pause_menu();
-
-            if (pause_signal == 1) {
-                // Resume game
-                GameState = 1;
-            }
-            else if (pause_signal == 2) {
-                // Go to main menu
-                CP_Engine_SetNextGameState(Main_Menu_Init, Main_Menu_Update, Main_Menu_Exit);
-            }
-            else if (pause_signal == 3) {
-                GameState = 1;
-                LevelTwo_Init();
-            }
-        }
-    //Pause screen
-    if (CP_Input_KeyTriggered(KEY_ESCAPE)) {
-        GameState = 1 - GameState;
-        CP_Sound_ResumeAll();
     }
 
-    if (GameState == 0) {
-        int pause_signal = pause_menu();
+    //Draw all floor sensors  
+    for (int i = 0; i < MAX_LEVEL_OBJECTS; i++) {
+        if (g_level_pressure_plate[i] != NULL) {
+            CP_Settings_Fill(g_level_pressure_plate[i]->color);
+            CP_Graphics_DrawRectAdvanced(g_level_pressure_plate[i]->x, g_level_pressure_plate[i]->y, g_level_pressure_plate[i]->width, g_level_pressure_plate[i]->height, 0.0f, 0.0f);
+        }
+    }
+    //Draw Teleport Walls   
+    for (int i = 0; i < MAX_LEVEL_OBJECTS; i++) {
+        if (g_level_teleport_wall[i] != NULL) {
+            CP_Settings_Fill(CP_Color_Create(0, RGBChange(greenStartTime), 255, 255));
+            CP_Graphics_DrawRectAdvanced(g_level_teleport_wall[i]->x, g_level_teleport_wall[i]->y, g_level_teleport_wall[i]->width, g_level_teleport_wall[i]->height, 0.0f, 0.0f);
+        }
+    }
+    //Draw Destroy Walls
+    for (int i = 0; i < MAX_LEVEL_OBJECTS; i++) {
+        if (g_level_destroy_wall[i] != NULL && g_level_destroy_wall[i]->isActivated == 0) {
+            CP_Settings_Fill(g_level_destroy_wall[i]->color);
+            CP_Graphics_DrawRectAdvanced(g_level_destroy_wall[i]->x, g_level_destroy_wall[i]->y, g_level_destroy_wall[i]->width, g_level_destroy_wall[i]->height, 0.0f, 0.0f);
+        }
+    }
+
+    //FOX SSPRITE ANIMATION
+    //DEFAULT FACING RIGHT 
+    if (facing_left)
+
+        CP_Image_DrawSubImage(player.fox_sprite, player.player_posX, player.player_posY - 30.0f, -player.player_width * 3.0f, player.player_height * 3.0f, (float)start_x, (float)start_y, (float)end_x, (float)end_y, 255);
+    else
+        CP_Image_DrawSubImage(player.fox_sprite, player.player_posX, player.player_posY - 30.0f, player.player_width * 3.0f, player.player_height * 3.0f, (float)start_x, (float)start_y, (float)end_x, (float)end_y, 255);
+
+
+
+    CP_Font_Set(debug_TEXT);
+    CP_Settings_TextAlignment(CP_TEXT_ALIGN_H_LEFT, CP_TEXT_ALIGN_V_TOP);
+    //Level Timer 15s 
+    LevelTimer(&leveltime, &GameState, &GameOverState);
+    //Ammo counter
+    OrbCount(&orb, &player);
+
+    //FPS Counter & Player coordinates & Mouse coordinates & player pov
+    if (CP_Input_KeyTriggered(KEY_LEFT_ALT)) {
+        DebugState = 1 - DebugState;
+    }
+
+    if (DebugState == 1) {
+        CP_Settings_TextAlignment(CP_TEXT_ALIGN_H_RIGHT, CP_TEXT_ALIGN_V_TOP);
+        FPSCount();
+        Player_Coords(&player);
+        MousePos();
+        PlayerPov(&player);
+    }
+    CP_Settings_TextAlignment(CP_TEXT_ALIGN_H_LEFT, CP_TEXT_ALIGN_V_TOP);
+
+    if (GameOverState == 0) {
+        int GameOver_signal = GameOver_screen();
         CP_Sound_PauseAll();
+
+        if (GameOver_signal == 2) {
+            // Go to main menu
+            CP_Sound_ResumeAll();
+            CP_Engine_SetNextGameState(Main_Menu_Init, Main_Menu_Update, Main_Menu_Exit);
+        }
+        else if (GameOver_signal == 3) {
+            GameState = 1;
+            CP_Sound_ResumeAll();
+            LevelTwo_Init();
+        }
+    }
+
+    //Pause screen
+    if (GameOverState != 0) {
+        if (CP_Input_KeyTriggered(KEY_ESCAPE)) {
+            GameState = 1 - GameState;
+            //Sound_StopAll();
+        }
+    }
+
+
+    if (GameState == 0) {
+        CP_Sound_PauseAll();
+        int pause_signal = pause_menu();
+
 
         if (pause_signal == 1) {
             // Resume game
@@ -385,12 +369,10 @@ void LevelTwo_Update(void) {
         }
     }
 }
-
-
 void LevelTwo_Exit(void) {
     CP_Image_Free(player.fox_sprite);
     CP_Font_Free(debug_TEXT);
     Sound_Exit();
     option_Exit();
-    GameOver_Exit();
+   // GameOver_Exit();
 }

@@ -6,6 +6,7 @@
 #include "collisionHandling.h"
 #include "stagewall.h"
 #include "sound.h"
+#include "GameOver.h"
 
 
 
@@ -211,7 +212,8 @@ void LevelTimer(float* leveltime, int* GameState, int* GameOverState) {
             *GameOverState = 0;//the game ends and runs the gamover screen
             /*CP_Engine_SetNextGameState(Game_Init, Game_Update, Game_Exit);*/
             CP_Sound_StopGroup(CP_SOUND_GROUP_SFX);
-            CP_Engine_SetNextGameState(Game_Init, Game_Update, Game_Exit);
+            GameOver_screen();
+            printf("level ended");
             soundplayed = 0; // reset for next level
         }
     }
@@ -236,18 +238,16 @@ void OrbCount(Orb* orb, Player* player) {
 
     switch (orb->orb_type) {
     case TELEPORT_ORB:
-        /*CP_Settings_Fill(CP_Color_Create(0, 0, 0, 255));*/
-        CP_Image_DrawSubImage(player->teleport_orb, 85, 75, 50 , 50 , (float)TOS_x, (float)TOS_y, (float)TOE_x, (float)TOE_y, 255);
-
+        CP_Image_DrawSubImage(player->teleport_orb, 100, 100, 50 , 50 , (float)TOS_x, (float)TOS_y, (float)TOE_x, (float)TOE_y, 255);
         break;
     case DESTROY_ORB:
-        CP_Settings_Fill(CP_Color_Create(255, 0, 0, 255));
-        CP_Image_DrawSubImage(player->destroy_orb, 85, 75, 50 * 1.5, 50 * 1.5, (float)DOS_x, (float)DOS_y, (float)DOE_x, (float)DOE_y, 255);
-
+        CP_Image_DrawSubImage(player->destroy_orb, 100, 100, 50 , 50 , (float)DOS_x, (float)DOS_y, (float)DOE_x, (float)DOE_y, 255);
         break;
     }
-    //CP_Graphics_DrawCircle(90.0f, 90.0f, orb->diameter);
+
+
     frame_count++;
+
     if (frame_count >= animation_speed) {  // every 10 frames change sprite(adjust to speed)
         frame_count = 0;
 
@@ -268,7 +268,7 @@ void OrbCount(Orb* orb, Player* player) {
             TOE_x = 32;
         }
     }
-    CP_Graphics_DrawCircle(120.0f, 90.0f, orb->diameter);
+    //CP_Graphics_DrawCircle(120.0f, 90.0f, orb->diameter);
 }
 
 // animating the frames

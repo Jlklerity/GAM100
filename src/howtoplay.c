@@ -24,13 +24,13 @@ void HowToPlay_Init(void)
 
     // --- LOAD IMAGES ---
     // Make sure these filenames match your assets exactly!
-    img_ammo1 = CP_Image_Load("Assets/Tutorial_assets/photo_2025-11-19_12-02-15.jpg");  
-    img_ammo2 = CP_Image_Load("Assets/Tutorial_assets/photo_2025-11-19_12-02-18.jpg");
-    img_throw_orb = CP_Image_Load("Assets/Tutorial_assets/photo_2025-11-19_12-02-30.jpg");      
-    img_destroy_orb = CP_Image_Load("Assets/Tutorial_assets/photo_2025-11-19_12-02-26.jpg");     
-    img_destroy_wall = CP_Image_Load("Assets/Tutorial_assets/photo_2025-11-19_12-02-20.jpg");    
-    img_pressure_plate = CP_Image_Load("Assets/Tutorial_assets/photo_2025-11-19_12-02-25.jpg");  
-    img_door = CP_Image_Load("Assets/Tutorial_assets/photo_2025-11-19_12-02-23.jpg");            
+    img_ammo1 = CP_Image_Load("Assets/Tutorial_assets/ammo_teleport.png");  
+    img_ammo2 = CP_Image_Load("Assets/Tutorial_assets/ammo_destroy.png");
+    img_throw_orb = CP_Image_Load("Assets/Tutorial_assets/throw_orb.png");      
+    img_destroy_orb = CP_Image_Load("Assets/Tutorial_assets/switching.png");     
+    img_destroy_wall = CP_Image_Load("Assets/Tutorial_assets/destroy_wall.png");    
+    img_pressure_plate = CP_Image_Load("Assets/Tutorial_assets/pressure_plate.png");  
+    img_door = CP_Image_Load("Assets/Tutorial_assets/door.png");            
 
     current_slide = 0;
 }
@@ -80,7 +80,7 @@ void HowToPlay_Update(void)
 
     case 1: // THROW ORB
         if (img_throw_orb != NULL) {
-            CP_Image_Draw(img_throw_orb, center_x, img_y, img_w, img_h, 255);
+            CP_Image_Draw(img_throw_orb, center_x, img_y, img_w, img_h - 50, 255);
         }
         CP_Settings_TextSize(40.0f);
         CP_Font_DrawText("MECHANIC 2: THROW ORB", center_x, text_y - 50.0f);
@@ -92,7 +92,7 @@ void HowToPlay_Update(void)
 
     case 2: // DESTROY ORB
         if (img_destroy_orb != NULL) {
-            CP_Image_Draw(img_destroy_orb, center_x, img_y, img_w, img_h, 255);
+            CP_Image_Draw(img_destroy_orb, center_x, img_y, img_w, img_h - 50, 255);
         }
         CP_Settings_TextSize(40.0f);
         CP_Font_DrawText("MECHANIC 3: DESTROY ORB", center_x, text_y - 50.0f);
@@ -105,7 +105,7 @@ void HowToPlay_Update(void)
     case 3: // DESTROY WALL
         if (img_destroy_wall != NULL) {
             // Vertical wall image might need different dimensions
-            CP_Image_Draw(img_destroy_wall, center_x, img_y, 300.0f, 400.0f, 255);
+            CP_Image_Draw(img_destroy_wall, center_x, img_y, 400.0f, 400.0f, 255);
         }
         CP_Settings_TextSize(40.0f);
         CP_Font_DrawText("MECHANIC 4: DESTROY WALL", center_x, text_y - 50.0f);
@@ -116,7 +116,7 @@ void HowToPlay_Update(void)
 
     case 4: // TIME SENSITIVE PRESSURE SENSOR
         if (img_pressure_plate != NULL) {
-            CP_Image_Draw(img_pressure_plate, center_x, img_y, 300.0f, 400.0f, 255);
+            CP_Image_Draw(img_pressure_plate, center_x, img_y, 270.0f, 490.0f, 255);
         }
         CP_Settings_TextSize(40.0f);
         CP_Font_DrawText("MECHANIC 5: PRESSURE PLATES", center_x, text_y - 50.0f);
@@ -129,7 +129,7 @@ void HowToPlay_Update(void)
     case 5: // DOOR OPENING
         if (img_door != NULL) {
             // Door image is vertical
-            CP_Image_Draw(img_door, center_x, img_y, 300.0f, 400.0f, 255);
+            CP_Image_Draw(img_door, center_x, img_y, 270.0f, 490.0f, 255);
         }
         CP_Settings_TextSize(40.0f);
         CP_Font_DrawText("MECHANIC 6: DOORS", center_x, text_y - 50.0f);

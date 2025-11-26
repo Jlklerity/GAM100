@@ -56,7 +56,7 @@ void LevelOne_Init(void) {
     Sound_Init();
     Sound_PlayMUSIC(bgm_level1);
     option_Init();
-    GameOver_Init();
+    //GameOver_Init();
     GameState = 1;
     GameOverState = 1;
     debug_TEXT = CP_Font_Load("Assets/Exo2 - Regular.ttf");
@@ -357,10 +357,11 @@ void LevelOne_Update(void) {
     }
     CP_Settings_TextAlignment(CP_TEXT_ALIGN_H_LEFT, CP_TEXT_ALIGN_V_TOP);
 
+
     //GameOver Screen
     if (GameOverState == 0) {
         int GameOver_signal = GameOver_screen();
-
+        CP_Sound_PauseAll();
         if (GameOver_signal == 2) {
             // Go to main menu
             CP_Engine_SetNextGameState(Main_Menu_Init, Main_Menu_Update, Main_Menu_Exit);
@@ -379,10 +380,7 @@ void LevelOne_Update(void) {
             //Sound_StopAll();
         }
 
-        if (CP_Input_KeyTriggered(KEY_ESCAPE)) {
-            GameState = 1 - GameState;
-            CP_Sound_ResumeAll();
-        }
+      
         if (GameState == 0) {
             CP_Sound_PauseAll();
             int pause_signal = pause_menu();
@@ -414,5 +412,5 @@ void LevelOne_Exit(void) {
     CP_Font_Free(debug_TEXT);
     Sound_Exit();
     option_Exit();
-    GameOver_Exit();
+   // GameOver_Exit();
 }

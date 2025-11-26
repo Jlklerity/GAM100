@@ -60,6 +60,9 @@ void LevelThree_Init(void) {
     levelthree_background = CP_Image_Load("Assets/Piskel_sprite_assets/mainmenu_bg.jpg");
     kill_laser = CP_Image_Load("Assets/Piskel_sprite_assets/killer_laser.png");
     Warning_laser = CP_Image_Load("Assets/Piskel_sprite_assets/warning_laser.png");
+    laser_gun_down = CP_Image_Load("Assets/Piskel_sprite_assets/laserDownShoot.png");
+    beam_platform = CP_Image_Load("Assets/Piskel_sprite_assets/beamBoltsHoles.png");
+
 
 
 
@@ -100,7 +103,7 @@ void LevelThree_Update(void) {
     CP_Graphics_ClearBackground(CP_Color_Create(85, 85, 85, 255));
     CP_Settings_ImageMode(CP_POSITION_CORNER);
     CP_Image_Draw(levelthree_background, 0, 0, 1600 * 1.1f, 800 * 1.2f, 150); //background drawing 
-    CP_Settings_ImageMode(CP_POSITION_CENTER);//RESETS the standard drawing of shapes to draw from center 
+    CP_Settings_ImageMode(CP_POSITION_CENTER);//RESETS the standaprd drawing of shapes to draw from center 
     // ========== INITIALIZATION ==========
     if (GameState && GameOverState) {
 
@@ -226,6 +229,7 @@ void LevelThree_Update(void) {
             }
         }
 
+
         // !!! LASER UPDATE (LOGIC ONLY) !!!
         // This handles timing and collision. It stops when the game is paused.
         for (int i = 0; i < g_laser_count; i++) {
@@ -344,6 +348,17 @@ void LevelThree_Update(void) {
             CP_Graphics_DrawRectAdvanced(g_level_destroy_wall[i]->x, g_level_destroy_wall[i]->y, g_level_destroy_wall[i]->width, g_level_destroy_wall[i]->height, 0.0f, 0.0f);
         }
     }
+
+    //drawing laser canons 
+    CP_Image_Draw(laser_gun_down, 900, 90, 100, 100, 500); //the gun firing 
+    CP_Image_Draw(laser_gun_down, 500, 90, 100, 100, 500); //the gun firing 
+    CP_Image_Draw(laser_gun_down, 1220, 310, 100, 100, 500); //the gun firing 
+
+    //drawing platforms
+    CP_Image_Draw(beam_platform, 200, 450, 300, 0, 500); //the beam platform 
+
+
+
     //FOX SSPRITE ANIMATION
     //DEFAULT FACING RIGHT 
     if (facing_left) {
@@ -373,16 +388,22 @@ void LevelThree_Update(void) {
     }
     CP_Settings_TextAlignment(CP_TEXT_ALIGN_H_LEFT, CP_TEXT_ALIGN_V_TOP);
 
+
+    //gameover screen
     if (GameOverState == 0) {
         int GameOver_signal = GameOver_screen();
+        CP_Sound_PauseAll();
 
         if (GameOver_signal == 2) {
             // Go to main menu
             CP_Engine_SetNextGameState(Main_Menu_Init, Main_Menu_Update, Main_Menu_Exit);
+            CP_Sound_ResumeAll();
         }
         else if (GameOver_signal == 3) {
             GameState = 1;
             LevelThree_Init();
+            CP_Sound_ResumeAll();
+
         }
     }
 
@@ -393,6 +414,8 @@ void LevelThree_Update(void) {
             //Sound_StopAll();
         }
     }
+   
+    
     if (GameState == 0) {
         CP_Sound_PauseAll();
         int pause_signal = pause_menu();
@@ -415,10 +438,6 @@ void LevelThree_Update(void) {
         }
     }
 
-
-
-
-
 }
 
 void LevelThree_Exit(void) {
@@ -426,5 +445,5 @@ void LevelThree_Exit(void) {
     CP_Font_Free(debug_TEXT);
     Sound_Exit();
     option_Exit();
-    GameOver_Exit();
+   // GameOver_Exit();
 }

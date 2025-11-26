@@ -35,5 +35,6 @@ extern Wall* g_level_collidables[];
 extern int g_level_collidable_count;
 extern int g_laser_count;
 
+
 void LoadLaserFromFile(const char* filename);
 void LoadLevelFromFile(const char* filename);
