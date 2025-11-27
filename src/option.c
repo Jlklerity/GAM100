@@ -88,16 +88,26 @@ int pause_menu(void)
 
         // Button press effect
         if (CP_Input_MouseDown(MOUSE_BUTTON_LEFT)) {
-            if (IsAreaClicked(resumebarX, resumebarY, buttonWidth, buttonHeight, mouseX, mouseY))
+            if (IsAreaClicked(resumebarX, resumebarY, buttonWidth, buttonHeight, mouseX, mouseY)) {
                 CP_Image_Draw(mainmenu_ButtonWhenPressed, resumebarX, resumebarY, buttonWidth, buttonHeight, 255);
-            if (IsAreaClicked(mainmenubarX, mainmenubarY, buttonWidth, buttonHeight, mouseX, mouseY))
+                CP_Font_DrawText("resume", resumebarX, resumebarY);
+            }
+            if (IsAreaClicked(mainmenubarX, mainmenubarY, buttonWidth, buttonHeight, mouseX, mouseY)) {
                 CP_Image_Draw(mainmenu_ButtonWhenPressed, mainmenubarX, mainmenubarY, buttonWidth, buttonHeight, 255);
-            if (IsAreaClicked(restartbarX, restartbarY, buttonWidth, buttonHeight, mouseX, mouseY))
+                CP_Font_DrawText("main menu", mainmenubarX, mainmenubarY);
+            }
+            if (IsAreaClicked(restartbarX, restartbarY, buttonWidth, buttonHeight, mouseX, mouseY)) {
                 CP_Image_Draw(mainmenu_ButtonWhenPressed, restartbarX, restartbarY, buttonWidth, buttonHeight, 255);
-            if (IsAreaClicked(soundButtonX, soundButtonY, buttonWidth, buttonHeight, mouseX, mouseY))
+                CP_Font_DrawText("restart", restartbarX, restartbarY);
+            }
+            if (IsAreaClicked(soundButtonX, soundButtonY, buttonWidth, buttonHeight, mouseX, mouseY)) {
                 CP_Image_Draw(mainmenu_ButtonWhenPressed, soundButtonX, soundButtonY, buttonWidth, buttonHeight, 255);
-            if (IsAreaClicked(controlsButtonX, controlsButtonY, buttonWidth, buttonHeight, mouseX, mouseY))
+                CP_Font_DrawText("sound", soundButtonX, soundButtonY);
+            }
+            if (IsAreaClicked(controlsButtonX, controlsButtonY, buttonWidth, buttonHeight, mouseX, mouseY)) {
                 CP_Image_Draw(mainmenu_ButtonWhenPressed, controlsButtonX, controlsButtonY, buttonWidth, buttonHeight, 255);
+                CP_Font_DrawText("controls", controlsButtonX, controlsButtonY);
+            }
         }
 
         // Button actions
@@ -132,7 +142,7 @@ int pause_menu(void)
 
         // 2. Draw "Back" button
         backButtonX = (float)CP_System_GetWindowWidth() / 2.0f;
-        backButtonY = (float)CP_System_GetWindowHeight() / 2.0f;
+        backButtonY = (float)CP_System_GetWindowHeight() / 1.2f;
 
         CP_Settings_TextAlignment(CP_TEXT_ALIGN_H_CENTER, CP_TEXT_ALIGN_V_MIDDLE);
         CP_Image_Draw(mainmenu_ButtonBackground, backButtonX, backButtonY, buttonWidth, buttonHeight, 255);
@@ -144,6 +154,7 @@ int pause_menu(void)
             IsAreaClicked(backButtonX, backButtonY, buttonWidth, buttonHeight, mouseX, mouseY))
         {
             CP_Image_Draw(mainmenu_ButtonWhenPressed, backButtonX, backButtonY, buttonWidth, buttonHeight, 255);
+            CP_Font_DrawText("Back", backButtonX, backButtonY);
         }
 
         // 4. Handle click for Back button
@@ -175,6 +186,7 @@ int pause_menu(void)
             IsAreaClicked(backButtonX, backButtonY, buttonWidth, buttonHeight, mouseX, mouseY))
         {
             CP_Image_Draw(mainmenu_ButtonWhenPressed, backButtonX, backButtonY, buttonWidth, buttonHeight, 255);
+            CP_Font_DrawText("back", backButtonX, backButtonY);
         }
 
         // 4. Handle click for Back button
@@ -200,7 +212,7 @@ static void back_option_mainmenu(void)
     mouseY = CP_Input_GetMouseY();
 
     backButtonX = (float)CP_System_GetWindowWidth() / 2;
-    backButtonY = (float)CP_System_GetWindowHeight() / 2 ;
+    backButtonY = (float)CP_System_GetWindowHeight() / 1.2f;
 
     CP_Image_Draw(mainmenu_ButtonBackground, backButtonX, backButtonY, buttonWidth, buttonHeight, 255);
 
@@ -212,6 +224,7 @@ static void back_option_mainmenu(void)
         IsAreaClicked(backButtonX, backButtonY, buttonWidth, buttonHeight, mouseX, mouseY))
     {
         CP_Image_Draw(mainmenu_ButtonWhenPressed, backButtonX, backButtonY, buttonWidth, buttonHeight, 255);
+        CP_Font_DrawText("back", backButtonX, backButtonY);
     }
 
     if (CP_Input_MouseReleased(MOUSE_BUTTON_LEFT) &&
@@ -432,5 +445,7 @@ void option_Exit(void)
 {
     CP_Image_Free(mainmenu_ButtonBackground);
     CP_Image_Free(mainmenu_ButtonWhenPressed);
+    CP_Image_Free(keybox);
     CP_Font_Free(mainmenu_TEXT);
+    CP_Font_Free(keytext);
 }

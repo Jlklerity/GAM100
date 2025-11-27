@@ -40,25 +40,8 @@ typedef struct {
 
 
 
-//extern int orbCount;
-//extern int maxOrb;
-
 void Player_Init(Player *player, Orb *orb);
 void Player_Update(Player* player, float deltaTime, float *player_moveX, float jump_strength);
 void Orb_Update(Player* player, Orb* orb, float *orb_moveX, float *orb_moveY, float deltaTime);
-//extern Player player;
-//
-//
-//extern int orbCount;
-//extern int MaxOrb;
-//
-//typedef struct {
-//	float x, y;
-//	float vx, vy;
-//	float size;
-//	int active;
-//	CP_Color orb_color;
-//} Orb;
-//
-//void Orb_Init(Orb* orbs);
+
 

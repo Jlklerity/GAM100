@@ -16,6 +16,8 @@ CP_Image levelthree_background;
 CP_Image title;
 CP_Image beam_platform;
 CP_Image beam_platform_1;
+CP_Image Level_select;
+
 
 
 CP_Font option_TEXT; //author: Zi Jie (for options menu)

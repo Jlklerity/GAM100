@@ -13,6 +13,10 @@
 Level_Button button[5];
 int g_highest_level_unlocked = 1; //default to level1 being accessible
 
+const float screen_width;
+const float screen_height;
+
+
 void Load_Progress(void) {
 	FILE* file_input = fopen("Assets/Levels/SaveData.txt", "r");
 	if (!file_input) {
@@ -39,10 +43,11 @@ void Game_Init(void)
 {
 	option_Init();
 	const float screen_width = (float)CP_System_GetWindowWidth();
-	//const float screen_height = (float)CP_System_GetWindowHeight();
 	mainmenu_TEXT = CP_Font_Load("Assets/kenney_ui-pack-space-expansion/Font/Kenney Future Narrow.ttf");
 	mainmenu_ButtonBackground = CP_Image_Load("Assets/kenney_ui-pack-space-expansion/PNG/Extra/Double/button_rectangle_depth.png");
 	mainmenu_ButtonWhenPressed = CP_Image_Load("Assets/kenney_ui-pack-space-expansion/PNG/Extra/Double/panel_rectangle_screws.png");
+	Level_select = CP_Image_Load("./Assets/Piskel_sprite_assets/level_select.png");
+
 	button[0] = (Level_Button){ screen_width/4.0f, 200.0f, 150.0f, 100.0f};
 	button[1] = (Level_Button){ screen_width/2.0f, 200.0f, 150.0f, 100.0f};
 	button[2] = (Level_Button){ screen_width/1.4f, 200.0f, 150.0f, 100.0f};
@@ -64,6 +69,8 @@ void Game_Update(void)
 
 	CP_Font_Set(mainmenu_TEXT);
 	CP_Graphics_ClearBackground(CP_Color_Create(85, 85, 85, 255));
+	CP_Image_Draw( Level_select, (float)CP_System_GetWindowWidth()/2.0f, (float)CP_System_GetWindowHeight() / 2.0f, (float)CP_System_GetWindowWidth(), (float)CP_System_GetWindowHeight(),225);
+
 
 	for (int i = 0; i < 5; i++) {
 		int level_num = i + 1;
@@ -172,5 +179,7 @@ void Game_Exit(void)
 {
 	CP_Image_Free(mainmenu_ButtonBackground);
 	CP_Image_Free(mainmenu_ButtonWhenPressed);
+	option_Exit();
 	CP_Font_Free(mainmenu_TEXT);
+	CP_Image_Free(Level_select);
 }
