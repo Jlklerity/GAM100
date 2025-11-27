@@ -61,6 +61,8 @@ void LevelOne_Init(void) {
     GameOverState = 1;
     debug_TEXT = CP_Font_Load("Assets/Exo2 - Regular.ttf");
     levelone_background = CP_Image_Load("Assets/Piskel_sprite_assets/mainmenu_bg.jpg");
+    beam_platform = CP_Image_Load("Assets/Piskel_sprite_assets/metalPlatformWire.png");
+
 
     animation_timer = 0;  // added animation_timer (only dif in this void)
 
@@ -281,7 +283,12 @@ void LevelOne_Update(void) {
             CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
             CP_Graphics_DrawRectAdvanced(g_level_collidables[i]->x, g_level_collidables[i]->y, g_level_collidables[i]->width, g_level_collidables[i]->height, 0.0f, 0.0f);
         }
-    }
+    } //jumping platform 
+    CP_Settings_NoStroke();
+    //CP_Image_Draw(beam_platform, 800, 600, 300, 80, 225);
+    //PLATFORM                      800  600   300  80    3
+
+
     //Draw all sensitive doors
     for (int i = 0; i < MAX_LEVEL_OBJECTS; i++) {
         if (g_level_door[i] != NULL && g_level_door[i]->isActivated == 0) {

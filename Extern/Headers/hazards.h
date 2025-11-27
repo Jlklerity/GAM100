@@ -26,7 +26,6 @@ CP_Image kill_laser;
 CP_Image Warning_laser;
 CP_Image laser_gun_firing;
 CP_Image laser_gun_down;
-CP_Image beam_platform;
 
 
 void update_laser(Laser* laser, float delta_time, Wall* wall[], int wall_count, Player* player, Orb* orbs);

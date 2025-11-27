@@ -26,7 +26,7 @@ void Main_Menu_Init(void)
 	CP_Font_Set(mainmenu_TEXT);
 	mainmenu_ButtonBackground = CP_Image_Load("Assets/kenney_ui-pack-space-expansion/PNG/Extra/Double/button_rectangle_depth.png");
 	mainmenu_ButtonWhenPressed = CP_Image_Load("Assets/kenney_ui-pack-space-expansion/PNG/Extra/Double/panel_rectangle_screws.png");
-	menu_background = CP_Image_Load("./Assets/Piskel_sprite_assets/mainmenu_bg.jpg");
+	menu_background = CP_Image_Load("./Assets/Piskel_sprite_assets/mainmenu.png");
 	title = CP_Image_Load("./Assets/Piskel_sprite_assets/title.png");
 	textSize = 32.0f;
 	logoSize = 75.0f;
@@ -66,7 +66,7 @@ void Main_Menu_Update(void)
 
 	CP_Graphics_ClearBackground(CP_Color_Create(85, 85, 85, 255)); //background color
 	CP_Settings_ImageMode(CP_POSITION_CORNER);
-	CP_Image_Draw(menu_background, 0, 0, 1600 * 1.1f, 800 * 1.2f, 225); //background drawing 
+	CP_Image_Draw(menu_background, 0, 0, 1600 * 1.1f, 800 * 1.2f, 225); //background drawing mainmenu
 	CP_Settings_ImageMode(CP_POSITION_CENTER);
 	
 	//box of play button

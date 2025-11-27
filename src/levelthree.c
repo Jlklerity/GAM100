@@ -61,7 +61,7 @@ void LevelThree_Init(void) {
     kill_laser = CP_Image_Load("Assets/Piskel_sprite_assets/killer_laser.png");
     Warning_laser = CP_Image_Load("Assets/Piskel_sprite_assets/warning_laser.png");
     laser_gun_down = CP_Image_Load("Assets/Piskel_sprite_assets/laserDownShoot.png");
-    beam_platform = CP_Image_Load("Assets/Piskel_sprite_assets/beamBoltsHoles.png");
+    beam_platform = CP_Image_Load("Assets/Piskel_sprite_assets/metalPlatformWire.png");
 
 
 
@@ -310,13 +310,17 @@ void LevelThree_Update(void) {
         if (g_level_collidables[i]->type == PLATFORM || g_level_collidables[i]->type == STAGEWALL) {
             CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
             CP_Graphics_DrawRectAdvanced(g_level_collidables[i]->x, g_level_collidables[i]->y, g_level_collidables[i]->width, g_level_collidables[i]->height, 0.0f, 0.0f);
+            //CP_Image_Draw(beam_platform, g_level_collidables[i]->x, g_level_collidables[i]->y + 20, g_level_collidables[i]->width, g_level_collidables[i]->height + 75, 500);
+
         }
     }
     //Draw all movable platforms
     for (int i = 0; i < MAX_LEVEL_OBJECTS; i++) {
         if (g_level_movable_platform[i] != NULL) {
-            CP_Settings_Fill(CP_Color_Create(255, 255, 0, 255));
+            CP_Settings_Fill(CP_Color_Create(255, 255, 0, 0));
+            CP_Settings_NoStroke();
             CP_Graphics_DrawRectAdvanced(g_level_movable_platform[i]->x, g_level_movable_platform[i]->y, g_level_movable_platform[i]->width, g_level_movable_platform[i]->height, 0.0f, 0.0f);
+            CP_Image_Draw(beam_platform, g_level_movable_platform[i]->x, g_level_movable_platform[i]->y + 20, g_level_movable_platform[i]->width, g_level_movable_platform[i]->height + 75, 500);
         }
     }
     //Draw all sensitive doors
