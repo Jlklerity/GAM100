@@ -324,15 +324,6 @@ void LevelOne_Update(void) {
         CP_Image_DrawSubImage(player.fox_sprite, player.player_posX, player.player_posY - 30.0f, player.player_width * 3.0f, player.player_height * 3.0f, (float)start_x, (float)start_y, (float)end_x, (float)end_y, 255);
     }
 
-
-
-
-
-
-
-
-
-
     CP_Font_Set(debug_TEXT);
     CP_Settings_TextAlignment(CP_TEXT_ALIGN_H_LEFT, CP_TEXT_ALIGN_V_TOP);
     //Level Timer 15s 

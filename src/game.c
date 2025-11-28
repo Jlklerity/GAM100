@@ -13,9 +13,6 @@
 Level_Button button[5];
 int g_highest_level_unlocked = 1; //default to level1 being accessible
 
-const float screen_width;
-const float screen_height;
-
 
 void Load_Progress(void) {
 	FILE* file_input = fopen("Assets/Levels/SaveData.txt", "r");
