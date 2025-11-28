@@ -317,7 +317,7 @@ void LevelThree_Update(void) {
         if (g_level_movable_platform[i] != NULL) {
             CP_Settings_Fill(CP_Color_Create(255, 255, 0, 0));
             CP_Graphics_DrawRectAdvanced(g_level_movable_platform[i]->x, g_level_movable_platform[i]->y, g_level_movable_platform[i]->width, g_level_movable_platform[i]->height, 0.0f, 0.0f);
-            CP_Image_Draw(beam_platform, g_level_movable_platform[i]->x, g_level_movable_platform[i]->y + 20, g_level_movable_platform[i]->width, g_level_movable_platform[i]->height + 75, 500);
+            CP_Image_Draw(beam_platform, g_level_movable_platform[i]->x, g_level_movable_platform[i]->y+40, g_level_movable_platform[i]->width, g_level_movable_platform[i]->height + 75, 500);
         }
     }
     //Draw all sensitive doors
@@ -412,6 +412,12 @@ void LevelThree_Update(void) {
     if (GameOverState != 0) {
         if (CP_Input_KeyTriggered(KEY_ESCAPE)) {
             GameState = 1 - GameState;
+            if (GameState == 0) {
+                CP_Sound_PauseAll();
+            }
+            else {
+                CP_Sound_ResumeAll();
+            }
         }
     }
    

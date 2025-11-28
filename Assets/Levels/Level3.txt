@@ -6,7 +6,7 @@ STAGEWALL                     10    450   20    900   2
 STAGEWALL                     1590  450   20    900   2
 PLATFORM		              120   450   200   500   3
 PLATFORM                      1380  250   400   20    3 
-MOVING_PLATFORM		          500   500   200   60    7              2		 1200     500
+MOVING_PLATFORM		          500   500   210   30    7              2		 1200     500
 PLATFORM		              900   600   200   20    3	
 PLATFORM		              500   30    120   20    3 
 PLATFORM		              900   30    120   20    3 

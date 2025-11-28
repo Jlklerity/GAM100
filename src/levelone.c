@@ -282,7 +282,14 @@ void LevelOne_Update(void) {
             CP_Graphics_DrawRectAdvanced(g_level_collidables[i]->x, g_level_collidables[i]->y, g_level_collidables[i]->width, g_level_collidables[i]->height, 0.0f, 0.0f);
         }
     } //jumping platform 
+<<<<<<< HEAD
+    //CP_Image_Draw(beam_platform, 800, 600, 300, 80, 225);
+    //PLATFORM                      800  600   300  80    3
+
+
+=======
   
+>>>>>>> a7c5f92bc0ad238f405b314cbe16a1333828488b
     //Draw all sensitive doors
     for (int i = 0; i < MAX_LEVEL_OBJECTS; i++) {
         if (g_level_door[i] != NULL && g_level_door[i]->isActivated == 0) {
@@ -369,29 +376,35 @@ void LevelOne_Update(void) {
     if (GameOverState != 0) {
         if (CP_Input_KeyTriggered(KEY_ESCAPE)) {
             GameState = 1 - GameState;
-            //Sound_StopAll();
+            if (GameState == 0) {
+                CP_Sound_PauseAll();
+            }
+            else {
+                CP_Sound_ResumeAll();
+            }
         }
+    }
 
-      
-        if (GameState == 0) {
-            CP_Sound_PauseAll();
-            int pause_signal = pause_menu();
 
-            if (pause_signal == 1) {
-                // Resume game
-                GameState = 1;
-                CP_Sound_ResumeAll();
-            }
-            else if (pause_signal == 2) {
-                // Go to main menu
-                CP_Engine_SetNextGameState(Main_Menu_Init, Main_Menu_Update, Main_Menu_Exit);
-                CP_Sound_ResumeAll();
-            }
-            else if (pause_signal == 3) {
-                GameState = 1;
-                CP_Sound_ResumeAll();
-                LevelOne_Init();
-            }
+    if (GameState == 0) {
+        CP_Sound_PauseAll();
+        int pause_signal = pause_menu();
+
+
+        if (pause_signal == 1) {
+            // Resume game
+            GameState = 1;
+            CP_Sound_ResumeAll();
+        }
+        else if (pause_signal == 2) {
+            // Go to main menu
+            CP_Engine_SetNextGameState(Main_Menu_Init, Main_Menu_Update, Main_Menu_Exit);
+            CP_Sound_ResumeAll();
+        }
+        else if (pause_signal == 3) {
+            GameState = 1;
+            CP_Sound_ResumeAll();
+            LevelOne_Init();
         }
     }
 }
