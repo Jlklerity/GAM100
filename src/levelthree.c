@@ -412,15 +412,12 @@ void LevelThree_Update(void) {
     if (GameOverState != 0) {
         if (CP_Input_KeyTriggered(KEY_ESCAPE)) {
             GameState = 1 - GameState;
-<<<<<<< HEAD
             if (GameState == 0) {
                 CP_Sound_PauseAll();
             }
             else {
                 CP_Sound_ResumeAll();
             }
-=======
->>>>>>> a7c5f92bc0ad238f405b314cbe16a1333828488b
         }
     }
    
