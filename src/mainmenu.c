@@ -5,6 +5,7 @@
 #include "controls.h"
 #include "creditscreen.h"
 #include "howtoplay.h"
+#include "player.h"
 
 CP_Image menu_background;
 float mouseX, mouseY;
@@ -26,7 +27,19 @@ static float btn_gap;
 static float left_margin;
 static float start_y;
 
+//fox animation sprite canvas
+static int start_x = 0;
+static int start_y = 192;
+static int end_x = 64;
+static int end_y = 256;
+
+static float animation_timer;
+static int frame_count = 0;   // counts frames for timing
+static int idle_count = 0;    // counts idle frames
+static int animation_speed = 10;
+
 CP_Image title;
+CP_Image fox_sprite;
 
 void Main_Menu_Init(void)
 {
@@ -34,8 +47,9 @@ void Main_Menu_Init(void)
     CP_Font_Set(mainmenu_TEXT);
     mainmenu_ButtonBackground = CP_Image_Load("Assets/kenney_ui-pack-space-expansion/PNG/Extra/Double/button_rectangle_depth.png");
     mainmenu_ButtonWhenPressed = CP_Image_Load("Assets/kenney_ui-pack-space-expansion/PNG/Extra/Double/panel_rectangle_screws.png");
-    menu_background = CP_Image_Load("./Assets/Piskel_sprite_assets/mainmenu.png");
+    menu_background = CP_Image_Load("./Assets/Piskel_sprite_assets/mainmenu_bg_static.png");
     title = CP_Image_Load("./Assets/Piskel_sprite_assets/TELESCAPE.png");
+    fox_sprite = CP_Image_Load("./Assets/Piskel_sprite_assets/FOX_ANIMATION_ALL_MOVEMENTS_05_JUMP.png");
 
     textSize = 36.0f;
 
@@ -82,8 +96,9 @@ void Main_Menu_Update(void)
     CP_Graphics_ClearBackground(CP_Color_Create(85, 85, 85, 255));
 
     // Background fullscreen
-    CP_Settings_ImageMode(CP_POSITION_CORNER);
-    CP_Image_Draw(menu_background, 0, 0,
+    CP_Settings_ImageMode(CP_POSITION_CENTER);
+    CP_Image_Draw(menu_background, (float)CP_System_GetWindowWidth()/2, 
+        (float)CP_System_GetWindowHeight()/2,
         (float)CP_System_GetWindowWidth(),
         (float)CP_System_GetWindowHeight(),
         255);
@@ -164,6 +179,27 @@ void Main_Menu_Update(void)
 
         if (IsAreaClicked(exitButtonX, exitButtonY, buttonWidth, buttonHeight, mouseX, mouseY))
             CP_Engine_Terminate();
+    }
+    
+    
+    
+
+    //drawing fox sprite
+    CP_Image_DrawSubImage(fox_sprite, 1300, 610, 250, 250, (float)start_x, (float)end_y, (float)end_x, (float)start_y, 255);
+
+    // animating the frames
+      // --- animate frames roughly 3 FPS ---
+    frame_count++;
+    if (frame_count >= animation_speed) {  // every 10 frames change sprite(adjust to speed)
+        frame_count = 0;
+
+        start_x += 64;
+        end_x += 64;
+
+        if (start_x >= 64 * 4) { // 4 columns
+            start_x = 0;
+            end_x = 64;
+        }
     }
 }
 
