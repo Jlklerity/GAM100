@@ -342,7 +342,12 @@ void LevelTwo_Update(void) {
     if (GameOverState != 0) {
         if (CP_Input_KeyTriggered(KEY_ESCAPE)) {
             GameState = 1 - GameState;
-            //Sound_StopAll();
+            if (GameState == 0) {
+                CP_Sound_PauseAll();
+            }
+            else {
+                CP_Sound_ResumeAll();
+            }
         }
     }
 
