@@ -36,7 +36,6 @@ static int animation_speed = 10;
 
 void LevelTwo_Init(void) {
     Load_Progress();
-    CP_Settings_RectMode(CP_POSITION_CENTER);
     LoadLevelFromFile("Assets/Levels/level2.txt");
     Player_Init(&player, &orb);
     Sound_StopAll();
@@ -375,7 +374,10 @@ void LevelTwo_Update(void) {
     }
 }
 void LevelTwo_Exit(void) {
+    CP_Image_Free(leveltwo_background);
     CP_Image_Free(player.fox_sprite);
+    CP_Image_Free(player.destroy_orb);
+    CP_Image_Free(player.teleport_orb);
     CP_Font_Free(debug_TEXT);
     Sound_Exit();
     option_Exit();

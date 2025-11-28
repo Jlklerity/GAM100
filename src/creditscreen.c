@@ -148,4 +148,5 @@ void Gamecredits_Update(void) {
 void Gamecredits_Exit(void) {
 	CP_Font_Free(font_credits);
 	CP_Image_Free(logo);
+	CP_Image_Free(title);
 }
