@@ -310,15 +310,12 @@ void LevelThree_Update(void) {
         if (g_level_collidables[i]->type == PLATFORM || g_level_collidables[i]->type == STAGEWALL) {
             CP_Settings_Fill(CP_Color_Create(255, 255, 255, 255));
             CP_Graphics_DrawRectAdvanced(g_level_collidables[i]->x, g_level_collidables[i]->y, g_level_collidables[i]->width, g_level_collidables[i]->height, 0.0f, 0.0f);
-            //CP_Image_Draw(beam_platform, g_level_collidables[i]->x, g_level_collidables[i]->y + 20, g_level_collidables[i]->width, g_level_collidables[i]->height + 75, 500);
-
         }
     }
     //Draw all movable platforms
     for (int i = 0; i < MAX_LEVEL_OBJECTS; i++) {
         if (g_level_movable_platform[i] != NULL) {
             CP_Settings_Fill(CP_Color_Create(255, 255, 0, 0));
-            CP_Settings_NoStroke();
             CP_Graphics_DrawRectAdvanced(g_level_movable_platform[i]->x, g_level_movable_platform[i]->y, g_level_movable_platform[i]->width, g_level_movable_platform[i]->height, 0.0f, 0.0f);
             CP_Image_Draw(beam_platform, g_level_movable_platform[i]->x, g_level_movable_platform[i]->y + 20, g_level_movable_platform[i]->width, g_level_movable_platform[i]->height + 75, 500);
         }
@@ -415,7 +412,6 @@ void LevelThree_Update(void) {
     if (GameOverState != 0) {
         if (CP_Input_KeyTriggered(KEY_ESCAPE)) {
             GameState = 1 - GameState;
-            //Sound_StopAll();
         }
     }
    
@@ -446,8 +442,14 @@ void LevelThree_Update(void) {
 
 void LevelThree_Exit(void) {
     CP_Image_Free(player.fox_sprite);
+    CP_Image_Free(player.destroy_orb);
+    CP_Image_Free(player.teleport_orb);
+    CP_Image_Free(levelthree_background);
+    CP_Image_Free(Warning_laser);
+    CP_Image_Free(kill_laser);
+    CP_Image_Free(laser_gun_down);
+    CP_Image_Free(beam_platform);
     CP_Font_Free(debug_TEXT);
     Sound_Exit();
     option_Exit();
-   // GameOver_Exit();
 }

@@ -49,14 +49,12 @@ static int TOE_y = 32;
 
 void LevelOne_Init(void) {
     Load_Progress();
-    CP_Settings_RectMode(CP_POSITION_CENTER);
     LoadLevelFromFile("Assets/Levels/level1.txt");
     Player_Init(&player, &orb);
     Sound_StopAll();
     Sound_Init();
     Sound_PlayMUSIC(bgm_level1);
     option_Init();
-    //GameOver_Init();
     GameState = 1;
     GameOverState = 1;
     debug_TEXT = CP_Font_Load("Assets/Exo2 - Regular.ttf");
@@ -284,11 +282,7 @@ void LevelOne_Update(void) {
             CP_Graphics_DrawRectAdvanced(g_level_collidables[i]->x, g_level_collidables[i]->y, g_level_collidables[i]->width, g_level_collidables[i]->height, 0.0f, 0.0f);
         }
     } //jumping platform 
-    CP_Settings_NoStroke();
-    //CP_Image_Draw(beam_platform, 800, 600, 300, 80, 225);
-    //PLATFORM                      800  600   300  80    3
-
-
+  
     //Draw all sensitive doors
     for (int i = 0; i < MAX_LEVEL_OBJECTS; i++) {
         if (g_level_door[i] != NULL && g_level_door[i]->isActivated == 0) {
@@ -415,9 +409,9 @@ void LevelOne_Exit(void) {
     CP_Image_Free(player.fox_sprite);
     CP_Image_Free(player.destroy_orb);
     CP_Image_Free(player.teleport_orb);
-
+    CP_Image_Free(levelone_background);
+    CP_Image_Free(beam_platform);
     CP_Font_Free(debug_TEXT);
     Sound_Exit();
     option_Exit();
-   // GameOver_Exit();
 }
