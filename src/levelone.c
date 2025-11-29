@@ -282,14 +282,7 @@ void LevelOne_Update(void) {
             CP_Graphics_DrawRectAdvanced(g_level_collidables[i]->x, g_level_collidables[i]->y, g_level_collidables[i]->width, g_level_collidables[i]->height, 0.0f, 0.0f);
         }
     } //jumping platform 
-<<<<<<< HEAD
-    //CP_Image_Draw(beam_platform, 800, 600, 300, 80, 225);
-    //PLATFORM                      800  600   300  80    3
 
-
-=======
-  
->>>>>>> a7c5f92bc0ad238f405b314cbe16a1333828488b
     //Draw all sensitive doors
     for (int i = 0; i < MAX_LEVEL_OBJECTS; i++) {
         if (g_level_door[i] != NULL && g_level_door[i]->isActivated == 0) {

@@ -130,7 +130,7 @@ void Gamecredits_Update(void) {
 				// Mandatory FMOD Credit
 			CP_Font_DrawText("soundly", screenWidth / 2.0f, 250.0f);
 			CP_Font_DrawText("Piskel for sprite art", screenWidth / 2.0f, 300.0f);
-			CP_Font_DrawText("Kenney Assets for ui text", screenWidth / 2.0f, 350.0f);
+			CP_Font_DrawText("Kenney Assets", screenWidth / 2.0f, 350.0f);
 			CP_Font_DrawText("Davinci Resolve", screenWidth / 2.0f, 400.0f);
 			break;
 

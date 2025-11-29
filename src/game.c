@@ -14,6 +14,20 @@ Level_Button button[5];
 int g_highest_level_unlocked = 1; //default to level1 being accessible
 
 
+//fox animation sprite canvas
+static int start_x = 0;
+static int start_y = 64;
+static int end_x = 64;
+static int end_y = 128;
+
+static float animation_timer;
+static int frame_count = 0;   // counts frames for timing
+static int idle_count = 0;    // counts idle frames
+static int animation_speed = 10;
+
+
+CP_Image fox_sprite;
+
 void Load_Progress(void) {
 	FILE* file_input = fopen("Assets/Levels/SaveData.txt", "r");
 	if (!file_input) {
@@ -44,6 +58,8 @@ void Game_Init(void)
 	mainmenu_ButtonBackground = CP_Image_Load("Assets/kenney_ui-pack-space-expansion/PNG/Extra/Double/button_rectangle_depth.png");
 	mainmenu_ButtonWhenPressed = CP_Image_Load("Assets/kenney_ui-pack-space-expansion/PNG/Extra/Double/panel_rectangle_screws.png");
 	Level_select = CP_Image_Load("./Assets/Piskel_sprite_assets/level_select.png");
+	fox_sprite = CP_Image_Load("./Assets/Piskel_sprite_assets/FOX_ANIMATION_ALL_MOVEMENTS_05_JUMP.png");
+
 
 	button[0] = (Level_Button){ screen_width/4.0f, 200.0f, 150.0f, 100.0f};
 	button[1] = (Level_Button){ screen_width/2.0f, 200.0f, 150.0f, 100.0f};
@@ -78,6 +94,29 @@ void Game_Update(void)
 			CP_Image_Draw(mainmenu_ButtonBackground, button[i].button_x, button[i].button_y, button[i].button_width, button[i].button_height, 100);
 		}
 	}
+
+	if (g_highest_level_unlocked >= 3) {
+		//drawing fox sprite
+		CP_Image_DrawSubImage(fox_sprite, 700, 430, 200, 200, (float)start_x, (float)start_y, (float)end_x, (float)end_y, 255);
+
+		// animating the frames
+		  // --- animate frames roughly 3 FPS ---
+		frame_count++;
+		if (frame_count >= animation_speed) {  // every 10 frames change sprite(adjust to speed)
+			frame_count = 0;
+
+			start_x += 64;
+			end_x += 64;
+
+			if (start_x >= 64 * 4) { // 4 columns
+				start_x = 0;
+				end_x = 64;
+			}
+		}
+	
+	}
+
+	
 
 	for (int i = 0; i < 5; i++) {
 		CP_Settings_Fill(CP_Color_Create(0, 0, 0, 255));
@@ -174,6 +213,7 @@ void Game_Update(void)
 
 void Game_Exit(void)
 {
+	CP_Image_Free(fox_sprite);
 	CP_Image_Free(mainmenu_ButtonBackground);
 	CP_Image_Free(mainmenu_ButtonWhenPressed);
 	option_Exit();
